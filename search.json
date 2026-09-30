@@ -67,7 +67,7 @@
     "text": "1.1 Scope",
     "crumbs": [
       "Part I: Concepts",
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Scope and need <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Scope and need [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -78,7 +78,7 @@
     "text": "How to evaluate trustworthiness based on the article\nNot how to evaluate the trustworthiness of the data set or the code\nUsually not assuming access to the actual methods/procedure/devices themselves\nNot how to evaluate trustworthiness based on relationships between article, code, and data\nPrereg vs. article comparisons?\nExcluding some general methods like image forensics, which don’t apply to psychology or health RCTs (see intended audience)\n\n\n1.1.1 Trustworthiness vs. credibility\n\nFocus is limited to trustworthiness assessment, not credibility\n“This study provides biased or partial answers to the question” - credibility, evidence strength\n“This study cannot answer the question it claims to” - middle ground, where written conclusions cannot be trusted even if the methods and numerical results can be. Misalignment related, and therefore maybe a form of untrustworthiness?\n“There is reason to believe this study did not occur as described or its results cannot really be as described” - untrustworthiness\n\n\n\n1.1.2 Nomenclature\n\nError; trustworthiness vs credibility; hierarchy and meaning for purposes of book should be clarified, without getting into definition wars\nCompare and contrast with the Four Validities",
     "crumbs": [
       "Part I: Concepts",
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Scope and need <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Scope and need [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -89,7 +89,7 @@
     "text": "1.2 Need for this book\n\nThe industry trusted to produce truth has very few quality assurance mechanisms\nNeed for parallel systems of verification. Operationalisation of the mantra that science is self-correcting, but only when we correct it\nUseful prior steps to replication\n\n\n1.2.1 Simulation studies\n\nSimulation study on over-representation of untrustworthy articles in highly cited ones\n\nUntrustworthy research crowds out trustworthy research\n\nSimulation study on data tampering\n\nThe trustworthiness-credibility continuum; deemphasising fraud and thinking about negligence/recklessness/fraud\nEstimating the prevalence of errors\n\n\n\n\n1.2.2 Purpose\n\nNormalisation: in terms of us not being outsiders or weirdos, and in terms of these assessments being viable scientific projects with potentially publishable outputs\nDemocratisation\n\n\n\n1.2.3 Intended audience\n\nThe INSPECT-SR extended universe: health research synthesists, psychologists, and related fields who are doing within-article assessments",
     "crumbs": [
       "Part I: Concepts",
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Scope and need <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Scope and need [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -100,7 +100,7 @@
     "text": "2.1 Be willing to look",
     "crumbs": [
       "Part I: Concepts",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Psychological preparation <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Psychological preparation [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -111,7 +111,7 @@
     "text": "“A few outsiders and weirdos saw the giant lie at the heart of the economy by doing something the others never thought to do: They looked.”",
     "crumbs": [
       "Part I: Concepts",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Psychological preparation <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Psychological preparation [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -122,7 +122,7 @@
     "text": "2.2 Do the numbers matter\n\nAs a premise for checking",
     "crumbs": [
       "Part I: Concepts",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Psychological preparation <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Psychological preparation [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -133,7 +133,7 @@
     "text": "2.3 Think stupider\n\nSometimes the simplest explanation is the right one",
     "crumbs": [
       "Part I: Concepts",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Psychological preparation <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Psychological preparation [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -144,7 +144,7 @@
     "text": "2.4 Repeated and overlooked information\n\nTrustworthiness assessment relies on information that is repeated or overlooked",
     "crumbs": [
       "Part I: Concepts",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Psychological preparation <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Psychological preparation [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -155,7 +155,7 @@
     "text": "2.5 Boring, complicated, and consequential\n\nThe worst trustworthiness issues occur at the intersection of what is boring, complicated, and consequential",
     "crumbs": [
       "Part I: Concepts",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Psychological preparation <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Psychological preparation [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -166,7 +166,7 @@
     "text": "2.6 Is it just me?\n\nDealing with uncertainty about whether an issue is real",
     "crumbs": [
       "Part I: Concepts",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Psychological preparation <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Psychological preparation [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -177,7 +177,7 @@
     "text": "2.7 Avoiding playing detective\n\nThe burden of proof is on the original authors to substantiate their claims; trustworthiness assessment only has to quantify if there are issues in published work, not fully speculate or account for how they might have arisen. Speculation about intent is often actively unhelpful.",
     "crumbs": [
       "Part I: Concepts",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Psychological preparation <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Psychological preparation [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -188,7 +188,7 @@
     "text": "2.8 Highlighting issues does not require solving them\n\nblog post on this",
     "crumbs": [
       "Part I: Concepts",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Psychological preparation <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Psychological preparation [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -199,7 +199,7 @@
     "text": "2.9 Post-publication scrutiny should focus on what matters\n\nblog post on this",
     "crumbs": [
       "Part I: Concepts",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Psychological preparation <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Psychological preparation [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -210,7 +210,7 @@
     "text": "2.10 Not rewarding incoherence\n\nNot rewarding motte and baileys / evaluating articles based on their strongest claims\nAuthors should not be rewarded for publishing a paper saying “1+1=3” as long as they have a footnote saying “jk lmao”; the footnote doesn’t insulate you from critique, especially if it’s being cited for the claim and not the footnote",
     "crumbs": [
       "Part I: Concepts",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Psychological preparation <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Psychological preparation [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -221,7 +221,7 @@
     "text": "3.1 Organising heuristic",
     "crumbs": [
       "Part I: Concepts",
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Organising principles <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Organising principles [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -232,7 +232,7 @@
     "text": "Judgements and conclusions from forensic methods can be organised around three key concepts",
     "crumbs": [
       "Part I: Concepts",
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Organising principles <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Organising principles [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -243,7 +243,7 @@
     "text": "3.2 Possibility\n\nCan the reported results actually be as described?\nExample: GRIM test — are the reported means possible given the sample size and measurement scale?",
     "crumbs": [
       "Part I: Concepts",
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Organising principles <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Organising principles [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -254,7 +254,7 @@
     "text": "3.3 Plausibility\n\nAre the reported results plausible, even if technically possible?\nExample: Weird distributions under supposed randomisation at baseline\nExample: p-values from multiple studies in a paper",
     "crumbs": [
       "Part I: Concepts",
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Organising principles <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Organising principles [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -265,29 +265,62 @@
     "text": "3.4 Misalignment\n\nDo the different parts of the article align with each other?\n\n\n3.4.1 Measure-construct misalignment\n\nDoes the measure actually capture the construct it claims to?\n\n\n\n3.4.2 Test-inference misalignment\n\nDoes the statistical test support the inference being drawn?\n\n\n\n3.4.3 Claim misalignment\n\nDo the claims in the article match what the methods and results can actually support?\nMethods related? Design can’t tell you that.",
     "crumbs": [
       "Part I: Concepts",
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Organising principles <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Organising principles [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
     "objectID": "chapters/interpretation_methods.html",
     "href": "chapters/interpretation_methods.html",
-    "title": "4  Interpretation methods ✎ Outline",
+    "title": "4  Interpretation methods ✎ Draft",
     "section": "",
-    "text": "4.1 Interpretation of p-values",
+    "text": "4.1 (Mis)interpretation of p-values\nBefore assessing whether an article’s conclusions follow from its results, it is worth checking whether we ourselves can reliably say what its results mean. The p-value is the most widely reported inferential statistic in psychology and health research, and it is also among the most widely misunderstood. This is not a problem confined to students: for four decades, surveys have found that most researchers, and most people who teach statistics, endorse at least one false statement about what a significant p-value tells them.",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Interpretation methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Interpretation methods [✎ Draft]{.badge .badge-draft2}</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/interpretation_methods.html#misinterpretation-of-p-values",
+    "href": "chapters/interpretation_methods.html#misinterpretation-of-p-values",
+    "title": "4  Interpretation methods ✎ Draft",
+    "section": "",
+    "text": "4.1.1 Test yourself\nThe questionnaire below was first used by Oakes (1986) with academic psychologists, and has since been reused, with minor changes, in Israel (Falk & Greenbaum, 1995), Germany (Haller & Krauss, 2002), Spain (Badenes-Ribera et al., 2015), and China (Lyu et al., 2018, 2020). The wording here follows Haller and Krauss (2002).\nAnswer all six statements, then click the button at the bottom to see how you did.\n\nSuppose you have a treatment that you suspect may alter performance on a certain task. You compare the means of your control and experimental groups (say 20 subjects in each sample). Further, suppose you use a simple independent means t-test and your result is (t = 2.7, d.f. = 18, p = 0.01). Please mark each of the statements below as “true” or “false”. “False” means that the statement does not follow logically from the above premises. Also note that one, several or none of the statements may be correct.\n\nYou have absolutely disproved the null hypothesis (that is, there is no difference between the population means). TRUEFALSE\nYou have found the probability of the null hypothesis being true. TRUEFALSE\nYou have absolutely proved your experimental hypothesis (that there is a difference between the population means). TRUEFALSE\nYou can deduce the probability of the experimental hypothesis being true. TRUEFALSE\nYou know, if you decide to reject the null hypothesis, the probability that you are making the wrong decision. TRUEFALSE\nYou have a reliable experimental finding in the sense that if, hypothetically, the experiment were repeated a great number of times, you would obtain a significant result on 99% of occasions. TRUEFALSE\n\n\n\n\nWhy is each statement false?\n\nAll six statements are false. Each one corresponds to a recognisable fallacy.\n\nCertainty (disproof). A significance test gives a probabilistic statement about data, not a proof. Data this extreme occur under the null model 1% of the time, so the null hypothesis has not been disproved.\nInverse probability. The p-value is the probability of data at least this extreme given the null model, P(data | H0). It is not the probability of the null hypothesis given the data, P(H0 | data). Getting from one to the other requires a prior probability for H0, which a significance test does not use.\nCertainty (proof). The mirror image of statement 1. Rejecting the null does not prove the alternative, and even if a difference exists, it does not establish that the experimental hypothesis’s explanation for it is correct.\nInverse probability, again. The probability of the experimental hypothesis is no more deducible from p than the probability of the null is.\nError-rate confusion. This reads p as the probability that rejecting H0 is a mistake, i.e., P(H0 | rejection). That is the false discovery risk, which depends on the prior probability of H0 and on statistical power, neither of which is given. The p-value is also not the Type I error rate: α is fixed before the study and describes the long-run behaviour of the procedure, not the probability of error in this particular decision.\nReplication fallacy. 1 − p is not the probability of a significant replication. The replication probability depends on the true effect size and the replication’s power. If the observed effect were exactly the true effect, a same-sized replication would be significant only about 70–75% of the time; and because significant results tend to overestimate effects, the real figure is usually lower.\n\n\n\n\n4.1.2 Prevalence of (mis)interpretations of p-values\nIf you marked any statement as true, you are in the majority.\n\nOakes (1986) found that 97% of the 70 academic psychologists he surveyed endorsed at least one of the statements (Gigerenzer, 2018). As summarised by Cohen (1994), 68 of 70 interpreted p as the probability that H0 is true, and 42 believed a p of .01 implied a 99% chance that a replication would be significant.\nHaller and Krauss (2002) gave the questionnaire to students, methodology instructors, and scientists in Germany. As reported by Gigerenzer (2004), none of the 44 psychology students rejected all six statements, compared with 4 of 39 scientists who did not teach statistics and 6 of 30 methodology instructors who did.\nLyu et al. (2018) found that 99% of 362 psychology researchers and students in China endorsed at least one false statement. In a larger sample of 1,479 researchers and students across fields, Lyu et al. (2020) found that misinterpretation did not vary meaningfully by degree, field, or career stage, and that respondents were largely unaware of their errors.\nBadenes-Ribera et al. (2016) found the inverse-probability fallacy to be the most common error among academic psychologists in Italy and Chile, followed by the replication fallacy.\n\nGigerenzer (2018) compiles these results across countries and is the best single overview.\nTable 4.1 summarises these studies using Gigerenzer’s (2018) Table 2, showing the percentage of respondents in each sample who endorsed at least one of the six false statements in the quiz above.\n\n\n\nTable 4.1: Percentage of respondents who endorsed at least one false statement about a significant p-value. Adapted from Gigerenzer (2018, Table 2). Oakes (1986) and Haller and Krauss (2002) used the questionnaire in the quiz above, with p = .01. Badenes-Ribera et al. (2015, 2016) used their own items with p = .001, and did not include statements 3 and 5. Badenes-Ribera et al. (2015) reported this percentage only for all respondents combined, so their six subsamples of academic psychologists are pooled here.\n\n\n\n\n\n\n\n\n\n\n\nSample\nStudy\nN\nEndorsed at least one false statement (%)\n\n\n\n\nProfessional\nOakes (1986)\n70\n97\n\n\nProfessional\nHaller & Krauss (2002): statistics teachers\n30\n80\n\n\nProfessional\nHaller & Krauss (2002): other professors of psychology\n39\n90\n\n\nProfessional\nBadenes-Ribera et al. (2015)\n418\n94\n\n\nProfessional\nBadenes-Ribera et al. (2016): methodology\n18\n56\n\n\nProfessional\nBadenes-Ribera et al. (2016): other areas\n146\n74\n\n\nStudent\nHaller & Krauss (2002)\n44\n100\n\n\n\n\n\n\n\n4.1.2.1 How much should we trust these prevalence estimates?\nThe direction of this literature is robust, but the precise percentages should be treated with some caution. The questionnaires consist entirely of false statements, which means they cannot distinguish a respondent who misunderstands p-values from one who is uncertain, reads the items charitably, or assumes that at least one statement must be true. McShane and Gal (2017) also note that, as worded, some items can be read as questions about unknown population parameters rather than about the observed result. Similar criticisms have been made of the equivalent questionnaire for confidence intervals (García-Pérez & Alcalá-Quintana, 2016; Miller & Ulrich, 2016). Figures such as “90–99% of researchers endorse at least one false statement” are therefore better read as evidence that misinterpretation is common across fields, career stages, and countries than as well-measured prevalence estimates.\n\n\n\n4.1.3 Errors in intro to psych textbooks’ definitions\nThe errors are not confined to survey responses. They are also in the textbooks.\n\n89%\nof introductory psychology textbooks that defined or explained statistical significance did so incorrectly, most often by describing p as the probability that the results occurred by chance (Cassidy et al., 2019).",
+    "crumbs": [
+      "Part II: Methods",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Interpretation methods [✎ Draft]{.badge .badge-draft2}</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/interpretation_methods.html#misinterpretations-in-the-literature",
+    "href": "chapters/interpretation_methods.html#misinterpretations-in-the-literature",
+    "title": "4  Interpretation methods ✎ Draft",
+    "section": "4.2 Misinterpretations in the literature",
+    "text": "4.2 Misinterpretations in the literature\nStudents who give these answers may therefore be accurately recalling what they were taught. The errors also reach the published literature.\n\n76–85%\nof psychology articles that discussed a nonsignificant result interpreted it as evidence that the effect was absent, with no significant change between 2009 and 2021 (Murphy et al., 2025).\n\n\n4.2.1 What a p-value is\nIt’s important to start by emphasizing that I and this book should not be considered the authoritative source of the definition and interpretation of p-values. For these, see the original sources cited below.\n\n4.2.1.1 The formal definition\nThe definition found in most statistics textbooks descends from Fisher’s significance tests and is stated formally by Cox (2006). Choose a test statistic T that measures how far the data depart from what the null hypothesis predicts. The p-value is the probability, calculated assuming the null hypothesis is true, of obtaining a value of T at least as extreme as the one actually observed:\n\\[\np = \\Pr(T \\geq t_{\\text{obs}};\\ H_0)\n\\]\nThe semicolon rather than a conditional bar (|) is deliberate. In the frequentist framework H0 is not a random event with a probability of its own; it is an assumption under which the probability is calculated. Three ingredients are always involved:\n\nA test statistic, such as t, F, or χ², which summarises the data. For a two-sided test, T is the absolute value, e.g., |t|, so that departures in either direction count as extreme.\nA reference distribution for that statistic, derived by assuming H0 is true.\nA tail: the probability of the observed value or anything more extreme, not of the observed value alone.\n\nApplied to the quiz scenario: if there were truly no difference between the population means, and the other assumptions of the t-test held, a t statistic at least as far from zero as 2.7 would arise in about 1.5% of repeated studies with 18 degrees of freedom. (The questionnaire’s p = .01 is rounded; the exact two-sided value for t(18) = 2.7 is .015.)\nThis definition is the key to every statement in the quiz. The p-value is calculated by assuming H0 is true, so it cannot also be the probability that H0 is true. As Greenland et al. (2016) put it, it is hard to see how a probability deduced from a set of assumptions could be the probability of those same assumptions.\n\n\n4.2.1.2 “The model” is the null model\nThe American Statistical Association’s statement on p-values (Wasserstein & Lazar, 2016) gives an informal definition that is often quoted:\n\n“the probability under a specified statistical model that a statistical summary of the data … would be equal to or more extreme than its observed value.”\nAmerican Statistical Association’s statement on p-values (Wasserstein & Lazar, 2016).\n\nMany readers initially struggle with what “a specified statistical model” refers to. It is not the researcher’s hypothesis, the alternative hypothesis, but rather the null model: the null hypothesis together with every other assumption needed to derive the reference distribution. The statement’s first principle makes this explicit, describing the most common context as “a model, constructed under a set of assumptions, together with a so-called ‘null hypothesis’”. For the independent-samples t-test in the quiz, the null model includes:\n\nThe null hypothesis itself: the population means are equal.\nDistributional assumptions: the outcome is normally distributed within each group, with equal variances.\nDesign assumptions: observations are independent, and participants were randomly sampled or randomly assigned.\nAnalysis and reporting assumptions: the test was planned before seeing the data, and this p-value was not selected for reporting from among many because it was small.\n\nGreenland et al. (2016) build this into their definition.\n\nThe p-value is “the probability that the chosen test statistic would have been at least as large as its observed value if every model assumption were correct, including the test hypothesis.”\nGreenland et al. (2016)\n\nIn their terms, H0 is just the one assumption that has been targeted for testing (the “test hypothesis”); the p-value itself tests all of them at once.\n\n\n4.2.1.3 Small and large p-values\nIt follows that a p-value is best read as a measure of compatibility between the data and the whole null model, running from 0 (the data are completely incompatible with the model) to 1 (the data are exactly what the model predicts) (Greenland et al., 2016).\n\nA small p-value says that the data would be unusual if every assumption of the null model were true. It does not say which assumption is false. H0 may be false, or the design may have been compromised, the distributional assumptions may not hold, or the result may have been selected for reporting because it was small.\nA large p-value says only that the data are not unusual under the null model. It does not show that H0 is true: the same data would also be unremarkable under many other hypotheses, and a large p-value can itself result from violated assumptions.\n\nThis is why selective reporting matters so much. The ASA statement notes that when many analyses are conducted and only some are reported, the reported p-values become “essentially uninterpretable” (Wasserstein & Lazar, 2016). In null-model terms, the assumption that the result was not chosen for its p-value has been violated, so the reference distribution no longer applies.\n\n\n4.2.1.4 What the ASA statements say\nThe 2016 ASA statement sets out six principles, summarised here:\n\np-values can indicate how incompatible the data are with a specified statistical model.\np-values do not measure the probability that the hypothesis studied is true, or the probability that the data were produced by random chance alone.\nScientific conclusions and policy decisions should not be based only on whether a p-value passes a threshold.\nProper inference requires full reporting and transparency.\nA p-value, or statistical significance, does not measure the size of an effect or the importance of a result.\nBy itself, a p-value does not provide a good measure of evidence about a model or hypothesis.\n\nThe second principle rules out the most common textbook error identified by Cassidy et al. (2019). The claim that p is “the probability that the results occurred by chance” reverses the definition: the p-value is calculated assuming that chance alone is operating, so it cannot be the probability that chance alone is operating (Greenland et al., 2016).\nA later statement from a task force convened by the ASA’s president (Benjamini et al., 2021) is more positive in tone. It stresses that p-values and significance tests, properly applied and interpreted, are valid tools that increase the rigour of conclusions and should not be abandoned. But it agrees on the essentials. p-values should be understood as assessments of observations relative to sampling variation, not as measures of practical significance, and any significance threshold should be chosen deliberately, based on the study’s goals and the consequences of wrong decisions.\n\n\n4.2.1.5 Why this matters for trustworthiness assessment\nThe null-model view is what makes a p-value useful for assessing trustworthiness, and also what limits it. A reported p-value is informative about H0 only to the extent that the other assumptions of the null model are credible. Much of this book is about checking those other assumptions: whether the design was as described, whether the reported statistics are internally consistent, and whether the analyses reported are the analyses that were run. When those assumptions are doubtful, a small p-value says correspondingly little about the null hypothesis.\n\n\n\n4.2.2 Implications for trustworthiness assessment\n\nMisinterpretations of p-values are a common source of misalignment between an article’s results and its conclusions. The rest of this chapter, and the next, cover how to spot them.\nBecause these misinterpretations are so common among researchers, they are also common among assessors. Checking our own understanding is a prerequisite for judging others’.\nA misinterpreted p-value makes the written conclusions untrustworthy even when the numerical results are accurate. It is evidence of a claim–evidence problem, not of fabrication or error in the numbers themselves.",
+    "crumbs": [
+      "Part II: Methods",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Interpretation methods [✎ Draft]{.badge .badge-draft2}</span>"
     ]
   },
   {
     "objectID": "chapters/interpretation_methods.html#interpretation-of-p-values",
     "href": "chapters/interpretation_methods.html#interpretation-of-p-values",
-    "title": "4  Interpretation methods ✎ Outline",
-    "section": "",
-    "text": "Intuitions for p-values\nAlpha, power, diagnosticity refreshers\n\nDistribution of unbiased p-values under null/alternative\n\np-hacking and its impact on p-values and effect sizes\nMethods that aren’t useful for trustworthiness assessment but are good for intuitions: distribution of biased p-values, p-curve, z-curve\nToo good to be true in the context of power vs significance rate\nPeeking and trends towards significance",
+    "title": "4  Interpretation methods ✎ Draft",
+    "section": "4.3 Interpretation of p-values",
+    "text": "4.3 Interpretation of p-values\n\nIntuitions for p-values\nAlpha, power, diagnosticity refreshers\n\nDistribution of unbiased p-values under null/alternative\n\np-hacking and its impact on p-values and effect sizes\nMethods that aren’t useful for trustworthiness assessment but are good for intuitions: distribution of biased p-values, p-curve, z-curve\nToo good to be true in the context of power vs significance rate\nPeeking and trends towards significance",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Interpretation methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Interpretation methods [✎ Draft]{.badge .badge-draft2}</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/interpretation_methods.html#references",
+    "href": "chapters/interpretation_methods.html#references",
+    "title": "4  Interpretation methods ✎ Draft",
+    "section": "References",
+    "text": "References\n\nBadenes-Ribera, L., Frías-Navarro, D., Iotti, B., Bonilla-Campos, A., & Longobardi, C. (2016). Misconceptions of the p-value among Chilean and Italian academic psychologists. Frontiers in Psychology, 7, Article 1247. https://doi.org/10.3389/fpsyg.2016.01247\nBadenes-Ribera, L., Frías-Navarro, D., Monterde-i-Bort, H., & Pascual-Soler, M. (2015). Interpretation of the p value: A national survey study in academic psychologists from Spain. Psicothema, 27(3), 290–295. https://doi.org/10.7334/psicothema2014.283\nBenjamini, Y., De Veaux, R., Efron, B., Evans, S., Glickman, M., Graubard, B. I., He, X., Meng, X.-L., Reid, N., Stigler, S. M., Vardeman, S. B., Wikle, C. K., Wright, T., Young, L. J., & Kafadar, K. (2021). ASA President’s Task Force statement on statistical significance and replicability. Harvard Data Science Review, 3(3). https://doi.org/10.1162/99608f92.f0ad0287\nCassidy, S. A., Dimova, R., Giguère, B., Spence, J. R., & Stanley, D. J. (2019). Failing grade: 89% of introduction-to-psychology textbooks that define or explain statistical significance do so incorrectly. Advances in Methods and Practices in Psychological Science, 2(3), 233–239. https://doi.org/10.1177/2515245919858072\nCohen, J. (1994). The earth is round (p &lt; .05). American Psychologist, 49(12), 997–1003. https://doi.org/10.1037/0003-066X.49.12.997\nCox, D. R. (2006). Principles of statistical inference. Cambridge University Press. https://doi.org/10.1017/CBO9780511813559\nFalk, R., & Greenbaum, C. W. (1995). Significance tests die hard: The amazing persistence of a probabilistic misconception. Theory & Psychology, 5(1), 75–98. https://doi.org/10.1177/0959354395051004\nGarcía-Pérez, M. A., & Alcalá-Quintana, R. (2016). The interpretation of scholars’ interpretations of confidence intervals: Criticism, replication, and extension of Hoekstra et al. (2014). Frontiers in Psychology, 7, Article 1042. https://doi.org/10.3389/fpsyg.2016.01042\nGigerenzer, G. (2004). Mindless statistics. The Journal of Socio-Economics, 33(5), 587–606. https://doi.org/10.1016/j.socec.2004.09.033\nGigerenzer, G. (2018). Statistical rituals: The replication delusion and how we got there. Advances in Methods and Practices in Psychological Science, 1(2), 198–218. https://doi.org/10.1177/2515245918771329\nGreenland, S., Senn, S. J., Rothman, K. J., Carlin, J. B., Poole, C., Goodman, S. N., & Altman, D. G. (2016). Statistical tests, P values, confidence intervals, and power: A guide to misinterpretations. European Journal of Epidemiology, 31(4), 337–350. https://doi.org/10.1007/s10654-016-0149-3\nHaller, H., & Krauss, S. (2002). Misinterpretations of significance: A problem students share with their teachers? Methods of Psychological Research Online, 7(1), 1–20. https://epub.uni-regensburg.de/34338/\nLyu, X.-K., Xu, Y., Zhao, X.-F., Zuo, X.-N., & Hu, C.-P. (2020). Beyond psychology: Prevalence of p value and confidence interval misinterpretation across different fields. Journal of Pacific Rim Psychology, 14, Article e6. https://doi.org/10.1017/prp.2019.28\nLyu, Z., Peng, K., & Hu, C.-P. (2018). P-value, confidence intervals, and statistical inference: A new dataset of misinterpretation. Frontiers in Psychology, 9, Article 868. https://doi.org/10.3389/fpsyg.2018.00868\nMcShane, B. B., & Gal, D. (2017). Statistical significance and the dichotomization of evidence. Journal of the American Statistical Association, 112(519), 885–895. https://doi.org/10.1080/01621459.2017.1289846\nMiller, J., & Ulrich, R. (2016). Interpreting confidence intervals: A comment on Hoekstra, Morey, Rouder, and Wagenmakers (2014). Psychonomic Bulletin & Review, 23(1), 124–130. https://doi.org/10.3758/s13423-015-0859-7\nMurphy, S. L., Merz, R., Reimann, L.-E., & Fernández, A. (2025). Nonsignificance misinterpreted as an effect’s absence in psychology: Prevalence and temporal analyses. Royal Society Open Science, 12(3), Article 242167. https://doi.org/10.1098/rsos.242167\nOakes, M. (1986). Statistical inference: A commentary for the social and behavioural sciences. Wiley.\nWasserstein, R. L., & Lazar, N. A. (2016). The ASA statement on p-values: Context, process, and purpose. The American Statistician, 70(2), 129–133. https://doi.org/10.1080/00031305.2016.1154108",
+    "crumbs": [
+      "Part II: Methods",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Interpretation methods [✎ Draft]{.badge .badge-draft2}</span>"
     ]
   },
   {
@@ -298,7 +331,7 @@
     "text": "5.1 Misinterpretation of p-values",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Misinterpretation methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Misinterpretation methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -309,7 +342,7 @@
     "text": "Non-significant p-values as evidence for the null\nDifference between significant and non-significant is not itself significant\nSimply claiming differences with non-significant p-values",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Misinterpretation methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Misinterpretation methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -320,7 +353,7 @@
     "text": "5.2 Misinterpretation of specific metrics\n\nConfusing RR with relative risk, etc.",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Misinterpretation methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Misinterpretation methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -331,7 +364,7 @@
     "text": "5.3 Misinterpretation of specific tests\n\nAnalysis-claim misalignment in general; most of the below are a specific class of this\n\nAny test that exists can and will be misaligned somewhere\nNature and magnitude of misalignment, e.g., CLPM lends itself to causal interpretation but can’t give it\nGoals confusion gives rise to misalignment: description, prediction, influence\nThe demand for tests is understandable; “Hot Right Now” stats that are poorly understood as a general problem\n\n\n\n5.3.1 Efficacy claims\n\nEfficacy claims from anything other than a post-intervention comparison with a control group (pre-post, two interventions, etc.)\n\n\n\n5.3.2 MANOVA\n\nThe “Protected F-test” logic: the belief that a significant omnibus MANOVA “protects” subsequent univariate ANOVAs from Type I error inflation\n\n\n\n5.3.3 Mediation and PROCESS macro\n\nMediation\nPROCESS macro — “That’s a lot to process”\n\n\n\n5.3.4 CLPM and variants\n\nCross-lagged panel models and causal interpretation limitations\n\n\n\n5.3.5 Bifactor models in SEM\n\nReal-world data rarely perfectly follows proportionality constraints, so the less-restricted bifactor model will statistically outperform the higher-order model in nearly every CFA application, regardless of the “true” structure\nBifactor model is more robust to minor misspecifications because its direct paths to items allow it to “soak up” variance that a more constrained higher-order model cannot\n\n\n\n5.3.6 ANOVA\n\nHidden multiplicity in ANOVA\nLack of power in higher order interactions (problems with both false positives and false negatives)\n\n\n\n5.3.7 Other commonly misused methods\n\nStepwise regression\nPost hoc power analysis\n“Little Jiffy” Factor Analysis (PCA with Varimax & Kaiser Criterion of Eigenvalues &gt; 1; default in SPSS)\nChoosing covariates based on significance or univariate associations\nLatent class growth models (note: very different from latent growth curve models)\nMagnitude-Based Inference\nANCOVA applied to observational data — Lord’s paradox\nPropensity Score Matching\nPartial Least Squares SEM\nStatistical confusion of assumption and inference / affirmation of the consequent in analyses",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Misinterpretation methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Misinterpretation methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -342,7 +375,7 @@
     "text": "5.4 Easter egg research\n\nCreating groups via clustering then testing for differences between them\nAssuming differences between groups and then reifying the groups\nK-means or Latent Class Analysis to create groups, followed by t-tests/ANOVA on the same variables to “validate” the groups\nAnalyses that assume the number of clusters and then discover them (e.g., Latent Profile Analysis)",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Misinterpretation methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Misinterpretation methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -353,7 +386,7 @@
     "text": "5.5 Conditioning on post-treatment effects\n\nCommon cause problems",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Misinterpretation methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Misinterpretation methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -364,7 +397,7 @@
     "text": "5.6 Causal claims, implications, and assumptions\n\nCausality tests don’t exist, only causal assumptions\nCausal assumptions do exist and should be clarified\nCausal claims in non-experiments\nCausal claims in experiments that aren’t experiments: pre-post change, follow-up comparisons against LOCF\nThe litmus test of “is this only interesting if it’s causal, yet it’s described as non-causal evidence”",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Misinterpretation methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Misinterpretation methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -375,7 +408,7 @@
     "text": "5.7 Other interpretation issues\n\nConfusing IV and DV\nTable 2 fallacy",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Misinterpretation methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Misinterpretation methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -386,7 +419,7 @@
     "text": "6.1 Refresher on effect size calculation",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Effect size methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Effect size methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -397,7 +430,7 @@
     "text": "Calculation of Cohen’s d, r, etc.",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Effect size methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Effect size methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -408,7 +441,7 @@
     "text": "6.2 Distributions of effect sizes\n\nDistributions of d, r, partial eta-squared, etc.\n\nFor different types of phenomena/tests (e.g., interventions vs manipulation checks)\nFor different fields\nAvoiding ever saying “domain knowledge”",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Effect size methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Effect size methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -419,7 +452,7 @@
     "text": "6.3 Maximum positive controls and intuition benchmarks\n\nUsing known effects as anchors for plausibility assessment",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Effect size methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Effect size methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -430,7 +463,7 @@
     "text": "6.4 Common errors\n\nThe Standard Error error (reporting SE instead of SD, or vice versa)",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Effect size methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Effect size methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -441,7 +474,7 @@
     "text": "7.1 Internal consistency of summary statistics",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Repetition and consistency methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Repetition and consistency methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -452,7 +485,7 @@
     "text": "Are M/SD/N consistent throughout the article?\nAre M/SD/N consistent between whole sample vs subgroups?",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Repetition and consistency methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Repetition and consistency methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -463,7 +496,7 @@
     "text": "7.2 Abstract vs. results\n\nDoes the result in the abstract match the results section?\nDoes the abstract label the preregistered analysis/primary outcome?",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Repetition and consistency methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Repetition and consistency methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -474,7 +507,7 @@
     "text": "7.3 Tables vs. text\n\nDo the tables match the text?",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Repetition and consistency methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Repetition and consistency methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -485,7 +518,7 @@
     "text": "7.4 Introduction vs. analysis\n\nDoes the explanans/explanandum switch between intro and analysis?",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Repetition and consistency methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Repetition and consistency methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -496,7 +529,7 @@
     "text": "7.5 Over-representation of suspicious values\n\nOver-representation of reported round or repeated difference scores, mean/SD/quartiles between groups, etc.",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Repetition and consistency methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Repetition and consistency methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -507,7 +540,7 @@
     "text": "7.6 Preregistration vs. paper\n\nDoes the prereg match the paper?",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Repetition and consistency methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Repetition and consistency methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -518,7 +551,7 @@
     "text": "7.7 SEM consistency\n\nSEM and consistency of degrees of freedom with parameters and indicators",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Repetition and consistency methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Repetition and consistency methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -529,7 +562,7 @@
     "text": "8.1 Recalculating p-values",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Recalculation methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Recalculation methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -540,7 +573,7 @@
     "text": "From test statistics: statcheck + its false positives\nFrom summary statistics; accounting for rounding",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Recalculation methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Recalculation methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -551,7 +584,7 @@
     "text": "8.2 Recalculating effect sizes\n\nCohen’s d and partial eta-squared\nNot just for recalculating already reported effect sizes to check consistency, but also calculating ones not reported to check plausibility\nStandardized + SDs to unstandardized, with plausibility of both",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Recalculation methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Recalculation methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -562,7 +595,7 @@
     "text": "8.3 Confidence intervals and bounds\n\nRecalculating confidence intervals for all the above",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Recalculation methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Recalculation methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -573,7 +606,7 @@
     "text": "8.4 Recalculation under partial information\n\nBounds etc., e.g., within-subjects t-test",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Recalculation methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Recalculation methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -584,7 +617,7 @@
     "text": "8.5 Other recalculations\n\nBeta and SE\nSEM degrees of freedom\nRunning regressions from correlation tables",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Recalculation methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Recalculation methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -595,7 +628,7 @@
     "text": "9.1 GRIM and MER",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Granularity methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Granularity methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -606,7 +639,7 @@
     "text": "GRIM (Granularity-Related Inconsistency of Means) test\nMER (Mean Equality Rounding) test\nPower considerations\nFalse positive rates",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Granularity methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Granularity methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -617,7 +650,7 @@
     "text": "9.2 GRIM-U\n\nExtensions and variants of the GRIM test",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Granularity methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Granularity methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -628,7 +661,7 @@
     "text": "10.1 Means bounds and SD bounds",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Bounds methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Bounds methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -639,7 +672,7 @@
     "text": "TIDES + power + false positives\nPlausibility as well as possibility",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Bounds methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Bounds methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -650,7 +683,7 @@
     "text": "10.2 CI bounds vs. estimates\n\nEstimate in CIs\nHarder test: estimate in middle of CIs. Bounds of the mean given the CIs, i.e., is it in the bounds that define the middle given rounding",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Bounds methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Bounds methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -661,7 +694,7 @@
     "text": "10.3 Mean inside range\n\nIs the reported mean inside the possible range of the measure?",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Bounds methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Bounds methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -672,7 +705,7 @@
     "text": "10.4 Metric bounds\n\nE.g., correlations must be in [-1, 1]",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Bounds methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Bounds methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -683,7 +716,7 @@
     "text": "10.5 Correlation matrix positive definiteness\n\nChecking whether reported correlation tables are positive definite",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Bounds methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Bounds methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -694,7 +727,7 @@
     "text": "11.1 SPRITE",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Reconstruction, resampling, and simulation methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Reconstruction, resampling, and simulation methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -705,7 +738,7 @@
     "text": "Sample Parameter Reconstruction via Iterative Techniques",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Reconstruction, resampling, and simulation methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Reconstruction, resampling, and simulation methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -716,7 +749,7 @@
     "text": "11.2 CLOSURE and Horn’s metric\n\nCLOSURE method\nHorn’s metric",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Reconstruction, resampling, and simulation methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Reconstruction, resampling, and simulation methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -727,7 +760,7 @@
     "text": "11.3 Simulation and bootstrapping\n\nSimulation/bootstrapping: how likely given values are given a much larger, more trustworthy sample\nResampling results from data to examine plausibility\nUsing within-meta meta-analysis of SDs from the same outcome to examine differences between each sample and the meta-SD\n\n\n11.3.1 Caveats\n\nAlthough this relies on prior data and the current study may have different selection effects or constraints, the other side of this coin is worth considering",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Reconstruction, resampling, and simulation methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Reconstruction, resampling, and simulation methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -738,7 +771,7 @@
     "text": "12.1 Recruitment rates",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Design methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Design methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -749,7 +782,7 @@
     "text": "Plausibility of reported recruitment rates",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Design methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Design methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -760,7 +793,7 @@
     "text": "12.2 Attrition rates\n\nPlausibility of reported attrition/dropout rates",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Design methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Design methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -771,7 +804,7 @@
     "text": "12.3 Randomisation methods\n\n12.3.1 Differences at baseline\n\nCarlisle method\nBaseline balance checks and variants\n\n\n\n12.3.2 Randomisation plausibility\n\nE.g., claimed to randomise students to groups for an intervention, but it would have to be at the level of classrooms or schools\nBinomial/multinomial distribution checks: only useful for testing weirdly unbalanced assignment, not too-perfectly balanced, as it’s technically the most probable outcome",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Design methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Design methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -782,7 +815,7 @@
     "text": "13.1 Jingle and jangle fallacies",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Measurement methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Measurement methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -793,7 +826,7 @@
     "text": "Same name, different constructs (jingle)\nDifferent names, same construct (jangle)",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Measurement methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Measurement methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -804,7 +837,7 @@
     "text": "13.2 Redundancy\n\nBainbridge’s work on measurement redundancy",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Measurement methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Measurement methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -815,7 +848,7 @@
     "text": "13.3 Ad hoc measure rate\n\nPrevalence of ad hoc measures and implications for trustworthiness",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Measurement methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Measurement methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -826,7 +859,7 @@
     "text": "13.4 Disattenuated associations\n\nCorrecting for measurement error; implications when not done",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Measurement methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Measurement methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -837,7 +870,7 @@
     "text": "13.5 Reliability as a prerequisite to replicability\n\nReliability “paradox”",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Measurement methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Measurement methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -848,7 +881,7 @@
     "text": "13.6 Pseudo effects\n\nEffects that arise from measurement artifacts rather than real phenomena",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Measurement methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Measurement methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -859,7 +892,7 @@
     "text": "13.7 Mode alignment\n\nEspecially self-reported behavior\nDoes the mode of measurement match the construct being assessed?",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Measurement methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Measurement methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -870,7 +903,7 @@
     "text": "14.1 Building a discrimination repertoire",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Theory specification methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Theory specification methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -881,7 +914,7 @@
     "text": "Learning to make up tacts will help you spot it occurring elsewhere, give you a discrimination and tacting repertoire to point it out yourself\nSee: Chambers book, Neuroskeptic 9 circles of hell",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Theory specification methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Theory specification methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -892,7 +925,7 @@
     "text": "14.2 Can you discriminate their hypothesis, RQ, and goals?\n\nDescription, prediction, influence — or a mushy none-of-the-above?",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Theory specification methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Theory specification methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -903,7 +936,7 @@
     "text": "14.3 Bullshit\n\nIdentifying claims that are not even attempting to be truthful",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Theory specification methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Theory specification methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -914,7 +947,7 @@
     "text": "14.4 Goals\n\nDescription, prediction, influence\nExplananda vs explanantia, circular reasoning",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Theory specification methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Theory specification methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -925,7 +958,7 @@
     "text": "14.5 Subjunctive vs. indicative theory\n\n14.5.1 Would It Be Tight\n\nBurden of proof: what evidence do the authors provide that their theory would not merely be tight?\n\n\n\n14.5.2 In a world fallacy\n\nTheories that only work under unstated ideal conditions",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Theory specification methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Theory specification methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -936,7 +969,7 @@
     "text": "14.6 Logical arguments\n\nSound and valid arguments\nFailure to consider alternative explanations\nAffirmation of the consequent\nAuxiliary hypotheses",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Theory specification methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Theory specification methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -947,7 +980,7 @@
     "text": "14.7 Motte and Bailey arguments\n\nStrategic retreat to defensible positions when stronger claims are challenged",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Theory specification methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Theory specification methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -958,7 +991,7 @@
     "text": "14.8 (Strategic) ambiguity\n\nGeneral claims require generalised effects",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Theory specification methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Theory specification methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -969,7 +1002,7 @@
     "text": "14.9 Not even wrong claims\n\nWhat is your estimand, counterfactuals",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Theory specification methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Theory specification methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -980,7 +1013,7 @@
     "text": "14.10 Lego science\n\nMechanistic assembly of findings without theoretical coherence",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Theory specification methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Theory specification methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -991,7 +1024,7 @@
     "text": "14.11 Ignorance systems\n\nResearch areas sustained by not asking certain questions",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Theory specification methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Theory specification methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -1002,7 +1035,7 @@
     "text": "15.1 WebPlotDigitizer",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Data extraction methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Data extraction methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -1013,7 +1046,7 @@
     "text": "Extracting data from published figures using WebPlotDigitizer",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Data extraction methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Data extraction methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -1024,7 +1057,7 @@
     "text": "15.2 Contacting authors\n\nAsking for scatter plots, frequency plots, etc.\nRequesting data or additional information to support trustworthiness assessment",
     "crumbs": [
       "Part II: Methods",
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Data extraction methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Data extraction methods [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -1035,7 +1068,7 @@
     "text": "16.1 Original research",
     "crumbs": [
       "Part III: Organising",
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Critiquing specific types of articles <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Critiquing specific types of articles [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -1046,7 +1079,7 @@
     "text": "Applying trustworthiness assessment methods to original empirical articles",
     "crumbs": [
       "Part III: Organising",
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Critiquing specific types of articles <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Critiquing specific types of articles [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -1057,7 +1090,7 @@
     "text": "16.2 Meta-analyses\n\nSpecific considerations when assessing trustworthiness of meta-analytic studies",
     "crumbs": [
       "Part III: Organising",
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Critiquing specific types of articles <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Critiquing specific types of articles [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -1068,7 +1101,7 @@
     "text": "16.3 RCTs\n\nSpecific considerations when assessing trustworthiness of randomised controlled trials",
     "crumbs": [
       "Part III: Organising",
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Critiquing specific types of articles <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Critiquing specific types of articles [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -1079,7 +1112,7 @@
     "text": "17.1 Overview",
     "crumbs": [
       "Part III: Organising",
-      "<span class='chapter-number'>17</span>  <span class='chapter-title'>INSPECT-SR <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>INSPECT-SR [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -1090,7 +1123,7 @@
     "text": "The INSPECT-SR checklist for systematic reviewers assessing trustworthiness of included studies",
     "crumbs": [
       "Part III: Organising",
-      "<span class='chapter-number'>17</span>  <span class='chapter-title'>INSPECT-SR <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>INSPECT-SR [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -1101,7 +1134,7 @@
     "text": "17.2 1. Inspecting post-publication notices\n\n1.1. Does the study have an associated retraction?\n1.2. Does the study have an associated expression of concern or other relevant post-publication notice?\n1.3. Do other studies by the research team highlight causes for concern (associated retractions, expressions of concern, relevant post-publication notices)?",
     "crumbs": [
       "Part III: Organising",
-      "<span class='chapter-number'>17</span>  <span class='chapter-title'>INSPECT-SR <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>INSPECT-SR [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -1112,7 +1145,7 @@
     "text": "17.3 2. Inspecting conduct, governance, and transparency\n\n2.1. Are there concerns relating to ethical approval?\n2.2. Are there concerns relating to the timing or absence of study registration?\n2.3. Are there important inconsistencies between the publication and the registration documents?\n2.4. Is the recruitment of participants implausible?\n2.5. Are the reported methods implausible considering the reported resources?",
     "crumbs": [
       "Part III: Organising",
-      "<span class='chapter-number'>17</span>  <span class='chapter-title'>INSPECT-SR <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>INSPECT-SR [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -1123,7 +1156,7 @@
     "text": "17.4 3. Inspecting text and publication details\n\n3.1. Are there concerns relating to duplicated content, such as text or tables, or text that is incompatible with the study?\n3.2. Is there evidence of manipulation or duplication of figures?",
     "crumbs": [
       "Part III: Organising",
-      "<span class='chapter-number'>17</span>  <span class='chapter-title'>INSPECT-SR <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>INSPECT-SR [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -1134,7 +1167,7 @@
     "text": "17.5 4. Inspecting results in the study\n\n4.1. Are there any unexplained discrepancies between reported data and participant eligibility criteria?\n4.2. Are numbers of participants allocated to each group implausible given the allocation method?\n4.3. Are any baseline data implausible?\n4.4. Are there any discrepancies between results reported in figures, tables, and text?\n4.5. Are the numbers of participants lost to follow-up implausible?\n4.6. Are there any unexplained inconsistencies in the numbers of participants?\n4.7. Are any outcome data, including estimated treatment effects, implausible?\n4.8. Are the means and variances of integer data impossible?\n4.9. Are there errors in statistical results?\n4.10. Are any other contradictions implied by the data?\n4.11. Are there inconsistencies in descriptions of methods and results across publications describing the study?",
     "crumbs": [
       "Part III: Organising",
-      "<span class='chapter-number'>17</span>  <span class='chapter-title'>INSPECT-SR <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>INSPECT-SR [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -1145,7 +1178,7 @@
     "text": "18.1 What to do in what order",
     "crumbs": [
       "Part III: Organising",
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Organising critique <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Organising critique [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -1156,7 +1189,7 @@
     "text": "Valuing your time\nPrioritising the most informative checks",
     "crumbs": [
       "Part III: Organising",
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Organising critique <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Organising critique [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -1167,7 +1200,7 @@
     "text": "18.2 Critiquing what matters\n\nCritique as awareness raising / confrontation of hubris",
     "crumbs": [
       "Part III: Organising",
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Organising critique <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Organising critique [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -1178,7 +1211,7 @@
     "text": "18.3 Meta-science findings should not be anonymised\n\nThe case for transparency in identifying problematic work",
     "crumbs": [
       "Part III: Organising",
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Organising critique <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Organising critique [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -1189,7 +1222,7 @@
     "text": "18.4 Communicating critique\n\nCommunication pathways to elicit correction of the scientific record and scientific belief",
     "crumbs": [
       "Part III: Organising",
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Organising critique <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Organising critique [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -1200,7 +1233,7 @@
     "text": "18.5 Dealing with common responses\n\n“Do the numbers matter?”\nSometimes people are accused of not having the expertise/credentials to critique, but no-one needs credentials to cite\n“No critique, only cite”",
     "crumbs": [
       "Part III: Organising",
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Organising critique <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Organising critique [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -1211,7 +1244,7 @@
     "text": "18.6 Legal issues\n\nConsiderations around defamation, legal threats, and protecting yourself when publishing critiques",
     "crumbs": [
       "Part III: Organising",
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Organising critique <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Organising critique [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -1222,7 +1255,7 @@
     "text": "19.1 Development, testing, and validation of forensic methods",
     "crumbs": [
       "Part III: Organising",
-      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Reflexive critique <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Reflexive critique [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -1233,7 +1266,7 @@
     "text": "Forensic methods themselves must be scrutinised\nDiscard of flawed methods",
     "crumbs": [
       "Part III: Organising",
-      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Reflexive critique <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Reflexive critique [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -1244,7 +1277,7 @@
     "text": "19.2 Examples of discarded or limited methods\n\n19.2.1 p-curve and z-curve\n\nLimitations that led to their exclusion from the main methods chapters\n\n\n\n19.2.2 STALT\n\nIssues with this method\n\n\n\n19.2.3 Other short-lived methods\n\nAlternative p-value approaches that were short-lived in the 2010s",
     "crumbs": [
       "Part III: Organising",
-      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Reflexive critique <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Reflexive critique [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -1255,7 +1288,7 @@
     "text": "20.1 Proposed standard\nMany forensic meta-science methods have been developed by non methodologists. This is probably not accidental: maybe it required some outside thinkers to develop the agonizingly simple math that GRIM is based on.\nBut, now that these methods have been conceived of, they need to be validated. There is an asymmetric reputational risk here: if we use these methods to determine that other research is untrustworthy, and it is in fact our methods that are untrustworthy, we are going to look quite silly. This is where the (quantitative) forensic meta-science research community is currently falling behind, and which work in our research group tries to improve.\nAt the same time, traditional methods validation in the sense of a simulation study under ideal conditions is insufficient here. Trustworthiness assessments are increasingly likely to be conducted by users of forensic meta-science methods rather than expert developers of these methods. As such, implementations of the methods need to be usable, they need to have UIs that guide users towards making sensible choices and away from non-sensible ones, and they need to have clearly specified interpretations of results and reporting guidelines, etc. We therefore conceptualise validation to be broader, along the following candidate dimensions.\nThis rubric defines actionable roadmaps for specification, validation, improvement, and the assessment of readiness (rather than being merely aspirational).\nProperties\nUsage\nEcosystem",
     "crumbs": [
       "Part IV: Developing and validating methods",
-      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Forensic meta-science methods require validation <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Forensic meta-science methods require validation [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -1266,7 +1299,7 @@
     "text": "Formal specification of method\n\n\nLogic, math, etc.\nScope of inference\nAssumptions\nLimitations\nUse and failure cases\n\n\nImplementation\n\n\nIn a free and open-source software library written in an open-source programming language, such as R or Python. In R library or equivalent.\nCode as primary output. Treat the implementation as the artefact under review. Open code, unit tests, reproducible fixtures, ;continuous integration.\nThis often involves additional considerations beyond the abstract method to handle real world use cases. Common considerations include data extraction, which is a whole realm of tasks in itself.\nNote that separation of library and tool is important for validation.\n\n\nValidation against simulated data\n\n\ne.g., Monte Carlo for stochastic methods, parameter sweep for deterministic methods, etc., to assess whether the method functions as expected over a wide range of known inputs. ADEMP reporting.\nUsing common performance metrics from research methods, such as sensitivity, specificity, empirical rejection rate (calibration under the null, ability and power to detect issues of what size), bias, coverage, etc.\nRobustness to nuisance parameters (e.g., rounded inputs and different rounding or truncation conventions, reporting standards, typos in inputs, number of items).\n\n\nValidation against human-coded data\n\n\nTo assess whether the method functions as expected over a wide range of realistic inputs. This is useful for surfacing issues to do with extraction/parsing, edge cases, etc.\nConsideration of gold vs. reference standards, reporting of inter-rater reliability between human-human, human-tool, or human-ai coders, etc.\nThis provides information on generalisability, validation within specific domains (e.g., reporting standards may differ between psychology and medicine; pdf formatting may differ between journals or publishers).\n\n\nLarge scale application\n\n\nSubstantive conclusions (e.g., re prevalence, severity etc) from applying the method to a large amount of real world data. Often (initially) using the same data used for validation against human coding, as part of the same process.\n\n\nAdversarial robustness / gameability.\n\n\nOnce a method is known, can it be evaded (e.g., reporting choices that defeat GRIM)? What vectors of gamability might exist?\n\n\n\nTool\n\n\nImplementation of the library in a UI tool (eg Shiny app), AI skill, etc. to increase usability/scalability.\nAudit trail: does the tool produce an auditable trail of inputs, outputs, versions of method/tool applied, etc.\n\n\nReporting standards\n\n\nInstructions on how to interpret and report results from the method/tool.\n\n\nTraining materials\n\n\nMaterials that train and ideally assess whether users can correctly use and report the method/tool, including its assumptions, limitations, use- and failure-cases etc.\n\n\nUsability\n\n\nEvidence that users find the library/tool to be adequately usable; and that misuse cases are assessed, detected and mitigated via human factors research.\n\n\n\nComparison\n\n\nWhen multiple implementations of a given or related method are available, head-to-head comparisons are informative. This can be along many of the above dimensions, from validation to usability to training materials, to a general assessment of use-cases.\nVersioning, maintenance & deprecation.\nVersioning of methods/tools.\nLast time of validation. Tools rot (PDF formats change, R deps break). Need for ongoing validation, not one-shot.\n\n\nReadiness\n\n\nTBD: Some sort of maturity-level or evidence-readiness scheme that integrates the above.",
     "crumbs": [
       "Part IV: Developing and validating methods",
-      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Forensic meta-science methods require validation <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Forensic meta-science methods require validation [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -1277,7 +1310,7 @@
     "text": "This chapter will explain, with worked examples and R/tidyverse/purrr code, how to validate implementations of methods against simulated data. It differentiates between exhaustive grid sweeps and probabilistic Monte Carlo simulations.\nThis form of validation is essential to understanding whether a method works as expected under idea conditions (i.e., assuming no text extraction, parsing, etc issues; just perfect inputs), in terms of false positives, false negatives, coverage, bias, etc.",
     "crumbs": [
       "Part IV: Developing and validating methods",
-      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Validating meta-science methods using simulated data <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Validating meta-science methods using simulated data [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -1288,7 +1321,7 @@
     "text": "22.1 Overview",
     "crumbs": [
       "Appendices",
-      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Lesson plan <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Lesson plan [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -1299,7 +1332,7 @@
     "text": "Suggested lesson plan for teaching trustworthiness assessment using this book",
     "crumbs": [
       "Appendices",
-      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Lesson plan <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Lesson plan [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   },
   {
@@ -1310,7 +1343,7 @@
     "text": "22.2 Larger practice exercises\n\nFoody et al. (2013)\nVahey et al. (2015)\n“This Is The Worst Article Ever Written”",
     "crumbs": [
       "Appendices",
-      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Lesson plan <span class=\"badge badge-draft1\">✎ Outline</span></span>"
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Lesson plan [✎ Outline]{.badge .badge-draft1}</span>"
     ]
   }
 ]

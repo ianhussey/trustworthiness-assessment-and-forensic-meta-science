@@ -109,6 +109,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 <style>
   /* more breathing room before section headings.
      scoped to main.content so the sidebar/TOC headings are left alone.
@@ -597,6 +599,10 @@ window.Quarto = {
   <li><a href="#what-we-want-to-know-versus-what-a-p-value-tells-us-the-inverse-probability-fallacy" id="toc-what-we-want-to-know-versus-what-a-p-value-tells-us-the-inverse-probability-fallacy" class="nav-link" data-scroll-target="#what-we-want-to-know-versus-what-a-p-value-tells-us-the-inverse-probability-fallacy"><span class="header-section-number">4.3.2</span> What we want to know versus what a <em>p</em>-value tells us: the inverse probability fallacy</a></li>
   <li><a href="#p-values-as-incompatibility-with-the-null-model" id="toc-p-values-as-incompatibility-with-the-null-model" class="nav-link" data-scroll-target="#p-values-as-incompatibility-with-the-null-model"><span class="header-section-number">4.3.3</span> <em>p</em>-values as incompatibility with the null model</a></li>
   </ul></li>
+  <li><a href="#how-p-values-are-distributed" id="toc-how-p-values-are-distributed" class="nav-link" data-scroll-target="#how-p-values-are-distributed"><span class="header-section-number">4.4</span> How <em>p</em>-values are distributed</a>
+  <ul class="collapse">
+  <li><a href="#distributions-that-cannot-occur-naturally" id="toc-distributions-that-cannot-occur-naturally" class="nav-link" data-scroll-target="#distributions-that-cannot-occur-naturally"><span class="header-section-number">4.4.1</span> Distributions that cannot occur naturally</a></li>
+  </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
@@ -874,6 +880,161 @@ P(H_1 \mid D) = 1 - P(H_0 \mid D)
 </ol>
 <p>The second principle rules out the most common textbook error identified by Cassidy et al.&nbsp;(2019). The claim that <em>p</em> is “the probability that the results occurred by chance” reverses the definition: the <em>p</em>-value is calculated <em>assuming</em> that chance alone is operating, so it cannot be the probability that chance alone is operating (Greenland et al., 2016).</p>
 <p>A later statement from a task force convened by the ASA’s president (Benjamini et al., 2021) is more positive in tone. It stresses that <em>p</em>-values and significance tests, properly applied and interpreted, are valid tools that increase the rigour of conclusions and should not be abandoned. But it agrees on the essentials. <em>p</em>-values should be understood as assessments of observations relative to sampling variation, not as measures of practical significance, and any significance threshold should be chosen deliberately, based on the study’s goals and the consequences of wrong decisions.</p>
+</section>
+</section>
+</section>
+<section id="how-p-values-are-distributed" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="how-p-values-are-distributed"><span class="header-section-number">4.4</span> How <em>p</em>-values are distributed</h2>
+<p>A good test of whether we understand <em>p</em>-values is whether we can say how they behave across many studies. Most researchers cannot answer two simple questions: if we ran the same study many times, what would the distribution of <em>p</em>-values look like (a) when the null hypothesis is true, and (b) when the alternative hypothesis is true?</p>
+<ul>
+<li><strong>When <span class="math inline">\(H_0\)</span> is true</strong> (and the other assumptions of the null model hold), <em>p</em>-values are <strong>uniformly distributed</strong> between 0 and 1. Every value is equally likely. This follows directly from the definition: 5% of <em>p</em>-values fall below .05, 1% below .01, and 10% below .10. There is nothing special about .05; it is simply where we have chosen to draw the line.</li>
+<li><strong>When <span class="math inline">\(H_1\)</span> is true</strong>, <em>p</em>-values are <strong>skewed towards zero</strong>, and increasingly so as the true effect size or the sample size increases. The proportion that fall below .05 is, by definition, the study’s statistical power.</li>
+</ul>
+<p>One consequence is that <em>p</em>-values just below .05 are not particularly strong evidence against the null. In a study with 80% power, only about 3% of <em>p</em>-values fall between .04 and .05. In a study with 99% power, the figure is about 0.3%, which is <em>less</em> than the 1% expected when <span class="math inline">\(H_0\)</span> is true (Lakens, 2022). A literature full of <em>p</em>-values between .01 and .05, from studies that claim to be well powered, is therefore itself a signal worth attending to.</p>
+<p>Explore this with the plot below. Set the effect size to 0 to see the uniform distribution under <span class="math inline">\(H_0\)</span>, then increase the effect size or sample size and watch the <em>p</em>-values pile up near zero. The dashed line shows what the distribution would be if <span class="math inline">\(H_0\)</span> were true.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="248" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 247;"><span id="cb1-248"><a href="#cb1-248" aria-hidden="true" tabindex="-1"></a>viewof es <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">0</span><span class="op">,</span> <span class="fl">1.5</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.05</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"True effect size (Cohen's d)"</span>})</span>
+<span id="cb1-249"><a href="#cb1-249" aria-hidden="true" tabindex="-1"></a>viewof n <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">5</span><span class="op">,</span> <span class="dv">200</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Participants per group"</span>})</span>
+<span id="cb1-250"><a href="#cb1-250" aria-hidden="true" tabindex="-1"></a>viewof zoom <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">toggle</span>({<span class="dt">label</span><span class="op">:</span> <span class="st">"Zoom in on p &lt; .10"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="kw">false</span>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="254" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 253;"><span id="cb2-254"><a href="#cb2-254" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb2-255"><a href="#cb2-255" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">320</span><span class="op">,</span></span>
+<span id="cb2-256"><a href="#cb2-256" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marginLeft</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span></span>
+<span id="cb2-257"><a href="#cb2-257" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"p-value"</span><span class="op">,</span> <span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> xmax]}<span class="op">,</span></span>
+<span id="cb2-258"><a href="#cb2-258" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Proportion of p-values"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">,</span></span>
+<span id="cb2-259"><a href="#cb2-259" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb2-260"><a href="#cb2-260" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">rectY</span>(bins<span class="op">,</span> {<span class="dt">x1</span><span class="op">:</span> <span class="st">"lo"</span><span class="op">,</span> <span class="dt">x2</span><span class="op">:</span> <span class="st">"hi"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"prop"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">sig</span> <span class="op">?</span> <span class="st">"#2780e3"</span> <span class="op">:</span> <span class="st">"#adb5bd"</span><span class="op">,</span> <span class="dt">insetLeft</span><span class="op">:</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dt">insetRight</span><span class="op">:</span> <span class="fl">0.5</span>})<span class="op">,</span></span>
+<span id="cb2-261"><a href="#cb2-261" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([binWidth]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">strokeDasharray</span><span class="op">:</span> <span class="st">"4,3"</span>})<span class="op">,</span></span>
+<span id="cb2-262"><a href="#cb2-262" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])</span>
+<span id="cb2-263"><a href="#cb2-263" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb2-264"><a href="#cb2-264" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-2" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="269" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 268;"><span id="cb3-269"><a href="#cb3-269" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`Proportion of *p*-values below .05 (</span><span class="sc">${</span>es <span class="op">===</span> <span class="dv">0</span> <span class="op">?</span> <span class="st">"the false positive rate, α"</span> <span class="op">:</span> <span class="st">"power"</span><span class="sc">}</span><span class="vs">): **</span><span class="sc">${</span>(<span class="dv">100</span> <span class="op">*</span> <span class="fu">pCdf</span>(<span class="fl">0.05</span>))<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)<span class="sc">}</span><span class="vs">%**  </span></span>
+<span id="cb3-270"><a href="#cb3-270" aria-hidden="true" tabindex="-1"></a><span class="vs">Proportion between .04 and .05: **</span><span class="sc">${</span>(<span class="dv">100</span> <span class="op">*</span> (<span class="fu">pCdf</span>(<span class="fl">0.05</span>) <span class="op">-</span> <span class="fu">pCdf</span>(<span class="fl">0.04</span>)))<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)<span class="sc">}</span><span class="vs">%** (if H&lt;sub&gt;0&lt;/sub&gt; were true: 1%)`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-3" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb4" data-startfrom="279" data-source-offset="-256"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 278;"><span id="cb4-279"><a href="#cb4-279" aria-hidden="true" tabindex="-1"></a>delta <span class="op">=</span> es <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(n <span class="op">/</span> <span class="dv">2</span>)</span>
+<span id="cb4-280"><a href="#cb4-280" aria-hidden="true" tabindex="-1"></a>xmax <span class="op">=</span> zoom <span class="op">?</span> <span class="fl">0.1</span> <span class="op">:</span> <span class="dv">1</span></span>
+<span id="cb4-281"><a href="#cb4-281" aria-hidden="true" tabindex="-1"></a>binWidth <span class="op">=</span> zoom <span class="op">?</span> <span class="fl">0.005</span> <span class="op">:</span> <span class="fl">0.01</span></span>
+<span id="cb4-282"><a href="#cb4-282" aria-hidden="true" tabindex="-1"></a>bins <span class="op">=</span> d3<span class="op">.</span><span class="fu">range</span>(<span class="bu">Math</span><span class="op">.</span><span class="fu">round</span>(xmax <span class="op">/</span> binWidth))<span class="op">.</span><span class="fu">map</span>(i <span class="kw">=&gt;</span> {</span>
+<span id="cb4-283"><a href="#cb4-283" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> lo <span class="op">=</span> i <span class="op">*</span> binWidth<span class="op">,</span> hi <span class="op">=</span> (i <span class="op">+</span> <span class="dv">1</span>) <span class="op">*</span> binWidth</span>
+<span id="cb4-284"><a href="#cb4-284" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> {lo<span class="op">,</span> hi<span class="op">,</span> <span class="dt">prop</span><span class="op">:</span> <span class="fu">pCdf</span>(hi) <span class="op">-</span> <span class="fu">pCdf</span>(lo)<span class="op">,</span> <span class="dt">sig</span><span class="op">:</span> hi <span class="op">&lt;=</span> <span class="fl">0.05</span> <span class="op">+</span> <span class="fl">1e-9</span>}</span>
+<span id="cb4-285"><a href="#cb4-285" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb4-286"><a href="#cb4-286" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">pCdf</span>(x) {</span>
+<span id="cb4-287"><a href="#cb4-287" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (x <span class="op">&lt;=</span> <span class="dv">0</span>) <span class="cf">return</span> <span class="dv">0</span></span>
+<span id="cb4-288"><a href="#cb4-288" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (x <span class="op">&gt;=</span> <span class="dv">1</span>) <span class="cf">return</span> <span class="dv">1</span></span>
+<span id="cb4-289"><a href="#cb4-289" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> z <span class="op">=</span> <span class="fu">normInv</span>(<span class="dv">1</span> <span class="op">-</span> x <span class="op">/</span> <span class="dv">2</span>)</span>
+<span id="cb4-290"><a href="#cb4-290" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">normCdf</span>(delta <span class="op">-</span> z) <span class="op">+</span> <span class="fu">normCdf</span>(<span class="op">-</span>delta <span class="op">-</span> z)</span>
+<span id="cb4-291"><a href="#cb4-291" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-292"><a href="#cb4-292" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">normCdf</span>(x) {</span>
+<span id="cb4-293"><a href="#cb4-293" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Abramowitz &amp; Stegun 7.1.26</span></span>
+<span id="cb4-294"><a href="#cb4-294" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> t <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> <span class="fl">0.3275911</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(x) <span class="op">/</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">SQRT2</span>)</span>
+<span id="cb4-295"><a href="#cb4-295" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> erf <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> (((((<span class="fl">1.061405429</span> <span class="op">*</span> t <span class="op">-</span> <span class="fl">1.453152027</span>) <span class="op">*</span> t) <span class="op">+</span> <span class="fl">1.421413741</span>) <span class="op">*</span> t <span class="op">-</span> <span class="fl">0.284496736</span>) <span class="op">*</span> t <span class="op">+</span> <span class="fl">0.254829592</span>) <span class="op">*</span> t <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">exp</span>(<span class="op">-</span>x <span class="op">*</span> x <span class="op">/</span> <span class="dv">2</span>)</span>
+<span id="cb4-296"><a href="#cb4-296" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> x <span class="op">&gt;=</span> <span class="dv">0</span> <span class="op">?</span> <span class="fl">0.5</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> erf) <span class="op">:</span> <span class="fl">0.5</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> erf)</span>
+<span id="cb4-297"><a href="#cb4-297" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-298"><a href="#cb4-298" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">normInv</span>(p) {</span>
+<span id="cb4-299"><a href="#cb4-299" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Acklam's algorithm</span></span>
+<span id="cb4-300"><a href="#cb4-300" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> a <span class="op">=</span> [<span class="op">-</span><span class="fl">3.969683028665376e+01</span><span class="op">,</span> <span class="fl">2.209460984245205e+02</span><span class="op">,</span> <span class="op">-</span><span class="fl">2.759285104469687e+02</span><span class="op">,</span> <span class="fl">1.383577518672690e+02</span><span class="op">,</span> <span class="op">-</span><span class="fl">3.066479806614716e+01</span><span class="op">,</span> <span class="fl">2.506628277459239e+00</span>]</span>
+<span id="cb4-301"><a href="#cb4-301" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> b <span class="op">=</span> [<span class="op">-</span><span class="fl">5.447609879822406e+01</span><span class="op">,</span> <span class="fl">1.615858368580409e+02</span><span class="op">,</span> <span class="op">-</span><span class="fl">1.556989798598866e+02</span><span class="op">,</span> <span class="fl">6.680131188771972e+01</span><span class="op">,</span> <span class="op">-</span><span class="fl">1.328068155288572e+01</span>]</span>
+<span id="cb4-302"><a href="#cb4-302" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> c <span class="op">=</span> [<span class="op">-</span><span class="fl">7.784894002430293e-03</span><span class="op">,</span> <span class="op">-</span><span class="fl">3.223964580411365e-01</span><span class="op">,</span> <span class="op">-</span><span class="fl">2.400758277161838e+00</span><span class="op">,</span> <span class="op">-</span><span class="fl">2.549732539343734e+00</span><span class="op">,</span> <span class="fl">4.374664141464968e+00</span><span class="op">,</span> <span class="fl">2.938163982698783e+00</span>]</span>
+<span id="cb4-303"><a href="#cb4-303" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> e <span class="op">=</span> [<span class="fl">7.784695709041462e-03</span><span class="op">,</span> <span class="fl">3.224671290700398e-01</span><span class="op">,</span> <span class="fl">2.445134137142996e+00</span><span class="op">,</span> <span class="fl">3.754408661907416e+00</span>]</span>
+<span id="cb4-304"><a href="#cb4-304" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> plow <span class="op">=</span> <span class="fl">0.02425</span></span>
+<span id="cb4-305"><a href="#cb4-305" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (p <span class="op">&lt;</span> plow) {</span>
+<span id="cb4-306"><a href="#cb4-306" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> q <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="op">-</span><span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">log</span>(p))</span>
+<span id="cb4-307"><a href="#cb4-307" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (((((c[<span class="dv">0</span>] <span class="op">*</span> q <span class="op">+</span> c[<span class="dv">1</span>]) <span class="op">*</span> q <span class="op">+</span> c[<span class="dv">2</span>]) <span class="op">*</span> q <span class="op">+</span> c[<span class="dv">3</span>]) <span class="op">*</span> q <span class="op">+</span> c[<span class="dv">4</span>]) <span class="op">*</span> q <span class="op">+</span> c[<span class="dv">5</span>]) <span class="op">/</span> ((((e[<span class="dv">0</span>] <span class="op">*</span> q <span class="op">+</span> e[<span class="dv">1</span>]) <span class="op">*</span> q <span class="op">+</span> e[<span class="dv">2</span>]) <span class="op">*</span> q <span class="op">+</span> e[<span class="dv">3</span>]) <span class="op">*</span> q <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb4-308"><a href="#cb4-308" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-309"><a href="#cb4-309" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (p <span class="op">&gt;</span> <span class="dv">1</span> <span class="op">-</span> plow) <span class="cf">return</span> <span class="op">-</span><span class="fu">normInv</span>(<span class="dv">1</span> <span class="op">-</span> p)</span>
+<span id="cb4-310"><a href="#cb4-310" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> q <span class="op">=</span> p <span class="op">-</span> <span class="fl">0.5</span><span class="op">,</span> r <span class="op">=</span> q <span class="op">*</span> q</span>
+<span id="cb4-311"><a href="#cb4-311" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> (((((a[<span class="dv">0</span>] <span class="op">*</span> r <span class="op">+</span> a[<span class="dv">1</span>]) <span class="op">*</span> r <span class="op">+</span> a[<span class="dv">2</span>]) <span class="op">*</span> r <span class="op">+</span> a[<span class="dv">3</span>]) <span class="op">*</span> r <span class="op">+</span> a[<span class="dv">4</span>]) <span class="op">*</span> r <span class="op">+</span> a[<span class="dv">5</span>]) <span class="op">*</span> q <span class="op">/</span> (((((b[<span class="dv">0</span>] <span class="op">*</span> r <span class="op">+</span> b[<span class="dv">1</span>]) <span class="op">*</span> r <span class="op">+</span> b[<span class="dv">2</span>]) <span class="op">*</span> r <span class="op">+</span> b[<span class="dv">3</span>]) <span class="op">*</span> r <span class="op">+</span> b[<span class="dv">4</span>]) <span class="op">*</span> r <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb4-312"><a href="#cb4-312" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-5" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-6" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-7" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<p>For a fuller version, including the distribution of <em>p</em>-values for any power and the option to simulate studies one at a time, see Kristoffer Magnusson’s interactive visualisation at <a href="https://rpsychologist.com/d3/pdist">rpsychologist.com/d3/pdist</a>.</p>
+<section id="distributions-that-cannot-occur-naturally" class="level3" data-number="4.4.1">
+<h3 data-number="4.4.1" class="anchored" data-anchor-id="distributions-that-cannot-occur-naturally"><span class="header-section-number">4.4.1</span> Distributions that cannot occur naturally</h3>
+<p>Because unbiased <em>p</em>-values are either flat (under <span class="math inline">\(H_0\)</span>) or skewed towards zero (under <span class="math inline">\(H_1\)</span>), there is no natural way for a collection of <em>p</em>-values to cluster just below .05. An excess of <em>p</em>-values just under the significance threshold requires some form of bias, such as publication bias or <em>p</em>-hacking. Masicampo and Lalande (2012) reported such a “peculiar prevalence” of <em>p</em>-values just below .05 in three psychology journals. The evidence is more mixed than that headline suggests: in a much larger sample of 258,050 test results, Hartgerink et al.&nbsp;(2016) found a bump below .05 in some journals, but it disappeared when <em>p</em>-values were recalculated from the reported test statistics. They did, however, find clear evidence of <em>p</em>-values being incorrectly rounded down to below .05.</p>
+<p>The shape of a set of <em>p</em>-values is the basis of methods such as <em>p</em>-curve and <em>z</em>-curve. Their validity for diagnosing <em>p</em>-hacking in a given literature is debated, so they are not covered in this book, which focuses on methods for detecting impossible or implausible results within individual articles.</p>
 <!-- #### Why this matters for trustworthiness assessment -->
 <!-- The null-model view is what makes a *p*-value useful for assessing trustworthiness, and also what limits it. A reported *p*-value is informative about $H_0$ only to the extent that the other assumptions of the null model are credible. Much of this book is about checking those other assumptions: whether the design was as described, whether the reported statistics are internally consistent, and whether the analyses reported are the analyses that were run. When those assumptions are doubtful, a small *p*-value says correspondingly little about the null hypothesis. -->
 <!-- ### Implications for trustworthiness assessment -->
@@ -888,7 +1049,6 @@ P(H_1 \mid D) = 1 - P(H_0 \mid D)
 <!-- - Methods that aren't useful for trustworthiness assessment but are good for intuitions: distribution of biased *p*-values, *p*-curve, *z*-curve -->
 <!-- - Too good to be true in the context of power vs significance rate -->
 <!-- - Peeking and trends towards significance -->
-</section>
 </section>
 </section>
 <section id="references" class="level2 unnumbered">
@@ -906,10 +1066,12 @@ P(H_1 \mid D) = 1 - P(H_0 \mid D)
 <p>Gigerenzer, G. (2018). Statistical rituals: The replication delusion and how we got there. <em>Advances in Methods and Practices in Psychological Science</em>, <em>1</em>(2), 198–218. <a href="https://doi.org/10.1177/2515245918771329" class="uri">https://doi.org/10.1177/2515245918771329</a></p>
 <p>Greenland, S., Senn, S. J., Rothman, K. J., Carlin, J. B., Poole, C., Goodman, S. N., &amp; Altman, D. G. (2016). Statistical tests, <em>P</em> values, confidence intervals, and power: A guide to misinterpretations. <em>European Journal of Epidemiology</em>, <em>31</em>(4), 337–350. <a href="https://doi.org/10.1007/s10654-016-0149-3" class="uri">https://doi.org/10.1007/s10654-016-0149-3</a></p>
 <p>Haller, H., &amp; Krauss, S. (2002). Misinterpretations of significance: A problem students share with their teachers? <em>Methods of Psychological Research Online</em>, <em>7</em>(1), 1–20. <a href="https://epub.uni-regensburg.de/34338/" class="uri">https://epub.uni-regensburg.de/34338/</a></p>
+<p>Hartgerink, C. H. J., van Aert, R. C. M., Nuijten, M. B., Wicherts, J. M., &amp; van Assen, M. A. L. M. (2016). Distributions of <em>p</em>-values smaller than .05 in psychology: What is going on? <em>PeerJ</em>, <em>4</em>, Article e1935. <a href="https://doi.org/10.7717/peerj.1935" class="uri">https://doi.org/10.7717/peerj.1935</a></p>
 <p>Kruschke, J. K. (2015). <em>Doing Bayesian data analysis: A tutorial with R, JAGS, and Stan</em> (2nd ed.). Academic Press. <a href="https://doi.org/10.1016/C2012-0-00477-2" class="uri">https://doi.org/10.1016/C2012-0-00477-2</a></p>
 <p>Lakens, D. (2022). <em>Improving your statistical inferences</em> (Version 1.0.0). Zenodo. <a href="https://doi.org/10.5281/zenodo.6409077" class="uri">https://doi.org/10.5281/zenodo.6409077</a></p>
 <p>Lyu, X.-K., Xu, Y., Zhao, X.-F., Zuo, X.-N., &amp; Hu, C.-P. (2020). Beyond psychology: Prevalence of <em>p</em> value and confidence interval misinterpretation across different fields. <em>Journal of Pacific Rim Psychology</em>, <em>14</em>, Article e6. <a href="https://doi.org/10.1017/prp.2019.28" class="uri">https://doi.org/10.1017/prp.2019.28</a></p>
 <p>Lyu, Z., Peng, K., &amp; Hu, C.-P. (2018). <em>P</em>-value, confidence intervals, and statistical inference: A new dataset of misinterpretation. <em>Frontiers in Psychology</em>, <em>9</em>, Article 868. <a href="https://doi.org/10.3389/fpsyg.2018.00868" class="uri">https://doi.org/10.3389/fpsyg.2018.00868</a></p>
+<p>Masicampo, E. J., &amp; Lalande, D. R. (2012). A peculiar prevalence of <em>p</em> values just below .05. <em>Quarterly Journal of Experimental Psychology</em>, <em>65</em>(11), 2271–2279. <a href="https://doi.org/10.1080/17470218.2012.711335" class="uri">https://doi.org/10.1080/17470218.2012.711335</a></p>
 <p>McElreath, R. (2020). <em>Statistical rethinking: A Bayesian course with examples in R and Stan</em> (2nd ed.). CRC Press. <a href="https://doi.org/10.1201/9780429029608" class="uri">https://doi.org/10.1201/9780429029608</a></p>
 <p>McShane, B. B., &amp; Gal, D. (2017). Statistical significance and the dichotomization of evidence. <em>Journal of the American Statistical Association</em>, <em>112</em>(519), 885–895. <a href="https://doi.org/10.1080/01621459.2017.1289846" class="uri">https://doi.org/10.1080/01621459.2017.1289846</a></p>
 <p>Miller, J., &amp; Ulrich, R. (2016). Interpreting confidence intervals: A comment on Hoekstra, Morey, Rouder, and Wagenmakers (2014). <em>Psychonomic Bulletin &amp; Review</em>, <em>23</em>(1), 124–130. <a href="https://doi.org/10.3758/s13423-015-0859-7" class="uri">https://doi.org/10.3758/s13423-015-0859-7</a></p>
@@ -1129,6 +1291,17 @@ window.onload = function() {
   update_total_correct();
 }
 
+</script>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBlcyA9IElucHV0cy5yYW5nZShbMCwgMS41XSwge3ZhbHVlOiAwLjUsIHN0ZXA6IDAuMDUsIGxhYmVsOiBcIlRydWUgZWZmZWN0IHNpemUgKENvaGVuJ3MgZClcIn0pXG52aWV3b2YgbiA9IElucHV0cy5yYW5nZShbNSwgMjAwXSwge3ZhbHVlOiA1MCwgc3RlcDogMSwgbGFiZWw6IFwiUGFydGljaXBhbnRzIHBlciBncm91cFwifSlcbnZpZXdvZiB6b29tID0gSW5wdXRzLnRvZ2dsZSh7bGFiZWw6IFwiWm9vbSBpbiBvbiBwIDwgLjEwXCIsIHZhbHVlOiBmYWxzZX0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTIiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJQbG90LnBsb3Qoe1xuICBoZWlnaHQ6IDMyMCxcbiAgbWFyZ2luTGVmdDogNTAsXG4gIHg6IHtsYWJlbDogXCJwLXZhbHVlXCIsIGRvbWFpbjogWzAsIHhtYXhdfSxcbiAgeToge2xhYmVsOiBcIlByb3BvcnRpb24gb2YgcC12YWx1ZXNcIiwgZ3JpZDogdHJ1ZX0sXG4gIG1hcmtzOiBbXG4gICAgUGxvdC5yZWN0WShiaW5zLCB7eDE6IFwibG9cIiwgeDI6IFwiaGlcIiwgeTogXCJwcm9wXCIsIGZpbGw6IGQgPT4gZC5zaWcgPyBcIiMyNzgwZTNcIiA6IFwiI2FkYjViZFwiLCBpbnNldExlZnQ6IDAuNSwgaW5zZXRSaWdodDogMC41fSksXG4gICAgUGxvdC5ydWxlWShbYmluV2lkdGhdLCB7c3Ryb2tlOiBcImN1cnJlbnRDb2xvclwiLCBzdHJva2VEYXNoYXJyYXk6IFwiNCwzXCJ9KSxcbiAgICBQbG90LnJ1bGVZKFswXSlcbiAgXVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Im1kYFByb3BvcnRpb24gb2YgKnAqLXZhbHVlcyBiZWxvdyAuMDUgKCR7ZXMgPT09IDAgPyBcInRoZSBmYWxzZSBwb3NpdGl2ZSByYXRlLCDOsVwiIDogXCJwb3dlclwifSk6ICoqJHsoMTAwICogcENkZigwLjA1KSkudG9GaXhlZCgxKX0lKiogIFxuUHJvcG9ydGlvbiBiZXR3ZWVuIC4wNCBhbmQgLjA1OiAqKiR7KDEwMCAqIChwQ2RmKDAuMDUpIC0gcENkZigwLjA0KSkpLnRvRml4ZWQoMSl9JSoqIChpZiBIPHN1Yj4wPC9zdWI+IHdlcmUgdHJ1ZTogMSUpYFxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC00IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiLy8gcC12YWx1ZSBkaXN0cmlidXRpb24gZm9yIGEgdHdvLXNpZGVkLCB0d28tc2FtcGxlIHRlc3QsIHVzaW5nIHRoZSBub3JtYWwgYXBwcm94aW1hdGlvbiB0byB0aGUgdC10ZXN0XG4vLyAoc2xpZ2h0bHkgb3ZlcmVzdGltYXRlcyBwb3dlciBpbiBzbWFsbCBzYW1wbGVzKS4gRm9yIG5vbmNlbnRyYWxpdHkgZGVsdGEsIFAocCA8PSB4KSA9IFBoaShkZWx0YSAtIHopICsgUGhpKC1kZWx0YSAtIHopLFxuLy8gd2hlcmUgeiA9IFBoaV4tMSgxIC0geC8yKS5cbmRlbHRhID0gZXMgKiBNYXRoLnNxcnQobiAvIDIpXG54bWF4ID0gem9vbSA/IDAuMSA6IDFcbmJpbldpZHRoID0gem9vbSA/IDAuMDA1IDogMC4wMVxuYmlucyA9IGQzLnJhbmdlKE1hdGgucm91bmQoeG1heCAvIGJpbldpZHRoKSkubWFwKGkgPT4ge1xuICBjb25zdCBsbyA9IGkgKiBiaW5XaWR0aCwgaGkgPSAoaSArIDEpICogYmluV2lkdGhcbiAgcmV0dXJuIHtsbywgaGksIHByb3A6IHBDZGYoaGkpIC0gcENkZihsbyksIHNpZzogaGkgPD0gMC4wNSArIDFlLTl9XG59KVxuZnVuY3Rpb24gcENkZih4KSB7XG4gIGlmICh4IDw9IDApIHJldHVybiAwXG4gIGlmICh4ID49IDEpIHJldHVybiAxXG4gIGNvbnN0IHogPSBub3JtSW52KDEgLSB4IC8gMilcbiAgcmV0dXJuIG5vcm1DZGYoZGVsdGEgLSB6KSArIG5vcm1DZGYoLWRlbHRhIC0geilcbn1cbmZ1bmN0aW9uIG5vcm1DZGYoeCkge1xuICAvLyBBYnJhbW93aXR6ICYgU3RlZ3VuIDcuMS4yNlxuICBjb25zdCB0ID0gMSAvICgxICsgMC4zMjc1OTExICogTWF0aC5hYnMoeCkgLyBNYXRoLlNRUlQyKVxuICBjb25zdCBlcmYgPSAxIC0gKCgoKCgxLjA2MTQwNTQyOSAqIHQgLSAxLjQ1MzE1MjAyNykgKiB0KSArIDEuNDIxNDEzNzQxKSAqIHQgLSAwLjI4NDQ5NjczNikgKiB0ICsgMC4yNTQ4Mjk1OTIpICogdCAqIE1hdGguZXhwKC14ICogeCAvIDIpXG4gIHJldHVybiB4ID49IDAgPyAwLjUgKiAoMSArIGVyZikgOiAwLjUgKiAoMSAtIGVyZilcbn1cbmZ1bmN0aW9uIG5vcm1JbnYocCkge1xuICAvLyBBY2tsYW0ncyBhbGdvcml0aG1cbiAgY29uc3QgYSA9IFstMy45Njk2ODMwMjg2NjUzNzZlKzAxLCAyLjIwOTQ2MDk4NDI0NTIwNWUrMDIsIC0yLjc1OTI4NTEwNDQ2OTY4N2UrMDIsIDEuMzgzNTc3NTE4NjcyNjkwZSswMiwgLTMuMDY2NDc5ODA2NjE0NzE2ZSswMSwgMi41MDY2MjgyNzc0NTkyMzllKzAwXVxuICBjb25zdCBiID0gWy01LjQ0NzYwOTg3OTgyMjQwNmUrMDEsIDEuNjE1ODU4MzY4NTgwNDA5ZSswMiwgLTEuNTU2OTg5Nzk4NTk4ODY2ZSswMiwgNi42ODAxMzExODg3NzE5NzJlKzAxLCAtMS4zMjgwNjgxNTUyODg1NzJlKzAxXVxuICBjb25zdCBjID0gWy03Ljc4NDg5NDAwMjQzMDI5M2UtMDMsIC0zLjIyMzk2NDU4MDQxMTM2NWUtMDEsIC0yLjQwMDc1ODI3NzE2MTgzOGUrMDAsIC0yLjU0OTczMjUzOTM0MzczNGUrMDAsIDQuMzc0NjY0MTQxNDY0OTY4ZSswMCwgMi45MzgxNjM5ODI2OTg3ODNlKzAwXVxuICBjb25zdCBlID0gWzcuNzg0Njk1NzA5MDQxNDYyZS0wMywgMy4yMjQ2NzEyOTA3MDAzOThlLTAxLCAyLjQ0NTEzNDEzNzE0Mjk5NmUrMDAsIDMuNzU0NDA4NjYxOTA3NDE2ZSswMF1cbiAgY29uc3QgcGxvdyA9IDAuMDI0MjVcbiAgaWYgKHAgPCBwbG93KSB7XG4gICAgY29uc3QgcSA9IE1hdGguc3FydCgtMiAqIE1hdGgubG9nKHApKVxuICAgIHJldHVybiAoKCgoKGNbMF0gKiBxICsgY1sxXSkgKiBxICsgY1syXSkgKiBxICsgY1szXSkgKiBxICsgY1s0XSkgKiBxICsgY1s1XSkgLyAoKCgoZVswXSAqIHEgKyBlWzFdKSAqIHEgKyBlWzJdKSAqIHEgKyBlWzNdKSAqIHEgKyAxKVxuICB9XG4gIGlmIChwID4gMSAtIHBsb3cpIHJldHVybiAtbm9ybUludigxIC0gcClcbiAgY29uc3QgcSA9IHAgLSAwLjUsIHIgPSBxICogcVxuICByZXR1cm4gKCgoKChhWzBdICogciArIGFbMV0pICogciArIGFbMl0pICogciArIGFbM10pICogciArIGFbNF0pICogciArIGFbNV0pICogcSAvICgoKCgoYlswXSAqIHIgKyBiWzFdKSAqIHIgKyBiWzJdKSAqIHIgKyBiWzNdKSAqIHIgKyBiWzRdKSAqIHIgKyAxKVxufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdlcycpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCduJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3pvb20nKSJ9XX0=
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../chapters";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -1606,307 +1779,399 @@ window.onload = function() {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Interpretation methods [✎ Draft]{.badge .badge-draft2}</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="fu">file.exists</span>(<span class="st">"../_setup.R"</span>)){<span class="fu">source</span>(<span class="st">"../_setup.R"</span>)}</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">## (Mis)interpretation of *p*-values</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>Before assessing whether an article's conclusions follow from its results, it is worth checking whether we ourselves can reliably say what its results mean. The *p*-value is the most widely reported inferential statistic in psychology and health research, and it is also among the most widely misunderstood. This is not a problem confined to students: for four decades, surveys have found that most researchers, and most people who teach statistics, endorse at least one false statement about what a significant *p*-value tells them.</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">### Test yourself</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>The questionnaire below was first used by Oakes (1986) with academic psychologists, and has since been reused, with minor changes, in Israel (Falk &amp; Greenbaum, 1995), Germany (Haller &amp; Krauss, 2002), Spain (Badenes-Ribera et al., 2015), and China (Lyu et al., 2018, 2020). The wording here follows Haller and Krauss (2002).</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>Answer all six statements, then click the button at the bottom to see how you did.</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>::: {.webex-check .webex-box}</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>Suppose you have a treatment that you suspect may alter performance on a certain task. You compare the means of your control and experimental groups (say 20 subjects in each sample). Further, suppose you use a simple independent means *t*-test and your result is (*t* = 2.7, *d.f.* = 18, *p* = 0.01). Please mark each of the statements below as "true" or "false". "False" means that the statement does not follow logically from the above premises. Also note that one, several or none of the statements may be correct.</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>You have absolutely disproved the null hypothesis (that is, there is no difference between the population means). <span class="in">`r webexercises::torf(FALSE)`</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>You have found the probability of the null hypothesis being true. <span class="in">`r webexercises::torf(FALSE)`</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>You have absolutely proved your experimental hypothesis (that there is a difference between the population means). <span class="in">`r webexercises::torf(FALSE)`</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>You can deduce the probability of the experimental hypothesis being true. <span class="in">`r webexercises::torf(FALSE)`</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>You know, if you decide to reject the null hypothesis, the probability that you are making the wrong decision. <span class="in">`r webexercises::torf(FALSE)`</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="ss">6.  </span>You have a reliable experimental finding in the sense that if, hypothetically, the experiment were repeated a great number of times, you would obtain a significant result on 99% of occasions. <span class="in">`r webexercises::torf(FALSE)`</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="in">`r webexercises::hide("Why is each statement false?")`</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>All six statements are false. Each one corresponds to a recognisable fallacy.</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>**Certainty (disproof).** A significance test gives a probabilistic statement about data, not a proof. Data this extreme occur under the null model 1% of the time, so the null hypothesis has not been disproved.</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>**Inverse probability.** The *p*-value is the probability of data at least this extreme *given* the null model, $P(D \mid H_0)$. It is not the probability of the null hypothesis given the data, $P(H_0 \mid D)$. Getting from one to the other requires a prior probability for $H_0$, which a significance test does not use.</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>**Certainty (proof).** The mirror image of statement 1. Rejecting the null does not prove the alternative, and even if a difference exists, it does not establish that the experimental hypothesis's explanation for it is correct.</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>**Inverse probability, again.** The probability of the experimental hypothesis is no more deducible from *p* than the probability of the null is.</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>**Error-rate confusion.** This reads *p* as the probability that rejecting $H_0$ is a mistake, i.e., $P(H_0 \mid \text{significant result})$. That is the false discovery risk, which depends on the prior probability of $H_0$ and on statistical power, neither of which is given. The *p*-value is also not the Type I error rate: α is fixed before the study and describes the long-run behaviour of the procedure, not the probability of error in this particular decision.</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="ss">6.  </span>**Replication fallacy.** 1 − *p* is not the probability of a significant replication. The replication probability depends on the true effect size and the replication's power. If the observed effect were exactly the true effect, a same-sized replication would be significant only about 70–75% of the time; and because significant results tend to overestimate effects, the real figure is usually lower.</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="in">`r webexercises::unhide()`</span></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="fu">### Prevalence of (mis)interpretations of *p*-values</span></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>If you marked any statement as true, you are in the majority.</span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>::: big-number</span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">&gt;90%</span><span class="co">]</span>{.number}</span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">of psychology students and professors agree with one or more of these misinterpretations of significant *p*-values, most often by describing *p* as the probability that the results occurred by chance (see Gigerenzer, 2018 for review).</span><span class="co">]</span>{.description}</span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Oakes (1986) found that 97% of the 70 academic psychologists he surveyed endorsed at least one of the statements (Gigerenzer, 2018). As summarised by Cohen (1994), 68 of 70 interpreted *p* as the probability that $H_0$ is true, and 42 believed a *p* of .01 implied a 99% chance that a replication would be significant.</span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Haller and Krauss (2002) gave the questionnaire to students, methodology instructors, and scientists in Germany. As reported by Gigerenzer (2004), none of the 44 psychology students rejected all six statements, compared with 4 of 39 scientists who did not teach statistics and 6 of 30 methodology instructors who did.</span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Lyu et al. (2018) found that 99% of 362 psychology researchers and students in China endorsed at least one false statement. In a larger sample of 1,479 researchers and students across fields, Lyu et al. (2020) found that misinterpretation did not vary meaningfully by degree, field, or career stage, and that respondents were largely unaware of their errors.</span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Badenes-Ribera et al. (2016) found the inverse-probability fallacy to be the most common error among academic psychologists in Italy and Chile, followed by the replication fallacy.</span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>@tbl-any-misinterpretation summarises these studies using Gigerenzer's (2018) Table 2, showing the percentage of respondents in each sample who endorsed at least one of the six false statements in the quiz above.</span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Sample <span class="pp">|</span> Study <span class="pp">|</span> *N* <span class="pp">|</span> Endorsed at least one false statement (%) <span class="pp">|</span></span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="pp">|:-----------------|:-----------------|-----------------:|-----------------:|</span></span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Professional <span class="pp">|</span> Oakes (1986) <span class="pp">|</span> 70 <span class="pp">|</span> 97 <span class="pp">|</span></span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Professional <span class="pp">|</span> Haller &amp; Krauss (2002): statistics teachers <span class="pp">|</span> 30 <span class="pp">|</span> 80 <span class="pp">|</span></span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Professional <span class="pp">|</span> Haller &amp; Krauss (2002): other professors of psychology <span class="pp">|</span> 39 <span class="pp">|</span> 90 <span class="pp">|</span></span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Professional <span class="pp">|</span> Badenes-Ribera et al. (2015) <span class="pp">|</span> 418 <span class="pp">|</span> 94 <span class="pp">|</span></span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Professional <span class="pp">|</span> Badenes-Ribera et al. (2016): methodology <span class="pp">|</span> 18 <span class="pp">|</span> 56 <span class="pp">|</span></span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Professional <span class="pp">|</span> Badenes-Ribera et al. (2016): other areas <span class="pp">|</span> 146 <span class="pp">|</span> 74 <span class="pp">|</span></span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Student <span class="pp">|</span> Haller &amp; Krauss (2002) <span class="pp">|</span> 44 <span class="pp">|</span> 100 <span class="pp">|</span></span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>: Percentage of respondents who endorsed at least one false statement about a significant *p*-value. Adapted from Gigerenzer (2018, Table 2). Oakes (1986) and Haller and Krauss (2002) used the questionnaire in the quiz above, with *p* = .01. Badenes-Ribera et al. (2015, 2016) used their own items with *p* = .001, and did not include statements 3 and 5. Badenes-Ribera et al. (2015) reported this percentage only for all respondents combined, so their six subsamples of academic psychologists are pooled here. {#tbl-any-misinterpretation}</span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="fu">#### How much should we trust these prevalence estimates?</span></span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>The direction of this literature is robust, but the precise percentages should be treated with some caution. The questionnaires consist entirely of false statements, which means they cannot distinguish a respondent who misunderstands *p*-values from one who is uncertain, reads the items charitably, or assumes that at least one statement must be true. McShane and Gal (2017) also note that, as worded, some items can be read as questions about unknown population parameters rather than about the observed result. Similar criticisms have been made of the equivalent questionnaire for confidence intervals (García-Pérez &amp; Alcalá-Quintana, 2016; Miller &amp; Ulrich, 2016). Figures such as "90–99% of researchers endorse at least one false statement" are therefore better read as evidence that misinterpretation is common across fields, career stages, and countries than as well-measured prevalence estimates.</span>
-<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a><span class="fu">### Errors in intro to psych textbooks' definitions</span></span>
-<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>The errors are not confined to survey responses. They are also in the textbooks.</span>
-<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>::: big-number</span>
-<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">89%</span><span class="co">]</span>{.number}</span>
-<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">of introductory psychology textbooks that defined or explained statistical significance did so incorrectly, most often by describing *p* as the probability that the results occurred by chance (Cassidy et al., 2019).</span><span class="co">]</span>{.description}</span>
-<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a><span class="fu">## Misinterpretations in the literature</span></span>
-<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>Students who give these answers may therefore be accurately recalling what they were taught. The errors also reach the published literature.</span>
-<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>::: big-number</span>
-<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">76–85%</span><span class="co">]</span>{.number}</span>
-<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">of psychology articles that discussed a nonsignificant result interpreted it as evidence that the effect was absent, with no significant change between 2009 and 2021 (Murphy et al., 2025).</span><span class="co">]</span>{.description}</span>
-<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a><span class="fu">## What a *p*-value is</span></span>
-<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a>It's important to start by emphasizing that I and this book should not be considered the authoritative source of the definition and interpretation of *p*-values. For these, see the original sources cited below. </span>
-<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a><span class="fu">### The formal definition</span></span>
-<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a>The definition found in most statistics textbooks descends from Fisher's significance tests and is stated formally by Cox (2006). Choose a test statistic *T* that measures how far the data depart from what the null hypothesis predicts. The *p*-value is the probability, calculated assuming the null hypothesis is true, of obtaining a value of *T* at least as extreme as the one actually observed:</span>
-<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a>p = P(T \geq t_{\text{obs}};\ H_0)</span>
-<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>The semicolon rather than a conditional bar (<span class="sc">\|</span>) is deliberate. In the frequentist framework $H_0$ is not a random event with a probability of its own; it is an assumption under which the probability is calculated. Three ingredients are always involved:</span>
-<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>**A test statistic**, such as *t*, *F*, or χ², which summarises the data. For a two-sided test, *T* is the absolute value, e.g., \|*t*<span class="sc">\|</span>, so that departures in either direction count as extreme.</span>
-<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>**A reference distribution** for that statistic, derived by assuming $H_0$ is true.</span>
-<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>**A tail**: the probability of the observed value *or anything more extreme*, not of the observed value alone.</span>
-<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a>Applied to the quiz scenario: if there were truly no difference between the population means, and the other assumptions of the *t*-test held, a *t* statistic at least as far from zero as 2.7 would arise in about 1.5% of repeated studies with 18 degrees of freedom. (The questionnaire's *p* = .01 is rounded; the exact two-sided value for *t*(18) = 2.7 is .015.)</span>
-<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a>This definition is the key to every statement in the quiz. The *p*-value is calculated by *assuming* $H_0$ is true, so it cannot also be the probability that $H_0$ is true. As Greenland et al. (2016) put it, it is hard to see how a probability deduced from a set of assumptions could be the probability of those same assumptions.</span>
-<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a><span class="fu">#### "The model" is the null model</span></span>
-<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a>The American Statistical Association's statement on *p*-values (Wasserstein &amp; Lazar, 2016) gives an informal definition that is often quoted:</span>
-<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>::: big-quote</span>
-<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">"the [long-run] probability under a specified statistical model that a statistical summary of the data ... would be equal to or more extreme than its observed value."</span><span class="co">]</span>{.quote}</span>
-<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">American Statistical Association's statement on *p*-values (Wasserstein &amp; Lazar, 2016).</span><span class="co">]</span>{.citation}</span>
-<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a>Many readers initially struggle with what "a specified statistical model" refers to. It is not the researcher's hypothesis, the alternative hypothesis, but rather the **null model**: the null hypothesis *together with* every other assumption needed to derive the reference distribution. The statement's first principle makes this explicit, describing the most common context as "a model, constructed under a set of assumptions, together with a so-called 'null hypothesis'". For the independent-samples *t*-test in the quiz, the null model includes:</span>
-<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**The null hypothesis itself**: the population means are equal.</span>
-<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Distributional assumptions**: the outcome is normally distributed within each group, with equal variances.</span>
-<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Design assumptions**: observations are independent, and participants were randomly sampled or randomly assigned.</span>
-<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Analysis and reporting assumptions**: the test was planned before seeing the data, and this *p*-value was not selected for reporting from among many because it was small.</span>
-<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a>Greenland et al. (2016) build this into their definition.</span>
-<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a>::: big-quote</span>
-<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">The *p*-value is "the [long-run] probability that the chosen test statistic would have been at least as large as its observed value if every model assumption were correct, including the test hypothesis."</span><span class="co">]</span>{.quote}</span>
-<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Greenland et al. (2016)</span><span class="co">]</span>{.citation}</span>
-<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a>In their terms, $H_0$ is just the one assumption that has been *targeted* for testing (the "test hypothesis"); the *p*-value itself tests all of them at once.</span>
-<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a><span class="fu">### What we want to know versus what a *p*-value tells us: the inverse probability fallacy</span></span>
-<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a>Most of the misinterpretations in the quiz come from a mismatch between the question researchers want answered and the question a *p*-value actually answers.</span>
-<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a>**What most researchers want to know:**</span>
-<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a>::: big-quote</span>
-<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a>[Given my data,\</span>
-<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a>how probable is it that my hypothesis is true?]{.quote}</span>
-<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a>This can be formalised as $P(H_1 \mid D)$, the probability of the alternative hypothesis given the data. Because the null and alternative hypotheses are mutually exclusive and exhaustive (the effect is either zero or it is not), this is the same question as how probable the null hypothesis is, since $P(H_1 \mid D) = 1 - P(H_0 \mid D)$.</span>
-<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a>**What a *p*-value actually tells us:**</span>
-<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-161"><a href="#cb1-161" aria-hidden="true" tabindex="-1"></a>::: big-quote</span>
-<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a>[Given that the null model is true,\</span>
-<span id="cb1-163"><a href="#cb1-163" aria-hidden="true" tabindex="-1"></a>how improbable are data like mine?]{.quote}</span>
-<span id="cb1-164"><a href="#cb1-164" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-165"><a href="#cb1-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-166"><a href="#cb1-166" aria-hidden="true" tabindex="-1"></a>This can be formalised as $P(D \mid H_0)$, the probability of the data given the null hypothesis. Here $D$ is shorthand for "data at least as extreme as those observed", and the conditional bar is used loosely for "assuming", as it usually is in teaching (see the note on the semicolon above).</span>
-<span id="cb1-167"><a href="#cb1-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-168"><a href="#cb1-168" aria-hidden="true" tabindex="-1"></a>Significance testing then adds an inferential step that is not part of the probability calculation at all:</span>
-<span id="cb1-169"><a href="#cb1-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-170"><a href="#cb1-170" aria-hidden="true" tabindex="-1"></a>::: big-quote</span>
-<span id="cb1-171"><a href="#cb1-171" aria-hidden="true" tabindex="-1"></a>[Given that the null model is true, how improbable are data like mine?\</span>
-<span id="cb1-172"><a href="#cb1-172" aria-hidden="true" tabindex="-1"></a>If very improbable, we will act as if the alternative hypothesis is true.]{.quote}</span>
-<span id="cb1-173"><a href="#cb1-173" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-174"><a href="#cb1-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-175"><a href="#cb1-175" aria-hidden="true" tabindex="-1"></a>This decision rule is what $\alpha$ controls: in the long run, no more than 5% of tests of true null hypotheses will be significant (given the test's assumptions and no bias such as uncorrected multiple testing or *p*-hacking). It does not say how probable any particular hypothesis is.</span>
-<span id="cb1-176"><a href="#cb1-176" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-177"><a href="#cb1-177" aria-hidden="true" tabindex="-1"></a>The *p*-value, $P(D \mid H_0)$, and the quantity researchers want, $P(H_1 \mid D)$, differ in two ways, and misinterpretations usually slip across both at once:</span>
-<span id="cb1-178"><a href="#cb1-178" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-179"><a href="#cb1-179" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**The direction of the conditional is reversed.** $P(D \mid H_0)$ is the probability of the data given the null; $P(H_0 \mid D)$ is the probability of the null given the data. These can differ enormously. The probability that a person is a smoker given that they have lung cancer is high; the probability that a person has lung cancer given that they smoke is much lower. Treating one as the other is known as the *inverse probability fallacy* or the *transposed conditional*.</span>
-<span id="cb1-180"><a href="#cb1-180" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**The complement is then taken.** Having read *p* as $P(H_0 \mid D)$, it is a short step to reading $1 - p$ as $P(H_1 \mid D)$: "*p* = .01, so there is a 99% chance the effect is real."</span>
-<span id="cb1-181"><a href="#cb1-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-182"><a href="#cb1-182" aria-hidden="true" tabindex="-1"></a>Quiz statement 2 is the first step: reading *p* as $P(H_0 \mid D)$. Statement 4 is both steps: reading $1 - p$ as $P(H_1 \mid D)$. Statement 5 reads *p* as $P(H_0 \mid \text{significant result})$, the probability that a rejection of $H_0$ is mistaken. All three treat a probability of data as a probability of a hypothesis.</span>
-<span id="cb1-183"><a href="#cb1-183" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-184"><a href="#cb1-184" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Bayes' theorem</span></span>
-<span id="cb1-185"><a href="#cb1-185" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-186"><a href="#cb1-186" aria-hidden="true" tabindex="-1"></a>It is possible to get from $P(D \mid H_0)$ to $P(H_0 \mid D)$, and hence to $P(H_1 \mid D)$, but only with additional information, using Bayes' theorem:</span>
-<span id="cb1-187"><a href="#cb1-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-188"><a href="#cb1-188" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-189"><a href="#cb1-189" aria-hidden="true" tabindex="-1"></a>P(H_0 \mid D) = \frac{P(D \mid H_0)\,P(H_0)}{P(D \mid H_0)\,P(H_0) + P(D \mid H_1)\,P(H_1)}</span>
-<span id="cb1-190"><a href="#cb1-190" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-191"><a href="#cb1-191" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-192"><a href="#cb1-192" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-193"><a href="#cb1-193" aria-hidden="true" tabindex="-1"></a>P(H_1 \mid D) = 1 - P(H_0 \mid D)</span>
-<span id="cb1-194"><a href="#cb1-194" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-195"><a href="#cb1-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-196"><a href="#cb1-196" aria-hidden="true" tabindex="-1"></a>The *p*-value supplies only one of the terms, $P(D \mid H_0)$. Two further things are needed that a significance test does not use:</span>
-<span id="cb1-197"><a href="#cb1-197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-198"><a href="#cb1-198" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**The prior probability of each hypothesis**, $P(H_0)$ and $P(H_1) = 1 - P(H_0)$: how plausible the null was before the data were collected.</span>
-<span id="cb1-199"><a href="#cb1-199" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**The probability of the data if the alternative is true**, $P(D \mid H_1)$. This is harder than it looks, because $H_1$ ("the effect is not zero") covers every possible non-zero effect size, and $P(D \mid H_1)$ is different for each. It can only be calculated by assuming a particular effect size or a distribution of plausible effect sizes.</span>
-<span id="cb1-200"><a href="#cb1-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-201"><a href="#cb1-201" aria-hidden="true" tabindex="-1"></a>If $D$ is defined as "a significant result" rather than "data at least as extreme as those observed", these terms become familiar: $P(D \mid H_0) = \alpha$, and $P(D \mid H_1)$ is the study's statistical power at the assumed effect size. $P(H_0 \mid D)$ is then the probability that a significant result is a false positive, which depends on power and on the prior probability of $H_0$ as much as on $\alpha$.</span>
-<span id="cb1-202"><a href="#cb1-202" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-203"><a href="#cb1-203" aria-hidden="true" tabindex="-1"></a>Frequentist methods treat hypotheses as fixed states of the world rather than as things with probabilities, so they deliberately leave the prior out, and with it any answer to $P(H_1 \mid D)$.</span>
-<span id="cb1-204"><a href="#cb1-204" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-205"><a href="#cb1-205" aria-hidden="true" tabindex="-1"></a>This lesson and course is not on frequentist vs. Bayesian approaches to Null Hypothesis Significance Testing - I mention it only to give you some awareness of where pursuing these questions lead to and where you could learn more if you are interested (e.g., Kruschke, 2015; McElreath, 2020). The point is that *p*-values cannot, by themselves, give the answer to researcher's most common or intuitive questions. So, researchers have three options:</span>
-<span id="cb1-206"><a href="#cb1-206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-207"><a href="#cb1-207" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Change our statistical methods to answer our chosen question.</span>
-<span id="cb1-208"><a href="#cb1-208" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Stick with frequentist *p*-values and reconsider the questions we are (implicitly) asking.</span>
-<span id="cb1-209"><a href="#cb1-209" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Keep misinterpreting *p*-values and producing mushy partial truths <span class="co">[</span><span class="ot">not this one, please</span><span class="co">]</span>.</span>
-<span id="cb1-210"><a href="#cb1-210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-211"><a href="#cb1-211" aria-hidden="true" tabindex="-1"></a><span class="fu">### *p*-values as incompatibility with the null model</span></span>
-<span id="cb1-212"><a href="#cb1-212" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-213"><a href="#cb1-213" aria-hidden="true" tabindex="-1"></a>It follows that a *p*-value is best read as a measure of the **(in)compatibility** between the data and the whole null model. It runs from 0 (the data are completely incompatible with the null model) to 1 (the data are exactly what the null model predicts), so the smaller the *p*-value, the greater the incompatibility (Greenland et al., 2016).</span>
-<span id="cb1-214"><a href="#cb1-214" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-215"><a href="#cb1-215" aria-hidden="true" tabindex="-1"></a>Lakens (2022) puts the same idea in plainer terms: a *p*-value tells us how *surprising* the observed data would be if the null model were true. Surprise depends on what the null model predicts, not only on the size of the observed effect. With a larger sample, the null model predicts mean differences that cluster more tightly around zero, so the same observed difference is more surprising, and its *p*-value smaller, with 5,000 participants than with 50. Laken's <span class="co">[</span><span class="ot">ebook and online course 'Improving your Statistical Inferences'</span><span class="co">](https://lakens.github.io/statistical_inferences/)</span> is highly recommended!</span>
-<span id="cb1-216"><a href="#cb1-216" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-217"><a href="#cb1-217" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**A small *p*-value** says that the data would be unusual if every assumption of the null model were true. It does not say which assumption is false. $H_0$ may be false, or the design may have been compromised, the distributional assumptions may not hold, or the result may have been selected for reporting because it was small.</span>
-<span id="cb1-218"><a href="#cb1-218" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**A large *p*-value** says only that the data are not unusual under the null model. It does not show that $H_0$ is true: the same data would also be unremarkable under many other hypotheses, and a large *p*-value can itself result from violated assumptions.</span>
-<span id="cb1-219"><a href="#cb1-219" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-220"><a href="#cb1-220" aria-hidden="true" tabindex="-1"></a>This is why selective reporting matters so much. The ASA statement notes that when many analyses are conducted and only some are reported, the reported *p*-values become "essentially uninterpretable" (Wasserstein &amp; Lazar, 2016). In null-model terms, the assumption that the result was not chosen for its *p*-value has been violated, so the reference distribution no longer applies.</span>
-<span id="cb1-221"><a href="#cb1-221" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-222"><a href="#cb1-222" aria-hidden="true" tabindex="-1"></a><span class="fu">#### What the ASA statements say</span></span>
-<span id="cb1-223"><a href="#cb1-223" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-224"><a href="#cb1-224" aria-hidden="true" tabindex="-1"></a>The 2016 ASA statement sets out six principles, summarised here:</span>
-<span id="cb1-225"><a href="#cb1-225" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-226"><a href="#cb1-226" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>*p*-values can indicate how incompatible the data are with a specified statistical model.</span>
-<span id="cb1-227"><a href="#cb1-227" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>*p*-values do not measure the probability that the hypothesis studied is true, or the probability that the data were produced by random chance alone.</span>
-<span id="cb1-228"><a href="#cb1-228" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Scientific conclusions and policy decisions should not be based only on whether a *p*-value passes a threshold.</span>
-<span id="cb1-229"><a href="#cb1-229" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Proper inference requires full reporting and transparency.</span>
-<span id="cb1-230"><a href="#cb1-230" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>A *p*-value, or statistical significance, does not measure the size of an effect or the importance of a result.</span>
-<span id="cb1-231"><a href="#cb1-231" aria-hidden="true" tabindex="-1"></a><span class="ss">6.  </span>By itself, a *p*-value does not provide a good measure of evidence about a model or hypothesis.</span>
-<span id="cb1-232"><a href="#cb1-232" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-233"><a href="#cb1-233" aria-hidden="true" tabindex="-1"></a>The second principle rules out the most common textbook error identified by Cassidy et al. (2019). The claim that *p* is "the probability that the results occurred by chance" reverses the definition: the *p*-value is calculated *assuming* that chance alone is operating, so it cannot be the probability that chance alone is operating (Greenland et al., 2016).</span>
-<span id="cb1-234"><a href="#cb1-234" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-235"><a href="#cb1-235" aria-hidden="true" tabindex="-1"></a>A later statement from a task force convened by the ASA's president (Benjamini et al., 2021) is more positive in tone. It stresses that *p*-values and significance tests, properly applied and interpreted, are valid tools that increase the rigour of conclusions and should not be abandoned. But it agrees on the essentials. *p*-values should be understood as assessments of observations relative to sampling variation, not as measures of practical significance, and any significance threshold should be chosen deliberately, based on the study's goals and the consequences of wrong decisions.</span>
-<span id="cb1-236"><a href="#cb1-236" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-237"><a href="#cb1-237" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- #### Why this matters for trustworthiness assessment --&gt;</span></span>
-<span id="cb1-238"><a href="#cb1-238" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-239"><a href="#cb1-239" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- The null-model view is what makes a *p*-value useful for assessing trustworthiness, and also what limits it. A reported *p*-value is informative about $H_0$ only to the extent that the other assumptions of the null model are credible. Much of this book is about checking those other assumptions: whether the design was as described, whether the reported statistics are internally consistent, and whether the analyses reported are the analyses that were run. When those assumptions are doubtful, a small *p*-value says correspondingly little about the null hypothesis. --&gt;</span></span>
-<span id="cb1-240"><a href="#cb1-240" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-241"><a href="#cb1-241" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- </span><span class="al">###</span><span class="co"> Implications for trustworthiness assessment --&gt;</span></span>
-<span id="cb1-242"><a href="#cb1-242" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-243"><a href="#cb1-243" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- - Misinterpretations of *p*-values are a common source of misalignment between an article's results and its conclusions. The rest of this chapter, and the next, cover how to spot them. --&gt;</span></span>
-<span id="cb1-244"><a href="#cb1-244" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- - Because these misinterpretations are so common among researchers, they are also common among assessors. Checking our own understanding is a prerequisite for judging others'. --&gt;</span></span>
-<span id="cb1-245"><a href="#cb1-245" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- - A misinterpreted *p*-value makes the written conclusions untrustworthy even when the numerical results are accurate. It is evidence of a claim–evidence problem, not of fabrication or error in the numbers themselves. --&gt;</span></span>
-<span id="cb1-246"><a href="#cb1-246" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-247"><a href="#cb1-247" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- ## Interpretation of *p*-values --&gt;</span></span>
-<span id="cb1-248"><a href="#cb1-248" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-249"><a href="#cb1-249" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- - Intuitions for *p*-values --&gt;</span></span>
-<span id="cb1-250"><a href="#cb1-250" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- - Alpha, power, diagnosticity refreshers --&gt;</span></span>
-<span id="cb1-251"><a href="#cb1-251" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--   - Distribution of unbiased *p*-values under null/alternative --&gt;</span></span>
-<span id="cb1-252"><a href="#cb1-252" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- - *p*-hacking and its impact on *p*-values and effect sizes --&gt;</span></span>
-<span id="cb1-253"><a href="#cb1-253" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- - Methods that aren't useful for trustworthiness assessment but are good for intuitions: distribution of biased *p*-values, *p*-curve, *z*-curve --&gt;</span></span>
-<span id="cb1-254"><a href="#cb1-254" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- - Too good to be true in the context of power vs significance rate --&gt;</span></span>
-<span id="cb1-255"><a href="#cb1-255" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- - Peeking and trends towards significance --&gt;</span></span>
-<span id="cb1-256"><a href="#cb1-256" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-257"><a href="#cb1-257" aria-hidden="true" tabindex="-1"></a><span class="fu">## References {.unnumbered}</span></span>
-<span id="cb1-258"><a href="#cb1-258" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-259"><a href="#cb1-259" aria-hidden="true" tabindex="-1"></a>::: references-apa</span>
-<span id="cb1-260"><a href="#cb1-260" aria-hidden="true" tabindex="-1"></a>Badenes-Ribera, L., Frías-Navarro, D., Iotti, B., Bonilla-Campos, A., &amp; Longobardi, C. (2016). Misconceptions of the *p*-value among Chilean and Italian academic psychologists. *Frontiers in Psychology*, *7*, Article 1247. <span class="ot">&lt;https://doi.org/10.3389/fpsyg.2016.01247&gt;</span></span>
-<span id="cb1-261"><a href="#cb1-261" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-262"><a href="#cb1-262" aria-hidden="true" tabindex="-1"></a>Badenes-Ribera, L., Frías-Navarro, D., Monterde-i-Bort, H., &amp; Pascual-Soler, M. (2015). Interpretation of the *p* value: A national survey study in academic psychologists from Spain. *Psicothema*, *27*(3), 290–295. <span class="ot">&lt;https://doi.org/10.7334/psicothema2014.283&gt;</span></span>
-<span id="cb1-263"><a href="#cb1-263" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-264"><a href="#cb1-264" aria-hidden="true" tabindex="-1"></a>Benjamini, Y., De Veaux, R., Efron, B., Evans, S., Glickman, M., Graubard, B. I., He, X., Meng, X.-L., Reid, N., Stigler, S. M., Vardeman, S. B., Wikle, C. K., Wright, T., Young, L. J., &amp; Kafadar, K. (2021). ASA President's Task Force statement on statistical significance and replicability. *Harvard Data Science Review*, *3*(3). <span class="ot">&lt;https://doi.org/10.1162/99608f92.f0ad0287&gt;</span></span>
-<span id="cb1-265"><a href="#cb1-265" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-266"><a href="#cb1-266" aria-hidden="true" tabindex="-1"></a>Cassidy, S. A., Dimova, R., Giguère, B., Spence, J. R., &amp; Stanley, D. J. (2019). Failing grade: 89% of introduction-to-psychology textbooks that define or explain statistical significance do so incorrectly. *Advances in Methods and Practices in Psychological Science*, *2*(3), 233–239. <span class="ot">&lt;https://doi.org/10.1177/2515245919858072&gt;</span></span>
-<span id="cb1-267"><a href="#cb1-267" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-268"><a href="#cb1-268" aria-hidden="true" tabindex="-1"></a>Cohen, J. (1994). The earth is round (*p* \&lt; .05). *American Psychologist*, *49*(12), 997–1003. <span class="ot">&lt;https://doi.org/10.1037/0003-066X.49.12.997&gt;</span></span>
-<span id="cb1-269"><a href="#cb1-269" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-270"><a href="#cb1-270" aria-hidden="true" tabindex="-1"></a>Cox, D. R. (2006). *Principles of statistical inference*. Cambridge University Press. <span class="ot">&lt;https://doi.org/10.1017/CBO9780511813559&gt;</span></span>
-<span id="cb1-271"><a href="#cb1-271" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-272"><a href="#cb1-272" aria-hidden="true" tabindex="-1"></a>Falk, R., &amp; Greenbaum, C. W. (1995). Significance tests die hard: The amazing persistence of a probabilistic misconception. *Theory &amp; Psychology*, *5*(1), 75–98. <span class="ot">&lt;https://doi.org/10.1177/0959354395051004&gt;</span></span>
-<span id="cb1-273"><a href="#cb1-273" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-274"><a href="#cb1-274" aria-hidden="true" tabindex="-1"></a>García-Pérez, M. A., &amp; Alcalá-Quintana, R. (2016). The interpretation of scholars' interpretations of confidence intervals: Criticism, replication, and extension of Hoekstra et al. (2014). *Frontiers in Psychology*, *7*, Article 1042. <span class="ot">&lt;https://doi.org/10.3389/fpsyg.2016.01042&gt;</span></span>
-<span id="cb1-275"><a href="#cb1-275" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-276"><a href="#cb1-276" aria-hidden="true" tabindex="-1"></a>Gigerenzer, G. (2004). Mindless statistics. *The Journal of Socio-Economics*, *33*(5), 587–606. <span class="ot">&lt;https://doi.org/10.1016/j.socec.2004.09.033&gt;</span></span>
-<span id="cb1-277"><a href="#cb1-277" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-278"><a href="#cb1-278" aria-hidden="true" tabindex="-1"></a>Gigerenzer, G. (2018). Statistical rituals: The replication delusion and how we got there. *Advances in Methods and Practices in Psychological Science*, *1*(2), 198–218. <span class="ot">&lt;https://doi.org/10.1177/2515245918771329&gt;</span></span>
-<span id="cb1-279"><a href="#cb1-279" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-280"><a href="#cb1-280" aria-hidden="true" tabindex="-1"></a>Greenland, S., Senn, S. J., Rothman, K. J., Carlin, J. B., Poole, C., Goodman, S. N., &amp; Altman, D. G. (2016). Statistical tests, *P* values, confidence intervals, and power: A guide to misinterpretations. *European Journal of Epidemiology*, *31*(4), 337–350. <span class="ot">&lt;https://doi.org/10.1007/s10654-016-0149-3&gt;</span></span>
-<span id="cb1-281"><a href="#cb1-281" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-282"><a href="#cb1-282" aria-hidden="true" tabindex="-1"></a>Haller, H., &amp; Krauss, S. (2002). Misinterpretations of significance: A problem students share with their teachers? *Methods of Psychological Research Online*, *7*(1), 1–20. <span class="ot">&lt;https://epub.uni-regensburg.de/34338/&gt;</span></span>
-<span id="cb1-283"><a href="#cb1-283" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-284"><a href="#cb1-284" aria-hidden="true" tabindex="-1"></a>Kruschke, J. K. (2015). *Doing Bayesian data analysis: A tutorial with R, JAGS, and Stan* (2nd ed.). Academic Press. <span class="ot">&lt;https://doi.org/10.1016/C2012-0-00477-2&gt;</span></span>
-<span id="cb1-285"><a href="#cb1-285" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-286"><a href="#cb1-286" aria-hidden="true" tabindex="-1"></a>Lakens, D. (2022). *Improving your statistical inferences* (Version 1.0.0). Zenodo. <span class="ot">&lt;https://doi.org/10.5281/zenodo.6409077&gt;</span></span>
-<span id="cb1-287"><a href="#cb1-287" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-288"><a href="#cb1-288" aria-hidden="true" tabindex="-1"></a>Lyu, X.-K., Xu, Y., Zhao, X.-F., Zuo, X.-N., &amp; Hu, C.-P. (2020). Beyond psychology: Prevalence of *p* value and confidence interval misinterpretation across different fields. *Journal of Pacific Rim Psychology*, *14*, Article e6. <span class="ot">&lt;https://doi.org/10.1017/prp.2019.28&gt;</span></span>
-<span id="cb1-289"><a href="#cb1-289" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-290"><a href="#cb1-290" aria-hidden="true" tabindex="-1"></a>Lyu, Z., Peng, K., &amp; Hu, C.-P. (2018). *P*-value, confidence intervals, and statistical inference: A new dataset of misinterpretation. *Frontiers in Psychology*, *9*, Article 868. <span class="ot">&lt;https://doi.org/10.3389/fpsyg.2018.00868&gt;</span></span>
-<span id="cb1-291"><a href="#cb1-291" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-292"><a href="#cb1-292" aria-hidden="true" tabindex="-1"></a>McElreath, R. (2020). *Statistical rethinking: A Bayesian course with examples in R and Stan* (2nd ed.). CRC Press. <span class="ot">&lt;https://doi.org/10.1201/9780429029608&gt;</span></span>
-<span id="cb1-293"><a href="#cb1-293" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-294"><a href="#cb1-294" aria-hidden="true" tabindex="-1"></a>McShane, B. B., &amp; Gal, D. (2017). Statistical significance and the dichotomization of evidence. *Journal of the American Statistical Association*, *112*(519), 885–895. <span class="ot">&lt;https://doi.org/10.1080/01621459.2017.1289846&gt;</span></span>
-<span id="cb1-295"><a href="#cb1-295" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-296"><a href="#cb1-296" aria-hidden="true" tabindex="-1"></a>Miller, J., &amp; Ulrich, R. (2016). Interpreting confidence intervals: A comment on Hoekstra, Morey, Rouder, and Wagenmakers (2014). *Psychonomic Bulletin &amp; Review*, *23*(1), 124–130. <span class="ot">&lt;https://doi.org/10.3758/s13423-015-0859-7&gt;</span></span>
-<span id="cb1-297"><a href="#cb1-297" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-298"><a href="#cb1-298" aria-hidden="true" tabindex="-1"></a>Murphy, S. L., Merz, R., Reimann, L.-E., &amp; Fernández, A. (2025). Nonsignificance misinterpreted as an effect's absence in psychology: Prevalence and temporal analyses. *Royal Society Open Science*, *12*(3), Article 242167. <span class="ot">&lt;https://doi.org/10.1098/rsos.242167&gt;</span></span>
-<span id="cb1-299"><a href="#cb1-299" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-300"><a href="#cb1-300" aria-hidden="true" tabindex="-1"></a>Oakes, M. (1986). *Statistical inference: A commentary for the social and behavioural sciences*. Wiley.</span>
-<span id="cb1-301"><a href="#cb1-301" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-302"><a href="#cb1-302" aria-hidden="true" tabindex="-1"></a>Wasserstein, R. L., &amp; Lazar, N. A. (2016). The ASA statement on *p*-values: Context, process, and purpose. *The American Statistician*, *70*(2), 129–133. <span class="ot">&lt;https://doi.org/10.1080/00031305.2016.1154108&gt;</span></span>
-<span id="cb1-303"><a href="#cb1-303" aria-hidden="true" tabindex="-1"></a>:::</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Interpretation methods [✎ Draft]{.badge .badge-draft2}</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="fu">file.exists</span>(<span class="st">"../_setup.R"</span>)){<span class="fu">source</span>(<span class="st">"../_setup.R"</span>)}</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu">## (Mis)interpretation of *p*-values</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>Before assessing whether an article's conclusions follow from its results, it is worth checking whether we ourselves can reliably say what its results mean. The *p*-value is the most widely reported inferential statistic in psychology and health research, and it is also among the most widely misunderstood. This is not a problem confined to students: for four decades, surveys have found that most researchers, and most people who teach statistics, endorse at least one false statement about what a significant *p*-value tells them.</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="fu">### Test yourself</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>The questionnaire below was first used by Oakes (1986) with academic psychologists, and has since been reused, with minor changes, in Israel (Falk &amp; Greenbaum, 1995), Germany (Haller &amp; Krauss, 2002), Spain (Badenes-Ribera et al., 2015), and China (Lyu et al., 2018, 2020). The wording here follows Haller and Krauss (2002).</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>Answer all six statements, then click the button at the bottom to see how you did.</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>::: {.webex-check .webex-box}</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>Suppose you have a treatment that you suspect may alter performance on a certain task. You compare the means of your control and experimental groups (say 20 subjects in each sample). Further, suppose you use a simple independent means *t*-test and your result is (*t* = 2.7, *d.f.* = 18, *p* = 0.01). Please mark each of the statements below as "true" or "false". "False" means that the statement does not follow logically from the above premises. Also note that one, several or none of the statements may be correct.</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>You have absolutely disproved the null hypothesis (that is, there is no difference between the population means). <span class="in">`r webexercises::torf(FALSE)`</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>You have found the probability of the null hypothesis being true. <span class="in">`r webexercises::torf(FALSE)`</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>You have absolutely proved your experimental hypothesis (that there is a difference between the population means). <span class="in">`r webexercises::torf(FALSE)`</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>You can deduce the probability of the experimental hypothesis being true. <span class="in">`r webexercises::torf(FALSE)`</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>You know, if you decide to reject the null hypothesis, the probability that you are making the wrong decision. <span class="in">`r webexercises::torf(FALSE)`</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="ss">6.  </span>You have a reliable experimental finding in the sense that if, hypothetically, the experiment were repeated a great number of times, you would obtain a significant result on 99% of occasions. <span class="in">`r webexercises::torf(FALSE)`</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="in">`r webexercises::hide("Why is each statement false?")`</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>All six statements are false. Each one corresponds to a recognisable fallacy.</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>**Certainty (disproof).** A significance test gives a probabilistic statement about data, not a proof. Data this extreme occur under the null model 1% of the time, so the null hypothesis has not been disproved.</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>**Inverse probability.** The *p*-value is the probability of data at least this extreme *given* the null model, $P(D \mid H_0)$. It is not the probability of the null hypothesis given the data, $P(H_0 \mid D)$. Getting from one to the other requires a prior probability for $H_0$, which a significance test does not use.</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>**Certainty (proof).** The mirror image of statement 1. Rejecting the null does not prove the alternative, and even if a difference exists, it does not establish that the experimental hypothesis's explanation for it is correct.</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>**Inverse probability, again.** The probability of the experimental hypothesis is no more deducible from *p* than the probability of the null is.</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>**Error-rate confusion.** This reads *p* as the probability that rejecting $H_0$ is a mistake, i.e., $P(H_0 \mid \text{significant result})$. That is the false discovery risk, which depends on the prior probability of $H_0$ and on statistical power, neither of which is given. The *p*-value is also not the Type I error rate: α is fixed before the study and describes the long-run behaviour of the procedure, not the probability of error in this particular decision.</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a><span class="ss">6.  </span>**Replication fallacy.** 1 − *p* is not the probability of a significant replication. The replication probability depends on the true effect size and the replication's power. If the observed effect were exactly the true effect, a same-sized replication would be significant only about 70–75% of the time; and because significant results tend to overestimate effects, the real figure is usually lower.</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="in">`r webexercises::unhide()`</span></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a><span class="fu">### Prevalence of (mis)interpretations of *p*-values</span></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>If you marked any statement as true, you are in the majority.</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>::: big-number</span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">&gt;90%</span><span class="co">]</span>{.number}</span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">of psychology students and professors agree with one or more of these misinterpretations of significant *p*-values, most often by describing *p* as the probability that the results occurred by chance (see Gigerenzer, 2018 for review).</span><span class="co">]</span>{.description}</span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Oakes (1986) found that 97% of the 70 academic psychologists he surveyed endorsed at least one of the statements (Gigerenzer, 2018). As summarised by Cohen (1994), 68 of 70 interpreted *p* as the probability that $H_0$ is true, and 42 believed a *p* of .01 implied a 99% chance that a replication would be significant.</span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Haller and Krauss (2002) gave the questionnaire to students, methodology instructors, and scientists in Germany. As reported by Gigerenzer (2004), none of the 44 psychology students rejected all six statements, compared with 4 of 39 scientists who did not teach statistics and 6 of 30 methodology instructors who did.</span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Lyu et al. (2018) found that 99% of 362 psychology researchers and students in China endorsed at least one false statement. In a larger sample of 1,479 researchers and students across fields, Lyu et al. (2020) found that misinterpretation did not vary meaningfully by degree, field, or career stage, and that respondents were largely unaware of their errors.</span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Badenes-Ribera et al. (2016) found the inverse-probability fallacy to be the most common error among academic psychologists in Italy and Chile, followed by the replication fallacy.</span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>@tbl-any-misinterpretation summarises these studies using Gigerenzer's (2018) Table 2, showing the percentage of respondents in each sample who endorsed at least one of the six false statements in the quiz above.</span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Sample <span class="pp">|</span> Study <span class="pp">|</span> *N* <span class="pp">|</span> Endorsed at least one false statement (%) <span class="pp">|</span></span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a><span class="pp">|:-----------------|:-----------------|-----------------:|-----------------:|</span></span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Professional <span class="pp">|</span> Oakes (1986) <span class="pp">|</span> 70 <span class="pp">|</span> 97 <span class="pp">|</span></span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Professional <span class="pp">|</span> Haller &amp; Krauss (2002): statistics teachers <span class="pp">|</span> 30 <span class="pp">|</span> 80 <span class="pp">|</span></span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Professional <span class="pp">|</span> Haller &amp; Krauss (2002): other professors of psychology <span class="pp">|</span> 39 <span class="pp">|</span> 90 <span class="pp">|</span></span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Professional <span class="pp">|</span> Badenes-Ribera et al. (2015) <span class="pp">|</span> 418 <span class="pp">|</span> 94 <span class="pp">|</span></span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Professional <span class="pp">|</span> Badenes-Ribera et al. (2016): methodology <span class="pp">|</span> 18 <span class="pp">|</span> 56 <span class="pp">|</span></span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Professional <span class="pp">|</span> Badenes-Ribera et al. (2016): other areas <span class="pp">|</span> 146 <span class="pp">|</span> 74 <span class="pp">|</span></span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Student <span class="pp">|</span> Haller &amp; Krauss (2002) <span class="pp">|</span> 44 <span class="pp">|</span> 100 <span class="pp">|</span></span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>: Percentage of respondents who endorsed at least one false statement about a significant *p*-value. Adapted from Gigerenzer (2018, Table 2). Oakes (1986) and Haller and Krauss (2002) used the questionnaire in the quiz above, with *p* = .01. Badenes-Ribera et al. (2015, 2016) used their own items with *p* = .001, and did not include statements 3 and 5. Badenes-Ribera et al. (2015) reported this percentage only for all respondents combined, so their six subsamples of academic psychologists are pooled here. {#tbl-any-misinterpretation}</span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a><span class="fu">#### How much should we trust these prevalence estimates?</span></span>
+<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>The direction of this literature is robust, but the precise percentages should be treated with some caution. The questionnaires consist entirely of false statements, which means they cannot distinguish a respondent who misunderstands *p*-values from one who is uncertain, reads the items charitably, or assumes that at least one statement must be true. McShane and Gal (2017) also note that, as worded, some items can be read as questions about unknown population parameters rather than about the observed result. Similar criticisms have been made of the equivalent questionnaire for confidence intervals (García-Pérez &amp; Alcalá-Quintana, 2016; Miller &amp; Ulrich, 2016). Figures such as "90–99% of researchers endorse at least one false statement" are therefore better read as evidence that misinterpretation is common across fields, career stages, and countries than as well-measured prevalence estimates.</span>
+<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a><span class="fu">### Errors in intro to psych textbooks' definitions</span></span>
+<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>The errors are not confined to survey responses. They are also in the textbooks.</span>
+<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>::: big-number</span>
+<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">89%</span><span class="co">]</span>{.number}</span>
+<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">of introductory psychology textbooks that defined or explained statistical significance did so incorrectly, most often by describing *p* as the probability that the results occurred by chance (Cassidy et al., 2019).</span><span class="co">]</span>{.description}</span>
+<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a><span class="fu">## Misinterpretations in the literature</span></span>
+<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a>Students who give these answers may therefore be accurately recalling what they were taught. The errors also reach the published literature.</span>
+<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a>::: big-number</span>
+<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">76–85%</span><span class="co">]</span>{.number}</span>
+<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">of psychology articles that discussed a nonsignificant result interpreted it as evidence that the effect was absent, with no significant change between 2009 and 2021 (Murphy et al., 2025).</span><span class="co">]</span>{.description}</span>
+<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a><span class="fu">## What a *p*-value is</span></span>
+<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a>It's important to start by emphasizing that I and this book should not be considered the authoritative source of the definition and interpretation of *p*-values. For these, see the original sources cited below. </span>
+<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a><span class="fu">### The formal definition</span></span>
+<span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a>The definition found in most statistics textbooks descends from Fisher's significance tests and is stated formally by Cox (2006). Choose a test statistic *T* that measures how far the data depart from what the null hypothesis predicts. The *p*-value is the probability, calculated assuming the null hypothesis is true, of obtaining a value of *T* at least as extreme as the one actually observed:</span>
+<span id="cb5-104"><a href="#cb5-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a>p = P(T \geq t_{\text{obs}};\ H_0)</span>
+<span id="cb5-107"><a href="#cb5-107" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb5-108"><a href="#cb5-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a>The semicolon rather than a conditional bar (<span class="sc">\|</span>) is deliberate. In the frequentist framework $H_0$ is not a random event with a probability of its own; it is an assumption under which the probability is calculated. Three ingredients are always involved:</span>
+<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>**A test statistic**, such as *t*, *F*, or χ², which summarises the data. For a two-sided test, *T* is the absolute value, e.g., \|*t*<span class="sc">\|</span>, so that departures in either direction count as extreme.</span>
+<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>**A reference distribution** for that statistic, derived by assuming $H_0$ is true.</span>
+<span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>**A tail**: the probability of the observed value *or anything more extreme*, not of the observed value alone.</span>
+<span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a>Applied to the quiz scenario: if there were truly no difference between the population means, and the other assumptions of the *t*-test held, a *t* statistic at least as far from zero as 2.7 would arise in about 1.5% of repeated studies with 18 degrees of freedom. (The questionnaire's *p* = .01 is rounded; the exact two-sided value for *t*(18) = 2.7 is .015.)</span>
+<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-117"><a href="#cb5-117" aria-hidden="true" tabindex="-1"></a>This definition is the key to every statement in the quiz. The *p*-value is calculated by *assuming* $H_0$ is true, so it cannot also be the probability that $H_0$ is true. As Greenland et al. (2016) put it, it is hard to see how a probability deduced from a set of assumptions could be the probability of those same assumptions.</span>
+<span id="cb5-118"><a href="#cb5-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-119"><a href="#cb5-119" aria-hidden="true" tabindex="-1"></a><span class="fu">#### "The model" is the null model</span></span>
+<span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-121"><a href="#cb5-121" aria-hidden="true" tabindex="-1"></a>The American Statistical Association's statement on *p*-values (Wasserstein &amp; Lazar, 2016) gives an informal definition that is often quoted:</span>
+<span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-123"><a href="#cb5-123" aria-hidden="true" tabindex="-1"></a>::: big-quote</span>
+<span id="cb5-124"><a href="#cb5-124" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">"the [long-run] probability under a specified statistical model that a statistical summary of the data ... would be equal to or more extreme than its observed value."</span><span class="co">]</span>{.quote}</span>
+<span id="cb5-125"><a href="#cb5-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-126"><a href="#cb5-126" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">American Statistical Association's statement on *p*-values (Wasserstein &amp; Lazar, 2016).</span><span class="co">]</span>{.citation}</span>
+<span id="cb5-127"><a href="#cb5-127" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-128"><a href="#cb5-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-129"><a href="#cb5-129" aria-hidden="true" tabindex="-1"></a>Many readers initially struggle with what "a specified statistical model" refers to. It is not the researcher's hypothesis, the alternative hypothesis, but rather the **null model**: the null hypothesis *together with* every other assumption needed to derive the reference distribution. The statement's first principle makes this explicit, describing the most common context as "a model, constructed under a set of assumptions, together with a so-called 'null hypothesis'". For the independent-samples *t*-test in the quiz, the null model includes:</span>
+<span id="cb5-130"><a href="#cb5-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-131"><a href="#cb5-131" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**The null hypothesis itself**: the population means are equal.</span>
+<span id="cb5-132"><a href="#cb5-132" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Distributional assumptions**: the outcome is normally distributed within each group, with equal variances.</span>
+<span id="cb5-133"><a href="#cb5-133" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Design assumptions**: observations are independent, and participants were randomly sampled or randomly assigned.</span>
+<span id="cb5-134"><a href="#cb5-134" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Analysis and reporting assumptions**: the test was planned before seeing the data, and this *p*-value was not selected for reporting from among many because it was small.</span>
+<span id="cb5-135"><a href="#cb5-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-136"><a href="#cb5-136" aria-hidden="true" tabindex="-1"></a>Greenland et al. (2016) build this into their definition.</span>
+<span id="cb5-137"><a href="#cb5-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-138"><a href="#cb5-138" aria-hidden="true" tabindex="-1"></a>::: big-quote</span>
+<span id="cb5-139"><a href="#cb5-139" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">The *p*-value is "the [long-run] probability that the chosen test statistic would have been at least as large as its observed value if every model assumption were correct, including the test hypothesis."</span><span class="co">]</span>{.quote}</span>
+<span id="cb5-140"><a href="#cb5-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-141"><a href="#cb5-141" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Greenland et al. (2016)</span><span class="co">]</span>{.citation}</span>
+<span id="cb5-142"><a href="#cb5-142" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-143"><a href="#cb5-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-144"><a href="#cb5-144" aria-hidden="true" tabindex="-1"></a>In their terms, $H_0$ is just the one assumption that has been *targeted* for testing (the "test hypothesis"); the *p*-value itself tests all of them at once.</span>
+<span id="cb5-145"><a href="#cb5-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-146"><a href="#cb5-146" aria-hidden="true" tabindex="-1"></a><span class="fu">### What we want to know versus what a *p*-value tells us: the inverse probability fallacy</span></span>
+<span id="cb5-147"><a href="#cb5-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-148"><a href="#cb5-148" aria-hidden="true" tabindex="-1"></a>Most of the misinterpretations in the quiz come from a mismatch between the question researchers want answered and the question a *p*-value actually answers.</span>
+<span id="cb5-149"><a href="#cb5-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-150"><a href="#cb5-150" aria-hidden="true" tabindex="-1"></a>**What most researchers want to know:**</span>
+<span id="cb5-151"><a href="#cb5-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-152"><a href="#cb5-152" aria-hidden="true" tabindex="-1"></a>::: big-quote</span>
+<span id="cb5-153"><a href="#cb5-153" aria-hidden="true" tabindex="-1"></a>[Given my data,\</span>
+<span id="cb5-154"><a href="#cb5-154" aria-hidden="true" tabindex="-1"></a>how probable is it that my hypothesis is true?]{.quote}</span>
+<span id="cb5-155"><a href="#cb5-155" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-156"><a href="#cb5-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-157"><a href="#cb5-157" aria-hidden="true" tabindex="-1"></a>This can be formalised as $P(H_1 \mid D)$, the probability of the alternative hypothesis given the data. Because the null and alternative hypotheses are mutually exclusive and exhaustive (the effect is either zero or it is not), this is the same question as how probable the null hypothesis is, since $P(H_1 \mid D) = 1 - P(H_0 \mid D)$.</span>
+<span id="cb5-158"><a href="#cb5-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-159"><a href="#cb5-159" aria-hidden="true" tabindex="-1"></a>**What a *p*-value actually tells us:**</span>
+<span id="cb5-160"><a href="#cb5-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-161"><a href="#cb5-161" aria-hidden="true" tabindex="-1"></a>::: big-quote</span>
+<span id="cb5-162"><a href="#cb5-162" aria-hidden="true" tabindex="-1"></a>[Given that the null model is true,\</span>
+<span id="cb5-163"><a href="#cb5-163" aria-hidden="true" tabindex="-1"></a>how improbable are data like mine?]{.quote}</span>
+<span id="cb5-164"><a href="#cb5-164" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-165"><a href="#cb5-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-166"><a href="#cb5-166" aria-hidden="true" tabindex="-1"></a>This can be formalised as $P(D \mid H_0)$, the probability of the data given the null hypothesis. Here $D$ is shorthand for "data at least as extreme as those observed", and the conditional bar is used loosely for "assuming", as it usually is in teaching (see the note on the semicolon above).</span>
+<span id="cb5-167"><a href="#cb5-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-168"><a href="#cb5-168" aria-hidden="true" tabindex="-1"></a>Significance testing then adds an inferential step that is not part of the probability calculation at all:</span>
+<span id="cb5-169"><a href="#cb5-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-170"><a href="#cb5-170" aria-hidden="true" tabindex="-1"></a>::: big-quote</span>
+<span id="cb5-171"><a href="#cb5-171" aria-hidden="true" tabindex="-1"></a>[Given that the null model is true, how improbable are data like mine?\</span>
+<span id="cb5-172"><a href="#cb5-172" aria-hidden="true" tabindex="-1"></a>If very improbable, we will act as if the alternative hypothesis is true.]{.quote}</span>
+<span id="cb5-173"><a href="#cb5-173" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-174"><a href="#cb5-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-175"><a href="#cb5-175" aria-hidden="true" tabindex="-1"></a>This decision rule is what $\alpha$ controls: in the long run, no more than 5% of tests of true null hypotheses will be significant (given the test's assumptions and no bias such as uncorrected multiple testing or *p*-hacking). It does not say how probable any particular hypothesis is.</span>
+<span id="cb5-176"><a href="#cb5-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-177"><a href="#cb5-177" aria-hidden="true" tabindex="-1"></a>The *p*-value, $P(D \mid H_0)$, and the quantity researchers want, $P(H_1 \mid D)$, differ in two ways, and misinterpretations usually slip across both at once:</span>
+<span id="cb5-178"><a href="#cb5-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-179"><a href="#cb5-179" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**The direction of the conditional is reversed.** $P(D \mid H_0)$ is the probability of the data given the null; $P(H_0 \mid D)$ is the probability of the null given the data. These can differ enormously. The probability that a person is a smoker given that they have lung cancer is high; the probability that a person has lung cancer given that they smoke is much lower. Treating one as the other is known as the *inverse probability fallacy* or the *transposed conditional*.</span>
+<span id="cb5-180"><a href="#cb5-180" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**The complement is then taken.** Having read *p* as $P(H_0 \mid D)$, it is a short step to reading $1 - p$ as $P(H_1 \mid D)$: "*p* = .01, so there is a 99% chance the effect is real."</span>
+<span id="cb5-181"><a href="#cb5-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-182"><a href="#cb5-182" aria-hidden="true" tabindex="-1"></a>Quiz statement 2 is the first step: reading *p* as $P(H_0 \mid D)$. Statement 4 is both steps: reading $1 - p$ as $P(H_1 \mid D)$. Statement 5 reads *p* as $P(H_0 \mid \text{significant result})$, the probability that a rejection of $H_0$ is mistaken. All three treat a probability of data as a probability of a hypothesis.</span>
+<span id="cb5-183"><a href="#cb5-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-184"><a href="#cb5-184" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Bayes' theorem</span></span>
+<span id="cb5-185"><a href="#cb5-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-186"><a href="#cb5-186" aria-hidden="true" tabindex="-1"></a>It is possible to get from $P(D \mid H_0)$ to $P(H_0 \mid D)$, and hence to $P(H_1 \mid D)$, but only with additional information, using Bayes' theorem:</span>
+<span id="cb5-187"><a href="#cb5-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-188"><a href="#cb5-188" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb5-189"><a href="#cb5-189" aria-hidden="true" tabindex="-1"></a>P(H_0 \mid D) = \frac{P(D \mid H_0)\,P(H_0)}{P(D \mid H_0)\,P(H_0) + P(D \mid H_1)\,P(H_1)}</span>
+<span id="cb5-190"><a href="#cb5-190" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb5-191"><a href="#cb5-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-192"><a href="#cb5-192" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb5-193"><a href="#cb5-193" aria-hidden="true" tabindex="-1"></a>P(H_1 \mid D) = 1 - P(H_0 \mid D)</span>
+<span id="cb5-194"><a href="#cb5-194" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb5-195"><a href="#cb5-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-196"><a href="#cb5-196" aria-hidden="true" tabindex="-1"></a>The *p*-value supplies only one of the terms, $P(D \mid H_0)$. Two further things are needed that a significance test does not use:</span>
+<span id="cb5-197"><a href="#cb5-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-198"><a href="#cb5-198" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**The prior probability of each hypothesis**, $P(H_0)$ and $P(H_1) = 1 - P(H_0)$: how plausible the null was before the data were collected.</span>
+<span id="cb5-199"><a href="#cb5-199" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**The probability of the data if the alternative is true**, $P(D \mid H_1)$. This is harder than it looks, because $H_1$ ("the effect is not zero") covers every possible non-zero effect size, and $P(D \mid H_1)$ is different for each. It can only be calculated by assuming a particular effect size or a distribution of plausible effect sizes.</span>
+<span id="cb5-200"><a href="#cb5-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-201"><a href="#cb5-201" aria-hidden="true" tabindex="-1"></a>If $D$ is defined as "a significant result" rather than "data at least as extreme as those observed", these terms become familiar: $P(D \mid H_0) = \alpha$, and $P(D \mid H_1)$ is the study's statistical power at the assumed effect size. $P(H_0 \mid D)$ is then the probability that a significant result is a false positive, which depends on power and on the prior probability of $H_0$ as much as on $\alpha$.</span>
+<span id="cb5-202"><a href="#cb5-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-203"><a href="#cb5-203" aria-hidden="true" tabindex="-1"></a>Frequentist methods treat hypotheses as fixed states of the world rather than as things with probabilities, so they deliberately leave the prior out, and with it any answer to $P(H_1 \mid D)$.</span>
+<span id="cb5-204"><a href="#cb5-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-205"><a href="#cb5-205" aria-hidden="true" tabindex="-1"></a>This lesson and course is not on frequentist vs. Bayesian approaches to Null Hypothesis Significance Testing - I mention it only to give you some awareness of where pursuing these questions lead to and where you could learn more if you are interested (e.g., Kruschke, 2015; McElreath, 2020). The point is that *p*-values cannot, by themselves, give the answer to researcher's most common or intuitive questions. So, researchers have three options:</span>
+<span id="cb5-206"><a href="#cb5-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-207"><a href="#cb5-207" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Change our statistical methods to answer our chosen question.</span>
+<span id="cb5-208"><a href="#cb5-208" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Stick with frequentist *p*-values and reconsider the questions we are (implicitly) asking.</span>
+<span id="cb5-209"><a href="#cb5-209" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Keep misinterpreting *p*-values and producing mushy partial truths <span class="co">[</span><span class="ot">not this one, please</span><span class="co">]</span>.</span>
+<span id="cb5-210"><a href="#cb5-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-211"><a href="#cb5-211" aria-hidden="true" tabindex="-1"></a><span class="fu">### *p*-values as incompatibility with the null model</span></span>
+<span id="cb5-212"><a href="#cb5-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-213"><a href="#cb5-213" aria-hidden="true" tabindex="-1"></a>It follows that a *p*-value is best read as a measure of the **(in)compatibility** between the data and the whole null model. It runs from 0 (the data are completely incompatible with the null model) to 1 (the data are exactly what the null model predicts), so the smaller the *p*-value, the greater the incompatibility (Greenland et al., 2016).</span>
+<span id="cb5-214"><a href="#cb5-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-215"><a href="#cb5-215" aria-hidden="true" tabindex="-1"></a>Lakens (2022) puts the same idea in plainer terms: a *p*-value tells us how *surprising* the observed data would be if the null model were true. Surprise depends on what the null model predicts, not only on the size of the observed effect. With a larger sample, the null model predicts mean differences that cluster more tightly around zero, so the same observed difference is more surprising, and its *p*-value smaller, with 5,000 participants than with 50. Laken's <span class="co">[</span><span class="ot">ebook and online course 'Improving your Statistical Inferences'</span><span class="co">](https://lakens.github.io/statistical_inferences/)</span> is highly recommended!</span>
+<span id="cb5-216"><a href="#cb5-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-217"><a href="#cb5-217" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**A small *p*-value** says that the data would be unusual if every assumption of the null model were true. It does not say which assumption is false. $H_0$ may be false, or the design may have been compromised, the distributional assumptions may not hold, or the result may have been selected for reporting because it was small.</span>
+<span id="cb5-218"><a href="#cb5-218" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**A large *p*-value** says only that the data are not unusual under the null model. It does not show that $H_0$ is true: the same data would also be unremarkable under many other hypotheses, and a large *p*-value can itself result from violated assumptions.</span>
+<span id="cb5-219"><a href="#cb5-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-220"><a href="#cb5-220" aria-hidden="true" tabindex="-1"></a>This is why selective reporting matters so much. The ASA statement notes that when many analyses are conducted and only some are reported, the reported *p*-values become "essentially uninterpretable" (Wasserstein &amp; Lazar, 2016). In null-model terms, the assumption that the result was not chosen for its *p*-value has been violated, so the reference distribution no longer applies.</span>
+<span id="cb5-221"><a href="#cb5-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-222"><a href="#cb5-222" aria-hidden="true" tabindex="-1"></a><span class="fu">#### What the ASA statements say</span></span>
+<span id="cb5-223"><a href="#cb5-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-224"><a href="#cb5-224" aria-hidden="true" tabindex="-1"></a>The 2016 ASA statement sets out six principles, summarised here:</span>
+<span id="cb5-225"><a href="#cb5-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-226"><a href="#cb5-226" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>*p*-values can indicate how incompatible the data are with a specified statistical model.</span>
+<span id="cb5-227"><a href="#cb5-227" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>*p*-values do not measure the probability that the hypothesis studied is true, or the probability that the data were produced by random chance alone.</span>
+<span id="cb5-228"><a href="#cb5-228" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Scientific conclusions and policy decisions should not be based only on whether a *p*-value passes a threshold.</span>
+<span id="cb5-229"><a href="#cb5-229" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Proper inference requires full reporting and transparency.</span>
+<span id="cb5-230"><a href="#cb5-230" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>A *p*-value, or statistical significance, does not measure the size of an effect or the importance of a result.</span>
+<span id="cb5-231"><a href="#cb5-231" aria-hidden="true" tabindex="-1"></a><span class="ss">6.  </span>By itself, a *p*-value does not provide a good measure of evidence about a model or hypothesis.</span>
+<span id="cb5-232"><a href="#cb5-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-233"><a href="#cb5-233" aria-hidden="true" tabindex="-1"></a>The second principle rules out the most common textbook error identified by Cassidy et al. (2019). The claim that *p* is "the probability that the results occurred by chance" reverses the definition: the *p*-value is calculated *assuming* that chance alone is operating, so it cannot be the probability that chance alone is operating (Greenland et al., 2016).</span>
+<span id="cb5-234"><a href="#cb5-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-235"><a href="#cb5-235" aria-hidden="true" tabindex="-1"></a>A later statement from a task force convened by the ASA's president (Benjamini et al., 2021) is more positive in tone. It stresses that *p*-values and significance tests, properly applied and interpreted, are valid tools that increase the rigour of conclusions and should not be abandoned. But it agrees on the essentials. *p*-values should be understood as assessments of observations relative to sampling variation, not as measures of practical significance, and any significance threshold should be chosen deliberately, based on the study's goals and the consequences of wrong decisions.</span>
+<span id="cb5-236"><a href="#cb5-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-237"><a href="#cb5-237" aria-hidden="true" tabindex="-1"></a><span class="fu">## How *p*-values are distributed</span></span>
+<span id="cb5-238"><a href="#cb5-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-239"><a href="#cb5-239" aria-hidden="true" tabindex="-1"></a>A good test of whether we understand *p*-values is whether we can say how they behave across many studies. Most researchers cannot answer two simple questions: if we ran the same study many times, what would the distribution of *p*-values look like (a) when the null hypothesis is true, and (b) when the alternative hypothesis is true?</span>
+<span id="cb5-240"><a href="#cb5-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-241"><a href="#cb5-241" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**When $H_0$ is true** (and the other assumptions of the null model hold), *p*-values are **uniformly distributed** between 0 and 1. Every value is equally likely. This follows directly from the definition: 5% of *p*-values fall below .05, 1% below .01, and 10% below .10. There is nothing special about .05; it is simply where we have chosen to draw the line.</span>
+<span id="cb5-242"><a href="#cb5-242" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**When $H_1$ is true**, *p*-values are **skewed towards zero**, and increasingly so as the true effect size or the sample size increases. The proportion that fall below .05 is, by definition, the study's statistical power.</span>
+<span id="cb5-243"><a href="#cb5-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-244"><a href="#cb5-244" aria-hidden="true" tabindex="-1"></a>One consequence is that *p*-values just below .05 are not particularly strong evidence against the null. In a study with 80% power, only about 3% of *p*-values fall between .04 and .05. In a study with 99% power, the figure is about 0.3%, which is *less* than the 1% expected when $H_0$ is true (Lakens, 2022). A literature full of *p*-values between .01 and .05, from studies that claim to be well powered, is therefore itself a signal worth attending to.</span>
+<span id="cb5-245"><a href="#cb5-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-246"><a href="#cb5-246" aria-hidden="true" tabindex="-1"></a>Explore this with the plot below. Set the effect size to 0 to see the uniform distribution under $H_0$, then increase the effect size or sample size and watch the *p*-values pile up near zero. The dashed line shows what the distribution would be if $H_0$ were true.</span>
+<span id="cb5-247"><a href="#cb5-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-250"><a href="#cb5-250" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb5-251"><a href="#cb5-251" aria-hidden="true" tabindex="-1"></a><span class="co">//| echo: false</span></span>
+<span id="cb5-252"><a href="#cb5-252" aria-hidden="true" tabindex="-1"></a>viewof es <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">0</span><span class="op">,</span> <span class="fl">1.5</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.05</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"True effect size (Cohen's d)"</span>})</span>
+<span id="cb5-253"><a href="#cb5-253" aria-hidden="true" tabindex="-1"></a>viewof n <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">5</span><span class="op">,</span> <span class="dv">200</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Participants per group"</span>})</span>
+<span id="cb5-254"><a href="#cb5-254" aria-hidden="true" tabindex="-1"></a>viewof zoom <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">toggle</span>({<span class="dt">label</span><span class="op">:</span> <span class="st">"Zoom in on p &lt; .10"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="kw">false</span>})</span>
+<span id="cb5-255"><a href="#cb5-255" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-256"><a href="#cb5-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-259"><a href="#cb5-259" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb5-260"><a href="#cb5-260" aria-hidden="true" tabindex="-1"></a><span class="co">//| echo: false</span></span>
+<span id="cb5-261"><a href="#cb5-261" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb5-262"><a href="#cb5-262" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">320</span><span class="op">,</span></span>
+<span id="cb5-263"><a href="#cb5-263" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marginLeft</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span></span>
+<span id="cb5-264"><a href="#cb5-264" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"p-value"</span><span class="op">,</span> <span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> xmax]}<span class="op">,</span></span>
+<span id="cb5-265"><a href="#cb5-265" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Proportion of p-values"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">,</span></span>
+<span id="cb5-266"><a href="#cb5-266" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb5-267"><a href="#cb5-267" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">rectY</span>(bins<span class="op">,</span> {<span class="dt">x1</span><span class="op">:</span> <span class="st">"lo"</span><span class="op">,</span> <span class="dt">x2</span><span class="op">:</span> <span class="st">"hi"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"prop"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">sig</span> <span class="op">?</span> <span class="st">"#2780e3"</span> <span class="op">:</span> <span class="st">"#adb5bd"</span><span class="op">,</span> <span class="dt">insetLeft</span><span class="op">:</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dt">insetRight</span><span class="op">:</span> <span class="fl">0.5</span>})<span class="op">,</span></span>
+<span id="cb5-268"><a href="#cb5-268" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([binWidth]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">strokeDasharray</span><span class="op">:</span> <span class="st">"4,3"</span>})<span class="op">,</span></span>
+<span id="cb5-269"><a href="#cb5-269" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])</span>
+<span id="cb5-270"><a href="#cb5-270" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb5-271"><a href="#cb5-271" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb5-272"><a href="#cb5-272" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-273"><a href="#cb5-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-276"><a href="#cb5-276" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb5-277"><a href="#cb5-277" aria-hidden="true" tabindex="-1"></a><span class="co">//| echo: false</span></span>
+<span id="cb5-278"><a href="#cb5-278" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`Proportion of *p*-values below .05 (</span><span class="sc">${</span>es <span class="op">===</span> <span class="dv">0</span> <span class="op">?</span> <span class="st">"the false positive rate, α"</span> <span class="op">:</span> <span class="st">"power"</span><span class="sc">}</span><span class="vs">): **</span><span class="sc">${</span>(<span class="dv">100</span> <span class="op">*</span> <span class="fu">pCdf</span>(<span class="fl">0.05</span>))<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)<span class="sc">}</span><span class="vs">%**  </span></span>
+<span id="cb5-279"><a href="#cb5-279" aria-hidden="true" tabindex="-1"></a><span class="vs">Proportion between .04 and .05: **</span><span class="sc">${</span>(<span class="dv">100</span> <span class="op">*</span> (<span class="fu">pCdf</span>(<span class="fl">0.05</span>) <span class="op">-</span> <span class="fu">pCdf</span>(<span class="fl">0.04</span>)))<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)<span class="sc">}</span><span class="vs">%** (if H&lt;sub&gt;0&lt;/sub&gt; were true: 1%)`</span></span>
+<span id="cb5-280"><a href="#cb5-280" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-281"><a href="#cb5-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-284"><a href="#cb5-284" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb5-285"><a href="#cb5-285" aria-hidden="true" tabindex="-1"></a><span class="co">//| echo: false</span></span>
+<span id="cb5-286"><a href="#cb5-286" aria-hidden="true" tabindex="-1"></a><span class="co">// p-value distribution for a two-sided, two-sample test, using the normal approximation to the t-test</span></span>
+<span id="cb5-287"><a href="#cb5-287" aria-hidden="true" tabindex="-1"></a><span class="co">// (slightly overestimates power in small samples). For noncentrality delta, P(p &lt;= x) = Phi(delta - z) + Phi(-delta - z),</span></span>
+<span id="cb5-288"><a href="#cb5-288" aria-hidden="true" tabindex="-1"></a><span class="co">// where z = Phi^-1(1 - x/2).</span></span>
+<span id="cb5-289"><a href="#cb5-289" aria-hidden="true" tabindex="-1"></a>delta <span class="op">=</span> es <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(n <span class="op">/</span> <span class="dv">2</span>)</span>
+<span id="cb5-290"><a href="#cb5-290" aria-hidden="true" tabindex="-1"></a>xmax <span class="op">=</span> zoom <span class="op">?</span> <span class="fl">0.1</span> <span class="op">:</span> <span class="dv">1</span></span>
+<span id="cb5-291"><a href="#cb5-291" aria-hidden="true" tabindex="-1"></a>binWidth <span class="op">=</span> zoom <span class="op">?</span> <span class="fl">0.005</span> <span class="op">:</span> <span class="fl">0.01</span></span>
+<span id="cb5-292"><a href="#cb5-292" aria-hidden="true" tabindex="-1"></a>bins <span class="op">=</span> d3<span class="op">.</span><span class="fu">range</span>(<span class="bu">Math</span><span class="op">.</span><span class="fu">round</span>(xmax <span class="op">/</span> binWidth))<span class="op">.</span><span class="fu">map</span>(i <span class="kw">=&gt;</span> {</span>
+<span id="cb5-293"><a href="#cb5-293" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> lo <span class="op">=</span> i <span class="op">*</span> binWidth<span class="op">,</span> hi <span class="op">=</span> (i <span class="op">+</span> <span class="dv">1</span>) <span class="op">*</span> binWidth</span>
+<span id="cb5-294"><a href="#cb5-294" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> {lo<span class="op">,</span> hi<span class="op">,</span> <span class="dt">prop</span><span class="op">:</span> <span class="fu">pCdf</span>(hi) <span class="op">-</span> <span class="fu">pCdf</span>(lo)<span class="op">,</span> <span class="dt">sig</span><span class="op">:</span> hi <span class="op">&lt;=</span> <span class="fl">0.05</span> <span class="op">+</span> <span class="fl">1e-9</span>}</span>
+<span id="cb5-295"><a href="#cb5-295" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb5-296"><a href="#cb5-296" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">pCdf</span>(x) {</span>
+<span id="cb5-297"><a href="#cb5-297" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (x <span class="op">&lt;=</span> <span class="dv">0</span>) <span class="cf">return</span> <span class="dv">0</span></span>
+<span id="cb5-298"><a href="#cb5-298" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (x <span class="op">&gt;=</span> <span class="dv">1</span>) <span class="cf">return</span> <span class="dv">1</span></span>
+<span id="cb5-299"><a href="#cb5-299" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> z <span class="op">=</span> <span class="fu">normInv</span>(<span class="dv">1</span> <span class="op">-</span> x <span class="op">/</span> <span class="dv">2</span>)</span>
+<span id="cb5-300"><a href="#cb5-300" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">normCdf</span>(delta <span class="op">-</span> z) <span class="op">+</span> <span class="fu">normCdf</span>(<span class="op">-</span>delta <span class="op">-</span> z)</span>
+<span id="cb5-301"><a href="#cb5-301" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-302"><a href="#cb5-302" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">normCdf</span>(x) {</span>
+<span id="cb5-303"><a href="#cb5-303" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Abramowitz &amp; Stegun 7.1.26</span></span>
+<span id="cb5-304"><a href="#cb5-304" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> t <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> <span class="fl">0.3275911</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(x) <span class="op">/</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">SQRT2</span>)</span>
+<span id="cb5-305"><a href="#cb5-305" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> erf <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> (((((<span class="fl">1.061405429</span> <span class="op">*</span> t <span class="op">-</span> <span class="fl">1.453152027</span>) <span class="op">*</span> t) <span class="op">+</span> <span class="fl">1.421413741</span>) <span class="op">*</span> t <span class="op">-</span> <span class="fl">0.284496736</span>) <span class="op">*</span> t <span class="op">+</span> <span class="fl">0.254829592</span>) <span class="op">*</span> t <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">exp</span>(<span class="op">-</span>x <span class="op">*</span> x <span class="op">/</span> <span class="dv">2</span>)</span>
+<span id="cb5-306"><a href="#cb5-306" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> x <span class="op">&gt;=</span> <span class="dv">0</span> <span class="op">?</span> <span class="fl">0.5</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> erf) <span class="op">:</span> <span class="fl">0.5</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> erf)</span>
+<span id="cb5-307"><a href="#cb5-307" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-308"><a href="#cb5-308" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">normInv</span>(p) {</span>
+<span id="cb5-309"><a href="#cb5-309" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Acklam's algorithm</span></span>
+<span id="cb5-310"><a href="#cb5-310" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> a <span class="op">=</span> [<span class="op">-</span><span class="fl">3.969683028665376e+01</span><span class="op">,</span> <span class="fl">2.209460984245205e+02</span><span class="op">,</span> <span class="op">-</span><span class="fl">2.759285104469687e+02</span><span class="op">,</span> <span class="fl">1.383577518672690e+02</span><span class="op">,</span> <span class="op">-</span><span class="fl">3.066479806614716e+01</span><span class="op">,</span> <span class="fl">2.506628277459239e+00</span>]</span>
+<span id="cb5-311"><a href="#cb5-311" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> b <span class="op">=</span> [<span class="op">-</span><span class="fl">5.447609879822406e+01</span><span class="op">,</span> <span class="fl">1.615858368580409e+02</span><span class="op">,</span> <span class="op">-</span><span class="fl">1.556989798598866e+02</span><span class="op">,</span> <span class="fl">6.680131188771972e+01</span><span class="op">,</span> <span class="op">-</span><span class="fl">1.328068155288572e+01</span>]</span>
+<span id="cb5-312"><a href="#cb5-312" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> c <span class="op">=</span> [<span class="op">-</span><span class="fl">7.784894002430293e-03</span><span class="op">,</span> <span class="op">-</span><span class="fl">3.223964580411365e-01</span><span class="op">,</span> <span class="op">-</span><span class="fl">2.400758277161838e+00</span><span class="op">,</span> <span class="op">-</span><span class="fl">2.549732539343734e+00</span><span class="op">,</span> <span class="fl">4.374664141464968e+00</span><span class="op">,</span> <span class="fl">2.938163982698783e+00</span>]</span>
+<span id="cb5-313"><a href="#cb5-313" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> e <span class="op">=</span> [<span class="fl">7.784695709041462e-03</span><span class="op">,</span> <span class="fl">3.224671290700398e-01</span><span class="op">,</span> <span class="fl">2.445134137142996e+00</span><span class="op">,</span> <span class="fl">3.754408661907416e+00</span>]</span>
+<span id="cb5-314"><a href="#cb5-314" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> plow <span class="op">=</span> <span class="fl">0.02425</span></span>
+<span id="cb5-315"><a href="#cb5-315" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (p <span class="op">&lt;</span> plow) {</span>
+<span id="cb5-316"><a href="#cb5-316" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> q <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="op">-</span><span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">log</span>(p))</span>
+<span id="cb5-317"><a href="#cb5-317" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (((((c[<span class="dv">0</span>] <span class="op">*</span> q <span class="op">+</span> c[<span class="dv">1</span>]) <span class="op">*</span> q <span class="op">+</span> c[<span class="dv">2</span>]) <span class="op">*</span> q <span class="op">+</span> c[<span class="dv">3</span>]) <span class="op">*</span> q <span class="op">+</span> c[<span class="dv">4</span>]) <span class="op">*</span> q <span class="op">+</span> c[<span class="dv">5</span>]) <span class="op">/</span> ((((e[<span class="dv">0</span>] <span class="op">*</span> q <span class="op">+</span> e[<span class="dv">1</span>]) <span class="op">*</span> q <span class="op">+</span> e[<span class="dv">2</span>]) <span class="op">*</span> q <span class="op">+</span> e[<span class="dv">3</span>]) <span class="op">*</span> q <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb5-318"><a href="#cb5-318" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-319"><a href="#cb5-319" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (p <span class="op">&gt;</span> <span class="dv">1</span> <span class="op">-</span> plow) <span class="cf">return</span> <span class="op">-</span><span class="fu">normInv</span>(<span class="dv">1</span> <span class="op">-</span> p)</span>
+<span id="cb5-320"><a href="#cb5-320" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> q <span class="op">=</span> p <span class="op">-</span> <span class="fl">0.5</span><span class="op">,</span> r <span class="op">=</span> q <span class="op">*</span> q</span>
+<span id="cb5-321"><a href="#cb5-321" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> (((((a[<span class="dv">0</span>] <span class="op">*</span> r <span class="op">+</span> a[<span class="dv">1</span>]) <span class="op">*</span> r <span class="op">+</span> a[<span class="dv">2</span>]) <span class="op">*</span> r <span class="op">+</span> a[<span class="dv">3</span>]) <span class="op">*</span> r <span class="op">+</span> a[<span class="dv">4</span>]) <span class="op">*</span> r <span class="op">+</span> a[<span class="dv">5</span>]) <span class="op">*</span> q <span class="op">/</span> (((((b[<span class="dv">0</span>] <span class="op">*</span> r <span class="op">+</span> b[<span class="dv">1</span>]) <span class="op">*</span> r <span class="op">+</span> b[<span class="dv">2</span>]) <span class="op">*</span> r <span class="op">+</span> b[<span class="dv">3</span>]) <span class="op">*</span> r <span class="op">+</span> b[<span class="dv">4</span>]) <span class="op">*</span> r <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb5-322"><a href="#cb5-322" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-323"><a href="#cb5-323" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-324"><a href="#cb5-324" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-325"><a href="#cb5-325" aria-hidden="true" tabindex="-1"></a>For a fuller version, including the distribution of *p*-values for any power and the option to simulate studies one at a time, see Kristoffer Magnusson's interactive visualisation at <span class="co">[</span><span class="ot">rpsychologist.com/d3/pdist</span><span class="co">](https://rpsychologist.com/d3/pdist)</span>.</span>
+<span id="cb5-326"><a href="#cb5-326" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-327"><a href="#cb5-327" aria-hidden="true" tabindex="-1"></a><span class="fu">### Distributions that cannot occur naturally</span></span>
+<span id="cb5-328"><a href="#cb5-328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-329"><a href="#cb5-329" aria-hidden="true" tabindex="-1"></a>Because unbiased *p*-values are either flat (under $H_0$) or skewed towards zero (under $H_1$), there is no natural way for a collection of *p*-values to cluster just below .05. An excess of *p*-values just under the significance threshold requires some form of bias, such as publication bias or *p*-hacking. Masicampo and Lalande (2012) reported such a "peculiar prevalence" of *p*-values just below .05 in three psychology journals. The evidence is more mixed than that headline suggests: in a much larger sample of 258,050 test results, Hartgerink et al. (2016) found a bump below .05 in some journals, but it disappeared when *p*-values were recalculated from the reported test statistics. They did, however, find clear evidence of *p*-values being incorrectly rounded down to below .05.</span>
+<span id="cb5-330"><a href="#cb5-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-331"><a href="#cb5-331" aria-hidden="true" tabindex="-1"></a>The shape of a set of *p*-values is the basis of methods such as *p*-curve and *z*-curve. Their validity for diagnosing *p*-hacking in a given literature is debated, so they are not covered in this book, which focuses on methods for detecting impossible or implausible results within individual articles.</span>
+<span id="cb5-332"><a href="#cb5-332" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-333"><a href="#cb5-333" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- #### Why this matters for trustworthiness assessment --&gt;</span></span>
+<span id="cb5-334"><a href="#cb5-334" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-335"><a href="#cb5-335" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- The null-model view is what makes a *p*-value useful for assessing trustworthiness, and also what limits it. A reported *p*-value is informative about $H_0$ only to the extent that the other assumptions of the null model are credible. Much of this book is about checking those other assumptions: whether the design was as described, whether the reported statistics are internally consistent, and whether the analyses reported are the analyses that were run. When those assumptions are doubtful, a small *p*-value says correspondingly little about the null hypothesis. --&gt;</span></span>
+<span id="cb5-336"><a href="#cb5-336" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-337"><a href="#cb5-337" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- </span><span class="al">###</span><span class="co"> Implications for trustworthiness assessment --&gt;</span></span>
+<span id="cb5-338"><a href="#cb5-338" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-339"><a href="#cb5-339" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- - Misinterpretations of *p*-values are a common source of misalignment between an article's results and its conclusions. The rest of this chapter, and the next, cover how to spot them. --&gt;</span></span>
+<span id="cb5-340"><a href="#cb5-340" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- - Because these misinterpretations are so common among researchers, they are also common among assessors. Checking our own understanding is a prerequisite for judging others'. --&gt;</span></span>
+<span id="cb5-341"><a href="#cb5-341" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- - A misinterpreted *p*-value makes the written conclusions untrustworthy even when the numerical results are accurate. It is evidence of a claim–evidence problem, not of fabrication or error in the numbers themselves. --&gt;</span></span>
+<span id="cb5-342"><a href="#cb5-342" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-343"><a href="#cb5-343" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- ## Interpretation of *p*-values --&gt;</span></span>
+<span id="cb5-344"><a href="#cb5-344" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-345"><a href="#cb5-345" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- - Intuitions for *p*-values --&gt;</span></span>
+<span id="cb5-346"><a href="#cb5-346" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- - Alpha, power, diagnosticity refreshers --&gt;</span></span>
+<span id="cb5-347"><a href="#cb5-347" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--   - Distribution of unbiased *p*-values under null/alternative --&gt;</span></span>
+<span id="cb5-348"><a href="#cb5-348" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- - *p*-hacking and its impact on *p*-values and effect sizes --&gt;</span></span>
+<span id="cb5-349"><a href="#cb5-349" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- - Methods that aren't useful for trustworthiness assessment but are good for intuitions: distribution of biased *p*-values, *p*-curve, *z*-curve --&gt;</span></span>
+<span id="cb5-350"><a href="#cb5-350" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- - Too good to be true in the context of power vs significance rate --&gt;</span></span>
+<span id="cb5-351"><a href="#cb5-351" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- - Peeking and trends towards significance --&gt;</span></span>
+<span id="cb5-352"><a href="#cb5-352" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-353"><a href="#cb5-353" aria-hidden="true" tabindex="-1"></a><span class="fu">## References {.unnumbered}</span></span>
+<span id="cb5-354"><a href="#cb5-354" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-355"><a href="#cb5-355" aria-hidden="true" tabindex="-1"></a>::: references-apa</span>
+<span id="cb5-356"><a href="#cb5-356" aria-hidden="true" tabindex="-1"></a>Badenes-Ribera, L., Frías-Navarro, D., Iotti, B., Bonilla-Campos, A., &amp; Longobardi, C. (2016). Misconceptions of the *p*-value among Chilean and Italian academic psychologists. *Frontiers in Psychology*, *7*, Article 1247. <span class="ot">&lt;https://doi.org/10.3389/fpsyg.2016.01247&gt;</span></span>
+<span id="cb5-357"><a href="#cb5-357" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-358"><a href="#cb5-358" aria-hidden="true" tabindex="-1"></a>Badenes-Ribera, L., Frías-Navarro, D., Monterde-i-Bort, H., &amp; Pascual-Soler, M. (2015). Interpretation of the *p* value: A national survey study in academic psychologists from Spain. *Psicothema*, *27*(3), 290–295. <span class="ot">&lt;https://doi.org/10.7334/psicothema2014.283&gt;</span></span>
+<span id="cb5-359"><a href="#cb5-359" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-360"><a href="#cb5-360" aria-hidden="true" tabindex="-1"></a>Benjamini, Y., De Veaux, R., Efron, B., Evans, S., Glickman, M., Graubard, B. I., He, X., Meng, X.-L., Reid, N., Stigler, S. M., Vardeman, S. B., Wikle, C. K., Wright, T., Young, L. J., &amp; Kafadar, K. (2021). ASA President's Task Force statement on statistical significance and replicability. *Harvard Data Science Review*, *3*(3). <span class="ot">&lt;https://doi.org/10.1162/99608f92.f0ad0287&gt;</span></span>
+<span id="cb5-361"><a href="#cb5-361" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-362"><a href="#cb5-362" aria-hidden="true" tabindex="-1"></a>Cassidy, S. A., Dimova, R., Giguère, B., Spence, J. R., &amp; Stanley, D. J. (2019). Failing grade: 89% of introduction-to-psychology textbooks that define or explain statistical significance do so incorrectly. *Advances in Methods and Practices in Psychological Science*, *2*(3), 233–239. <span class="ot">&lt;https://doi.org/10.1177/2515245919858072&gt;</span></span>
+<span id="cb5-363"><a href="#cb5-363" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-364"><a href="#cb5-364" aria-hidden="true" tabindex="-1"></a>Cohen, J. (1994). The earth is round (*p* \&lt; .05). *American Psychologist*, *49*(12), 997–1003. <span class="ot">&lt;https://doi.org/10.1037/0003-066X.49.12.997&gt;</span></span>
+<span id="cb5-365"><a href="#cb5-365" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-366"><a href="#cb5-366" aria-hidden="true" tabindex="-1"></a>Cox, D. R. (2006). *Principles of statistical inference*. Cambridge University Press. <span class="ot">&lt;https://doi.org/10.1017/CBO9780511813559&gt;</span></span>
+<span id="cb5-367"><a href="#cb5-367" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-368"><a href="#cb5-368" aria-hidden="true" tabindex="-1"></a>Falk, R., &amp; Greenbaum, C. W. (1995). Significance tests die hard: The amazing persistence of a probabilistic misconception. *Theory &amp; Psychology*, *5*(1), 75–98. <span class="ot">&lt;https://doi.org/10.1177/0959354395051004&gt;</span></span>
+<span id="cb5-369"><a href="#cb5-369" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-370"><a href="#cb5-370" aria-hidden="true" tabindex="-1"></a>García-Pérez, M. A., &amp; Alcalá-Quintana, R. (2016). The interpretation of scholars' interpretations of confidence intervals: Criticism, replication, and extension of Hoekstra et al. (2014). *Frontiers in Psychology*, *7*, Article 1042. <span class="ot">&lt;https://doi.org/10.3389/fpsyg.2016.01042&gt;</span></span>
+<span id="cb5-371"><a href="#cb5-371" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-372"><a href="#cb5-372" aria-hidden="true" tabindex="-1"></a>Gigerenzer, G. (2004). Mindless statistics. *The Journal of Socio-Economics*, *33*(5), 587–606. <span class="ot">&lt;https://doi.org/10.1016/j.socec.2004.09.033&gt;</span></span>
+<span id="cb5-373"><a href="#cb5-373" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-374"><a href="#cb5-374" aria-hidden="true" tabindex="-1"></a>Gigerenzer, G. (2018). Statistical rituals: The replication delusion and how we got there. *Advances in Methods and Practices in Psychological Science*, *1*(2), 198–218. <span class="ot">&lt;https://doi.org/10.1177/2515245918771329&gt;</span></span>
+<span id="cb5-375"><a href="#cb5-375" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-376"><a href="#cb5-376" aria-hidden="true" tabindex="-1"></a>Greenland, S., Senn, S. J., Rothman, K. J., Carlin, J. B., Poole, C., Goodman, S. N., &amp; Altman, D. G. (2016). Statistical tests, *P* values, confidence intervals, and power: A guide to misinterpretations. *European Journal of Epidemiology*, *31*(4), 337–350. <span class="ot">&lt;https://doi.org/10.1007/s10654-016-0149-3&gt;</span></span>
+<span id="cb5-377"><a href="#cb5-377" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-378"><a href="#cb5-378" aria-hidden="true" tabindex="-1"></a>Haller, H., &amp; Krauss, S. (2002). Misinterpretations of significance: A problem students share with their teachers? *Methods of Psychological Research Online*, *7*(1), 1–20. <span class="ot">&lt;https://epub.uni-regensburg.de/34338/&gt;</span></span>
+<span id="cb5-379"><a href="#cb5-379" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-380"><a href="#cb5-380" aria-hidden="true" tabindex="-1"></a>Hartgerink, C. H. J., van Aert, R. C. M., Nuijten, M. B., Wicherts, J. M., &amp; van Assen, M. A. L. M. (2016). Distributions of *p*-values smaller than .05 in psychology: What is going on? *PeerJ*, *4*, Article e1935. <span class="ot">&lt;https://doi.org/10.7717/peerj.1935&gt;</span></span>
+<span id="cb5-381"><a href="#cb5-381" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-382"><a href="#cb5-382" aria-hidden="true" tabindex="-1"></a>Kruschke, J. K. (2015). *Doing Bayesian data analysis: A tutorial with R, JAGS, and Stan* (2nd ed.). Academic Press. <span class="ot">&lt;https://doi.org/10.1016/C2012-0-00477-2&gt;</span></span>
+<span id="cb5-383"><a href="#cb5-383" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-384"><a href="#cb5-384" aria-hidden="true" tabindex="-1"></a>Lakens, D. (2022). *Improving your statistical inferences* (Version 1.0.0). Zenodo. <span class="ot">&lt;https://doi.org/10.5281/zenodo.6409077&gt;</span></span>
+<span id="cb5-385"><a href="#cb5-385" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-386"><a href="#cb5-386" aria-hidden="true" tabindex="-1"></a>Lyu, X.-K., Xu, Y., Zhao, X.-F., Zuo, X.-N., &amp; Hu, C.-P. (2020). Beyond psychology: Prevalence of *p* value and confidence interval misinterpretation across different fields. *Journal of Pacific Rim Psychology*, *14*, Article e6. <span class="ot">&lt;https://doi.org/10.1017/prp.2019.28&gt;</span></span>
+<span id="cb5-387"><a href="#cb5-387" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-388"><a href="#cb5-388" aria-hidden="true" tabindex="-1"></a>Lyu, Z., Peng, K., &amp; Hu, C.-P. (2018). *P*-value, confidence intervals, and statistical inference: A new dataset of misinterpretation. *Frontiers in Psychology*, *9*, Article 868. <span class="ot">&lt;https://doi.org/10.3389/fpsyg.2018.00868&gt;</span></span>
+<span id="cb5-389"><a href="#cb5-389" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-390"><a href="#cb5-390" aria-hidden="true" tabindex="-1"></a>Masicampo, E. J., &amp; Lalande, D. R. (2012). A peculiar prevalence of *p* values just below .05. *Quarterly Journal of Experimental Psychology*, *65*(11), 2271–2279. <span class="ot">&lt;https://doi.org/10.1080/17470218.2012.711335&gt;</span></span>
+<span id="cb5-391"><a href="#cb5-391" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-392"><a href="#cb5-392" aria-hidden="true" tabindex="-1"></a>McElreath, R. (2020). *Statistical rethinking: A Bayesian course with examples in R and Stan* (2nd ed.). CRC Press. <span class="ot">&lt;https://doi.org/10.1201/9780429029608&gt;</span></span>
+<span id="cb5-393"><a href="#cb5-393" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-394"><a href="#cb5-394" aria-hidden="true" tabindex="-1"></a>McShane, B. B., &amp; Gal, D. (2017). Statistical significance and the dichotomization of evidence. *Journal of the American Statistical Association*, *112*(519), 885–895. <span class="ot">&lt;https://doi.org/10.1080/01621459.2017.1289846&gt;</span></span>
+<span id="cb5-395"><a href="#cb5-395" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-396"><a href="#cb5-396" aria-hidden="true" tabindex="-1"></a>Miller, J., &amp; Ulrich, R. (2016). Interpreting confidence intervals: A comment on Hoekstra, Morey, Rouder, and Wagenmakers (2014). *Psychonomic Bulletin &amp; Review*, *23*(1), 124–130. <span class="ot">&lt;https://doi.org/10.3758/s13423-015-0859-7&gt;</span></span>
+<span id="cb5-397"><a href="#cb5-397" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-398"><a href="#cb5-398" aria-hidden="true" tabindex="-1"></a>Murphy, S. L., Merz, R., Reimann, L.-E., &amp; Fernández, A. (2025). Nonsignificance misinterpreted as an effect's absence in psychology: Prevalence and temporal analyses. *Royal Society Open Science*, *12*(3), Article 242167. <span class="ot">&lt;https://doi.org/10.1098/rsos.242167&gt;</span></span>
+<span id="cb5-399"><a href="#cb5-399" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-400"><a href="#cb5-400" aria-hidden="true" tabindex="-1"></a>Oakes, M. (1986). *Statistical inference: A commentary for the social and behavioural sciences*. Wiley.</span>
+<span id="cb5-401"><a href="#cb5-401" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-402"><a href="#cb5-402" aria-hidden="true" tabindex="-1"></a>Wasserstein, R. L., &amp; Lazar, N. A. (2016). The ASA statement on *p*-values: Context, process, and purpose. *The American Statistician*, *70*(2), 129–133. <span class="ot">&lt;https://doi.org/10.1080/00031305.2016.1154108&gt;</span></span>
+<span id="cb5-403"><a href="#cb5-403" aria-hidden="true" tabindex="-1"></a>:::</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

@@ -1,8 +1,8 @@
-# Chapter name <span class="badge badge-draft1">✎ Very rough draft</span>
+# Chapter name <span class="badge badge-draft1">✎ Outline</span>
 
 Examples of badges for use in other chapters:
 
-- badge 1 <span class="badge badge-draft1">✎ Very rough draft</span> # this one should be used by default.
+- badge 1 <span class="badge badge-draft1">✎ Outline</span> # this one should be used by default.
 - badge 2 <span class="badge badge-draft2">✎ Rough draft</span>
 - badge 3 <span class="badge badge-draft3">✎ Polishing</span>
 - badge 4 <span class="badge badge-complete">✓ Complete</span>

@@ -1,4 +1,4 @@
-# Measurement methods <span class="badge badge-draft1">✎ Very rough draft</span>
+# Measurement methods <span class="badge badge-draft1">✎ Outline</span>
 
 ```{r}
 #| include: false

@@ -1,4 +1,4 @@
-# Recalculation methods <span class="badge badge-draft1">✎ Very rough draft</span>
+# Recalculation methods <span class="badge badge-draft1">✎ Outline</span>
 
 ```{r}
 #| include: false

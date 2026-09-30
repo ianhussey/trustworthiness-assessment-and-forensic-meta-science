@@ -1,4 +1,4 @@
-# Effect size methods <span class="badge badge-draft1">✎ Very rough draft</span>
+# Effect size methods <span class="badge badge-draft1">✎ Outline</span>
 
 ```{r}
 #| include: false

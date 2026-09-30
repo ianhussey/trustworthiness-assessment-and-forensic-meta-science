@@ -1,4 +1,4 @@
-# Organising principles <span class="badge badge-draft1">✎ Very rough draft</span>
+# Organising principles <span class="badge badge-draft1">✎ Outline</span>
 
 ```{r}
 #| include: false

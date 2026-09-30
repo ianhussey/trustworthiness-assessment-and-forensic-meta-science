@@ -1,4 +1,4 @@
-# Organising critique <span class="badge badge-draft1">✎ Very rough draft</span>
+# Organising critique <span class="badge badge-draft1">✎ Outline</span>
 
 ```{r}
 #| include: false

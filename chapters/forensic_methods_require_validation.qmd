@@ -1,4 +1,4 @@
-# Forensic meta-science methods require validation <span class="badge badge-draft1">✎ Very rough draft</span>
+# Forensic meta-science methods require validation <span class="badge badge-draft1">✎ Outline</span>
 
 ```{r}
 #| include: false

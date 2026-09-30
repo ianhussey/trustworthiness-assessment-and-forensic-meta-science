@@ -1,4 +1,4 @@
-# Lesson plan <span class="badge badge-draft1">✎ Very rough draft</span>
+# Lesson plan <span class="badge badge-draft1">✎ Outline</span>
 
 ```{r}
 #| include: false

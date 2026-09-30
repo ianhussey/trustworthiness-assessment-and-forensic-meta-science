@@ -588,9 +588,7 @@ window.Quarto = {
   <li><a href="#misinterpretations-in-the-literature" id="toc-misinterpretations-in-the-literature" class="nav-link" data-scroll-target="#misinterpretations-in-the-literature"><span class="header-section-number">4.2</span> Misinterpretations in the literature</a>
   <ul class="collapse">
   <li><a href="#what-a-p-value-is" id="toc-what-a-p-value-is" class="nav-link" data-scroll-target="#what-a-p-value-is"><span class="header-section-number">4.2.1</span> What a <em>p</em>-value is</a></li>
-  <li><a href="#implications-for-trustworthiness-assessment" id="toc-implications-for-trustworthiness-assessment" class="nav-link" data-scroll-target="#implications-for-trustworthiness-assessment"><span class="header-section-number">4.2.2</span> Implications for trustworthiness assessment</a></li>
   </ul></li>
-  <li><a href="#interpretation-of-p-values" id="toc-interpretation-of-p-values" class="nav-link" data-scroll-target="#interpretation-of-p-values"><span class="header-section-number">4.3</span> Interpretation of <em>p</em>-values</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
@@ -777,7 +775,7 @@ p = \Pr(T \geq t_{\text{obs}};\ H_0)
 <h4 data-number="4.2.1.2" class="anchored" data-anchor-id="the-model-is-the-null-model"><span class="header-section-number">4.2.1.2</span> “The model” is the null model</h4>
 <p>The American Statistical Association’s statement on <em>p</em>-values (Wasserstein &amp; Lazar, 2016) gives an informal definition that is often quoted:</p>
 <div class="big-quote">
-<p>“the probability under a specified statistical model that a statistical summary of the data … would be equal to or more extreme than its observed value.”</p>
+<p>“the [long-run] probability under a specified statistical model that a statistical summary of the data … would be equal to or more extreme than its observed value.”</p>
 <p>American Statistical Association’s statement on <em>p</em>-values (Wasserstein &amp; Lazar, 2016).</p>
 </div>
 <p>Many readers initially struggle with what “a specified statistical model” refers to. It is not the researcher’s hypothesis, the alternative hypothesis, but rather the <strong>null model</strong>: the null hypothesis <em>together with</em> every other assumption needed to derive the reference distribution. The statement’s first principle makes this explicit, describing the most common context as “a model, constructed under a set of assumptions, together with a so-called ‘null hypothesis’”. For the independent-samples <em>t</em>-test in the quiz, the null model includes:</p>
@@ -789,13 +787,93 @@ p = \Pr(T \geq t_{\text{obs}};\ H_0)
 </ul>
 <p>Greenland et al.&nbsp;(2016) build this into their definition.</p>
 <div class="big-quote">
-<p>The <em>p</em>-value is “the probability that the chosen test statistic would have been at least as large as its observed value if every model assumption were correct, including the test hypothesis.”</p>
+<p>The <em>p</em>-value is “the [long-run] probability that the chosen test statistic would have been at least as large as its observed value if every model assumption were correct, including the test hypothesis.”</p>
 <p>Greenland et al.&nbsp;(2016)</p>
 </div>
 <p>In their terms, H0 is just the one assumption that has been <em>targeted</em> for testing (the “test hypothesis”); the <em>p</em>-value itself tests all of them at once.</p>
 </section>
-<section id="small-and-large-p-values" class="level4" data-number="4.2.1.3">
-<h4 data-number="4.2.1.3" class="anchored" data-anchor-id="small-and-large-p-values"><span class="header-section-number">4.2.1.3</span> Small and large <em>p</em>-values</h4>
+<section id="what-we-want-to-know-versus-what-a-p-value-tells-us" class="level4" data-number="4.2.1.3">
+<h4 data-number="4.2.1.3" class="anchored" data-anchor-id="what-we-want-to-know-versus-what-a-p-value-tells-us"><span class="header-section-number">4.2.1.3</span> What we want to know versus what a <em>p</em>-value tells us</h4>
+<p>Most of the misinterpretations in the quiz come from a mismatch between the question researchers want answered and the question a <em>p</em>-value actually answers.</p>
+<div class="big-quote">
+<p>What most researchers want to know: given my data, how probable is it that my hypothesis is true?</p>
+<p>P(H | D)</p>
+</div>
+<div class="big-quote">
+<p>What a <em>p</em>-value tells us: given that the null model is true, how improbable are data like mine?</p>
+<p>P(D | H<sub>0</sub>)</p>
+</div>
+<p>Here “D” is shorthand for “data at least as extreme as those observed”, and the conditional bar is used loosely for “assuming”, as it usually is in teaching (see the note on the semicolon above).</p>
+<p>Significance testing then adds an inferential step that is not part of the probability calculation at all: <em>if</em> the data would be very improbable under the null model, we decide to act as if the null hypothesis is false and the alternative hypothesis is true. This decision rule is what α controls. It guarantees that, in the long run, no more than 5% of tests of true null hypotheses will be significant. It does not say how probable any particular hypothesis is.</p>
+<p>P(D | H) and P(H | D) are different quantities, and they can differ enormously. The probability that a person is a smoker given that they have lung cancer is high; the probability that a person has lung cancer given that they smoke is much lower. Confusing the two is known as the inverse probability fallacy or the transposed conditional, and it underlies quiz statements 2, 4, and 5, which all read <em>p</em> as a probability of a hypothesis.</p>
+<p>Getting from one to the other requires Bayes’ theorem:</p>
+<p><span class="math display">\[
+\Pr(H_0 \mid D) = \frac{\Pr(D \mid H_0)\,\Pr(H_0)}{\Pr(D \mid H_0)\,\Pr(H_0) + \Pr(D \mid H_1)\,\Pr(H_1)}
+\]</span></p>
+<p>Two things are needed that a significance test does not use: the <strong>prior probability</strong> that the null hypothesis is true, Pr(H<sub>0</sub>), and the <strong>probability of the data if the alternative is true</strong>, Pr(D | H<sub>1</sub>), which for a significant result is the study’s statistical power. Frequentist methods treat hypotheses as fixed states of the world rather than as things with probabilities, so they deliberately leave both out.</p>
+<p>The consequences are easiest to see with counts. Imagine 1,000 studies, each testing a different hypothesis with α = .05. <a href="#tbl-p-h-given-d" class="quarto-xref">Table&nbsp;<span>4.2</span></a> shows how often a significant result comes from a true null hypothesis, for different proportions of true effects among the hypotheses tested and different levels of power.</p>
+<div id="tbl-p-h-given-d" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-p-h-given-d-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4.2: Probability that a significant result comes from a true null hypothesis (the false discovery risk), among 1,000 hypothetical studies tested at α = .05. True positives = number of true effects × power; false positives = number of true nulls × α.
+</figcaption>
+<div aria-describedby="tbl-p-h-given-d-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Base rate of true hypotheses</th>
+<th style="text-align: right;">Power</th>
+<th style="text-align: right;">True positives</th>
+<th style="text-align: right;">False positives</th>
+<th style="text-align: right;">Pr(H<sub>0</sub> | <em>p</em> &lt; .05)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">50%</td>
+<td style="text-align: right;">80%</td>
+<td style="text-align: right;">400</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">6%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10%</td>
+<td style="text-align: right;">80%</td>
+<td style="text-align: right;">80</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">36%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">50%</td>
+<td style="text-align: right;">35%</td>
+<td style="text-align: right;">175</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">13%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10%</td>
+<td style="text-align: right;">35%</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">56%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>The significance threshold and the false positive rate are the same in every row: α = .05, so 5% of true nulls produce a significant result. But the probability that a given significant result is a false positive ranges from 6% to 56%, depending on the base rate of true hypotheses and on power. Low power therefore does not only produce false negatives; by reducing the number of true positives, it also increases the <em>proportion</em> of significant results that are false positives.</p>
+<p>In practice, the base rate of true hypotheses in a research area is unknown and may not even be knowable. Frequentist statistics responds to this inconvenient fact by not trying to answer P(H | D) at all, and instead reporting only long-run properties of the procedure (α and power) and, for individual results, how compatible the data are with the null model. That is what the rest of this section describes. When a reader, or an author, interprets a <em>p</em>-value as the probability that the null hypothesis is true or that the finding is real, they are answering the Bayesian question with a frequentist number.</p>
+</section>
+<section id="small-and-large-p-values" class="level4" data-number="4.2.1.4">
+<h4 data-number="4.2.1.4" class="anchored" data-anchor-id="small-and-large-p-values"><span class="header-section-number">4.2.1.4</span> Small and large <em>p</em>-values</h4>
 <p>It follows that a <em>p</em>-value is best read as a measure of <strong>compatibility</strong> between the data and the whole null model, running from 0 (the data are completely incompatible with the model) to 1 (the data are exactly what the model predicts) (Greenland et al., 2016).</p>
 <ul>
 <li><strong>A small <em>p</em>-value</strong> says that the data would be unusual if every assumption of the null model were true. It does not say which assumption is false. H0 may be false, or the design may have been compromised, the distributional assumptions may not hold, or the result may have been selected for reporting because it was small.</li>
@@ -803,8 +881,8 @@ p = \Pr(T \geq t_{\text{obs}};\ H_0)
 </ul>
 <p>This is why selective reporting matters so much. The ASA statement notes that when many analyses are conducted and only some are reported, the reported <em>p</em>-values become “essentially uninterpretable” (Wasserstein &amp; Lazar, 2016). In null-model terms, the assumption that the result was not chosen for its <em>p</em>-value has been violated, so the reference distribution no longer applies.</p>
 </section>
-<section id="what-the-asa-statements-say" class="level4" data-number="4.2.1.4">
-<h4 data-number="4.2.1.4" class="anchored" data-anchor-id="what-the-asa-statements-say"><span class="header-section-number">4.2.1.4</span> What the ASA statements say</h4>
+<section id="what-the-asa-statements-say" class="level4" data-number="4.2.1.5">
+<h4 data-number="4.2.1.5" class="anchored" data-anchor-id="what-the-asa-statements-say"><span class="header-section-number">4.2.1.5</span> What the ASA statements say</h4>
 <p>The 2016 ASA statement sets out six principles, summarised here:</p>
 <ol type="1">
 <li><em>p</em>-values can indicate how incompatible the data are with a specified statistical model.</li>
@@ -816,34 +894,22 @@ p = \Pr(T \geq t_{\text{obs}};\ H_0)
 </ol>
 <p>The second principle rules out the most common textbook error identified by Cassidy et al.&nbsp;(2019). The claim that <em>p</em> is “the probability that the results occurred by chance” reverses the definition: the <em>p</em>-value is calculated <em>assuming</em> that chance alone is operating, so it cannot be the probability that chance alone is operating (Greenland et al., 2016).</p>
 <p>A later statement from a task force convened by the ASA’s president (Benjamini et al., 2021) is more positive in tone. It stresses that <em>p</em>-values and significance tests, properly applied and interpreted, are valid tools that increase the rigour of conclusions and should not be abandoned. But it agrees on the essentials. <em>p</em>-values should be understood as assessments of observations relative to sampling variation, not as measures of practical significance, and any significance threshold should be chosen deliberately, based on the study’s goals and the consequences of wrong decisions.</p>
+<!-- #### Why this matters for trustworthiness assessment -->
+<!-- The null-model view is what makes a *p*-value useful for assessing trustworthiness, and also what limits it. A reported *p*-value is informative about H0 only to the extent that the other assumptions of the null model are credible. Much of this book is about checking those other assumptions: whether the design was as described, whether the reported statistics are internally consistent, and whether the analyses reported are the analyses that were run. When those assumptions are doubtful, a small *p*-value says correspondingly little about the null hypothesis. -->
+<!-- ### Implications for trustworthiness assessment -->
+<!-- - Misinterpretations of *p*-values are a common source of misalignment between an article's results and its conclusions. The rest of this chapter, and the next, cover how to spot them. -->
+<!-- - Because these misinterpretations are so common among researchers, they are also common among assessors. Checking our own understanding is a prerequisite for judging others'. -->
+<!-- - A misinterpreted *p*-value makes the written conclusions untrustworthy even when the numerical results are accurate. It is evidence of a claim–evidence problem, not of fabrication or error in the numbers themselves. -->
+<!-- ## Interpretation of *p*-values -->
+<!-- - Intuitions for *p*-values -->
+<!-- - Alpha, power, diagnosticity refreshers -->
+<!--   - Distribution of unbiased *p*-values under null/alternative -->
+<!-- - *p*-hacking and its impact on *p*-values and effect sizes -->
+<!-- - Methods that aren't useful for trustworthiness assessment but are good for intuitions: distribution of biased *p*-values, *p*-curve, *z*-curve -->
+<!-- - Too good to be true in the context of power vs significance rate -->
+<!-- - Peeking and trends towards significance -->
 </section>
-<section id="why-this-matters-for-trustworthiness-assessment" class="level4" data-number="4.2.1.5">
-<h4 data-number="4.2.1.5" class="anchored" data-anchor-id="why-this-matters-for-trustworthiness-assessment"><span class="header-section-number">4.2.1.5</span> Why this matters for trustworthiness assessment</h4>
-<p>The null-model view is what makes a <em>p</em>-value useful for assessing trustworthiness, and also what limits it. A reported <em>p</em>-value is informative about H0 only to the extent that the other assumptions of the null model are credible. Much of this book is about checking those other assumptions: whether the design was as described, whether the reported statistics are internally consistent, and whether the analyses reported are the analyses that were run. When those assumptions are doubtful, a small <em>p</em>-value says correspondingly little about the null hypothesis.</p>
 </section>
-</section>
-<section id="implications-for-trustworthiness-assessment" class="level3" data-number="4.2.2">
-<h3 data-number="4.2.2" class="anchored" data-anchor-id="implications-for-trustworthiness-assessment"><span class="header-section-number">4.2.2</span> Implications for trustworthiness assessment</h3>
-<ul>
-<li>Misinterpretations of <em>p</em>-values are a common source of misalignment between an article’s results and its conclusions. The rest of this chapter, and the next, cover how to spot them.</li>
-<li>Because these misinterpretations are so common among researchers, they are also common among assessors. Checking our own understanding is a prerequisite for judging others’.</li>
-<li>A misinterpreted <em>p</em>-value makes the written conclusions untrustworthy even when the numerical results are accurate. It is evidence of a claim–evidence problem, not of fabrication or error in the numbers themselves.</li>
-</ul>
-</section>
-</section>
-<section id="interpretation-of-p-values" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="interpretation-of-p-values"><span class="header-section-number">4.3</span> Interpretation of <em>p</em>-values</h2>
-<ul>
-<li>Intuitions for <em>p</em>-values</li>
-<li>Alpha, power, diagnosticity refreshers
-<ul>
-<li>Distribution of unbiased <em>p</em>-values under null/alternative</li>
-</ul></li>
-<li><em>p</em>-hacking and its impact on <em>p</em>-values and effect sizes</li>
-<li>Methods that aren’t useful for trustworthiness assessment but are good for intuitions: distribution of biased <em>p</em>-values, <em>p</em>-curve, <em>z</em>-curve</li>
-<li>Too good to be true in the context of power vs significance rate</li>
-<li>Peeking and trends towards significance</li>
-</ul>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
@@ -1678,7 +1744,7 @@ window.onload = function() {
 <span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a>The American Statistical Association's statement on *p*-values (Wasserstein &amp; Lazar, 2016) gives an informal definition that is often quoted:</span>
 <span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>::: big-quote</span>
-<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>"the probability under a specified statistical model that a statistical summary of the data ... would be equal to or more extreme than its observed value."</span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>"the <span class="co">[</span><span class="ot">long-run</span><span class="co">]</span> probability under a specified statistical model that a statistical summary of the data ... would be equal to or more extreme than its observed value."</span>
 <span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a>American Statistical Association's statement on *p*-values (Wasserstein &amp; Lazar, 2016).</span>
 <span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a>:::</span>
@@ -1693,98 +1759,143 @@ window.onload = function() {
 <span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a>Greenland et al. (2016) build this into their definition.</span>
 <span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a>::: big-quote</span>
-<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a>The *p*-value is "the probability that the chosen test statistic would have been at least as large as its observed value if every model assumption were correct, including the test hypothesis."</span>
+<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a>The *p*-value is "the <span class="co">[</span><span class="ot">long-run</span><span class="co">]</span> probability that the chosen test statistic would have been at least as large as its observed value if every model assumption were correct, including the test hypothesis."</span>
 <span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a>Greenland et al. (2016)</span>
 <span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a>In their terms, H0 is just the one assumption that has been *targeted* for testing (the "test hypothesis"); the *p*-value itself tests all of them at once.</span>
 <span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Small and large *p*-values</span></span>
+<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a><span class="fu">#### What we want to know versus what a *p*-value tells us</span></span>
 <span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a>It follows that a *p*-value is best read as a measure of **compatibility** between the data and the whole null model, running from 0 (the data are completely incompatible with the model) to 1 (the data are exactly what the model predicts) (Greenland et al., 2016).</span>
+<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a>Most of the misinterpretations in the quiz come from a mismatch between the question researchers want answered and the question a *p*-value actually answers.</span>
 <span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**A small *p*-value** says that the data would be unusual if every assumption of the null model were true. It does not say which assumption is false. H0 may be false, or the design may have been compromised, the distributional assumptions may not hold, or the result may have been selected for reporting because it was small.</span>
-<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**A large *p*-value** says only that the data are not unusual under the null model. It does not show that H0 is true: the same data would also be unremarkable under many other hypotheses, and a large *p*-value can itself result from violated assumptions.</span>
+<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a>::: big-quote</span>
+<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a>What most researchers want to know: given my data, how probable is it that my hypothesis is true?</span>
 <span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a>This is why selective reporting matters so much. The ASA statement notes that when many analyses are conducted and only some are reported, the reported *p*-values become "essentially uninterpretable" (Wasserstein &amp; Lazar, 2016). In null-model terms, the assumption that the result was not chosen for its *p*-value has been violated, so the reference distribution no longer applies.</span>
-<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a><span class="fu">#### What the ASA statements say</span></span>
-<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a>The 2016 ASA statement sets out six principles, summarised here:</span>
+<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a>P(H <span class="sc">\|</span> D)</span>
+<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a>::: big-quote</span>
+<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a>What a *p*-value tells us: given that the null model is true, how improbable are data like mine?</span>
 <span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>*p*-values can indicate how incompatible the data are with a specified statistical model.</span>
-<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>*p*-values do not measure the probability that the hypothesis studied is true, or the probability that the data were produced by random chance alone.</span>
-<span id="cb1-161"><a href="#cb1-161" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Scientific conclusions and policy decisions should not be based only on whether a *p*-value passes a threshold.</span>
-<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Proper inference requires full reporting and transparency.</span>
-<span id="cb1-163"><a href="#cb1-163" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>A *p*-value, or statistical significance, does not measure the size of an effect or the importance of a result.</span>
-<span id="cb1-164"><a href="#cb1-164" aria-hidden="true" tabindex="-1"></a><span class="ss">6.  </span>By itself, a *p*-value does not provide a good measure of evidence about a model or hypothesis.</span>
+<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a>P(D <span class="sc">\|</span> H~0~)</span>
+<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-161"><a href="#cb1-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a>Here "D" is shorthand for "data at least as extreme as those observed", and the conditional bar is used loosely for "assuming", as it usually is in teaching (see the note on the semicolon above).</span>
+<span id="cb1-163"><a href="#cb1-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-164"><a href="#cb1-164" aria-hidden="true" tabindex="-1"></a>Significance testing then adds an inferential step that is not part of the probability calculation at all: *if* the data would be very improbable under the null model, we decide to act as if the null hypothesis is false and the alternative hypothesis is true. This decision rule is what α controls. It guarantees that, in the long run, no more than 5% of tests of true null hypotheses will be significant. It does not say how probable any particular hypothesis is.</span>
 <span id="cb1-165"><a href="#cb1-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-166"><a href="#cb1-166" aria-hidden="true" tabindex="-1"></a>The second principle rules out the most common textbook error identified by Cassidy et al. (2019). The claim that *p* is "the probability that the results occurred by chance" reverses the definition: the *p*-value is calculated *assuming* that chance alone is operating, so it cannot be the probability that chance alone is operating (Greenland et al., 2016).</span>
+<span id="cb1-166"><a href="#cb1-166" aria-hidden="true" tabindex="-1"></a>P(D <span class="sc">\|</span> H) and P(H <span class="sc">\|</span> D) are different quantities, and they can differ enormously. The probability that a person is a smoker given that they have lung cancer is high; the probability that a person has lung cancer given that they smoke is much lower. Confusing the two is known as the inverse probability fallacy or the transposed conditional, and it underlies quiz statements 2, 4, and 5, which all read *p* as a probability of a hypothesis.</span>
 <span id="cb1-167"><a href="#cb1-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-168"><a href="#cb1-168" aria-hidden="true" tabindex="-1"></a>A later statement from a task force convened by the ASA's president (Benjamini et al., 2021) is more positive in tone. It stresses that *p*-values and significance tests, properly applied and interpreted, are valid tools that increase the rigour of conclusions and should not be abandoned. But it agrees on the essentials. *p*-values should be understood as assessments of observations relative to sampling variation, not as measures of practical significance, and any significance threshold should be chosen deliberately, based on the study's goals and the consequences of wrong decisions.</span>
+<span id="cb1-168"><a href="#cb1-168" aria-hidden="true" tabindex="-1"></a>Getting from one to the other requires Bayes' theorem:</span>
 <span id="cb1-169"><a href="#cb1-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-170"><a href="#cb1-170" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Why this matters for trustworthiness assessment</span></span>
-<span id="cb1-171"><a href="#cb1-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-172"><a href="#cb1-172" aria-hidden="true" tabindex="-1"></a>The null-model view is what makes a *p*-value useful for assessing trustworthiness, and also what limits it. A reported *p*-value is informative about H0 only to the extent that the other assumptions of the null model are credible. Much of this book is about checking those other assumptions: whether the design was as described, whether the reported statistics are internally consistent, and whether the analyses reported are the analyses that were run. When those assumptions are doubtful, a small *p*-value says correspondingly little about the null hypothesis.</span>
+<span id="cb1-170"><a href="#cb1-170" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-171"><a href="#cb1-171" aria-hidden="true" tabindex="-1"></a>\Pr(H_0 \mid D) = \frac{\Pr(D \mid H_0)\,\Pr(H_0)}{\Pr(D \mid H_0)\,\Pr(H_0) + \Pr(D \mid H_1)\,\Pr(H_1)}</span>
+<span id="cb1-172"><a href="#cb1-172" aria-hidden="true" tabindex="-1"></a>$$</span>
 <span id="cb1-173"><a href="#cb1-173" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-174"><a href="#cb1-174" aria-hidden="true" tabindex="-1"></a><span class="fu">### Implications for trustworthiness assessment</span></span>
+<span id="cb1-174"><a href="#cb1-174" aria-hidden="true" tabindex="-1"></a>Two things are needed that a significance test does not use: the **prior probability** that the null hypothesis is true, Pr(H~0~), and the **probability of the data if the alternative is true**, Pr(D <span class="sc">\|</span> H~1~), which for a significant result is the study's statistical power. Frequentist methods treat hypotheses as fixed states of the world rather than as things with probabilities, so they deliberately leave both out.</span>
 <span id="cb1-175"><a href="#cb1-175" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-176"><a href="#cb1-176" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Misinterpretations of *p*-values are a common source of misalignment between an article's results and its conclusions. The rest of this chapter, and the next, cover how to spot them.</span>
-<span id="cb1-177"><a href="#cb1-177" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Because these misinterpretations are so common among researchers, they are also common among assessors. Checking our own understanding is a prerequisite for judging others'.</span>
-<span id="cb1-178"><a href="#cb1-178" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>A misinterpreted *p*-value makes the written conclusions untrustworthy even when the numerical results are accurate. It is evidence of a claim–evidence problem, not of fabrication or error in the numbers themselves.</span>
-<span id="cb1-179"><a href="#cb1-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-180"><a href="#cb1-180" aria-hidden="true" tabindex="-1"></a><span class="fu">## Interpretation of *p*-values</span></span>
-<span id="cb1-181"><a href="#cb1-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-182"><a href="#cb1-182" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Intuitions for *p*-values</span>
-<span id="cb1-183"><a href="#cb1-183" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Alpha, power, diagnosticity refreshers</span>
-<span id="cb1-184"><a href="#cb1-184" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Distribution of unbiased *p*-values under null/alternative</span>
-<span id="cb1-185"><a href="#cb1-185" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>*p*-hacking and its impact on *p*-values and effect sizes</span>
-<span id="cb1-186"><a href="#cb1-186" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Methods that aren't useful for trustworthiness assessment but are good for intuitions: distribution of biased *p*-values, *p*-curve, *z*-curve</span>
-<span id="cb1-187"><a href="#cb1-187" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Too good to be true in the context of power vs significance rate</span>
-<span id="cb1-188"><a href="#cb1-188" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Peeking and trends towards significance</span>
-<span id="cb1-189"><a href="#cb1-189" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-190"><a href="#cb1-190" aria-hidden="true" tabindex="-1"></a><span class="fu">## References {.unnumbered}</span></span>
-<span id="cb1-191"><a href="#cb1-191" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-192"><a href="#cb1-192" aria-hidden="true" tabindex="-1"></a>::: references-apa</span>
-<span id="cb1-193"><a href="#cb1-193" aria-hidden="true" tabindex="-1"></a>Badenes-Ribera, L., Frías-Navarro, D., Iotti, B., Bonilla-Campos, A., &amp; Longobardi, C. (2016). Misconceptions of the *p*-value among Chilean and Italian academic psychologists. *Frontiers in Psychology*, *7*, Article 1247. <span class="ot">&lt;https://doi.org/10.3389/fpsyg.2016.01247&gt;</span></span>
+<span id="cb1-176"><a href="#cb1-176" aria-hidden="true" tabindex="-1"></a>The consequences are easiest to see with counts. Imagine 1,000 studies, each testing a different hypothesis with α = .05. @tbl-p-h-given-d shows how often a significant result comes from a true null hypothesis, for different proportions of true effects among the hypotheses tested and different levels of power.</span>
+<span id="cb1-177"><a href="#cb1-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-178"><a href="#cb1-178" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Base rate of true hypotheses <span class="pp">|</span> Power <span class="pp">|</span> True positives <span class="pp">|</span> False positives <span class="pp">|</span> Pr(H~0~ <span class="sc">\|</span> *p* <span class="sc">\&lt;</span> .05) <span class="pp">|</span></span>
+<span id="cb1-179"><a href="#cb1-179" aria-hidden="true" tabindex="-1"></a><span class="pp">|---:|---:|---:|---:|---:|</span></span>
+<span id="cb1-180"><a href="#cb1-180" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 50% <span class="pp">|</span> 80% <span class="pp">|</span> 400 <span class="pp">|</span> 25 <span class="pp">|</span> 6% <span class="pp">|</span></span>
+<span id="cb1-181"><a href="#cb1-181" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 10% <span class="pp">|</span> 80% <span class="pp">|</span> 80 <span class="pp">|</span> 45 <span class="pp">|</span> 36% <span class="pp">|</span></span>
+<span id="cb1-182"><a href="#cb1-182" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 50% <span class="pp">|</span> 35% <span class="pp">|</span> 175 <span class="pp">|</span> 25 <span class="pp">|</span> 13% <span class="pp">|</span></span>
+<span id="cb1-183"><a href="#cb1-183" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 10% <span class="pp">|</span> 35% <span class="pp">|</span> 35 <span class="pp">|</span> 45 <span class="pp">|</span> 56% <span class="pp">|</span></span>
+<span id="cb1-184"><a href="#cb1-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-185"><a href="#cb1-185" aria-hidden="true" tabindex="-1"></a>: Probability that a significant result comes from a true null hypothesis (the false discovery risk), among 1,000 hypothetical studies tested at α = .05. True positives = number of true effects × power; false positives = number of true nulls × α. {#tbl-p-h-given-d}</span>
+<span id="cb1-186"><a href="#cb1-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-187"><a href="#cb1-187" aria-hidden="true" tabindex="-1"></a>The significance threshold and the false positive rate are the same in every row: α = .05, so 5% of true nulls produce a significant result. But the probability that a given significant result is a false positive ranges from 6% to 56%, depending on the base rate of true hypotheses and on power. Low power therefore does not only produce false negatives; by reducing the number of true positives, it also increases the *proportion* of significant results that are false positives.</span>
+<span id="cb1-188"><a href="#cb1-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-189"><a href="#cb1-189" aria-hidden="true" tabindex="-1"></a>In practice, the base rate of true hypotheses in a research area is unknown and may not even be knowable. Frequentist statistics responds to this inconvenient fact by not trying to answer P(H <span class="sc">\|</span> D) at all, and instead reporting only long-run properties of the procedure (α and power) and, for individual results, how compatible the data are with the null model. That is what the rest of this section describes. When a reader, or an author, interprets a *p*-value as the probability that the null hypothesis is true or that the finding is real, they are answering the Bayesian question with a frequentist number.</span>
+<span id="cb1-190"><a href="#cb1-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-191"><a href="#cb1-191" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Small and large *p*-values</span></span>
+<span id="cb1-192"><a href="#cb1-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-193"><a href="#cb1-193" aria-hidden="true" tabindex="-1"></a>It follows that a *p*-value is best read as a measure of **compatibility** between the data and the whole null model, running from 0 (the data are completely incompatible with the model) to 1 (the data are exactly what the model predicts) (Greenland et al., 2016).</span>
 <span id="cb1-194"><a href="#cb1-194" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-195"><a href="#cb1-195" aria-hidden="true" tabindex="-1"></a>Badenes-Ribera, L., Frías-Navarro, D., Monterde-i-Bort, H., &amp; Pascual-Soler, M. (2015). Interpretation of the *p* value: A national survey study in academic psychologists from Spain. *Psicothema*, *27*(3), 290–295. <span class="ot">&lt;https://doi.org/10.7334/psicothema2014.283&gt;</span></span>
-<span id="cb1-196"><a href="#cb1-196" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-197"><a href="#cb1-197" aria-hidden="true" tabindex="-1"></a>Benjamini, Y., De Veaux, R., Efron, B., Evans, S., Glickman, M., Graubard, B. I., He, X., Meng, X.-L., Reid, N., Stigler, S. M., Vardeman, S. B., Wikle, C. K., Wright, T., Young, L. J., &amp; Kafadar, K. (2021). ASA President's Task Force statement on statistical significance and replicability. *Harvard Data Science Review*, *3*(3). <span class="ot">&lt;https://doi.org/10.1162/99608f92.f0ad0287&gt;</span></span>
-<span id="cb1-198"><a href="#cb1-198" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-199"><a href="#cb1-199" aria-hidden="true" tabindex="-1"></a>Cassidy, S. A., Dimova, R., Giguère, B., Spence, J. R., &amp; Stanley, D. J. (2019). Failing grade: 89% of introduction-to-psychology textbooks that define or explain statistical significance do so incorrectly. *Advances in Methods and Practices in Psychological Science*, *2*(3), 233–239. <span class="ot">&lt;https://doi.org/10.1177/2515245919858072&gt;</span></span>
-<span id="cb1-200"><a href="#cb1-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-201"><a href="#cb1-201" aria-hidden="true" tabindex="-1"></a>Cohen, J. (1994). The earth is round (*p* \&lt; .05). *American Psychologist*, *49*(12), 997–1003. <span class="ot">&lt;https://doi.org/10.1037/0003-066X.49.12.997&gt;</span></span>
-<span id="cb1-202"><a href="#cb1-202" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-203"><a href="#cb1-203" aria-hidden="true" tabindex="-1"></a>Cox, D. R. (2006). *Principles of statistical inference*. Cambridge University Press. <span class="ot">&lt;https://doi.org/10.1017/CBO9780511813559&gt;</span></span>
-<span id="cb1-204"><a href="#cb1-204" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-205"><a href="#cb1-205" aria-hidden="true" tabindex="-1"></a>Falk, R., &amp; Greenbaum, C. W. (1995). Significance tests die hard: The amazing persistence of a probabilistic misconception. *Theory &amp; Psychology*, *5*(1), 75–98. <span class="ot">&lt;https://doi.org/10.1177/0959354395051004&gt;</span></span>
-<span id="cb1-206"><a href="#cb1-206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-207"><a href="#cb1-207" aria-hidden="true" tabindex="-1"></a>García-Pérez, M. A., &amp; Alcalá-Quintana, R. (2016). The interpretation of scholars' interpretations of confidence intervals: Criticism, replication, and extension of Hoekstra et al. (2014). *Frontiers in Psychology*, *7*, Article 1042. <span class="ot">&lt;https://doi.org/10.3389/fpsyg.2016.01042&gt;</span></span>
-<span id="cb1-208"><a href="#cb1-208" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-209"><a href="#cb1-209" aria-hidden="true" tabindex="-1"></a>Gigerenzer, G. (2004). Mindless statistics. *The Journal of Socio-Economics*, *33*(5), 587–606. <span class="ot">&lt;https://doi.org/10.1016/j.socec.2004.09.033&gt;</span></span>
+<span id="cb1-195"><a href="#cb1-195" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**A small *p*-value** says that the data would be unusual if every assumption of the null model were true. It does not say which assumption is false. H0 may be false, or the design may have been compromised, the distributional assumptions may not hold, or the result may have been selected for reporting because it was small.</span>
+<span id="cb1-196"><a href="#cb1-196" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**A large *p*-value** says only that the data are not unusual under the null model. It does not show that H0 is true: the same data would also be unremarkable under many other hypotheses, and a large *p*-value can itself result from violated assumptions.</span>
+<span id="cb1-197"><a href="#cb1-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-198"><a href="#cb1-198" aria-hidden="true" tabindex="-1"></a>This is why selective reporting matters so much. The ASA statement notes that when many analyses are conducted and only some are reported, the reported *p*-values become "essentially uninterpretable" (Wasserstein &amp; Lazar, 2016). In null-model terms, the assumption that the result was not chosen for its *p*-value has been violated, so the reference distribution no longer applies.</span>
+<span id="cb1-199"><a href="#cb1-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-200"><a href="#cb1-200" aria-hidden="true" tabindex="-1"></a><span class="fu">#### What the ASA statements say</span></span>
+<span id="cb1-201"><a href="#cb1-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-202"><a href="#cb1-202" aria-hidden="true" tabindex="-1"></a>The 2016 ASA statement sets out six principles, summarised here:</span>
+<span id="cb1-203"><a href="#cb1-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-204"><a href="#cb1-204" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>*p*-values can indicate how incompatible the data are with a specified statistical model.</span>
+<span id="cb1-205"><a href="#cb1-205" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>*p*-values do not measure the probability that the hypothesis studied is true, or the probability that the data were produced by random chance alone.</span>
+<span id="cb1-206"><a href="#cb1-206" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Scientific conclusions and policy decisions should not be based only on whether a *p*-value passes a threshold.</span>
+<span id="cb1-207"><a href="#cb1-207" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Proper inference requires full reporting and transparency.</span>
+<span id="cb1-208"><a href="#cb1-208" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>A *p*-value, or statistical significance, does not measure the size of an effect or the importance of a result.</span>
+<span id="cb1-209"><a href="#cb1-209" aria-hidden="true" tabindex="-1"></a><span class="ss">6.  </span>By itself, a *p*-value does not provide a good measure of evidence about a model or hypothesis.</span>
 <span id="cb1-210"><a href="#cb1-210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-211"><a href="#cb1-211" aria-hidden="true" tabindex="-1"></a>Gigerenzer, G. (2018). Statistical rituals: The replication delusion and how we got there. *Advances in Methods and Practices in Psychological Science*, *1*(2), 198–218. <span class="ot">&lt;https://doi.org/10.1177/2515245918771329&gt;</span></span>
+<span id="cb1-211"><a href="#cb1-211" aria-hidden="true" tabindex="-1"></a>The second principle rules out the most common textbook error identified by Cassidy et al. (2019). The claim that *p* is "the probability that the results occurred by chance" reverses the definition: the *p*-value is calculated *assuming* that chance alone is operating, so it cannot be the probability that chance alone is operating (Greenland et al., 2016).</span>
 <span id="cb1-212"><a href="#cb1-212" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-213"><a href="#cb1-213" aria-hidden="true" tabindex="-1"></a>Greenland, S., Senn, S. J., Rothman, K. J., Carlin, J. B., Poole, C., Goodman, S. N., &amp; Altman, D. G. (2016). Statistical tests, *P* values, confidence intervals, and power: A guide to misinterpretations. *European Journal of Epidemiology*, *31*(4), 337–350. <span class="ot">&lt;https://doi.org/10.1007/s10654-016-0149-3&gt;</span></span>
+<span id="cb1-213"><a href="#cb1-213" aria-hidden="true" tabindex="-1"></a>A later statement from a task force convened by the ASA's president (Benjamini et al., 2021) is more positive in tone. It stresses that *p*-values and significance tests, properly applied and interpreted, are valid tools that increase the rigour of conclusions and should not be abandoned. But it agrees on the essentials. *p*-values should be understood as assessments of observations relative to sampling variation, not as measures of practical significance, and any significance threshold should be chosen deliberately, based on the study's goals and the consequences of wrong decisions.</span>
 <span id="cb1-214"><a href="#cb1-214" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-215"><a href="#cb1-215" aria-hidden="true" tabindex="-1"></a>Haller, H., &amp; Krauss, S. (2002). Misinterpretations of significance: A problem students share with their teachers? *Methods of Psychological Research Online*, *7*(1), 1–20. <span class="ot">&lt;https://epub.uni-regensburg.de/34338/&gt;</span></span>
+<span id="cb1-215"><a href="#cb1-215" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- #### Why this matters for trustworthiness assessment --&gt;</span></span>
 <span id="cb1-216"><a href="#cb1-216" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-217"><a href="#cb1-217" aria-hidden="true" tabindex="-1"></a>Lyu, X.-K., Xu, Y., Zhao, X.-F., Zuo, X.-N., &amp; Hu, C.-P. (2020). Beyond psychology: Prevalence of *p* value and confidence interval misinterpretation across different fields. *Journal of Pacific Rim Psychology*, *14*, Article e6. <span class="ot">&lt;https://doi.org/10.1017/prp.2019.28&gt;</span></span>
+<span id="cb1-217"><a href="#cb1-217" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- The null-model view is what makes a *p*-value useful for assessing trustworthiness, and also what limits it. A reported *p*-value is informative about H0 only to the extent that the other assumptions of the null model are credible. Much of this book is about checking those other assumptions: whether the design was as described, whether the reported statistics are internally consistent, and whether the analyses reported are the analyses that were run. When those assumptions are doubtful, a small *p*-value says correspondingly little about the null hypothesis. --&gt;</span></span>
 <span id="cb1-218"><a href="#cb1-218" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-219"><a href="#cb1-219" aria-hidden="true" tabindex="-1"></a>Lyu, Z., Peng, K., &amp; Hu, C.-P. (2018). *P*-value, confidence intervals, and statistical inference: A new dataset of misinterpretation. *Frontiers in Psychology*, *9*, Article 868. <span class="ot">&lt;https://doi.org/10.3389/fpsyg.2018.00868&gt;</span></span>
+<span id="cb1-219"><a href="#cb1-219" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- </span><span class="al">###</span><span class="co"> Implications for trustworthiness assessment --&gt;</span></span>
 <span id="cb1-220"><a href="#cb1-220" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-221"><a href="#cb1-221" aria-hidden="true" tabindex="-1"></a>McShane, B. B., &amp; Gal, D. (2017). Statistical significance and the dichotomization of evidence. *Journal of the American Statistical Association*, *112*(519), 885–895. <span class="ot">&lt;https://doi.org/10.1080/01621459.2017.1289846&gt;</span></span>
-<span id="cb1-222"><a href="#cb1-222" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-223"><a href="#cb1-223" aria-hidden="true" tabindex="-1"></a>Miller, J., &amp; Ulrich, R. (2016). Interpreting confidence intervals: A comment on Hoekstra, Morey, Rouder, and Wagenmakers (2014). *Psychonomic Bulletin &amp; Review*, *23*(1), 124–130. <span class="ot">&lt;https://doi.org/10.3758/s13423-015-0859-7&gt;</span></span>
+<span id="cb1-221"><a href="#cb1-221" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- - Misinterpretations of *p*-values are a common source of misalignment between an article's results and its conclusions. The rest of this chapter, and the next, cover how to spot them. --&gt;</span></span>
+<span id="cb1-222"><a href="#cb1-222" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- - Because these misinterpretations are so common among researchers, they are also common among assessors. Checking our own understanding is a prerequisite for judging others'. --&gt;</span></span>
+<span id="cb1-223"><a href="#cb1-223" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- - A misinterpreted *p*-value makes the written conclusions untrustworthy even when the numerical results are accurate. It is evidence of a claim–evidence problem, not of fabrication or error in the numbers themselves. --&gt;</span></span>
 <span id="cb1-224"><a href="#cb1-224" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-225"><a href="#cb1-225" aria-hidden="true" tabindex="-1"></a>Murphy, S. L., Merz, R., Reimann, L.-E., &amp; Fernández, A. (2025). Nonsignificance misinterpreted as an effect's absence in psychology: Prevalence and temporal analyses. *Royal Society Open Science*, *12*(3), Article 242167. <span class="ot">&lt;https://doi.org/10.1098/rsos.242167&gt;</span></span>
+<span id="cb1-225"><a href="#cb1-225" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- ## Interpretation of *p*-values --&gt;</span></span>
 <span id="cb1-226"><a href="#cb1-226" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-227"><a href="#cb1-227" aria-hidden="true" tabindex="-1"></a>Oakes, M. (1986). *Statistical inference: A commentary for the social and behavioural sciences*. Wiley.</span>
-<span id="cb1-228"><a href="#cb1-228" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-229"><a href="#cb1-229" aria-hidden="true" tabindex="-1"></a>Wasserstein, R. L., &amp; Lazar, N. A. (2016). The ASA statement on *p*-values: Context, process, and purpose. *The American Statistician*, *70*(2), 129–133. <span class="ot">&lt;https://doi.org/10.1080/00031305.2016.1154108&gt;</span></span>
-<span id="cb1-230"><a href="#cb1-230" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-227"><a href="#cb1-227" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- - Intuitions for *p*-values --&gt;</span></span>
+<span id="cb1-228"><a href="#cb1-228" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- - Alpha, power, diagnosticity refreshers --&gt;</span></span>
+<span id="cb1-229"><a href="#cb1-229" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--   - Distribution of unbiased *p*-values under null/alternative --&gt;</span></span>
+<span id="cb1-230"><a href="#cb1-230" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- - *p*-hacking and its impact on *p*-values and effect sizes --&gt;</span></span>
+<span id="cb1-231"><a href="#cb1-231" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- - Methods that aren't useful for trustworthiness assessment but are good for intuitions: distribution of biased *p*-values, *p*-curve, *z*-curve --&gt;</span></span>
+<span id="cb1-232"><a href="#cb1-232" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- - Too good to be true in the context of power vs significance rate --&gt;</span></span>
+<span id="cb1-233"><a href="#cb1-233" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- - Peeking and trends towards significance --&gt;</span></span>
+<span id="cb1-234"><a href="#cb1-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-235"><a href="#cb1-235" aria-hidden="true" tabindex="-1"></a><span class="fu">## References {.unnumbered}</span></span>
+<span id="cb1-236"><a href="#cb1-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-237"><a href="#cb1-237" aria-hidden="true" tabindex="-1"></a>::: references-apa</span>
+<span id="cb1-238"><a href="#cb1-238" aria-hidden="true" tabindex="-1"></a>Badenes-Ribera, L., Frías-Navarro, D., Iotti, B., Bonilla-Campos, A., &amp; Longobardi, C. (2016). Misconceptions of the *p*-value among Chilean and Italian academic psychologists. *Frontiers in Psychology*, *7*, Article 1247. <span class="ot">&lt;https://doi.org/10.3389/fpsyg.2016.01247&gt;</span></span>
+<span id="cb1-239"><a href="#cb1-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-240"><a href="#cb1-240" aria-hidden="true" tabindex="-1"></a>Badenes-Ribera, L., Frías-Navarro, D., Monterde-i-Bort, H., &amp; Pascual-Soler, M. (2015). Interpretation of the *p* value: A national survey study in academic psychologists from Spain. *Psicothema*, *27*(3), 290–295. <span class="ot">&lt;https://doi.org/10.7334/psicothema2014.283&gt;</span></span>
+<span id="cb1-241"><a href="#cb1-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-242"><a href="#cb1-242" aria-hidden="true" tabindex="-1"></a>Benjamini, Y., De Veaux, R., Efron, B., Evans, S., Glickman, M., Graubard, B. I., He, X., Meng, X.-L., Reid, N., Stigler, S. M., Vardeman, S. B., Wikle, C. K., Wright, T., Young, L. J., &amp; Kafadar, K. (2021). ASA President's Task Force statement on statistical significance and replicability. *Harvard Data Science Review*, *3*(3). <span class="ot">&lt;https://doi.org/10.1162/99608f92.f0ad0287&gt;</span></span>
+<span id="cb1-243"><a href="#cb1-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-244"><a href="#cb1-244" aria-hidden="true" tabindex="-1"></a>Cassidy, S. A., Dimova, R., Giguère, B., Spence, J. R., &amp; Stanley, D. J. (2019). Failing grade: 89% of introduction-to-psychology textbooks that define or explain statistical significance do so incorrectly. *Advances in Methods and Practices in Psychological Science*, *2*(3), 233–239. <span class="ot">&lt;https://doi.org/10.1177/2515245919858072&gt;</span></span>
+<span id="cb1-245"><a href="#cb1-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-246"><a href="#cb1-246" aria-hidden="true" tabindex="-1"></a>Cohen, J. (1994). The earth is round (*p* \&lt; .05). *American Psychologist*, *49*(12), 997–1003. <span class="ot">&lt;https://doi.org/10.1037/0003-066X.49.12.997&gt;</span></span>
+<span id="cb1-247"><a href="#cb1-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-248"><a href="#cb1-248" aria-hidden="true" tabindex="-1"></a>Cox, D. R. (2006). *Principles of statistical inference*. Cambridge University Press. <span class="ot">&lt;https://doi.org/10.1017/CBO9780511813559&gt;</span></span>
+<span id="cb1-249"><a href="#cb1-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-250"><a href="#cb1-250" aria-hidden="true" tabindex="-1"></a>Falk, R., &amp; Greenbaum, C. W. (1995). Significance tests die hard: The amazing persistence of a probabilistic misconception. *Theory &amp; Psychology*, *5*(1), 75–98. <span class="ot">&lt;https://doi.org/10.1177/0959354395051004&gt;</span></span>
+<span id="cb1-251"><a href="#cb1-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-252"><a href="#cb1-252" aria-hidden="true" tabindex="-1"></a>García-Pérez, M. A., &amp; Alcalá-Quintana, R. (2016). The interpretation of scholars' interpretations of confidence intervals: Criticism, replication, and extension of Hoekstra et al. (2014). *Frontiers in Psychology*, *7*, Article 1042. <span class="ot">&lt;https://doi.org/10.3389/fpsyg.2016.01042&gt;</span></span>
+<span id="cb1-253"><a href="#cb1-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-254"><a href="#cb1-254" aria-hidden="true" tabindex="-1"></a>Gigerenzer, G. (2004). Mindless statistics. *The Journal of Socio-Economics*, *33*(5), 587–606. <span class="ot">&lt;https://doi.org/10.1016/j.socec.2004.09.033&gt;</span></span>
+<span id="cb1-255"><a href="#cb1-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-256"><a href="#cb1-256" aria-hidden="true" tabindex="-1"></a>Gigerenzer, G. (2018). Statistical rituals: The replication delusion and how we got there. *Advances in Methods and Practices in Psychological Science*, *1*(2), 198–218. <span class="ot">&lt;https://doi.org/10.1177/2515245918771329&gt;</span></span>
+<span id="cb1-257"><a href="#cb1-257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-258"><a href="#cb1-258" aria-hidden="true" tabindex="-1"></a>Greenland, S., Senn, S. J., Rothman, K. J., Carlin, J. B., Poole, C., Goodman, S. N., &amp; Altman, D. G. (2016). Statistical tests, *P* values, confidence intervals, and power: A guide to misinterpretations. *European Journal of Epidemiology*, *31*(4), 337–350. <span class="ot">&lt;https://doi.org/10.1007/s10654-016-0149-3&gt;</span></span>
+<span id="cb1-259"><a href="#cb1-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-260"><a href="#cb1-260" aria-hidden="true" tabindex="-1"></a>Haller, H., &amp; Krauss, S. (2002). Misinterpretations of significance: A problem students share with their teachers? *Methods of Psychological Research Online*, *7*(1), 1–20. <span class="ot">&lt;https://epub.uni-regensburg.de/34338/&gt;</span></span>
+<span id="cb1-261"><a href="#cb1-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-262"><a href="#cb1-262" aria-hidden="true" tabindex="-1"></a>Lyu, X.-K., Xu, Y., Zhao, X.-F., Zuo, X.-N., &amp; Hu, C.-P. (2020). Beyond psychology: Prevalence of *p* value and confidence interval misinterpretation across different fields. *Journal of Pacific Rim Psychology*, *14*, Article e6. <span class="ot">&lt;https://doi.org/10.1017/prp.2019.28&gt;</span></span>
+<span id="cb1-263"><a href="#cb1-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-264"><a href="#cb1-264" aria-hidden="true" tabindex="-1"></a>Lyu, Z., Peng, K., &amp; Hu, C.-P. (2018). *P*-value, confidence intervals, and statistical inference: A new dataset of misinterpretation. *Frontiers in Psychology*, *9*, Article 868. <span class="ot">&lt;https://doi.org/10.3389/fpsyg.2018.00868&gt;</span></span>
+<span id="cb1-265"><a href="#cb1-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-266"><a href="#cb1-266" aria-hidden="true" tabindex="-1"></a>McShane, B. B., &amp; Gal, D. (2017). Statistical significance and the dichotomization of evidence. *Journal of the American Statistical Association*, *112*(519), 885–895. <span class="ot">&lt;https://doi.org/10.1080/01621459.2017.1289846&gt;</span></span>
+<span id="cb1-267"><a href="#cb1-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-268"><a href="#cb1-268" aria-hidden="true" tabindex="-1"></a>Miller, J., &amp; Ulrich, R. (2016). Interpreting confidence intervals: A comment on Hoekstra, Morey, Rouder, and Wagenmakers (2014). *Psychonomic Bulletin &amp; Review*, *23*(1), 124–130. <span class="ot">&lt;https://doi.org/10.3758/s13423-015-0859-7&gt;</span></span>
+<span id="cb1-269"><a href="#cb1-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-270"><a href="#cb1-270" aria-hidden="true" tabindex="-1"></a>Murphy, S. L., Merz, R., Reimann, L.-E., &amp; Fernández, A. (2025). Nonsignificance misinterpreted as an effect's absence in psychology: Prevalence and temporal analyses. *Royal Society Open Science*, *12*(3), Article 242167. <span class="ot">&lt;https://doi.org/10.1098/rsos.242167&gt;</span></span>
+<span id="cb1-271"><a href="#cb1-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-272"><a href="#cb1-272" aria-hidden="true" tabindex="-1"></a>Oakes, M. (1986). *Statistical inference: A commentary for the social and behavioural sciences*. Wiley.</span>
+<span id="cb1-273"><a href="#cb1-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-274"><a href="#cb1-274" aria-hidden="true" tabindex="-1"></a>Wasserstein, R. L., &amp; Lazar, N. A. (2016). The ASA statement on *p*-values: Context, process, and purpose. *The American Statistician*, *70*(2), 129–133. <span class="ot">&lt;https://doi.org/10.1080/00031305.2016.1154108&gt;</span></span>
+<span id="cb1-275"><a href="#cb1-275" aria-hidden="true" tabindex="-1"></a>:::</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

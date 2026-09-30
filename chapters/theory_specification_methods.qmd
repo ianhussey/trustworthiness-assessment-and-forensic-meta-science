@@ -1,4 +1,4 @@
-# Theory specification methods [✎ Outline]{.badge .badge-draft1}
+# Theory specification methods [✎ Outline]{.badge .badge-draft1} {#sec-theory-specification}
 
 ```{r}
 #| include: false

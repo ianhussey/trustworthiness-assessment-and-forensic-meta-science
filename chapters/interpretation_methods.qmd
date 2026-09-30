@@ -5,11 +5,11 @@
 if(file.exists("../_setup.R")){source("../_setup.R")}
 ```
 
-## (Mis)interpretation of *p*-values
+## Test yourself: (mis)interpretations of *p*-values
 
-Before assessing whether an article's conclusions follow from its results, it is worth checking whether we ourselves can reliably say what its results mean. The *p*-value is the most widely reported inferential statistic in psychology and health research, and it is also among the most widely misunderstood. This is not a problem confined to students: for four decades, surveys have found that most researchers, and most people who teach statistics, endorse at least one false statement about what a significant *p*-value tells them.
+The *p*-value is the most widely reported inferential statistic in psychology and health research, and it is also among the most widely misunderstood. 
 
-### Test yourself
+Although there is an entirely separate chapter on specific common misinterpretations of *p*-values later, it is worth beginning this one with an assessment of our own (mis)understandings, before discussing correct interpretations and deeper understandings of the *p*-value.
 
 The questionnaire below was first used by Oakes (1986) with academic psychologists, and has since been reused, with minor changes, in Israel (Falk & Greenbaum, 1995), Germany (Haller & Krauss, 2002), Spain (Badenes-Ribera et al., 2015), and China (Lyu et al., 2018, 2020). The wording here follows Haller and Krauss (2002).
 
@@ -26,9 +26,9 @@ Suppose you have a treatment that you suspect may alter performance on a certain
 6.  You have a reliable experimental finding in the sense that if, hypothetically, the experiment were repeated a great number of times, you would obtain a significant result on 99% of occasions. `r webexercises::torf(FALSE)`
 :::
 
-`r webexercises::hide("Why is each statement false?")`
+`r webexercises::hide("Why is each statement true or false?")`
 
-All six statements are false. Each one corresponds to a recognisable fallacy.
+All six statements are false. Each one corresponds to a recognisable fallacy, which will be discussed in more detail in this chapter and elsewhere.
 
 1.  **Certainty (disproof).** A significance test gives a probabilistic statement about data, not a proof. Data this extreme occur under the null model 1% of the time, so the null hypothesis has not been disproved.
 2.  **Inverse probability.** The *p*-value is the probability of data at least this extreme *given* the null model, $P(D \mid H_0)$. It is not the probability of the null hypothesis given the data, $P(H_0 \mid D)$. Getting from one to the other requires a prior probability for $H_0$, which a significance test does not use.
@@ -39,15 +39,9 @@ All six statements are false. Each one corresponds to a recognisable fallacy.
 
 `r webexercises::unhide()`
 
-### Prevalence of (mis)interpretations of *p*-values
+### Prevalence of misinterpretations of *p*-values
 
 If you marked any statement as true, you are in the majority.
-
-::: big-number
-[>90%]{.number}
-
-[of psychology students and professors agree with one or more of these misinterpretations of significant *p*-values, most often by describing *p* as the probability that the results occurred by chance (see Gigerenzer, 2018 for review).]{.description}
-:::
 
 - Oakes (1986) found that 97% of the 70 academic psychologists he surveyed endorsed at least one of the statements (Gigerenzer, 2018). As summarised by Cohen (1994), 68 of 70 interpreted *p* as the probability that $H_0$ is true, and 42 believed a *p* of .01 implied a 99% chance that a replication would be significant.
 - Haller and Krauss (2002) gave the questionnaire to students, methodology instructors, and scientists in Germany. As reported by Gigerenzer (2004), none of the 44 psychology students rejected all six statements, compared with 4 of 39 scientists who did not teach statistics and 6 of 30 methodology instructors who did.
@@ -68,6 +62,12 @@ If you marked any statement as true, you are in the majority.
 
 : Percentage of respondents who endorsed at least one false statement about a significant *p*-value. Adapted from Gigerenzer (2018, Table 2). Oakes (1986) and Haller and Krauss (2002) used the questionnaire in the quiz above, with *p* = .01. Badenes-Ribera et al. (2015, 2016) used their own items with *p* = .001, and did not include statements 3 and 5. Badenes-Ribera et al. (2015) reported this percentage only for all respondents combined, so their six subsamples of academic psychologists are pooled here. {#tbl-any-misinterpretation}
 
+::: big-number
+[>90%]{.number}
+
+[of psychology students and professors agree with one or more of these misinterpretations of significant *p*-values, most often by describing *p* as the probability that the results occurred by chance (see Gigerenzer, 2018 for review).]{.description}
+:::
+
 #### How much should we trust these prevalence estimates?
 
 The direction of this literature is robust, but the precise percentages should be treated with some caution. The questionnaires consist entirely of false statements, which means they cannot distinguish a respondent who misunderstands *p*-values from one who is uncertain, reads the items charitably, or assumes that at least one statement must be true. McShane and Gal (2017) also note that, as worded, some items can be read as questions about unknown population parameters rather than about the observed result. Similar criticisms have been made of the equivalent questionnaire for confidence intervals (García-Pérez & Alcalá-Quintana, 2016; Miller & Ulrich, 2016). Figures such as "90–99% of researchers endorse at least one false statement" are therefore better read as evidence that misinterpretation is common across fields, career stages, and countries than as well-measured prevalence estimates.
@@ -80,16 +80,6 @@ The errors are not confined to survey responses. They are also in the textbooks.
 [89%]{.number}
 
 [of introductory psychology textbooks that defined or explained statistical significance did so incorrectly, most often by describing *p* as the probability that the results occurred by chance (Cassidy et al., 2019).]{.description}
-:::
-
-## Misinterpretations in the literature
-
-Students who give these answers may therefore be accurately recalling what they were taught. The errors also reach the published literature.
-
-::: big-number
-[76–85%]{.number}
-
-[of psychology articles that discussed a nonsignificant result interpreted it as evidence that the effect was absent, with no significant change between 2009 and 2021 (Murphy et al., 2025).]{.description}
 :::
 
 ## What a *p*-value is
@@ -141,7 +131,35 @@ Greenland et al. (2016) build this into their definition.
 
 In their terms, $H_0$ is just the one assumption that has been *targeted* for testing (the "test hypothesis"); the *p*-value itself tests all of them at once.
 
-### What we want to know versus what a *p*-value tells us: the inverse probability fallacy
+### *p*-values as incompatibility with the null model
+
+It follows that a *p*-value is best read as a measure of the **(in)compatibility** between the data and the whole null model. It runs from 0 (the data are completely incompatible with the null model) to 1 (the data are exactly what the null model predicts), so the smaller the *p*-value, the greater the incompatibility (Greenland et al., 2016).
+
+Lakens (2022) puts the same idea in plainer terms: a *p*-value tells us how *surprising* the observed data would be if the null model were true. Surprise depends on what the null model predicts, not only on the size of the observed effect. With a larger sample, the null model predicts mean differences that cluster more tightly around zero, so the same observed difference is more surprising, and its *p*-value smaller, with 5,000 participants than with 50. Laken's [ebook and online course 'Improving your Statistical Inferences'](https://lakens.github.io/statistical_inferences/) is highly recommended!
+
+- **A small *p*-value** says that the data would be unusual if every assumption of the null model were true. It does not say which assumption is false. $H_0$ may be false, or the design may have been compromised, the distributional assumptions may not hold, or the result may have been selected for reporting because it was small.
+- **A large *p*-value** says only that the data are not unusual under the null model. It does not show that $H_0$ is true: the same data would also be unremarkable under many other hypotheses, and a large *p*-value can itself result from violated assumptions.
+
+This is why selective reporting matters so much. The ASA statement notes that when many analyses are conducted and only some are reported, the reported *p*-values become "essentially uninterpretable" (Wasserstein & Lazar, 2016). In null-model terms, the assumption that the result was not chosen for its *p*-value has been violated, so the reference distribution no longer applies.
+
+### The ASA statement's definition
+
+The influential 2016 American Statistical Association statement sets out six principles, summarised here:
+
+1.  *p*-values can indicate how incompatible the data are with a specified statistical model.
+2.  *p*-values do not measure the probability that the hypothesis studied is true, or the probability that the data were produced by random chance alone.
+3.  Scientific conclusions and policy decisions should not be based only on whether a *p*-value passes a threshold.
+4.  Proper inference requires full reporting and transparency.
+5.  A *p*-value, or statistical significance, does not measure the size of an effect or the importance of a result.
+6.  By itself, a *p*-value does not provide a good measure of evidence about a model or hypothesis.
+
+The second principle rules out the most common textbook error identified by Cassidy et al. (2019). The claim that *p* is "the probability that the results occurred by chance" reverses the definition: the *p*-value is calculated *assuming* that chance alone is operating, so it cannot be the probability that chance alone is operating (Greenland et al., 2016).
+
+A later statement from a task force convened by the ASA's president (Benjamini et al., 2021) is more positive in tone. It stresses that *p*-values and significance tests, properly applied and interpreted, are valid tools that increase the rigour of conclusions and should not be abandoned. But it agrees on the essentials. *p*-values should be understood as assessments of observations relative to sampling variation, not as measures of practical significance, and any significance threshold should be chosen deliberately, based on the study's goals and the consequences of wrong decisions.
+
+## What many want *p*-values to be
+
+### The inverse probability fallacy
 
 Most of the misinterpretations in the quiz come from a mismatch between the question researchers want answered and the question a *p*-value actually answers.
 
@@ -179,7 +197,7 @@ The *p*-value, $P(D \mid H_0)$, and the quantity researchers want, $P(H_1 \mid D
 
 Quiz statement 2 is the first step: reading *p* as $P(H_0 \mid D)$. Statement 4 is both steps: reading $1 - p$ as $P(H_1 \mid D)$. Statement 5 reads *p* as $P(H_0 \mid \text{significant result})$, the probability that a rejection of $H_0$ is mistaken. All three treat a probability of data as a probability of a hypothesis.
 
-#### Bayes' theorem
+### Alternatives to frequentist *p*-values: Bayes' theorem {#sec-bayes}
 
 It is possible to get from $P(D \mid H_0)$ to $P(H_0 \mid D)$, and hence to $P(H_1 \mid D)$, but only with additional information, using Bayes' theorem:
 
@@ -204,33 +222,7 @@ This lesson and course is not on frequentist vs. Bayesian approaches to Null Hyp
 
 - Change our statistical methods to answer our chosen question.
 - Stick with frequentist *p*-values and reconsider the questions we are (implicitly) asking.
-- Keep misinterpreting *p*-values and producing mushy partial truths [not this one, please].
-
-### *p*-values as incompatibility with the null model
-
-It follows that a *p*-value is best read as a measure of the **(in)compatibility** between the data and the whole null model. It runs from 0 (the data are completely incompatible with the null model) to 1 (the data are exactly what the null model predicts), so the smaller the *p*-value, the greater the incompatibility (Greenland et al., 2016).
-
-Lakens (2022) puts the same idea in plainer terms: a *p*-value tells us how *surprising* the observed data would be if the null model were true. Surprise depends on what the null model predicts, not only on the size of the observed effect. With a larger sample, the null model predicts mean differences that cluster more tightly around zero, so the same observed difference is more surprising, and its *p*-value smaller, with 5,000 participants than with 50. Laken's [ebook and online course 'Improving your Statistical Inferences'](https://lakens.github.io/statistical_inferences/) is highly recommended!
-
-- **A small *p*-value** says that the data would be unusual if every assumption of the null model were true. It does not say which assumption is false. $H_0$ may be false, or the design may have been compromised, the distributional assumptions may not hold, or the result may have been selected for reporting because it was small.
-- **A large *p*-value** says only that the data are not unusual under the null model. It does not show that $H_0$ is true: the same data would also be unremarkable under many other hypotheses, and a large *p*-value can itself result from violated assumptions.
-
-This is why selective reporting matters so much. The ASA statement notes that when many analyses are conducted and only some are reported, the reported *p*-values become "essentially uninterpretable" (Wasserstein & Lazar, 2016). In null-model terms, the assumption that the result was not chosen for its *p*-value has been violated, so the reference distribution no longer applies.
-
-#### What the ASA statements say
-
-The 2016 ASA statement sets out six principles, summarised here:
-
-1.  *p*-values can indicate how incompatible the data are with a specified statistical model.
-2.  *p*-values do not measure the probability that the hypothesis studied is true, or the probability that the data were produced by random chance alone.
-3.  Scientific conclusions and policy decisions should not be based only on whether a *p*-value passes a threshold.
-4.  Proper inference requires full reporting and transparency.
-5.  A *p*-value, or statistical significance, does not measure the size of an effect or the importance of a result.
-6.  By itself, a *p*-value does not provide a good measure of evidence about a model or hypothesis.
-
-The second principle rules out the most common textbook error identified by Cassidy et al. (2019). The claim that *p* is "the probability that the results occurred by chance" reverses the definition: the *p*-value is calculated *assuming* that chance alone is operating, so it cannot be the probability that chance alone is operating (Greenland et al., 2016).
-
-A later statement from a task force convened by the ASA's president (Benjamini et al., 2021) is more positive in tone. It stresses that *p*-values and significance tests, properly applied and interpreted, are valid tools that increase the rigour of conclusions and should not be abandoned. But it agrees on the essentials. *p*-values should be understood as assessments of observations relative to sampling variation, not as measures of practical significance, and any significance threshold should be chosen deliberately, based on the study's goals and the consequences of wrong decisions.
+- Keep misinterpreting *p*-values. [not this one, please]
 
 ## How *p*-values are distributed
 
@@ -238,8 +230,6 @@ A good test of whether we understand *p*-values is whether we can say how they b
 
 - **When $H_0$ is true** (and the other assumptions of the null model hold), *p*-values are **uniformly distributed** between 0 and 1. Every value is equally likely. This follows directly from the definition: 5% of *p*-values fall below .05, 1% below .01, and 10% below .10. There is nothing special about .05; it is simply where we have chosen to draw the line.
 - **When $H_1$ is true**, *p*-values are **skewed towards zero**, and increasingly so as the true effect size or the sample size increases. The proportion that fall below .05 is, by definition, the study's statistical power.
-
-One consequence is that *p*-values just below .05 are not particularly strong evidence against the null. In a study with 80% power, only about 3% of *p*-values fall between .04 and .05. In a study with 99% power, the figure is about 0.3%, which is *less* than the 1% expected when $H_0$ is true (Lakens, 2022). A literature full of *p*-values between .01 and .05, from studies that claim to be well powered, is therefore itself a signal worth attending to.
 
 Explore this with the plot below. Set the effect size to 0 to see the uniform distribution under $H_0$, then increase the effect size or sample size and watch the *p*-values pile up near zero. The dashed line shows what the distribution would be if $H_0$ were true.
 
@@ -317,7 +307,106 @@ function normInv(p) {
 
 For a fuller version, including the distribution of *p*-values for any power and the option to simulate studies one at a time, see Kristoffer Magnusson's interactive visualisation at [rpsychologist.com/d3/pdist](https://rpsychologist.com/d3/pdist).
 
-### Distributions that cannot occur naturally
+### Barely significant *p*-values
+
+*p*-values between about .02 and .05 count as statistically significant (when using the default $\alpha$ = .05), and they are very common in the published literature. But if we take the distribution of *p*-values seriously, they are surprisingly rare in well-powered studies of true effects. Bogdan (2025) referred to these as 'fragile' *p*-values. Use the calculator in @tbl-barely-significant to see what proportion of significant results should be fragile, or strong, for a given level of power. It starts with a well-powered study (95% power), where only about 5% of significant results fall between .02 and .05; try lowering the power to see how quickly this changes. Then try raising the power to 99%: a fragile *p*-value then becomes more probable under $H_0$ than under $H_1$ (Lakens, 2015, 2022).
+
+```{ojs}
+//| echo: false
+viewof calcPower = Inputs.range([5, 99], {value: 95, step: 1, label: "Statistical power (%)"})
+viewof calcAlpha = Inputs.range([0.001, 0.1], {value: 0.05, step: 0.001, label: "Significance threshold (α)"})
+viewof calcFragile = Inputs.range([0.001, 0.1], {value: 0.02, step: 0.001, label: "Lower bound of 'fragile' range"})
+viewof calcStrong = Inputs.range([0.0001, 0.05], {value: 0.005, step: 0.0001, label: "Upper bound of 'strong' range"})
+```
+
+::: {#tbl-barely-significant}
+
+```{ojs}
+//| echo: false
+calcValid
+  ? html`<table class="table table-sm" style="width: auto; margin: 0 auto;">
+      <thead><tr>
+        <th></th>
+        <th style="text-align: right;">% of significant results in range if H<sub>1</sub> is true</th>
+        <th style="text-align: right;">% of significant results in range if H<sub>0</sub> is true</th>
+        <th style="text-align: right;">More probable hypothesis</th>
+      </tr></thead>
+      <tbody>
+        <tr><td style="text-align: left;">Fragile: ${fmtP(calcFragile)} ≤ <i>p</i> &lt; ${fmtP(calcAlpha)}</td>
+            <td style="text-align: right;">${fmtPct(fragileH1)}</td>
+            <td style="text-align: right;">${fmtPct(fragileH0)}</td>
+            <td style="text-align: right;">${morePlausible(fragileLR)}</td></tr>
+        <tr><td style="text-align: left;">Strong: <i>p</i> ≤ ${fmtP(calcStrong)}</td>
+            <td style="text-align: right;">${fmtPct(strongH1)}</td>
+            <td style="text-align: right;">${fmtPct(strongH0)}</td>
+            <td style="text-align: right;">${morePlausible(strongLR)}</td></tr>
+      </tbody>
+    </table>`
+  : html`<p style="text-align: center;"><i>The bounds of the fragile and strong ranges must both be below α.</i></p>`
+```
+
+Expected share of significant *p*-values (two-sided) that are fragile or strong, if the alternative hypothesis is true with the chosen power, or if the null hypothesis is true. Calculated with the normal approximation used in the plot above. The final column compares how likely a *p*-value in each range is under $H_1$ and under $H_0$, and converts this into the probability of the more probable hypothesis. This assumes both hypotheses were equally probable before seeing the data (a 50:50 prior); with a different prior the answer changes (see @sec-bayes).
+
+:::
+
+```{ojs}
+//| echo: false
+// Share of significant p-values falling in each range. Under H1, the noncentrality giving the chosen power at
+// the chosen alpha is z(1 - alpha/2) + z(power), ignoring the negligible opposite tail. Under H0, p-values are uniform.
+calcValid = calcFragile < calcAlpha && calcStrong < calcAlpha
+calcNcp = normInv(1 - calcAlpha / 2) + normInv(calcPower / 100)
+calcSig = pCdfAt(calcAlpha, calcNcp)
+fragileH1 = (calcSig - pCdfAt(calcFragile, calcNcp)) / calcSig
+strongH1 = pCdfAt(calcStrong, calcNcp) / calcSig
+fragileH0 = (calcAlpha - calcFragile) / calcAlpha
+strongH0 = calcStrong / calcAlpha
+// Likelihood ratio of a p-value falling in each range under H1 vs H0 (unconditional probabilities, not shares of
+// significant results), converted to the posterior probability of the more probable hypothesis given a 50:50 prior.
+fragileLR = (calcSig - pCdfAt(calcFragile, calcNcp)) / (calcAlpha - calcFragile)
+strongLR = pCdfAt(calcStrong, calcNcp) / calcStrong
+function morePlausible(lr) {
+  const pH1 = lr / (1 + lr)
+  return pH1 >= 0.5
+    ? html`H<sub>1</sub> (${(100 * pH1).toFixed(0)}%)`
+    : html`H<sub>0</sub> (${(100 * (1 - pH1)).toFixed(0)}%)`
+}
+fmtP = x => String(+x.toFixed(4)).replace(/^0/, "")
+fmtPct = x => (100 * x).toFixed(x < 0.1 ? 1 : 0) + "%"
+```
+
+In a well-powered study of a real effect, most significant *p*-values are very small. Barely significant *p*-values are the typical outcome of low power, or of a true null hypothesis, where they make up 60% of significant results. At very high power, a *p*-value between .04 and .05 is actually *more* likely when $H_0$ is true than when $H_1$ is true (Lakens, 2015, 2022).
+
+Both sides of a well-known debate about significance thresholds accept this. Benjamin et al. (2018), in proposing to "redefine statistical significance" from .05 to .005, pointed out that a two-sided *p* of .05 corresponds to a Bayes factor of only about 2.5 to 3.4 in favour of $H_1$, which is weak evidence, and that in replication projects the replication rate was roughly twice as high for original studies with *p* < .005 as for those with .005 < *p* < .05 (50% vs. 24% in psychology). Lakens et al. (2018), replying that researchers should instead "justify your alpha", agreed that replication rates were lower for *p*-values just below .05, but argued that this difference is likely confounded by *p*-hacking rather than reflecting the evidential value of those *p*-values alone.
+
+Despite this, barely significant results are over-represented in the published literature. Leggett et al. (2013) found that "just significant" results had become more common over time. In the largest analysis to date, Bogdan (2025) extracted *p*-values from 240,355 empirical psychology articles published between 2004 and 2024 and calculated the percentage of each article's significant *p*-values that were "fragile" (.01 ≤ *p* < .05). Before the replication crisis (2004–2011), 32% of significant *p*-values were fragile, well above the 26% expected if studies had 80% power. This has since fallen to about 26%, in line with increasing sample sizes, although many individual articles still report mostly fragile results. More broadly, published literatures contain far more significant results than their statistical power could produce. Scheel et al. (2021) found that 96% of a random sample of standard psychology articles reported support for their first hypothesis, compared with 44% of Registered Reports, where the decision to publish is made before the results are known. Within individual multi-study articles, the same problem can be tested directly: if each of four studies has 50% power, the probability that all four produce a significant result is only 6%; even at 80% power it is 41% (Schimmack, 2012; Lakens & Etz, 2017). Using this logic, known as the test of excess significance (Ioannidis & Trikalinos, 2007), Francis (2014) found that 82% of articles with four or more experiments published in *Psychological Science* between 2009 and 2012 reported more significant results than their power could plausibly produce, and Francis et al. (2014) found the same for 83% of qualifying psychology articles in *Science*.
+
+The underlying message was put memorably by Rosnow and Rosenthal (1989, p. 1277):
+
+::: big-quote
+["Surely, God loves the .06 nearly as much as the .05."]{.quote}
+
+[Rosnow & Rosenthal (1989)]{.citation}
+:::
+
+They meant that .05 is an arbitrary line and that *p* = .06 should not be dismissed where *p* < .05 is accepted as meaningful evidence. However, the distribution of *p*-values suggests a less comforting corollary: in a well-powered study of a true effect, neither .05 nor .06 is a very likely outcome. Perhaps God loves neither very much.
+
+### Marginally significant *p*-values
+
+The mirror image of the barely significant result is the *marginally* significant one: a *p*-value just above .05 that is described as if it were nearly significant, for example as "approaching significance" or "a trend towards significance". This allows authors to have it both ways, acknowledging that the result did not meet the threshold while still treating it as support for their hypothesis.
+
+The practice is common. Olsson-Collentine et al. (2019) extracted 42,504 *p*-values between .05 and .10 from 44,200 articles in APA journals published between 1985 and 2016, and found that almost 40% were described as marginally significant, ranging from 30% in clinical psychology to 45% in organisational psychology. Pritschet et al. (2016) examined over 1,500 articles in top cognitive, developmental, and social psychology journals between 1970 and 2010. In 1970, 18% of articles described at least one *p*-value as marginally significant; by 2000 it was 52%, and in social psychology a majority of articles did so in both 2000 (59%) and 2010 (54%). Although most of these *p*-values fell between .05 and .10, values as large as .18 were sometimes described as marginally significant. Olsson-Collentine et al.'s (2019) larger analysis did not find this increasing trend from 1985 onwards, but both studies agree that the practice is common. Otte et al. (2022) searched 567,758 randomised controlled trials published between 1990 and 2020 and found phrases describing "almost significant" results in 8.65% of them; the most common were "marginally significant", "all but significant", "a nonsignificant trend", "failed to reach statistical significance", and "a strong trend".
+
+The phrases Otte et al. searched for came from a list of over 500 compiled from the published literature by Matthew Hankins under the title [*Still not significant*](https://mchankins.wordpress.com/2013/04/21/still-not-significant-2/). The list is worth reading in full, both as a catalogue of euphemisms to watch for and as a funny read. Examples range from "a borderline significant trend (*p* = .09)" to "a clear tendency to significance (*p* = .052)".
+
+The evidential problem is the same as for barely significant results, only worse. At 80% power, a *p*-value between .05 and .10 is only about 1.5 times as likely under $H_1$ as under $H_0$, and at 95% power it is *less* likely under $H_1$ than under $H_0$. Olsson-Collentine et al. (2019) accordingly recommended against describing such results as marginally significant. Benjamin et al. (2018) went further, proposing that even results with .005 < *p* < .05 should be called "suggestive" rather than significant.
+
+### Barely and marginally significant results as a signal
+
+Taken together, a set of results clustered just below (or just above) .05 is one of the fingerprints of a low-powered or biased literature, and it predicts poor replicability. In the Reproducibility Project: Psychology (Open Science Collaboration, 2015), 63% (20 of 32) of original studies with *p* < .001 produced a significant result when replicated, compared with 41% (26 of 63) with *p* < .02, 26% (6 of 23) with .02 < *p* < .04, and 18% (2 of 11) with *p* > .04. Similarly, across 103 replications in large-scale replication projects, Gordon et al. (2021) found that 74% of original findings with *p* ≤ .005 replicated, compared with 28% of those with *p* > .005. At the level of whole articles, Bogdan (2025) found that the percentage of an article's significant *p*-values that were fragile predicted whether its findings replicated, across 113 replication attempts.
+
+However, this is much less useful for assessing the trustworthiness of an individual article. Any single *p*-value between .02 and .05 is entirely possible under honest research practices, whether because the study had modest power or simply by chance. The signal lies in patterns across many results: for example, when all of an article's key results fall between .02 and .05, or when a multi-study article reports more significant results than its power could plausibly produce. Even then, excess-significance tests depend on judgements about which experiments and tests bear on the same claim, and on power estimated from the same, possibly inflated, effect sizes. For example, van Boxtel and Koch (2016) argued that Francis (2014) had wrongly flagged their article by including experiments and tests that did not bear on their central hypothesis, and that similar inclusion decisions could affect 34 of the 44 articles he analysed. Francis (2016) replied that the tests he included were those the original authors had themselves used to support their theoretical claims, and that the appearance of excess success remained. Such tests can therefore suggest a problem, but rarely demonstrate one. We return to how the distribution of *p*-values can reveal bias in @sec-biased-p-distributions.
+
+### Distributions that cannot occur naturally {#sec-biased-p-distributions}
 
 Because unbiased *p*-values are either flat (under $H_0$) or skewed towards zero (under $H_1$), there is no natural way for a collection of *p*-values to cluster just below .05. An excess of *p*-values just under the significance threshold requires some form of bias, such as publication bias or *p*-hacking. Masicampo and Lalande (2012) reported such a "peculiar prevalence" of *p*-values just below .05 in three psychology journals. The evidence is more mixed than that headline suggests: in a much larger sample of 258,050 test results, Hartgerink et al. (2016) found a bump below .05 in some journals, but it disappeared when *p*-values were recalculated from the reported test statistics. They did, however, find clear evidence of *p*-values being incorrectly rounded down to below .05.
 
@@ -361,6 +450,11 @@ biasedBins = {
 
 Similar distortions are not limited to *p*-values. Wherever a rule-of-thumb threshold determines whether a result is considered acceptable, there is pressure to meet it. Hussey et al. (2025) found a similar excess of Cronbach's α values at the conventional .70 threshold for acceptable reliability, across more than 180,000 α values from the general psychology literature, the industrial and organisational psychology literature, and the APA's PsycTests database.
 
+#### Further reading
+
+- **How *p*-hacking works.** Simmons et al. (2011), "False-positive psychology", is the seminal text on *p*-hacking. Using simulations and a deliberately absurd example study, it showed how a handful of common and individually defensible analytic choices (collecting more data after checking the results, choosing among dependent variables, adding covariates, dropping conditions) can push the false positive rate far above the nominal 5%. Stefan and Schönbrodt (2023) compiled a compendium of 12 *p*-hacking strategies from the literature and simulated the impact of each on false positive rates. Their accompanying [interactive web app](https://shiny.psy.lmu.de/felix/ShinyPHack/) lets you explore how each strategy affects false positive rates and the distribution of *p*-values.
+- **How publication bias distorts the literature.** Sterling (1959) was the first to document that almost all articles in psychology journals using significance tests reported significant results. Rosenthal (1979) named the resulting "file drawer problem": if nonsignificant results stay in researchers' file drawers, the published literature can be made up disproportionately of the Type I errors. Franco et al. (2014) were able to observe the file drawer directly, by following a complete set of preregistered survey experiments and showing that studies with null results were far less likely to be written up and published than those with strong results.
+
 ### Detecting biased *p*-values
 
 The shape of a set of significant *p*-values is also the basis of methods that aim to diagnose a given literature: *p*-curve, which tests for "evidential value" and *p*-hacking and estimates effect sizes corrected for publication bias (Simonsohn et al., 2014a, 2014b), and *Z*-curve, which estimates the expected replication and discovery rates of a set of studies (Brunner & Schimmack, 2020; Bartoš & Schimmack, 2022). Both methods are widely used, and both have been seriously criticised.
@@ -369,26 +463,6 @@ The shape of a set of significant *p*-values is also the basis of methods that a
 - ***Z*-curve.** Pek et al. (2026) argued that *z*-curve's expected discovery rate has no clear link to credibility, that its estimators can be biased and inconsistent, and that most published applications do not check its assumptions (e.g., independent *p*-values from focal tests). They recommended against using it to evaluate research findings. Schimmack and Soto (2026) replied that these limitations apply to selection models in general, not to *z*-curve specifically.
 
 Given this unresolved debate and, more importantly, the fact that these methods can only be applied to a large number of papers (e.g., a literature on a given effect), these methods are not covered further in this book, which focuses on methods for detecting impossible or implausible results within individual articles.
-
-<!-- #### Why this matters for trustworthiness assessment -->
-
-<!-- The null-model view is what makes a *p*-value useful for assessing trustworthiness, and also what limits it. A reported *p*-value is informative about $H_0$ only to the extent that the other assumptions of the null model are credible. Much of this book is about checking those other assumptions: whether the design was as described, whether the reported statistics are internally consistent, and whether the analyses reported are the analyses that were run. When those assumptions are doubtful, a small *p*-value says correspondingly little about the null hypothesis. -->
-
-<!-- ### Implications for trustworthiness assessment -->
-
-<!-- - Misinterpretations of *p*-values are a common source of misalignment between an article's results and its conclusions. The rest of this chapter, and the next, cover how to spot them. -->
-<!-- - Because these misinterpretations are so common among researchers, they are also common among assessors. Checking our own understanding is a prerequisite for judging others'. -->
-<!-- - A misinterpreted *p*-value makes the written conclusions untrustworthy even when the numerical results are accurate. It is evidence of a claim–evidence problem, not of fabrication or error in the numbers themselves. -->
-
-<!-- ## Interpretation of *p*-values -->
-
-<!-- - Intuitions for *p*-values -->
-<!-- - Alpha, power, diagnosticity refreshers -->
-<!--   - Distribution of unbiased *p*-values under null/alternative -->
-<!-- - *p*-hacking and its impact on *p*-values and effect sizes -->
-<!-- - Methods that aren't useful for trustworthiness assessment but are good for intuitions: distribution of biased *p*-values, *p*-curve, *z*-curve -->
-<!-- - Too good to be true in the context of power vs significance rate -->
-<!-- - Peeking and trends towards significance -->
 
 ## References {.unnumbered}
 
@@ -399,9 +473,13 @@ Badenes-Ribera, L., Frías-Navarro, D., Monterde-i-Bort, H., & Pascual-Soler, M.
 
 Bartoš, F., & Schimmack, U. (2022). Z-curve 2.0: Estimating replication rates and discovery rates. *Meta-Psychology*, *6*. <https://doi.org/10.15626/MP.2021.2720>
 
+Benjamin, D. J., Berger, J. O., Johannesson, M., Nosek, B. A., Wagenmakers, E.-J., Berk, R., Bollen, K. A., Brembs, B., Brown, L., Camerer, C., Cesarini, D., Chambers, C. D., Clyde, M., Cook, T. D., De Boeck, P., Dienes, Z., Dreber, A., Easwaran, K., Efferson, C., ... Johnson, V. E. (2018). Redefine statistical significance. *Nature Human Behaviour*, *2*(1), 6–10. <https://doi.org/10.1038/s41562-017-0189-z>
+
 Benjamini, Y., De Veaux, R., Efron, B., Evans, S., Glickman, M., Graubard, B. I., He, X., Meng, X.-L., Reid, N., Stigler, S. M., Vardeman, S. B., Wikle, C. K., Wright, T., Young, L. J., & Kafadar, K. (2021). ASA President's Task Force statement on statistical significance and replicability. *Harvard Data Science Review*, *3*(3). <https://doi.org/10.1162/99608f92.f0ad0287>
 
 Bishop, D. V. M., & Thompson, P. A. (2016). Problems in using *p*-curve analysis and text-mining to detect rate of *p*-hacking and evidential value. *PeerJ*, *4*, Article e1715. <https://doi.org/10.7717/peerj.1715>
+
+Bogdan, P. C. (2025). One decade into the replication crisis, how have psychological results changed? *Advances in Methods and Practices in Psychological Science*, *8*(2). <https://doi.org/10.1177/25152459251323480>
 
 Brunner, J., & Schimmack, U. (2020). Estimating population mean power under conditions of heterogeneity and selection for significance. *Meta-Psychology*, *4*. <https://doi.org/10.15626/MP.2018.874>
 
@@ -417,11 +495,21 @@ Erdfelder, E., & Heck, D. W. (2019). Detecting evidential value and *p*-hacking 
 
 Falk, R., & Greenbaum, C. W. (1995). Significance tests die hard: The amazing persistence of a probabilistic misconception. *Theory & Psychology*, *5*(1), 75–98. <https://doi.org/10.1177/0959354395051004>
 
+Francis, G. (2014). The frequency of excess success for articles in *Psychological Science*. *Psychonomic Bulletin & Review*, *21*(5), 1180–1187. <https://doi.org/10.3758/s13423-014-0601-x>
+
+Francis, G. (2016). Confirming the appearance of excess success: Reply to van Boxtel and Koch (2016). *Psychonomic Bulletin & Review*, *23*(6), 2010–2013. <https://doi.org/10.3758/s13423-016-1137-z>
+
+Francis, G., Tanzman, J., & Matthews, W. J. (2014). Excess success for psychology articles in the journal *Science*. *PLOS ONE*, *9*(12), Article e114255. <https://doi.org/10.1371/journal.pone.0114255>
+
+Franco, A., Malhotra, N., & Simonovits, G. (2014). Publication bias in the social sciences: Unlocking the file drawer. *Science*, *345*(6203), 1502–1505. <https://doi.org/10.1126/science.1255484>
+
 García-Pérez, M. A., & Alcalá-Quintana, R. (2016). The interpretation of scholars' interpretations of confidence intervals: Criticism, replication, and extension of Hoekstra et al. (2014). *Frontiers in Psychology*, *7*, Article 1042. <https://doi.org/10.3389/fpsyg.2016.01042>
 
 Gigerenzer, G. (2004). Mindless statistics. *The Journal of Socio-Economics*, *33*(5), 587–606. <https://doi.org/10.1016/j.socec.2004.09.033>
 
 Gigerenzer, G. (2018). Statistical rituals: The replication delusion and how we got there. *Advances in Methods and Practices in Psychological Science*, *1*(2), 198–218. <https://doi.org/10.1177/2515245918771329>
+
+Gordon, M., Viganola, D., Dreber, A., Johannesson, M., & Pfeiffer, T. (2021). Predicting replicability—Analysis of survey and prediction market data from large-scale forecasting projects. *PLOS ONE*, *16*(4), Article e0248780. <https://doi.org/10.1371/journal.pone.0248780>
 
 Greenland, S., Senn, S. J., Rothman, K. J., Carlin, J. B., Poole, C., Goodman, S. N., & Altman, D. G. (2016). Statistical tests, *P* values, confidence intervals, and power: A guide to misinterpretations. *European Journal of Epidemiology*, *31*(4), 337–350. <https://doi.org/10.1007/s10654-016-0149-3>
 
@@ -431,9 +519,19 @@ Hartgerink, C. H. J., van Aert, R. C. M., Nuijten, M. B., Wicherts, J. M., & van
 
 Hussey, I., Alsalti, T., Bosco, F., Elson, M., & Arslan, R. C. (2025). An aberrant abundance of Cronbach's alpha values at .70. *Advances in Methods and Practices in Psychological Science*, *8*(1), Article 25152459241287123. <https://doi.org/10.1177/25152459241287123>
 
+Ioannidis, J. P. A., & Trikalinos, T. A. (2007). An exploratory test for an excess of significant findings. *Clinical Trials*, *4*(3), 245–253. <https://doi.org/10.1177/1740774507079441>
+
 Kruschke, J. K. (2015). *Doing Bayesian data analysis: A tutorial with R, JAGS, and Stan* (2nd ed.). Academic Press. <https://doi.org/10.1016/C2012-0-00477-2>
 
+Lakens, D. (2015). On the challenges of drawing conclusions from *p*-values just below 0.05. *PeerJ*, *3*, Article e1142. <https://doi.org/10.7717/peerj.1142>
+
 Lakens, D. (2022). *Improving your statistical inferences* (Version 1.0.0). Zenodo. <https://doi.org/10.5281/zenodo.6409077>
+
+Lakens, D., Adolfi, F. G., Albers, C. J., Anvari, F., Apps, M. A. J., Argamon, S. E., Baguley, T., Becker, R. B., Benning, S. D., Bradford, D. E., Buchanan, E. M., Caldwell, A. R., Van Calster, B., Carlsson, R., Chen, S.-C., Chung, B., Colling, L. J., Collins, G. S., Crook, Z., ... Zwaan, R. A. (2018). Justify your alpha. *Nature Human Behaviour*, *2*(3), 168–171. <https://doi.org/10.1038/s41562-018-0311-x>
+
+Lakens, D., & Etz, A. J. (2017). Too true to be bad: When sets of studies with significant and nonsignificant findings are probably true. *Social Psychological and Personality Science*, *8*(8), 875–881. <https://doi.org/10.1177/1948550617693058>
+
+Leggett, N. C., Thomas, N. A., Loetscher, T., & Nicholls, M. E. R. (2013). The life of *p*: "Just significant" results are on the rise. *Quarterly Journal of Experimental Psychology*, *66*(12), 2303–2309. <https://doi.org/10.1080/17470218.2013.863371>
 
 Lyu, X.-K., Xu, Y., Zhao, X.-F., Zuo, X.-N., & Hu, C.-P. (2020). Beyond psychology: Prevalence of *p* value and confidence interval misinterpretation across different fields. *Journal of Pacific Rim Psychology*, *14*, Article e6. <https://doi.org/10.1017/prp.2019.28>
 
@@ -455,9 +553,27 @@ Murphy, S. L., Merz, R., Reimann, L.-E., & Fernández, A. (2025). Nonsignificanc
 
 Oakes, M. (1986). *Statistical inference: A commentary for the social and behavioural sciences*. Wiley.
 
+Olsson-Collentine, A., van Assen, M. A. L. M., & Hartgerink, C. H. J. (2019). The prevalence of marginally significant results in psychology over time. *Psychological Science*, *30*(4), 576–586. <https://doi.org/10.1177/0956797619830326>
+
+Open Science Collaboration. (2015). Estimating the reproducibility of psychological science. *Science*, *349*(6251), Article aac4716. <https://doi.org/10.1126/science.aac4716>
+
+Otte, W. M., Vinkers, C. H., Habets, P. C., van IJzendoorn, D. G. P., & Tijdink, J. K. (2022). Analysis of 567,758 randomized controlled trials published over 30 years reveals trends in phrases used to discuss results that do not reach statistical significance. *PLOS Biology*, *20*(2), Article e3001562. <https://doi.org/10.1371/journal.pbio.3001562>
+
 Pek, J., Wu, H., Liu, Y., Dusenbery, K. J., & Wegener, D. T. (2026). What does a *Z*-curve analysis tell us? *Cognition and Emotion*. Advance online publication. <https://doi.org/10.1080/02699931.2026.2613139>
 
+Pritschet, L., Powell, D., & Horne, Z. (2016). Marginally significant effects as evidence for hypotheses: Changing attitudes over four decades. *Psychological Science*, *27*(7), 1036–1042. <https://doi.org/10.1177/0956797616645672>
+
+Rosenthal, R. (1979). The file drawer problem and tolerance for null results. *Psychological Bulletin*, *86*(3), 638–641. <https://doi.org/10.1037/0033-2909.86.3.638>
+
+Rosnow, R. L., & Rosenthal, R. (1989). Statistical procedures and the justification of knowledge in psychological science. *American Psychologist*, *44*(10), 1276–1284. <https://doi.org/10.1037/0003-066X.44.10.1276>
+
+Scheel, A. M., Schijen, M. R. M. J., & Lakens, D. (2021). An excess of positive results: Comparing the standard psychology literature with Registered Reports. *Advances in Methods and Practices in Psychological Science*, *4*(2). <https://doi.org/10.1177/25152459211007467>
+
+Schimmack, U. (2012). The ironic effect of significant results on the credibility of multiple-study articles. *Psychological Methods*, *17*(4), 551–566. <https://doi.org/10.1037/a0029487>
+
 Schimmack, U., & Soto, M. D. (2026). A response to Pek et al.'s commentary on *Z*-curve: Clarifying the assumptions of selection models. *Cognition and Emotion*. Advance online publication. <https://doi.org/10.1080/02699931.2026.2678998>
+
+Simmons, J. P., Nelson, L. D., & Simonsohn, U. (2011). False-positive psychology: Undisclosed flexibility in data collection and analysis allows presenting anything as significant. *Psychological Science*, *22*(11), 1359–1366. <https://doi.org/10.1177/0956797611417632>
 
 Simonsohn, U., Nelson, L. D., & Simmons, J. P. (2014a). *P*-curve: A key to the file-drawer. *Journal of Experimental Psychology: General*, *143*(2), 534–547. <https://doi.org/10.1037/a0033242>
 
@@ -465,9 +581,15 @@ Simonsohn, U., Nelson, L. D., & Simmons, J. P. (2014b). *p*-curve and effect siz
 
 Simonsohn, U., Simmons, J. P., & Nelson, L. D. (2015). Better *P*-curves: Making *P*-curve analysis more robust to errors, fraud, and ambitious *P*-hacking, a reply to Ulrich and Miller (2015). *Journal of Experimental Psychology: General*, *144*(6), 1146–1152. <https://doi.org/10.1037/xge0000104>
 
+Stefan, A. M., & Schönbrodt, F. D. (2023). Big little lies: A compendium and simulation of *p*-hacking strategies. *Royal Society Open Science*, *10*(2), Article 220346. <https://doi.org/10.1098/rsos.220346>
+
+Sterling, T. D. (1959). Publication decisions and their possible effects on inferences drawn from tests of significance—or vice versa. *Journal of the American Statistical Association*, *54*(285), 30–34. <https://doi.org/10.1080/01621459.1959.10501497>
+
 Ulrich, R., & Miller, J. (2015). *p*-hacking by post hoc selection with multiple opportunities: Detectability by skewness test? Comment on Simonsohn, Nelson, and Simmons (2014). *Journal of Experimental Psychology: General*, *144*(6), 1137–1145. <https://doi.org/10.1037/xge0000086>
 
 van Aert, R. C. M., Wicherts, J. M., & van Assen, M. A. L. M. (2016). Conducting meta-analyses based on *p* values: Reservations and recommendations for applying *p*-uniform and *p*-curve. *Perspectives on Psychological Science*, *11*(5), 713–729. <https://doi.org/10.1177/1745691616650874>
+
+van Boxtel, J. J. A., & Koch, C. (2016). Reevaluating excess success in psychological science. *Psychonomic Bulletin & Review*, *23*(5), 1602–1606. <https://doi.org/10.3758/s13423-016-1010-0>
 
 Wasserstein, R. L., & Lazar, N. A. (2016). The ASA statement on *p*-values: Context, process, and purpose. *The American Statistician*, *70*(2), 129–133. <https://doi.org/10.1080/00031305.2016.1154108>
 

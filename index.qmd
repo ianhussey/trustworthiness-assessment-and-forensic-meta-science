@@ -6,23 +6,23 @@ This [Open Source](license.qmd) eBook provides materials for the semester-long M
 
 This book is split into four parts:
 
-1. Concepts.
-2. Methods.
-3. Organising.
-4. Developing and validating forensic methods.
+1.  Concepts.
+2.  Methods.
+3.  Organising.
+4.  Developing and validating forensic methods.
 
 ## Other learning resources
 
 There are many excellent Open Source resources to learn simulation studies in R and {tidyverse}. Readers are encouraged to seek them out to support the materials already provided in this book. I can particularly recommend the following ones:
 
--   Heathers, J. (2025) An Introduction To Forensic Metascience [eBook](https://jamesheathers.curve.space/)
--   COSIG: The Collection of Open Science Integrity Guides. Website:[cosig.net](https://cosig.net). doi:[10.17605/OSF.IO/2KDEZ](https://doi.org/10.17605/OSF.IO/2KDEZ)
-  - Ozturk, Y., Pirelli, S., Richardson, R.A.K. (2026). Introducing COSIG: The Collection of Open Science Integrity Guides. Zenodo. PLOS Biology 24(6): e3003817. doi:[10.1371/journal.pbio.3003817](https://doi.org/10.1371/journal.pbio.3003817)
--   [trustworthy.scientific.claims: A hub for open-source forensic meta-science methods for assessing the trustworthiness of scientific research. Discover available guides and tools, or contribute to development.](https://trustworthy.scientific.claims/) 
+- Heathers, J. (2025) An Introduction To Forensic Metascience [eBook](https://jamesheathers.curve.space/)
+- COSIG: The Collection of Open Science Integrity Guides. Website:[cosig.net](https://cosig.net). doi:[10.17605/OSF.IO/2KDEZ](https://doi.org/10.17605/OSF.IO/2KDEZ)
+- Ozturk, Y., Pirelli, S., Richardson, R.A.K. (2026). Introducing COSIG: The Collection of Open Science Integrity Guides. Zenodo. PLOS Biology 24(6): e3003817. doi:[10.1371/journal.pbio.3003817](https://doi.org/10.1371/journal.pbio.3003817)
+- [trustworthy.scientific.claims: A hub for open-source forensic meta-science methods for assessing the trustworthiness of scientific research. Discover available guides and tools, or contribute to development.](https://trustworthy.scientific.claims/)
 
 ## License
 
-&copy; Ian Hussey (2026) 
+© Ian Hussey (2026)
 
 Text and figures are licensed under a [Creative Commons Attribution 4.0 (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/) license.
 
@@ -34,9 +34,9 @@ You are free to copy, share, adapt, and reuse the contents of this book — text
 
 If you use this book, please cite it as:
 
-> Hussey, I. (2026). Trustworthiness Assessment and Forensic Meta-Science. website:[trustworthyresear.ch](https://trustworthyresear.ch). repository:[github.com/ianhussey/trustworthiness-assessment-and-forensic-meta-science](http://github.com/ianhussey/trustworthiness-assessment-and-forensic-meta-science)
+> Hussey, I. (2026). Trustworthiness Assessment and Forensic Meta-Science. [https://trustworthyresear.ch](https://trustworthyresear.ch). doi:[10.5281/zenodo.23056120](http://doi.org/10.5281/zenodo.23056120)
 
-<!-- <a href="https://doi.org/10.5281/zenodo.19427859"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.19427859.svg" alt="DOI"></a> -->
+<a href="https://doi.org/10.5281/zenodo.23056120"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.23056120.svg" alt="DOI"></a>
 
 ## Contributing
 

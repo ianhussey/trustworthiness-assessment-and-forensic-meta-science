@@ -7,82 +7,95 @@ if(file.exists("../_setup.R")){source("../_setup.R")}
 
 ## Misinterpretation of *p*-values
 
-- Non-significant *p*-values as evidence for the null
-- Difference between significant and non-significant is not itself significant
-- Simply claiming differences with non-significant *p*-values
+## Misinterpretations in the literature
 
-## Misinterpretation of specific metrics
+Students who give these answers may therefore be accurately recalling what they were taught. The errors also reach the published literature.
 
-- Confusing RR with relative risk, etc.
+::: big-number
+[76–85%]{.number}
 
-## Misinterpretation of specific tests
+[of psychology articles that discussed a nonsignificant result interpreted it as evidence that the effect was absent, with no significant change between 2009 and 2021 (Murphy et al., 2025).]{.description}
+:::
 
-- Analysis-claim misalignment in general; most of the below are a specific class of this
-  - Any test that exists can and will be misaligned somewhere
-  - Nature and magnitude of misalignment, e.g., CLPM lends itself to causal interpretation but can't give it
-  - Goals confusion gives rise to misalignment: description, prediction, influence
-  - The demand for tests is understandable; "Hot Right Now" stats that are poorly understood as a general problem
 
-### Efficacy claims
 
-- Efficacy claims from anything other than a post-intervention comparison with a control group (pre-post, two interventions, etc.)
 
-### MANOVA
+<!-- - Non-significant *p*-values as evidence for the null -->
+<!-- - Difference between significant and non-significant is not itself significant -->
+<!-- - Simply claiming differences with non-significant *p*-values -->
 
-- The "Protected F-test" logic: the belief that a significant omnibus MANOVA "protects" subsequent univariate ANOVAs from Type I error inflation
+<!-- ## Misinterpretation of specific metrics -->
 
-### Mediation and PROCESS macro
+<!-- - Confusing RR with relative risk, etc. -->
 
-- Mediation
-- PROCESS macro — "That's a lot to process"
+<!-- ## Misinterpretation of specific tests -->
 
-### CLPM and variants
+<!-- - Analysis-claim misalignment in general; most of the below are a specific class of this -->
+<!--   - Any test that exists can and will be misaligned somewhere -->
+<!--   - Nature and magnitude of misalignment, e.g., CLPM lends itself to causal interpretation but can't give it -->
+<!--   - Goals confusion gives rise to misalignment: description, prediction, influence -->
+<!--   - The demand for tests is understandable; "Hot Right Now" stats that are poorly understood as a general problem -->
 
-- Cross-lagged panel models and causal interpretation limitations
+<!-- ### Efficacy claims -->
 
-### Bifactor models in SEM
+<!-- - Efficacy claims from anything other than a post-intervention comparison with a control group (pre-post, two interventions, etc.) -->
 
-- Real-world data rarely perfectly follows proportionality constraints, so the less-restricted bifactor model will statistically outperform the higher-order model in nearly every CFA application, regardless of the "true" structure
-- Bifactor model is more robust to minor misspecifications because its direct paths to items allow it to "soak up" variance that a more constrained higher-order model cannot
+<!-- ### MANOVA -->
 
-### ANOVA
+<!-- - The "Protected F-test" logic: the belief that a significant omnibus MANOVA "protects" subsequent univariate ANOVAs from Type I error inflation -->
 
-- Hidden multiplicity in ANOVA
-- Lack of power in higher order interactions (problems with both false positives and false negatives)
+<!-- ### Mediation and PROCESS macro -->
 
-### Other commonly misused methods
+<!-- - Mediation -->
+<!-- - PROCESS macro — "That's a lot to process" -->
 
-- Stepwise regression
-- Post hoc power analysis
-- "Little Jiffy" Factor Analysis (PCA with Varimax & Kaiser Criterion of Eigenvalues \> 1; default in SPSS)
-- Choosing covariates based on significance or univariate associations
-- Latent class growth models (note: very different from latent growth curve models)
-- Magnitude-Based Inference
-- ANCOVA applied to observational data — Lord's paradox
-- Propensity Score Matching
-- Partial Least Squares SEM
-- Statistical confusion of assumption and inference / affirmation of the consequent in analyses
+<!-- ### CLPM and variants -->
 
-## Easter egg research
+<!-- - Cross-lagged panel models and causal interpretation limitations -->
 
-- Creating groups via clustering then testing for differences between them
-- Assuming differences between groups and then reifying the groups
-- K-means or Latent Class Analysis to create groups, followed by t-tests/ANOVA on the same variables to "validate" the groups
-- Analyses that assume the number of clusters and then discover them (e.g., Latent Profile Analysis)
+<!-- ### Bifactor models in SEM -->
 
-## Conditioning on post-treatment effects
+<!-- - Real-world data rarely perfectly follows proportionality constraints, so the less-restricted bifactor model will statistically outperform the higher-order model in nearly every CFA application, regardless of the "true" structure -->
+<!-- - Bifactor model is more robust to minor misspecifications because its direct paths to items allow it to "soak up" variance that a more constrained higher-order model cannot -->
 
-- Common cause problems
+<!-- ### ANOVA -->
 
-## Causal claims, implications, and assumptions
+<!-- - Hidden multiplicity in ANOVA -->
+<!-- - Lack of power in higher order interactions (problems with both false positives and false negatives) -->
 
-- Causality tests don't exist, only causal assumptions
-- Causal assumptions do exist and should be clarified
-- Causal claims in non-experiments
-- Causal claims in experiments that aren't experiments: pre-post change, follow-up comparisons against LOCF
-- The litmus test of "is this only interesting if it's causal, yet it's described as non-causal evidence"
+<!-- ### Other commonly misused methods -->
 
-## Other interpretation issues
+<!-- - Stepwise regression -->
+<!-- - Post hoc power analysis -->
+<!-- - "Little Jiffy" Factor Analysis (PCA with Varimax & Kaiser Criterion of Eigenvalues \> 1; default in SPSS) -->
+<!-- - Choosing covariates based on significance or univariate associations -->
+<!-- - Latent class growth models (note: very different from latent growth curve models) -->
+<!-- - Magnitude-Based Inference -->
+<!-- - ANCOVA applied to observational data — Lord's paradox -->
+<!-- - Propensity Score Matching -->
+<!-- - Partial Least Squares SEM -->
+<!-- - Statistical confusion of assumption and inference / affirmation of the consequent in analyses -->
 
-- Confusing IV and DV
-- Table 2 fallacy
+<!-- ## Easter egg research -->
+
+<!-- - Creating groups via clustering then testing for differences between them -->
+<!-- - Assuming differences between groups and then reifying the groups -->
+<!-- - K-means or Latent Class Analysis to create groups, followed by t-tests/ANOVA on the same variables to "validate" the groups -->
+<!-- - Analyses that assume the number of clusters and then discover them (e.g., Latent Profile Analysis) -->
+
+<!-- ## Conditioning on post-treatment effects -->
+
+<!-- - Common cause problems -->
+
+<!-- ## Causal claims, implications, and assumptions -->
+
+<!-- - Causality tests don't exist, only causal assumptions -->
+<!-- - Causal assumptions do exist and should be clarified -->
+<!-- - Causal claims in non-experiments -->
+<!-- - Causal claims in experiments that aren't experiments: pre-post change, follow-up comparisons against LOCF -->
+<!-- - The litmus test of "is this only interesting if it's causal, yet it's described as non-causal evidence" -->
+
+<!-- ## Other interpretation issues -->
+
+<!-- - Confusing IV and DV -->
+<!-- - Table 2 fallacy -->

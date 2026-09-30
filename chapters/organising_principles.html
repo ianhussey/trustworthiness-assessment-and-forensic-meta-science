@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/interpretation_methods.html" rel="next">
+<link href="../chapters/understanding_p_values.html" rel="next">
 <link href="../chapters/psychological_preparation.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -118,7 +118,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   main.content h3 { margin-top: 2rem; }
   main.content h4 { margin-top: 1.5rem; }
   .kable-table table { width: 70%; margin: 0 auto; }
-  .references-apa p { padding-left: 2em; text-indent: -2em; }
+  /* Observable Inputs.button uses .btn-quarto: give it the plots' blue (the default text colour matched its background), and space between stacked buttons */
+  .btn.btn-quarto { color: #fff; background-color: #2780e3; border-color: #2780e3; margin: 0.4rem 0; }
+  .btn.btn-quarto:hover { background-color: #1f6ab8; border-color: #1f6ab8; }
   /* .big-number: [89%]{.number} then [explanatory text]{.description}
      .big-quote:  [quote text]{.quote} then [source]{.citation}
      each works as a span (use a trailing \ for line breaks) or a div (for multiple paragraphs) */
@@ -324,7 +326,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/scope_and_need.html">Part I: Concepts</a></li><li class="breadcrumb-item"><a href="../chapters/organising_principles.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Organising principles <span class="badge badge-draft1">✎ Outline</span></span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/scope_and_need.html">Part I: Conceptual foundations</a></li><li class="breadcrumb-item"><a href="../chapters/organising_principles.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Organising principles <span class="badge badge-draft1">✎ Outline</span></span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -361,7 +363,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Part I: Concepts</span></a>
+ <span class="menu-text">Part I: Conceptual foundations</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -385,6 +387,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Organising principles <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/understanding_p_values.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Understanding <em>p</em>-values <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -398,14 +406,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/interpretation_methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Interpretation methods <span class="badge badge-draft2">✎ Draft</span></span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../chapters/misinterpretation_methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Misinterpretation methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Misinterpretation methods <span class="badge badge-draft2">✎ Draft</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -528,6 +530,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
@@ -571,7 +579,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/scope_and_need.html">Part I: Concepts</a></li><li class="breadcrumb-item"><a href="../chapters/organising_principles.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Organising principles <span class="badge badge-draft1">✎ Outline</span></span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/scope_and_need.html">Part I: Conceptual foundations</a></li><li class="breadcrumb-item"><a href="../chapters/organising_principles.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Organising principles <span class="badge badge-draft1">✎ Outline</span></span></a></li></ol></nav>
 <div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Organising principles <span class="badge badge-draft1">✎ Outline</span></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
@@ -1319,8 +1327,8 @@ window.onload = function() {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/interpretation_methods.html" class="pagination-link" aria-label="Interpretation methods [✎ Draft]{.badge .badge-draft2}">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Interpretation methods <span class="badge badge-draft2">✎ Draft</span></span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/understanding_p_values.html" class="pagination-link" aria-label="Understanding *p*-values [✎ Draft]{.badge .badge-draft2}">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Understanding <em>p</em>-values <span class="badge badge-draft2">✎ Draft</span></span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">

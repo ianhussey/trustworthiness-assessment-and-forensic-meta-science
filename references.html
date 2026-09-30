@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>23&nbsp; License and citation – Trustworthiness Assessment</title>
+<title>References – Trustworthiness Assessment</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -55,7 +55,26 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -65,7 +84,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./appendices/lesson_plan.html" rel="prev">
+<link href="./appendices/lesson_plan.html" rel="next">
+<link href="./chapters/validation_using_simulated_data.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -117,6 +137,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   main.content h3 { margin-top: 2rem; }
   main.content h4 { margin-top: 1.5rem; }
   .kable-table table { width: 70%; margin: 0 auto; }
+  /* Observable Inputs.button uses .btn-quarto: give it the plots' blue (the default text colour matched its background), and space between stacked buttons */
+  .btn.btn-quarto { color: #fff; background-color: #2780e3; border-color: #2780e3; margin: 0.4rem 0; }
+  .btn.btn-quarto:hover { background-color: #1f6ab8; border-color: #1f6ab8; }
+  /* .big-number: [89%]{.number} then [explanatory text]{.description}
+     .big-quote:  [quote text]{.quote} then [source]{.citation}
+     each works as a span (use a trailing \ for line breaks) or a div (for multiple paragraphs) */
+  .big-number, .big-quote { text-align: center; margin: 2.5rem auto; }
+  .big-number { max-width: 32rem; }
+  .big-quote  { max-width: 36rem; }
+  .big-number .number, .big-quote .quote, .big-number .description, .big-quote .citation { display: block; }
+  .big-number .number {
+    font-size: 5rem; font-weight: 700; line-height: 1;
+    color: var(--bs-primary); margin-bottom: 0.75rem;
+  }
+  .big-quote .quote {
+    font-size: 1.5rem; font-weight: 700; line-height: 1.35;
+    color: var(--bs-primary); margin-bottom: 0.75rem;
+  }
+  .big-number .description { font-size: 1.05rem; color: var(--bs-secondary-color); }
+  .big-quote .citation { font-size: 1rem; color: var(--bs-secondary-color); }
   .badge {
     display: inline-flex; align-items: center; gap: 0.3em;
     padding: 0.2em 0.65em; border-radius: 20px;
@@ -131,6 +171,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
+<link rel="stylesheet" href="include/webex.css">
 </head>
 
 <body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -304,7 +345,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./appendices/lesson_plan.html">Appendices</a></li><li class="breadcrumb-item"><a href="./license.html"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">License and citation</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./references.html">References</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -341,7 +382,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Part I: Concepts</span></a>
+ <span class="menu-text">Part I: Conceptual foundations</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -365,6 +406,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Organising principles <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chapters/understanding_p_values.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Understanding <em>p</em>-values <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -378,14 +425,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/interpretation_methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Interpretation methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./chapters/misinterpretation_methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Interpretation methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Misinterpretation methods <span class="badge badge-draft2">✎ Draft</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -508,6 +549,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
@@ -521,12 +568,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="./appendices/lesson_plan.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Lesson plan <span class="badge badge-draft1">✎ Outline</span></span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./license.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">License and citation</span></span></a>
   </div>
 </li>
       </ul>
@@ -543,9 +584,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./appendices/lesson_plan.html">Appendices</a></li><li class="breadcrumb-item"><a href="./license.html"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">License and citation</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">License and citation</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title">References</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -562,18 +603,669 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>© Ian Hussey (2025)</p>
-<p>Text and figures are licensed under a <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 (CC BY 4.0)</a> license.</p>
-<p>Code is licensed under the <a href="https://opensource.org/licenses/MIT">MIT License</a>.</p>
-<p>You are free to copy, share, adapt, and reuse the contents of this book — text, figures, and code — for any purpose, including commercial use, provided you cite it.</p>
-<p>Citation:</p>
-<p>Hussey, I. &amp; Cummins, J. (2025) Improving your statistical inferences using Monte Carlo simulation studies in tidyverse. github.com/ianhussey/improving-your-statistical-inferences-through-monte-carlo-simulation-studies</p>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-aczel2018" class="csl-entry" role="listitem">
+Aczel, B., Palfi, B., Szollosi, A., Kovacs, M., Szaszi, B., Szecsi, P.,
+Zrubka, M., Gronau, Q. F., Bergh, D. van den, &amp; Wagenmakers, E.-J.
+(2018). Quantifying support for the null hypothesis in psychology: An
+empirical investigation. <em>Advances in Methods and Practices in
+Psychological Science</em>, <em>1</em>(3), 357–366. <a href="https://doi.org/10.1177/2515245918773742">https://doi.org/10.1177/2515245918773742</a>
+</div>
+<div id="ref-altman1995" class="csl-entry" role="listitem">
+Altman, D. G., &amp; Bland, J. M. (1995). Absence of evidence is not
+evidence of absence. <em>BMJ</em>, <em>311</em>(7003), 485. <a href="https://doi.org/10.1136/bmj.311.7003.485">https://doi.org/10.1136/bmj.311.7003.485</a>
+</div>
+<div id="ref-armitage1969" class="csl-entry" role="listitem">
+Armitage, P., McPherson, C. K., &amp; Rowe, B. C. (1969). Repeated
+significance tests on accumulating data. <em>Journal of the Royal
+Statistical Society: Series A (General)</em>, <em>132</em>(2), 235–244.
+<a href="https://doi.org/10.2307/2343787">https://doi.org/10.2307/2343787</a>
+</div>
+<div id="ref-badenesribera2016" class="csl-entry" role="listitem">
+Badenes-Ribera, L., Frías-Navarro, D., Iotti, B., Bonilla-Campos, A.,
+&amp; Longobardi, C. (2016). Misconceptions of the
+<span><em>p</em></span>-value among <span>Chilean</span> and
+<span>Italian</span> academic psychologists. <em>Frontiers in
+Psychology</em>, <em>7</em>, Article 1247. <a href="https://doi.org/10.3389/fpsyg.2016.01247">https://doi.org/10.3389/fpsyg.2016.01247</a>
+</div>
+<div id="ref-badenesribera2015" class="csl-entry" role="listitem">
+Badenes-Ribera, L., Frías-Navarro, D., Monterde-i-Bort, H., &amp;
+Pascual-Soler, M. (2015). Interpretation of the <span><em>p</em></span>
+value: A national survey study in academic psychologists from
+<span>Spain</span>. <em>Psicothema</em>, <em>27</em>(3), 290–295. <a href="https://doi.org/10.7334/psicothema2014.283">https://doi.org/10.7334/psicothema2014.283</a>
+</div>
+<div id="ref-baroncohen2015" class="csl-entry" role="listitem">
+Baron-Cohen, S., Bowen, D. C., Holt, R. J., Allison, C., Auyeung, B.,
+Lombardo, M. V., Smith, P., &amp; Lai, M.-C. (2015). The <span>“reading
+the mind in the eyes”</span> test: Complete absence of typical sex
+difference in &nbsp;400 men and women with autism. <em>PLoS ONE</em>,
+<em>10</em>(8), e0136521. <a href="https://doi.org/10.1371/journal.pone.0136521">https://doi.org/10.1371/journal.pone.0136521</a>
+</div>
+<div id="ref-bartos2022" class="csl-entry" role="listitem">
+Bartoš, F., &amp; Schimmack, U. (2022). Z-curve 2.0: Estimating
+replication rates and discovery rates. <em>Meta-Psychology</em>,
+<em>6</em>. <a href="https://doi.org/10.15626/MP.2021.2720">https://doi.org/10.15626/MP.2021.2720</a>
+</div>
+<div id="ref-belia2005" class="csl-entry" role="listitem">
+Belia, S., Fidler, F., Williams, J., &amp; Cumming, G. (2005).
+Researchers misunderstand confidence intervals and standard error bars.
+<em>Psychological Methods</em>, <em>10</em>(4), 389–396. <a href="https://doi.org/10.1037/1082-989X.10.4.389">https://doi.org/10.1037/1082-989X.10.4.389</a>
+</div>
+<div id="ref-benjamin2018" class="csl-entry" role="listitem">
+Benjamin, D. J., Berger, J. O., Johannesson, M., Nosek, B. A.,
+Wagenmakers, E.-J., Berk, R., Bollen, K. A., Brembs, B., Brown, L.,
+Camerer, C., Cesarini, D., Chambers, C. D., Clyde, M., Cook, T. D., De
+Boeck, P., Dienes, Z., Dreber, A., Easwaran, K., Efferson, C., …
+Johnson, V. E. (2018). Redefine statistical significance. <em>Nature
+Human Behaviour</em>, <em>2</em>(1), 6–10. <a href="https://doi.org/10.1038/s41562-017-0189-z">https://doi.org/10.1038/s41562-017-0189-z</a>
+</div>
+<div id="ref-bishop2016" class="csl-entry" role="listitem">
+Bishop, D. V. M., &amp; Thompson, P. A. (2016). Problems in using
+<span><em>p</em></span>-curve analysis and text-mining to detect rate of
+<span><em>p</em></span>-hacking and evidential value. <em>PeerJ</em>,
+<em>4</em>, Article e1715. <a href="https://doi.org/10.7717/peerj.1715">https://doi.org/10.7717/peerj.1715</a>
+</div>
+<div id="ref-bogdan2025" class="csl-entry" role="listitem">
+Bogdan, P. C. (2025). One decade into the replication crisis, how have
+psychological results changed? <em>Advances in Methods and Practices in
+Psychological Science</em>, <em>8</em>(2), Article 25152459251323480. <a href="https://doi.org/10.1177/25152459251323480">https://doi.org/10.1177/25152459251323480</a>
+</div>
+<div id="ref-brunner2020" class="csl-entry" role="listitem">
+Brunner, J., &amp; Schimmack, U. (2020). Estimating population mean
+power under conditions of heterogeneity and selection for significance.
+<em>Meta-Psychology</em>, <em>4</em>. <a href="https://doi.org/10.15626/MP.2018.874">https://doi.org/10.15626/MP.2018.874</a>
+</div>
+<div id="ref-bruns2016" class="csl-entry" role="listitem">
+Bruns, S. B., &amp; Ioannidis, J. P. A. (2016).
+<span><em>p</em></span>-curve and <span><em>p</em></span>-hacking in
+observational research. <em>PLOS ONE</em>, <em>11</em>(2), Article
+e0149144. <a href="https://doi.org/10.1371/journal.pone.0149144">https://doi.org/10.1371/journal.pone.0149144</a>
+</div>
+<div id="ref-cassidy2019" class="csl-entry" role="listitem">
+Cassidy, S. A., Dimova, R., Giguère, B., Spence, J. R., &amp; Stanley,
+D. J. (2019). Failing grade: 89% of introduction-to-psychology textbooks
+that define or explain statistical significance do so incorrectly.
+<em>Advances in Methods and Practices in Psychological Science</em>,
+<em>2</em>(3), 233–239. <a href="https://doi.org/10.1177/2515245919858072">https://doi.org/10.1177/2515245919858072</a>
+</div>
+<div id="ref-cohen1994" class="csl-entry" role="listitem">
+Cohen, J. (1994). The earth is round (<span><em>p</em></span> &lt; .05).
+<em>American Psychologist</em>, <em>49</em>(12), 997–1003. <a href="https://doi.org/10.1037/0003-066X.49.12.997">https://doi.org/10.1037/0003-066X.49.12.997</a>
+</div>
+<div id="ref-cox2006" class="csl-entry" role="listitem">
+Cox, D. R. (2006). <em>Principles of statistical inference</em>.
+Cambridge University Press. <a href="https://doi.org/10.1017/CBO9780511813559">https://doi.org/10.1017/CBO9780511813559</a>
+</div>
+<div id="ref-cumming2008" class="csl-entry" role="listitem">
+Cumming, G. (2008). Replication and <span><em>p</em></span> intervals:
+<span><em>p</em></span> values predict the future only vaguely, but
+confidence intervals do much better. <em>Perspectives on Psychological
+Science</em>, <em>3</em>(4), 286–300. <a href="https://doi.org/10.1111/j.1745-6924.2008.00079.x">https://doi.org/10.1111/j.1745-6924.2008.00079.x</a>
+</div>
+<div id="ref-erdfelder2019" class="csl-entry" role="listitem">
+Erdfelder, E., &amp; Heck, D. W. (2019). Detecting evidential value and
+<span><em>p</em></span>-hacking with the <span><em>p</em></span>-curve
+tool: A word of caution. <em>Zeitschrift f<span>ü</span>r
+Psychologie</em>, <em>227</em>(4), 249–260. <a href="https://doi.org/10.1027/2151-2604/a000383">https://doi.org/10.1027/2151-2604/a000383</a>
+</div>
+<div id="ref-falk1995" class="csl-entry" role="listitem">
+Falk, R., &amp; Greenbaum, C. W. (1995). Significance tests die hard:
+The amazing persistence of a probabilistic misconception. <em>Theory
+&amp; Psychology</em>, <em>5</em>(1), 75–98. <a href="https://doi.org/10.1177/0959354395051004">https://doi.org/10.1177/0959354395051004</a>
+</div>
+<div id="ref-francis2014psychsci" class="csl-entry" role="listitem">
+Francis, G. (2014). The frequency of excess success for articles in
+<span><em>Psychological <span>Science</span></em></span>.
+<em>Psychonomic Bulletin &amp; Review</em>, <em>21</em>(5), 1180–1187.
+<a href="https://doi.org/10.3758/s13423-014-0601-x">https://doi.org/10.3758/s13423-014-0601-x</a>
+</div>
+<div id="ref-francis2016" class="csl-entry" role="listitem">
+Francis, G. (2016). Confirming the appearance of excess success: Reply
+to van <span>Boxtel</span> and <span>Koch</span> (2016). <em>Psychonomic
+Bulletin &amp; Review</em>, <em>23</em>(6), 2010–2013. <a href="https://doi.org/10.3758/s13423-016-1137-z">https://doi.org/10.3758/s13423-016-1137-z</a>
+</div>
+<div id="ref-francis2014science" class="csl-entry" role="listitem">
+Francis, G., Tanzman, J., &amp; Matthews, W. J. (2014). Excess success
+for psychology articles in the journal <span><em>Science</em></span>.
+<em>PLOS ONE</em>, <em>9</em>(12), Article e114255. <a href="https://doi.org/10.1371/journal.pone.0114255">https://doi.org/10.1371/journal.pone.0114255</a>
+</div>
+<div id="ref-franco2014" class="csl-entry" role="listitem">
+Franco, A., Malhotra, N., &amp; Simonovits, G. (2014). Publication bias
+in the social sciences: Unlocking the file drawer. <em>Science</em>,
+<em>345</em>(6203), 1502–1505. <a href="https://doi.org/10.1126/science.1255484">https://doi.org/10.1126/science.1255484</a>
+</div>
+<div id="ref-garciaperez2016" class="csl-entry" role="listitem">
+García-Pérez, M. A., &amp; Alcalá-Quintana, R. (2016). The
+interpretation of scholars’ interpretations of confidence intervals:
+Criticism, replication, and extension of <span>Hoekstra</span> et al.
+(2014). <em>Frontiers in Psychology</em>, <em>7</em>, Article 1042. <a href="https://doi.org/10.3389/fpsyg.2016.01042">https://doi.org/10.3389/fpsyg.2016.01042</a>
+</div>
+<div id="ref-gelman2006" class="csl-entry" role="listitem">
+Gelman, A., &amp; Stern, H. (2006). The difference between
+<span>“significant”</span> and <span>“not significant”</span> is not
+itself statistically significant. <em>The American Statistician</em>,
+<em>60</em>(4), 328–331. <a href="https://doi.org/10.1198/000313006X152649">https://doi.org/10.1198/000313006X152649</a>
+</div>
+<div id="ref-gigerenzer2004" class="csl-entry" role="listitem">
+Gigerenzer, G. (2004). Mindless statistics. <em>The Journal of
+Socio-Economics</em>, <em>33</em>(5), 587–606. <a href="https://doi.org/10.1016/j.socec.2004.09.033">https://doi.org/10.1016/j.socec.2004.09.033</a>
+</div>
+<div id="ref-gigerenzer2018" class="csl-entry" role="listitem">
+Gigerenzer, G. (2018). Statistical rituals: The replication delusion and
+how we got there. <em>Advances in Methods and Practices in Psychological
+Science</em>, <em>1</em>(2), 198–218. <a href="https://doi.org/10.1177/2515245918771329">https://doi.org/10.1177/2515245918771329</a>
+</div>
+<div id="ref-goodman1992" class="csl-entry" role="listitem">
+Goodman, S. N. (1992). A comment on replication,
+<span><em>p</em></span>-values and evidence. <em>Statistics in
+Medicine</em>, <em>11</em>(7), 875–879. <a href="https://doi.org/10.1002/sim.4780110705">https://doi.org/10.1002/sim.4780110705</a>
+</div>
+<div id="ref-gordon2021" class="csl-entry" role="listitem">
+Gordon, M., Viganola, D., Dreber, A., Johannesson, M., &amp; Pfeiffer,
+T. (2021). Predicting <span class="nocase">replicability—Analysis</span>
+of survey and prediction market data from large-scale forecasting
+projects. <em>PLOS ONE</em>, <em>16</em>(4), Article e0248780. <a href="https://doi.org/10.1371/journal.pone.0248780">https://doi.org/10.1371/journal.pone.0248780</a>
+</div>
+<div id="ref-greenland2016" class="csl-entry" role="listitem">
+Greenland, S., Senn, S. J., Rothman, K. J., Carlin, J. B., Poole, C.,
+Goodman, S. N., &amp; Altman, D. G. (2016). Statistical tests,
+<span><em>P</em></span> values, confidence intervals, and power: A guide
+to misinterpretations. <em>European Journal of Epidemiology</em>,
+<em>31</em>(4), 337–350. <a href="https://doi.org/10.1007/s10654-016-0149-3">https://doi.org/10.1007/s10654-016-0149-3</a>
+</div>
+<div id="ref-haller2002" class="csl-entry" role="listitem">
+Haller, H., &amp; Krauss, S. (2002). Misinterpretations of significance:
+A problem students share with their teachers? <em>Methods of
+Psychological Research Online</em>, <em>7</em>(1), 1–20. <a href="https://epub.uni-regensburg.de/34338/">https://epub.uni-regensburg.de/34338/</a>
+</div>
+<div id="ref-hartgerink2016" class="csl-entry" role="listitem">
+Hartgerink, C. H. J., van Aert, R. C. M., Nuijten, M. B., Wicherts, J.
+M., &amp; van Assen, M. A. L. M. (2016). Distributions of
+<span><em>p</em></span>-values smaller than .05 in psychology: What is
+going on? <em>PeerJ</em>, <em>4</em>, Article e1935. <a href="https://doi.org/10.7717/peerj.1935">https://doi.org/10.7717/peerj.1935</a>
+</div>
+<div id="ref-hauer2004" class="csl-entry" role="listitem">
+Hauer, E. (2004). The harm done by tests of significance. <em>Accident
+Analysis &amp; Prevention</em>, <em>36</em>(3), 495–500. <a href="https://doi.org/10.1016/S0001-4575(03)00036-8">https://doi.org/10.1016/S0001-4575(03)00036-8</a>
+</div>
+<div id="ref-hussey2025" class="csl-entry" role="listitem">
+Hussey, I., Alsalti, T., Bosco, F., Elson, M., &amp; Arslan, R. C.
+(2025). An aberrant abundance of <span class="nocase">Cronbach’s</span>
+alpha values at .70. <em>Advances in Methods and Practices in
+Psychological Science</em>, <em>8</em>(1), Article 25152459241287123. <a href="https://doi.org/10.1177/25152459241287123">https://doi.org/10.1177/25152459241287123</a>
+</div>
+<div id="ref-ioannidis2007" class="csl-entry" role="listitem">
+Ioannidis, J. P. A., &amp; Trikalinos, T. A. (2007). An exploratory test
+for an excess of significant findings. <em>Clinical Trials</em>,
+<em>4</em>(3), 245–253. <a href="https://doi.org/10.1177/1740774507079441">https://doi.org/10.1177/1740774507079441</a>
+</div>
+<div id="ref-john2012" class="csl-entry" role="listitem">
+John, L. K., Loewenstein, G., &amp; Prelec, D. (2012). Measuring the
+prevalence of questionable research practices with incentives for truth
+telling. <em>Psychological Science</em>, <em>23</em>(5), 524–532. <a href="https://doi.org/10.1177/0956797611430953">https://doi.org/10.1177/0956797611430953</a>
+</div>
+<div id="ref-kruschke2015" class="csl-entry" role="listitem">
+Kruschke, J. K. (2015). <em>Doing <span>Bayesian</span> data analysis: A
+tutorial with <span>R</span>, <span>JAGS</span>, and
+<span>Stan</span></em> (2nd ed.). Academic Press. <a href="https://doi.org/10.1016/C2012-0-00477-2">https://doi.org/10.1016/C2012-0-00477-2</a>
+</div>
+<div id="ref-lakens2014" class="csl-entry" role="listitem">
+Lakens, D. (2014). Performing high-powered studies efficiently with
+sequential analyses. <em>European Journal of Social Psychology</em>,
+<em>44</em>(7), 701–710. <a href="https://doi.org/10.1002/ejsp.2023">https://doi.org/10.1002/ejsp.2023</a>
+</div>
+<div id="ref-lakens2015" class="csl-entry" role="listitem">
+Lakens, D. (2015). On the challenges of drawing conclusions from
+<span><em>p</em></span>-values just below 0.05. <em>PeerJ</em>,
+<em>3</em>, Article e1142. <a href="https://doi.org/10.7717/peerj.1142">https://doi.org/10.7717/peerj.1142</a>
+</div>
+<div id="ref-lakens2017equivalence" class="csl-entry" role="listitem">
+Lakens, D. (2017). Equivalence tests: A practical primer for t tests,
+correlations, and meta-analyses. <em>Social Psychological and
+Personality Science</em>, <em>8</em>(4), 355–362. <a href="https://doi.org/10.1177/1948550617697177">https://doi.org/10.1177/1948550617697177</a>
+</div>
+<div id="ref-lakens2022" class="csl-entry" role="listitem">
+Lakens, D. (2022). <em>Improving your statistical inferences</em>
+(Version 1.0.0). Zenodo. <a href="https://doi.org/10.5281/zenodo.6409077">https://doi.org/10.5281/zenodo.6409077</a>
+</div>
+<div id="ref-lakens2018" class="csl-entry" role="listitem">
+Lakens, D., Adolfi, F. G., Albers, C. J., Anvari, F., Apps, M. A. J.,
+Argamon, S. E., Baguley, T., Becker, R. B., Benning, S. D., Bradford, D.
+E., Buchanan, E. M., Caldwell, A. R., Van Calster, B., Carlsson, R.,
+Chen, S.-C., Chung, B., Colling, L. J., Collins, G. S., Crook, Z., …
+Zwaan, R. A. (2018). Justify your alpha. <em>Nature Human
+Behaviour</em>, <em>2</em>(3), 168–171. <a href="https://doi.org/10.1038/s41562-018-0311-x">https://doi.org/10.1038/s41562-018-0311-x</a>
+</div>
+<div id="ref-lakens2017" class="csl-entry" role="listitem">
+Lakens, D., &amp; Etz, A. J. (2017). Too true to be bad: When sets of
+studies with significant and nonsignificant findings are probably true.
+<em>Social Psychological and Personality Science</em>, <em>8</em>(8),
+875–881. <a href="https://doi.org/10.1177/1948550617693058">https://doi.org/10.1177/1948550617693058</a>
+</div>
+<div id="ref-lakens2018equivalence" class="csl-entry" role="listitem">
+Lakens, D., Scheel, A. M., &amp; Isager, P. M. (2018). Equivalence
+testing for psychological research: A tutorial. <em>Advances in Methods
+and Practices in Psychological Science</em>, <em>1</em>(2), 259–269. <a href="https://doi.org/10.1177/2515245918770963">https://doi.org/10.1177/2515245918770963</a>
+</div>
+<div id="ref-leggett2013" class="csl-entry" role="listitem">
+Leggett, N. C., Thomas, N. A., Loetscher, T., &amp; Nicholls, M. E. R.
+(2013). The life of <span><em>p</em></span>: "Just significant" results
+are on the rise. <em>Quarterly Journal of Experimental Psychology</em>,
+<em>66</em>(12), 2303–2309. <a href="https://doi.org/10.1080/17470218.2013.863371">https://doi.org/10.1080/17470218.2013.863371</a>
+</div>
+<div id="ref-lyu2020" class="csl-entry" role="listitem">
+Lyu, X.-K., Xu, Y., Zhao, X.-F., Zuo, X.-N., &amp; Hu, C.-P. (2020).
+Beyond psychology: Prevalence of <span><em>p</em></span> value and
+confidence interval misinterpretation across different fields.
+<em>Journal of Pacific Rim Psychology</em>, <em>14</em>, Article e6. <a href="https://doi.org/10.1017/prp.2019.28">https://doi.org/10.1017/prp.2019.28</a>
+</div>
+<div id="ref-lyu2018" class="csl-entry" role="listitem">
+Lyu, Z., Peng, K., &amp; Hu, C.-P. (2018).
+<span><em>P</em></span>-value, confidence intervals, and statistical
+inference: A new dataset of misinterpretation. <em>Frontiers in
+Psychology</em>, <em>9</em>, Article 868. <a href="https://doi.org/10.3389/fpsyg.2018.00868">https://doi.org/10.3389/fpsyg.2018.00868</a>
+</div>
+<div id="ref-masicampo2012" class="csl-entry" role="listitem">
+Masicampo, E. J., &amp; Lalande, D. R. (2012). A peculiar prevalence of
+<span><em>p</em></span> values just below .05. <em>Quarterly Journal of
+Experimental Psychology</em>, <em>65</em>(11), 2271–2279. <a href="https://doi.org/10.1080/17470218.2012.711335">https://doi.org/10.1080/17470218.2012.711335</a>
+</div>
+<div id="ref-mcelreath2020" class="csl-entry" role="listitem">
+McElreath, R. (2020). <em>Statistical rethinking: A
+<span>Bayesian</span> course with examples in <span>R</span> and
+<span>Stan</span></em> (2nd ed.). CRC Press. <a href="https://doi.org/10.1201/9780429029608">https://doi.org/10.1201/9780429029608</a>
+</div>
+<div id="ref-mcshane2016" class="csl-entry" role="listitem">
+McShane, B. B., Böckenholt, U., &amp; Hansen, K. T. (2016). Adjusting
+for publication bias in meta-analysis: An evaluation of selection
+methods and some cautionary notes. <em>Perspectives on Psychological
+Science</em>, <em>11</em>(5), 730–749. <a href="https://doi.org/10.1177/1745691616662243">https://doi.org/10.1177/1745691616662243</a>
+</div>
+<div id="ref-mcshane2017" class="csl-entry" role="listitem">
+McShane, B. B., &amp; Gal, D. (2017). Statistical significance and the
+dichotomization of evidence. <em>Journal of the American Statistical
+Association</em>, <em>112</em>(519), 885–895. <a href="https://doi.org/10.1080/01621459.2017.1289846">https://doi.org/10.1080/01621459.2017.1289846</a>
+</div>
+<div id="ref-miller2016" class="csl-entry" role="listitem">
+Miller, J., &amp; Ulrich, R. (2016). Interpreting confidence intervals:
+A comment on <span>Hoekstra</span>, <span>Morey</span>,
+<span>Rouder</span>, and <span>Wagenmakers</span> (2014).
+<em>Psychonomic Bulletin &amp; Review</em>, <em>23</em>(1), 124–130. <a href="https://doi.org/10.3758/s13423-015-0859-7">https://doi.org/10.3758/s13423-015-0859-7</a>
+</div>
+<div id="ref-moran2021" class="csl-entry" role="listitem">
+Moran, T., Hughes, S., Hussey, I., et al. (2021). Incidental attitude
+formation via the surveillance task: A preregistered replication of the
+<span>Olson</span> and <span>Fazio</span> (2001) study.
+<em>Psychological Science</em>, <em>32</em>(1), 120–131. <a href="https://doi.org/10.1177/0956797620968526">https://doi.org/10.1177/0956797620968526</a>
+</div>
+<div id="ref-morey2026" class="csl-entry" role="listitem">
+Morey, R. D., &amp; Davis-Stober, C. P. (2026). On the poor statistical
+properties of the <span><em>P</em></span>-curve meta-analytic procedure.
+<em>Journal of the American Statistical Association</em>,
+<em>121</em>(553), 741–753. <a href="https://doi.org/10.1080/01621459.2025.2544397">https://doi.org/10.1080/01621459.2025.2544397</a>
+</div>
+<div id="ref-morey2016" class="csl-entry" role="listitem">
+Morey, R. D., &amp; Lakens, D. (2016). <em>Why most of psychology is
+statistically unfalsifiable</em>. Zenodo. <a href="https://doi.org/10.5281/zenodo.838685">https://doi.org/10.5281/zenodo.838685</a>
+</div>
+<div id="ref-murphy2025" class="csl-entry" role="listitem">
+Murphy, S. L., Merz, R., Reimann, L.-E., &amp; Fernández, A. (2025).
+Nonsignificance misinterpreted as an effect’s absence in psychology:
+Prevalence and temporal analyses. <em>Royal Society Open Science</em>,
+<em>12</em>(3), 242167. <a href="https://doi.org/10.1098/rsos.242167">https://doi.org/10.1098/rsos.242167</a>
+</div>
+<div id="ref-nieuwenhuis2011" class="csl-entry" role="listitem">
+Nieuwenhuis, S., Forstmann, B. U., &amp; Wagenmakers, E.-J. (2011).
+Erroneous analyses of interactions in neuroscience: A problem of
+significance. <em>Nature Neuroscience</em>, <em>14</em>(9), 1105–1107.
+<a href="https://doi.org/10.1038/nn.2886">https://doi.org/10.1038/nn.2886</a>
+</div>
+<div id="ref-nuijten2016" class="csl-entry" role="listitem">
+Nuijten, M. B., Hartgerink, C. H. J., van Assen, M. A. L. M., Epskamp,
+S., &amp; Wicherts, J. M. (2016). The prevalence of statistical
+reporting errors in psychology (1985–2013). <em>Behavior Research
+Methods</em>, <em>48</em>(4), 1205–1226. <a href="https://doi.org/10.3758/s13428-015-0664-2">https://doi.org/10.3758/s13428-015-0664-2</a>
+</div>
+<div id="ref-oakes1986" class="csl-entry" role="listitem">
+Oakes, M. (1986). <em>Statistical inference: A commentary for the social
+and behavioural sciences</em>. Wiley.
+</div>
+<div id="ref-olssoncollentine2019" class="csl-entry" role="listitem">
+Olsson-Collentine, A., van Assen, M. A. L. M., &amp; Hartgerink, C. H.
+J. (2019). The prevalence of marginally significant results in
+psychology over time. <em>Psychological Science</em>, <em>30</em>(4),
+576–586. <a href="https://doi.org/10.1177/0956797619830326">https://doi.org/10.1177/0956797619830326</a>
+</div>
+<div id="ref-osc2015" class="csl-entry" role="listitem">
+Open Science Collaboration. (2015). Estimating the reproducibility of
+psychological science. <em>Science</em>, <em>349</em>(6251), Article
+aac4716. <a href="https://doi.org/10.1126/science.aac4716">https://doi.org/10.1126/science.aac4716</a>
+</div>
+<div id="ref-otte2022" class="csl-entry" role="listitem">
+Otte, W. M., Vinkers, C. H., Habets, P. C., van IJzendoorn, D. G. P.,
+&amp; Tijdink, J. K. (2022). Analysis of 567,758 randomized controlled
+trials published over 30 years reveals trends in phrases used to discuss
+results that do not reach statistical significance. <em>PLOS
+Biology</em>, <em>20</em>(2), Article e3001562. <a href="https://doi.org/10.1371/journal.pbio.3001562">https://doi.org/10.1371/journal.pbio.3001562</a>
+</div>
+<div id="ref-pek2026" class="csl-entry" role="listitem">
+Pek, J., Wu, H., Liu, Y., Dusenbery, K. J., &amp; Wegener, D. T. (2026).
+What does a <span><em>Z</em></span>-curve analysis tell us?
+<em>Cognition and Emotion</em>. Advance online publication. <a href="https://doi.org/10.1080/02699931.2026.2613139">https://doi.org/10.1080/02699931.2026.2613139</a>
+</div>
+<div id="ref-preusser1982" class="csl-entry" role="listitem">
+Preusser, D. F., Leaf, W. A., DeBartolo, K. B., Blomberg, R. D., &amp;
+Levy, M. M. (1982). The effect of right-turn-on-red on pedestrian and
+bicyclist accidents. <em>Journal of Safety Research</em>,
+<em>13</em>(2), 45–55. <a href="https://doi.org/10.1016/0022-4375(82)90001-9">https://doi.org/10.1016/0022-4375(82)90001-9</a>
+</div>
+<div id="ref-pritschet2016" class="csl-entry" role="listitem">
+Pritschet, L., Powell, D., &amp; Horne, Z. (2016). Marginally
+significant effects as evidence for hypotheses: Changing attitudes over
+four decades. <em>Psychological Science</em>, <em>27</em>(7), 1036–1042.
+<a href="https://doi.org/10.1177/0956797616645672">https://doi.org/10.1177/0956797616645672</a>
+</div>
+<div id="ref-rosenthal1979" class="csl-entry" role="listitem">
+Rosenthal, R. (1979). The file drawer problem and tolerance for null
+results. <em>Psychological Bulletin</em>, <em>86</em>(3), 638–641. <a href="https://doi.org/10.1037/0033-2909.86.3.638">https://doi.org/10.1037/0033-2909.86.3.638</a>
+</div>
+<div id="ref-rosnow1989" class="csl-entry" role="listitem">
+Rosnow, R. L., &amp; Rosenthal, R. (1989). Statistical procedures and
+the justification of knowledge in psychological science. <em>American
+Psychologist</em>, <em>44</em>(10), 1276–1284. <a href="https://doi.org/10.1037/0003-066X.44.10.1276">https://doi.org/10.1037/0003-066X.44.10.1276</a>
+</div>
+<div id="ref-scheel2021" class="csl-entry" role="listitem">
+Scheel, A. M., Schijen, M. R. M. J., &amp; Lakens, D. (2021). An excess
+of positive results: Comparing the standard psychology literature with
+<span>Registered</span> <span>Reports</span>. <em>Advances in Methods
+and Practices in Psychological Science</em>, <em>4</em>(2), Article
+25152459211007467. <a href="https://doi.org/10.1177/25152459211007467">https://doi.org/10.1177/25152459211007467</a>
+</div>
+<div id="ref-schimmack2012" class="csl-entry" role="listitem">
+Schimmack, U. (2012). The ironic effect of significant results on the
+credibility of multiple-study articles. <em>Psychological Methods</em>,
+<em>17</em>(4), 551–566. <a href="https://doi.org/10.1037/a0029487">https://doi.org/10.1037/a0029487</a>
+</div>
+<div id="ref-schimmack2026" class="csl-entry" role="listitem">
+Schimmack, U., &amp; Soto, M. D. (2026). A response to <span>Pek</span>
+et al.’s commentary on <span><em>Z</em></span>-curve: Clarifying the
+assumptions of selection models. <em>Cognition and Emotion</em>. Advance
+online publication. <a href="https://doi.org/10.1080/02699931.2026.2678998">https://doi.org/10.1080/02699931.2026.2678998</a>
+</div>
+<div id="ref-simmons2011" class="csl-entry" role="listitem">
+Simmons, J. P., Nelson, L. D., &amp; Simonsohn, U. (2011).
+False-positive psychology: Undisclosed flexibility in data collection
+and analysis allows presenting anything as significant.
+<em>Psychological Science</em>, <em>22</em>(11), 1359–1366. <a href="https://doi.org/10.1177/0956797611417632">https://doi.org/10.1177/0956797611417632</a>
+</div>
+<div id="ref-simonsohn2014effectsize" class="csl-entry" role="listitem">
+Simonsohn, U., Nelson, L. D., &amp; Simmons, J. P. (2014a).
+<span><em>p</em></span>-curve and effect size: Correcting for
+publication bias using only significant results. <em>Perspectives on
+Psychological Science</em>, <em>9</em>(6), 666–681. <a href="https://doi.org/10.1177/1745691614553988">https://doi.org/10.1177/1745691614553988</a>
+</div>
+<div id="ref-simonsohn2014filedrawer" class="csl-entry" role="listitem">
+Simonsohn, U., Nelson, L. D., &amp; Simmons, J. P. (2014b).
+<span><em>P</em></span>-curve: A key to the file-drawer. <em>Journal of
+Experimental Psychology: General</em>, <em>143</em>(2), 534–547. <a href="https://doi.org/10.1037/a0033242">https://doi.org/10.1037/a0033242</a>
+</div>
+<div id="ref-simonsohn2015" class="csl-entry" role="listitem">
+Simonsohn, U., Simmons, J. P., &amp; Nelson, L. D. (2015). Better
+<span><em>P</em></span>-curves: Making <span><em>P</em></span>-curve
+analysis more robust to errors, fraud, and ambitious
+<span><em>P</em></span>-hacking, a reply to <span>Ulrich</span> and
+<span>Miller</span> (2015). <em>Journal of Experimental Psychology:
+General</em>, <em>144</em>(6), 1146–1152. <a href="https://doi.org/10.1037/xge0000104">https://doi.org/10.1037/xge0000104</a>
+</div>
+<div id="ref-stefan2023" class="csl-entry" role="listitem">
+Stefan, A. M., &amp; Schönbrodt, F. D. (2023). Big little lies: A
+compendium and simulation of <span><em>p</em></span>-hacking strategies.
+<em>Royal Society Open Science</em>, <em>10</em>(2), Article 220346. <a href="https://doi.org/10.1098/rsos.220346">https://doi.org/10.1098/rsos.220346</a>
+</div>
+<div id="ref-sterling1959" class="csl-entry" role="listitem">
+Sterling, T. D. (1959). Publication decisions and their possible effects
+on inferences drawn from tests of significance—or vice versa.
+<em>Journal of the American Statistical Association</em>,
+<em>54</em>(285), 30–34. <a href="https://doi.org/10.1080/01621459.1959.10501497">https://doi.org/10.1080/01621459.1959.10501497</a>
+</div>
+<div id="ref-ulrich2015" class="csl-entry" role="listitem">
+Ulrich, R., &amp; Miller, J. (2015). <span><em>p</em></span>-hacking by
+post hoc selection with multiple opportunities: Detectability by
+skewness test? Comment on <span>Simonsohn</span>, <span>Nelson</span>,
+and <span>Simmons</span> (2014). <em>Journal of Experimental Psychology:
+General</em>, <em>144</em>(6), 1137–1145. <a href="https://doi.org/10.1037/xge0000086">https://doi.org/10.1037/xge0000086</a>
+</div>
+<div id="ref-vanaert2016" class="csl-entry" role="listitem">
+van Aert, R. C. M., Wicherts, J. M., &amp; van Assen, M. A. L. M.
+(2016). Conducting meta-analyses based on <span><em>p</em></span>
+values: Reservations and recommendations for applying
+<span><em>p</em></span>-uniform and <span><em>p</em></span>-curve.
+<em>Perspectives on Psychological Science</em>, <em>11</em>(5), 713–729.
+<a href="https://doi.org/10.1177/1745691616650874">https://doi.org/10.1177/1745691616650874</a>
+</div>
+<div id="ref-vanboxtel2016" class="csl-entry" role="listitem">
+van Boxtel, J. J. A., &amp; Koch, C. (2016). Reevaluating excess success
+in psychological science. <em>Psychonomic Bulletin &amp; Review</em>,
+<em>23</em>(5), 1602–1606. <a href="https://doi.org/10.3758/s13423-016-1010-0">https://doi.org/10.3758/s13423-016-1010-0</a>
+</div>
+<div id="ref-wasserstein2016" class="csl-entry" role="listitem">
+Wasserstein, R. L., &amp; Lazar, N. A. (2016). The <span>ASA</span>
+statement on <span><em>p</em></span>-values: Context, process, and
+purpose. <em>The American Statistician</em>, <em>70</em>(2), 129–133. <a href="https://doi.org/10.1080/00031305.2016.1154108">https://doi.org/10.1080/00031305.2016.1154108</a>
+</div>
+</div>
 
 
 <!-- -->
 
 
 </main> <!-- /main -->
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  update_total_correct();
+}
+
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
@@ -1040,26 +1732,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./appendices/lesson_plan.html" class="pagination-link" aria-label="Lesson plan <span class=&quot;badge badge-draft1&quot;>✎ Outline</span>">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Lesson plan <span class="badge badge-draft1">✎ Outline</span></span></span>
+      <a href="./chapters/validation_using_simulated_data.html" class="pagination-link" aria-label="Validating meta-science methods using simulated data [✎ Outline]{.badge .badge-draft1}">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Validating meta-science methods using simulated data <span class="badge badge-draft1">✎ Outline</span></span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./appendices/lesson_plan.html" class="pagination-link" aria-label="Lesson plan [✎ Outline]{.badge .badge-draft1}">
+        <span class="nav-page-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Lesson plan <span class="badge badge-draft1">✎ Outline</span></span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># License and citation</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># References {.unnumbered}</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dv">&amp;copy;</span> Ian Hussey (2025)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>Text and figures are licensed under a <span class="co">[</span><span class="ot">Creative Commons Attribution 4.0 (CC BY 4.0)</span><span class="co">](https://creativecommons.org/licenses/by/4.0/)</span> license.</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>Code is licensed under the <span class="co">[</span><span class="ot">MIT License</span><span class="co">](https://opensource.org/licenses/MIT)</span>.</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>You are free to copy, share, adapt, and reuse the contents of this book — text, figures, and code — for any purpose, including commercial use, provided you cite it.</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>Citation:</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>Hussey, I. &amp; Cummins, J. (2025) Improving your statistical inferences using Monte Carlo simulation studies in tidyverse. github.com/ianhussey/improving-your-statistical-inferences-through-monte-carlo-simulation-studies</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>::: {#refs}</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

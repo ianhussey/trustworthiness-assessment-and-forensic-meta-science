@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>19&nbsp; Reflexive critique ✎ Very rough draft – Trustworthiness Assessment</title>
+<title>11&nbsp; Reconstruction, resampling, and simulation methods ✎ Outline – Trustworthiness Assessment</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,8 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/forensic_methods_require_validation.html" rel="next">
-<link href="../exercises/organising_critique.html" rel="prev">
+<link href="../chapters/design_methods.html" rel="next">
+<link href="../chapters/bounds_methods.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -297,7 +297,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/critiquing_specific_types_of_articles.html">Part III: Organising</a></li><li class="breadcrumb-item"><a href="../exercises/reflexive_critique.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Reflexive critique <span class="badge badge-draft1">✎ Very rough draft</span></span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/interpretation_methods.html">Part II: Methods</a></li><li class="breadcrumb-item"><a href="../chapters/reconstruction_resampling_simulation_methods.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Reconstruction, resampling, and simulation methods <span class="badge badge-draft1">✎ Outline</span></span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -413,7 +413,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/reconstruction_resampling_simulation_methods.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/reconstruction_resampling_simulation_methods.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Reconstruction, resampling, and simulation methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
@@ -472,7 +472,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../exercises/reflexive_critique.html" class="sidebar-item-text sidebar-link active">
+  <a href="../exercises/reflexive_critique.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Reflexive critique <span class="badge badge-draft1">✎ Very rough draft</span></span></span></a>
   </div>
 </li>
@@ -534,12 +534,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#development-testing-and-validation-of-forensic-methods" id="toc-development-testing-and-validation-of-forensic-methods" class="nav-link active" data-scroll-target="#development-testing-and-validation-of-forensic-methods"><span class="header-section-number">19.1</span> Development, testing, and validation of forensic methods</a></li>
-  <li><a href="#examples-of-discarded-or-limited-methods" id="toc-examples-of-discarded-or-limited-methods" class="nav-link" data-scroll-target="#examples-of-discarded-or-limited-methods"><span class="header-section-number">19.2</span> Examples of discarded or limited methods</a>
+  <li><a href="#sprite" id="toc-sprite" class="nav-link active" data-scroll-target="#sprite"><span class="header-section-number">11.1</span> SPRITE</a></li>
+  <li><a href="#closure-and-horns-metric" id="toc-closure-and-horns-metric" class="nav-link" data-scroll-target="#closure-and-horns-metric"><span class="header-section-number">11.2</span> CLOSURE and Horn’s metric</a></li>
+  <li><a href="#simulation-and-bootstrapping" id="toc-simulation-and-bootstrapping" class="nav-link" data-scroll-target="#simulation-and-bootstrapping"><span class="header-section-number">11.3</span> Simulation and bootstrapping</a>
   <ul class="collapse">
-  <li><a href="#p-curve-and-z-curve" id="toc-p-curve-and-z-curve" class="nav-link" data-scroll-target="#p-curve-and-z-curve"><span class="header-section-number">19.2.1</span> <em>p</em>-curve and <em>z</em>-curve</a></li>
-  <li><a href="#stalt" id="toc-stalt" class="nav-link" data-scroll-target="#stalt"><span class="header-section-number">19.2.2</span> STALT</a></li>
-  <li><a href="#other-short-lived-methods" id="toc-other-short-lived-methods" class="nav-link" data-scroll-target="#other-short-lived-methods"><span class="header-section-number">19.2.3</span> Other short-lived methods</a></li>
+  <li><a href="#caveats" id="toc-caveats" class="nav-link" data-scroll-target="#caveats"><span class="header-section-number">11.3.1</span> Caveats</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -548,9 +547,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/critiquing_specific_types_of_articles.html">Part III: Organising</a></li><li class="breadcrumb-item"><a href="../exercises/reflexive_critique.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Reflexive critique <span class="badge badge-draft1">✎ Very rough draft</span></span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/interpretation_methods.html">Part II: Methods</a></li><li class="breadcrumb-item"><a href="../chapters/reconstruction_resampling_simulation_methods.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Reconstruction, resampling, and simulation methods <span class="badge badge-draft1">✎ Outline</span></span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Reflexive critique <span class="badge badge-draft1">✎ Very rough draft</span></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Reconstruction, resampling, and simulation methods <span class="badge badge-draft1">✎ Outline</span></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -567,31 +566,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="development-testing-and-validation-of-forensic-methods" class="level2" data-number="19.1">
-<h2 data-number="19.1" class="anchored" data-anchor-id="development-testing-and-validation-of-forensic-methods"><span class="header-section-number">19.1</span> Development, testing, and validation of forensic methods</h2>
+<section id="sprite" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="sprite"><span class="header-section-number">11.1</span> SPRITE</h2>
 <ul>
-<li>Forensic methods themselves must be scrutinised</li>
-<li>Discard of flawed methods</li>
+<li>Sample Parameter Reconstruction via Iterative Techniques</li>
 </ul>
 </section>
-<section id="examples-of-discarded-or-limited-methods" class="level2" data-number="19.2">
-<h2 data-number="19.2" class="anchored" data-anchor-id="examples-of-discarded-or-limited-methods"><span class="header-section-number">19.2</span> Examples of discarded or limited methods</h2>
-<section id="p-curve-and-z-curve" class="level3" data-number="19.2.1">
-<h3 data-number="19.2.1" class="anchored" data-anchor-id="p-curve-and-z-curve"><span class="header-section-number">19.2.1</span> <em>p</em>-curve and <em>z</em>-curve</h3>
+<section id="closure-and-horns-metric" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="closure-and-horns-metric"><span class="header-section-number">11.2</span> CLOSURE and Horn’s metric</h2>
 <ul>
-<li>Limitations that led to their exclusion from the main methods chapters</li>
+<li>CLOSURE method</li>
+<li>Horn’s metric</li>
 </ul>
 </section>
-<section id="stalt" class="level3" data-number="19.2.2">
-<h3 data-number="19.2.2" class="anchored" data-anchor-id="stalt"><span class="header-section-number">19.2.2</span> STALT</h3>
+<section id="simulation-and-bootstrapping" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="simulation-and-bootstrapping"><span class="header-section-number">11.3</span> Simulation and bootstrapping</h2>
 <ul>
-<li>Issues with this method</li>
+<li>Simulation/bootstrapping: how likely given values are given a much larger, more trustworthy sample</li>
+<li>Resampling results from data to examine plausibility</li>
+<li>Using within-meta meta-analysis of SDs from the same outcome to examine differences between each sample and the meta-SD</li>
 </ul>
-</section>
-<section id="other-short-lived-methods" class="level3" data-number="19.2.3">
-<h3 data-number="19.2.3" class="anchored" data-anchor-id="other-short-lived-methods"><span class="header-section-number">19.2.3</span> Other short-lived methods</h3>
+<section id="caveats" class="level3" data-number="11.3.1">
+<h3 data-number="11.3.1" class="anchored" data-anchor-id="caveats"><span class="header-section-number">11.3.1</span> Caveats</h3>
 <ul>
-<li>Alternative <em>p</em>-value approaches that were short-lived in the 2010s</li>
+<li>Although this relies on prior data and the current study may have different selection effects or constraints, the other side of this coin is worth considering</li>
 </ul>
 
 
@@ -1067,41 +1065,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../exercises/organising_critique.html" class="pagination-link" aria-label="Organising critique <span class=&quot;badge badge-draft1&quot;>✎ Very rough draft</span>">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Organising critique <span class="badge badge-draft1">✎ Very rough draft</span></span></span>
+      <a href="../chapters/bounds_methods.html" class="pagination-link" aria-label="Bounds methods <span class=&quot;badge badge-draft1&quot;>✎ Outline</span>">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Bounds methods <span class="badge badge-draft1">✎ Outline</span></span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/forensic_methods_require_validation.html" class="pagination-link" aria-label="Forensic meta-science methods require validation <span class=&quot;badge badge-draft1&quot;>✎ Outline</span>">
-        <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Forensic meta-science methods require validation <span class="badge badge-draft1">✎ Outline</span></span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/design_methods.html" class="pagination-link" aria-label="Design methods <span class=&quot;badge badge-draft1&quot;>✎ Outline</span>">
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Design methods <span class="badge badge-draft1">✎ Outline</span></span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Reflexive critique &lt;span class="badge badge-draft1"&gt;✎ Very rough draft&lt;/span&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Reconstruction, resampling, and simulation methods &lt;span class="badge badge-draft1"&gt;✎ Outline&lt;/span&gt;</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="fu">file.exists</span>(<span class="st">"../_setup.R"</span>)){<span class="fu">source</span>(<span class="st">"../_setup.R"</span>)}</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">## Development, testing, and validation of forensic methods</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">## SPRITE</span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Forensic methods themselves must be scrutinised</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Discard of flawed methods</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## Examples of discarded or limited methods</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">### *p*-curve and *z*-curve</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Sample Parameter Reconstruction via Iterative Techniques</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">## CLOSURE and Horn's metric</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>CLOSURE method</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Horn's metric</span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Limitations that led to their exclusion from the main methods chapters</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">## Simulation and bootstrapping</span></span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">### STALT</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Issues with this method</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Simulation/bootstrapping: how likely given values are given a much larger, more trustworthy sample</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Resampling results from data to examine plausibility</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Using within-meta meta-analysis of SDs from the same outcome to examine differences between each sample and the meta-SD</span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">### Other short-lived methods</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">### Caveats</span></span>
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Alternative *p*-value approaches that were short-lived in the 2010s</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Although this relies on prior data and the current study may have different selection effects or constraints, the other side of this coin is worth considering</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

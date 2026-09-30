@@ -20,21 +20,31 @@
     ]
   },
   {
-    "objectID": "index.html#how-to-use-this-book",
-    "href": "index.html#how-to-use-this-book",
+    "objectID": "index.html#other-learning-resources",
+    "href": "index.html#other-learning-resources",
     "title": "Trustworthiness Assessment",
-    "section": "How to use this book",
-    "text": "How to use this book\nThis book is made up of individual Quarto (.qmd) files. Many of the exercises are easiest to complete in your own local copy of these .qmd files.\nWe suggest that you download a .zip of the contents of this book’s code and data from GitHub to run the code locally, complete the exercises, etc.\nYou can also copy and paste the code for any chapter directly from the website. Click the “&lt;/&gt; Code” button on the top right of each page to see the full .qmd file’s code. You can copy and paste this into a .qmd file. However, it’s probably easier to download all the .qmd files and data as mentioned above.",
+    "section": "Other learning resources",
+    "text": "Other learning resources\nThere are many excellent Open Source resources to learn simulation studies in R and {tidyverse}. Readers are encouraged to seek them out to support the materials already provided in this book. I can particularly recommend the following ones:\n\nHeathers, J. (2025) An Introduction To Forensic Metascience eBook\nCOSIG: The Collection of Open Science Integrity Guides. Website:cosig.net. doi:10.17605/OSF.IO/2KDEZ\nOzturk, Y., Pirelli, S., Richardson, R.A.K. (2026). Introducing COSIG: The Collection of Open Science Integrity Guides. Zenodo. PLOS Biology 24(6): e3003817. doi:10.1371/journal.pbio.3003817\ntrustworthy.scientific.claims: A hub for open-source forensic meta-science methods for assessing the trustworthiness of scientific research. Discover available guides and tools, or contribute to development.",
     "crumbs": [
       "Introduction"
     ]
   },
   {
-    "objectID": "index.html#other-learning-resources",
-    "href": "index.html#other-learning-resources",
+    "objectID": "index.html#license",
+    "href": "index.html#license",
     "title": "Trustworthiness Assessment",
-    "section": "Other learning resources",
-    "text": "Other learning resources\nThere are many excellent Open Source resources to learn simulation studies in R and {tidyverse}. Readers are encouraged to seek them out to support the materials already provided in this book. I can particularly recommend the following ones:\n\ntrustworthy.scientific.claims: A hub for open-source forensic meta-science methods for assessing the trustworthiness of scientific research. Discover available guides and tools, or contribute to development.\nHeathers, J. (2025) An Introduction To Forensic Metascience eBook",
+    "section": "License",
+    "text": "License\n© Ian Hussey (2026)\nText and figures are licensed under a Creative Commons Attribution 4.0 (CC BY 4.0) license.\nCode is licensed under the MIT License.\nYou are free to copy, share, adapt, and reuse the contents of this book — text, figures, and code — for any purpose, including commercial use, provided you cite its source. See suggested citation below.",
+    "crumbs": [
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "index.html#citation",
+    "href": "index.html#citation",
+    "title": "Trustworthiness Assessment",
+    "section": "Citation",
+    "text": "Citation\nIf you use this book, please cite it as:\n\nHussey, I. (2026). Trustworthiness Assessment and Forensic Meta-Science. website:trustworthyresear.ch. repository:github.com/ianhussey/trustworthiness-assessment-and-forensic-meta-science",
     "crumbs": [
       "Introduction"
     ]
@@ -1301,17 +1311,6 @@
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>22</span>  <span class='chapter-title'>Lesson plan <span class=\"badge badge-draft1\">✎ Outline</span></span>"
-    ]
-  },
-  {
-    "objectID": "license.html",
-    "href": "license.html",
-    "title": "23  License and citation",
-    "section": "",
-    "text": "© Ian Hussey (2025)\nText and figures are licensed under a Creative Commons Attribution 4.0 (CC BY 4.0) license.\nCode is licensed under the MIT License.\nYou are free to copy, share, adapt, and reuse the contents of this book — text, figures, and code — for any purpose, including commercial use, provided you cite it.\nCitation:\nHussey, I. & Cummins, J. (2025) Improving your statistical inferences using Monte Carlo simulation studies in tidyverse. github.com/ianhussey/improving-your-statistical-inferences-through-monte-carlo-simulation-studies",
-    "crumbs": [
-      "Appendices",
-      "<span class='chapter-number'>23</span>  <span class='chapter-title'>License and citation</span>"
     ]
   }
 ]

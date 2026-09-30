@@ -44,42 +44,42 @@ All six statements are false. Each one corresponds to a recognisable fallacy.
 
 `r webexercises::unhide()`
 
-### What the surveys found
+### Prevalence of (mis)interpretations of *p*-values
 
 If you marked any statement as true, you are in the majority.
 
-- Oakes (1986) found that almost all of the roughly 70 academic psychologists he surveyed endorsed at least one of the statements (97% of 68, as reported by Haller & Krauss, 2002). As summarised by Cohen (1994), 68 of 70 interpreted *p* as the probability that H0 is true, and 42 believed a *p* of .01 implied a 99% chance that a replication would be significant.
+- Oakes (1986) found that 97% of the 70 academic psychologists he surveyed endorsed at least one of the statements (Gigerenzer, 2018). As summarised by Cohen (1994), 68 of 70 interpreted *p* as the probability that H0 is true, and 42 believed a *p* of .01 implied a 99% chance that a replication would be significant.
 - Haller and Krauss (2002) gave the questionnaire to students, methodology instructors, and scientists in Germany. As reported by Gigerenzer (2004), none of the 44 psychology students rejected all six statements, compared with 4 of 39 scientists who did not teach statistics and 6 of 30 methodology instructors who did.
 - Lyu et al. (2018) found that 99% of 362 psychology researchers and students in China endorsed at least one false statement. In a larger sample of 1,479 researchers and students across fields, Lyu et al. (2020) found that misinterpretation did not vary meaningfully by degree, field, or career stage, and that respondents were largely unaware of their errors.
 - Badenes-Ribera et al. (2016) found the inverse-probability fallacy to be the most common error among academic psychologists in Italy and Chile, followed by the replication fallacy.
 
 Gigerenzer (2018) compiles these results across countries and is the best single overview.
 
-@tbl-replication-delusion reproduces part of Gigerenzer's (2018) Table 1, showing how many respondents in each sample endorsed the replication fallacy, that is, statement 6 in the quiz above or its confidence-interval equivalent.
+@tbl-any-misinterpretation summarises these studies using Gigerenzer's (2018) Table 2, showing the percentage of respondents in each sample who endorsed at least one of the six false statements in the quiz above.
 
-| Sample | Study | *N* | Respondents exhibiting the replication delusion (%) |
+| Sample | Study | *N* | Endorsed at least one false statement (%) |
 |:---|:---|---:|---:|
-| Professional | Oakes (1986) | 70 | 60 |
-| Professional | Haller & Krauss (2002) | 30 | 37 |
-| Professional | Haller & Krauss (2002) | 39 | 49 |
-| Professional | Badenes-Ribera et al. (2015) | 98 | 35 |
-| Professional | Badenes-Ribera et al. (2015) | 67 | 16 |
-| Professional | Badenes-Ribera et al. (2015) | 56 | 36 |
-| Professional | Badenes-Ribera et al. (2015) | 74 | 39 |
-| Professional | Badenes-Ribera et al. (2015) | 29 | 28 |
-| Professional | Badenes-Ribera et al. (2015) | 94 | 46 |
-| Professional | Badenes-Ribera et al. (2016) | 18 | 6 |
-| Professional | Badenes-Ribera et al. (2016) | 146 | 13 |
-| Professional | Hoekstra et al. (2014) | 118 | 58 |
-| Student | Haller & Krauss (2002) | 44 | 41 |
-| Student | Hoekstra et al. (2014) | 442 | 66 |
-| Student | Hoekstra et al. (2014) | 34 | 79 |
-| Student | García-Pérez & Alcalá-Quintana (2016) | 313 | 71 |
-| Student | García-Pérez & Alcalá-Quintana (2016) | 158 | 63 |
+| Professional | Oakes (1986) | 70 | 97 |
+| Professional | Haller & Krauss (2002): statistics teachers | 30 | 80 |
+| Professional | Haller & Krauss (2002): other professors of psychology | 39 | 90 |
+| Professional | Badenes-Ribera et al. (2015) | 418 | 94 |
+| Professional | Badenes-Ribera et al. (2016): methodology | 18 | 56 |
+| Professional | Badenes-Ribera et al. (2016): other areas | 146 | 74 |
+| Student | Haller & Krauss (2002) | 44 | 100 |
 
-: Studies on the replication delusion. Adapted from Gigerenzer (2018, Table 1). Rows with the same study are different subsamples (e.g., statistics teachers vs. other professors; different areas of psychology; first-year vs. master's students). Oakes (1986), Haller and Krauss (2002), and Badenes-Ribera et al. (2015, 2016) tested *p*-values; Hoekstra et al. (2014) and García-Pérez and Alcalá-Quintana (2016) tested 95% confidence intervals. {#tbl-replication-delusion}
+: Percentage of respondents who endorsed at least one false statement about a significant *p*-value. Adapted from Gigerenzer (2018, Table 2). Oakes (1986) and Haller and Krauss (2002) used the questionnaire in the quiz above, with *p* = .01. Badenes-Ribera et al. (2015, 2016) used their own items with *p* = .001, and did not include statements 3 and 5. Badenes-Ribera et al. (2015) reported this percentage only for all respondents combined, so their six subsamples of academic psychologists are pooled here. {#tbl-any-misinterpretation}
 
-The errors are not confined to survey responses. Cassidy et al. (2019) found that 89% of introductory psychology textbooks that defined or explained statistical significance did so incorrectly, most often by describing *p* as the probability that the results occurred by chance. Students who give these answers may be accurately recalling what they were taught. In the published literature, Murphy et al. (2025) estimated that 76–85% of psychology articles that discussed a nonsignificant result interpreted it as evidence that the effect was absent, with no significant change between 2009 and 2021.
+### Errors in intro to psych textbooks' definitions 
+
+The errors are not confined to survey responses. They are also in the textbooks.
+
+::: {.big-number}
+[89%]{.stat}
+
+of introductory psychology textbooks that defined or explained statistical significance did so incorrectly, most often by describing *p* as the probability that the results occurred by chance (Cassidy et al., 2019).
+:::
+
+Students who give these answers may therefore be accurately recalling what they were taught. The errors also reach the published literature: Murphy et al. (2025) estimated that 76–85% of psychology articles that discussed a nonsignificant result interpreted it as evidence that the effect was absent, with no significant change between 2009 and 2021.
 
 ### How much should we trust these prevalence estimates?
 
@@ -129,8 +129,6 @@ Gigerenzer, G. (2018). Statistical rituals: The replication delusion and how we 
 Greenland, S., Senn, S. J., Rothman, K. J., Carlin, J. B., Poole, C., Goodman, S. N., & Altman, D. G. (2016). Statistical tests, *P* values, confidence intervals, and power: A guide to misinterpretations. *European Journal of Epidemiology*, *31*(4), 337–350. <https://doi.org/10.1007/s10654-016-0149-3>
 
 Haller, H., & Krauss, S. (2002). Misinterpretations of significance: A problem students share with their teachers? *Methods of Psychological Research Online*, *7*(1), 1–20. <https://epub.uni-regensburg.de/34338/>
-
-Hoekstra, R., Morey, R. D., Rouder, J. N., & Wagenmakers, E.-J. (2014). Robust misinterpretation of confidence intervals. *Psychonomic Bulletin & Review*, *21*(5), 1157–1164. <https://doi.org/10.3758/s13423-013-0572-3>
 
 Lyu, X.-K., Xu, Y., Zhao, X.-F., Zuo, X.-N., & Hu, C.-P. (2020). Beyond psychology: Prevalence of *p* value and confidence interval misinterpretation across different fields. *Journal of Pacific Rim Psychology*, *14*, Article e6. <https://doi.org/10.1017/prp.2019.28>
 

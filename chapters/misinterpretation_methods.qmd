@@ -1,4 +1,4 @@
-# Misinterpretation methods [✎ Outline]{.badge .badge-draft1}
+# Misinterpretation methods [✎ Outline]{.badge .badge-draft1} {#sec-misinterpretation}
 
 ```{r}
 #| include: false

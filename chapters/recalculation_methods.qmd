@@ -1,4 +1,4 @@
-# Recalculation methods [✎ Outline]{.badge .badge-draft1}
+# Recalculation methods [✎ Outline]{.badge .badge-draft1} {#sec-recalculation}
 
 ```{r}
 #| include: false

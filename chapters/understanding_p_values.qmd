@@ -1,4 +1,4 @@
-# Interpretation methods [✎ Draft]{.badge .badge-draft2}
+# Understanding *p*-values [✎ Draft]{.badge .badge-draft2}
 
 ```{r}
 #| include: false
@@ -314,9 +314,9 @@ For a fuller version, including the distribution of *p*-values for any power and
 ```{ojs}
 //| echo: false
 viewof calcPower = Inputs.range([5, 99], {value: 95, step: 1, label: "Statistical power (%)"})
-viewof calcAlpha = Inputs.range([0.001, 0.1], {value: 0.05, step: 0.001, label: "Significance threshold (α)"})
-viewof calcFragile = Inputs.range([0.001, 0.1], {value: 0.02, step: 0.001, label: "Lower bound of 'fragile' range"})
-viewof calcStrong = Inputs.range([0.0001, 0.05], {value: 0.005, step: 0.0001, label: "Upper bound of 'strong' range"})
+viewof calcAlpha = Inputs.range([0.01, 0.1], {value: 0.05, step: 0.01, label: "Significance threshold (α)"})
+viewof calcFragile = Inputs.range([0.01, 0.1], {value: 0.02, step: 0.01, label: "Lower bound of 'fragile' range"})
+viewof calcStrong = Inputs.range([0.005, 0.05], {value: 0.005, step: 0.005, label: "Upper bound of 'strong' range"})
 ```
 
 ::: {#tbl-barely-significant}
@@ -400,15 +400,13 @@ The phrases Otte et al. searched for came from a list of over 500 compiled from 
 
 The evidential problem is the same as for barely significant results, only worse. At 80% power, a *p*-value between .05 and .10 is only about 1.5 times as likely under $H_1$ as under $H_0$, and at 95% power it is *less* likely under $H_1$ than under $H_0$. Olsson-Collentine et al. (2019) accordingly recommended against describing such results as marginally significant. Benjamin et al. (2018) went further, proposing that even results with .005 < *p* < .05 should be called "suggestive" rather than significant.
 
-### Barely and marginally significant results as a signal
+### Bias: *p*-value distributions that cannot occur naturally {#sec-biased-p-distributions}
 
-Taken together, a set of results clustered just below (or just above) .05 is one of the fingerprints of a low-powered or biased literature, and it predicts poor replicability. In the Reproducibility Project: Psychology (Open Science Collaboration, 2015), 63% (20 of 32) of original studies with *p* < .001 produced a significant result when replicated, compared with 41% (26 of 63) with *p* < .02, 26% (6 of 23) with .02 < *p* < .04, and 18% (2 of 11) with *p* > .04. Similarly, across 103 replications in large-scale replication projects, Gordon et al. (2021) found that 74% of original findings with *p* ≤ .005 replicated, compared with 28% of those with *p* > .005. At the level of whole articles, Bogdan (2025) found that the percentage of an article's significant *p*-values that were fragile predicted whether its findings replicated, across 113 replication attempts.
+Because unbiased *p*-values are either flat (under $H_0$) or skewed towards zero (under $H_1$), there is no natural way for a collection of *p*-values to cluster just below .05. An excess of *p*-values just under the significance threshold requires some form of bias, such as publication bias or *p*-hacking. In their seminar article, Masicampo and Lalande (2012) reported such a "peculiar prevalence" of *p*-values just below .05 in three psychology journals. 
 
-However, this is much less useful for assessing the trustworthiness of an individual article. Any single *p*-value between .02 and .05 is entirely possible under honest research practices, whether because the study had modest power or simply by chance. The signal lies in patterns across many results: for example, when all of an article's key results fall between .02 and .05, or when a multi-study article reports more significant results than its power could plausibly produce. Even then, excess-significance tests depend on judgements about which experiments and tests bear on the same claim, and on power estimated from the same, possibly inflated, effect sizes. For example, van Boxtel and Koch (2016) argued that Francis (2014) had wrongly flagged their article by including experiments and tests that did not bear on their central hypothesis, and that similar inclusion decisions could affect 34 of the 44 articles he analysed. Francis (2016) replied that the tests he included were those the original authors had themselves used to support their theoretical claims, and that the appearance of excess success remained. Such tests can therefore suggest a problem, but rarely demonstrate one. We return to how the distribution of *p*-values can reveal bias in @sec-biased-p-distributions.
+In principle, this bias could come from publication bias, *p*-hacking (Questionable Research Practices), untrustworthy research practices, or a mix of these.
 
-### Distributions that cannot occur naturally {#sec-biased-p-distributions}
-
-Because unbiased *p*-values are either flat (under $H_0$) or skewed towards zero (under $H_1$), there is no natural way for a collection of *p*-values to cluster just below .05. An excess of *p*-values just under the significance threshold requires some form of bias, such as publication bias or *p*-hacking. Masicampo and Lalande (2012) reported such a "peculiar prevalence" of *p*-values just below .05 in three psychology journals. The evidence is more mixed than that headline suggests: in a much larger sample of 258,050 test results, Hartgerink et al. (2016) found a bump below .05 in some journals, but it disappeared when *p*-values were recalculated from the reported test statistics. They did, however, find clear evidence of *p*-values being incorrectly rounded down to below .05.
+In a much larger sample of over 250,000 test results extracted from published articles, Hartgerink et al. (2016) also found a bump just below .05 in some journals. Interestingly, this disappeared when *p*-values were recalculated from the reported test statistics. This suggests that a large source of the issue here may come from *p*-values being 'incorrectly rounded down' to below .05 from above .06. Of course, there is no commonly accepted rounding strategy that can turn a value like ".058" to a value that is below .05; as such, 'inappropriate rounding' is a polite phrasing for a convenient changing of reported results from non-significant to significant. Notably, the opposite error seems to occur at a much lower rate (i.e., significant results being misreported as non-significant).   
 
 @fig-peculiar-prevalence illustrates what this kind of distortion looks like. It shows a hypothetical literature in which half of the tested hypotheses are true and studies have 50% power. The dashed line shows the distribution of *p*-values we would expect without bias. The bars show what happens if 30% of the results that would have fallen between .05 and .10 are instead nudged to just below .05, for example by trying a different outlier exclusion rule or adding a covariate: a dip above the threshold and a bump just below it.
 
@@ -450,10 +448,10 @@ biasedBins = {
 
 Similar distortions are not limited to *p*-values. Wherever a rule-of-thumb threshold determines whether a result is considered acceptable, there is pressure to meet it. Hussey et al. (2025) found a similar excess of Cronbach's α values at the conventional .70 threshold for acceptable reliability, across more than 180,000 α values from the general psychology literature, the industrial and organisational psychology literature, and the APA's PsycTests database.
 
-#### Further reading
+Influential studies on sources of bias in *p*-values:
 
-- **How *p*-hacking works.** Simmons et al. (2011), "False-positive psychology", is the seminal text on *p*-hacking. Using simulations and a deliberately absurd example study, it showed how a handful of common and individually defensible analytic choices (collecting more data after checking the results, choosing among dependent variables, adding covariates, dropping conditions) can push the false positive rate far above the nominal 5%. Stefan and Schönbrodt (2023) compiled a compendium of 12 *p*-hacking strategies from the literature and simulated the impact of each on false positive rates. Their accompanying [interactive web app](https://shiny.psy.lmu.de/felix/ShinyPHack/) lets you explore how each strategy affects false positive rates and the distribution of *p*-values.
-- **How publication bias distorts the literature.** Sterling (1959) was the first to document that almost all articles in psychology journals using significance tests reported significant results. Rosenthal (1979) named the resulting "file drawer problem": if nonsignificant results stay in researchers' file drawers, the published literature can be made up disproportionately of the Type I errors. Franco et al. (2014) were able to observe the file drawer directly, by following a complete set of preregistered survey experiments and showing that studies with null results were far less likely to be written up and published than those with strong results.
+- ***p*-hacking.** Simmons et al. (2011), "False-positive psychology", is the seminal text on *p*-hacking. Using simulations and a deliberately absurd example study, it showed how a handful of common and individually defensible analytic choices (collecting more data after checking the results, choosing among dependent variables, adding covariates, dropping conditions) can push the false positive rate far above the nominal 5%. Stefan and Schönbrodt (2023) compiled a compendium of 12 *p*-hacking strategies from the literature and simulated the impact of each on false positive rates. Their accompanying [interactive web app](https://shiny.psy.lmu.de/felix/ShinyPHack/) lets you explore how each strategy affects false positive rates and the distribution of *p*-values.
+- **Publication bias.** Sterling (1959) was the first to document that almost all articles in psychology journals using significance tests reported significant results. Rosenthal (1979) named the resulting "file drawer problem": if nonsignificant results are more likely to stay in researchers' file drawers, the published literature can be made up disproportionately of the Type I errors, and any meta-analysis of the published literature is biased towards supporting H1. The file drawer effect is almost universally recognised, but it not until relatively recently that it was directly estimated: Franco et al. (2014) were able to observe the file drawer directly, by following a complete set of preregistered survey experiments and showing that studies with null results were far less likely to be written up and published than those with strong results.
 
 ### Detecting biased *p*-values
 
@@ -463,6 +461,12 @@ The shape of a set of significant *p*-values is also the basis of methods that a
 - ***Z*-curve.** Pek et al. (2026) argued that *z*-curve's expected discovery rate has no clear link to credibility, that its estimators can be biased and inconsistent, and that most published applications do not check its assumptions (e.g., independent *p*-values from focal tests). They recommended against using it to evaluate research findings. Schimmack and Soto (2026) replied that these limitations apply to selection models in general, not to *z*-curve specifically.
 
 Given this unresolved debate and, more importantly, the fact that these methods can only be applied to a large number of papers (e.g., a literature on a given effect), these methods are not covered further in this book, which focuses on methods for detecting impossible or implausible results within individual articles.
+
+## [heading name needed]
+
+Taken together, a set of results clustered just below (or just above) .05 is one of the fingerprints of a low-powered or biased literature, and it predicts poor replicability. In the Reproducibility Project: Psychology (Open Science Collaboration, 2015), 63% (20 of 32) of original studies with *p* < .001 produced a significant result when replicated, compared with 41% (26 of 63) with *p* < .02, 26% (6 of 23) with .02 < *p* < .04, and 18% (2 of 11) with *p* > .04. Similarly, across 103 replications in large-scale replication projects, Gordon et al. (2021) found that 74% of original findings with *p* ≤ .005 replicated, compared with 28% of those with *p* > .005. At the level of whole articles, Bogdan (2025) found that the percentage of an article's significant *p*-values that were fragile predicted whether its findings replicated, across 113 replication attempts.
+
+However, this is much less useful for assessing the trustworthiness of an individual article. Any single *p*-value between .02 and .05 is entirely possible under honest research practices, whether because the study had modest power or simply by chance. The signal lies in patterns across many results: for example, when all of an article's key results fall between .02 and .05, or when a multi-study article reports more significant results than its power could plausibly produce. Even then, excess-significance tests depend on judgements about which experiments and tests bear on the same claim, and on power estimated from the same, possibly inflated, effect sizes. For example, van Boxtel and Koch (2016) argued that Francis (2014) had wrongly flagged their article by including experiments and tests that did not bear on their central hypothesis, and that similar inclusion decisions could affect 34 of the 44 articles he analysed. Francis (2016) replied that the tests he included were those the original authors had themselves used to support their theoretical claims, and that the appearance of excess success remained. Such tests can therefore suggest a problem, but rarely demonstrate one. We return to how the distribution of *p*-values can reveal bias in @sec-biased-p-distributions.
 
 ## References {.unnumbered}
 
@@ -548,8 +552,6 @@ McShane, B. B., & Gal, D. (2017). Statistical significance and the dichotomizati
 Miller, J., & Ulrich, R. (2016). Interpreting confidence intervals: A comment on Hoekstra, Morey, Rouder, and Wagenmakers (2014). *Psychonomic Bulletin & Review*, *23*(1), 124–130. <https://doi.org/10.3758/s13423-015-0859-7>
 
 Morey, R. D., & Davis-Stober, C. P. (2026). On the poor statistical properties of the *P*-curve meta-analytic procedure. *Journal of the American Statistical Association*, *121*(553), 741–753. <https://doi.org/10.1080/01621459.2025.2544397>
-
-Murphy, S. L., Merz, R., Reimann, L.-E., & Fernández, A. (2025). Nonsignificance misinterpreted as an effect's absence in psychology: Prevalence and temporal analyses. *Royal Society Open Science*, *12*(3), Article 242167. <https://doi.org/10.1098/rsos.242167>
 
 Oakes, M. (1986). *Statistical inference: A commentary for the social and behavioural sciences*. Wiley.
 

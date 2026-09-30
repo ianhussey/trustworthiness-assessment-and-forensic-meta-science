@@ -18,15 +18,15 @@ book:
   chapters:
   - index.qmd
   
-  - part: 'Part I: Concepts'
+  - part: 'Part I: Conceptual foundations'
     chapters:
     - chapters/scope_and_need.qmd
     - chapters/psychological_preparation.qmd
     - chapters/organising_principles.qmd
+    - chapters/understanding_p_values.qmd
     
   - part: 'Part II: Methods'
     chapters:
-    - chapters/interpretation_methods.qmd
     - chapters/misinterpretation_methods.qmd
     - chapters/effect_size_methods.qmd
     - chapters/repetition_and_consistency_methods.qmd

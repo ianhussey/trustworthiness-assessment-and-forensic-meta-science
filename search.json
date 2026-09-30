@@ -281,99 +281,11 @@
     ]
   },
   {
-    "objectID": "chapters/interpretation_methods.html#misinterpretation-of-p-values",
-    "href": "chapters/interpretation_methods.html#misinterpretation-of-p-values",
-    "title": "4  Interpretation methods ✎ Outline",
-    "section": "4.2 Misinterpretation of p-values",
-    "text": "4.2 Misinterpretation of p-values\n\nNon-significant p-values as evidence for the null\nDifference between significant and non-significant is not itself significant\nSimply claiming differences with non-significant p-values",
-    "crumbs": [
-      "Part II: Methods",
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Interpretation methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
-    ]
-  },
-  {
-    "objectID": "chapters/interpretation_methods.html#misinterpretation-of-specific-metrics",
-    "href": "chapters/interpretation_methods.html#misinterpretation-of-specific-metrics",
-    "title": "4  Interpretation methods ✎ Outline",
-    "section": "4.3 Misinterpretation of specific metrics",
-    "text": "4.3 Misinterpretation of specific metrics\n\nConfusing RR with relative risk, etc.",
-    "crumbs": [
-      "Part II: Methods",
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Interpretation methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
-    ]
-  },
-  {
-    "objectID": "chapters/interpretation_methods.html#misinterpretation-of-specific-tests",
-    "href": "chapters/interpretation_methods.html#misinterpretation-of-specific-tests",
-    "title": "4  Interpretation methods ✎ Outline",
-    "section": "4.4 Misinterpretation of specific tests",
-    "text": "4.4 Misinterpretation of specific tests\n\nAnalysis-claim misalignment in general; most of the below are a specific class of this\n\nAny test that exists can and will be misaligned somewhere\nNature and magnitude of misalignment, e.g., CLPM lends itself to causal interpretation but can’t give it\nGoals confusion gives rise to misalignment: description, prediction, influence\nThe demand for tests is understandable; “Hot Right Now” stats that are poorly understood as a general problem\n\n\n\n4.4.1 Efficacy claims\n\nEfficacy claims from anything other than a post-intervention comparison with a control group (pre-post, two interventions, etc.)\n\n\n\n4.4.2 MANOVA\n\nThe “Protected F-test” logic: the belief that a significant omnibus MANOVA “protects” subsequent univariate ANOVAs from Type I error inflation\n\n\n\n4.4.3 Mediation and PROCESS macro\n\nMediation\nPROCESS macro — “That’s a lot to process”\n\n\n\n4.4.4 CLPM and variants\n\nCross-lagged panel models and causal interpretation limitations\n\n\n\n4.4.5 Bifactor models in SEM\n\nReal-world data rarely perfectly follows proportionality constraints, so the less-restricted bifactor model will statistically outperform the higher-order model in nearly every CFA application, regardless of the “true” structure\nBifactor model is more robust to minor misspecifications because its direct paths to items allow it to “soak up” variance that a more constrained higher-order model cannot\n\n\n\n4.4.6 ANOVA\n\nHidden multiplicity in ANOVA\nLack of power in higher order interactions (problems with both false positives and false negatives)\n\n\n\n4.4.7 Other commonly misused methods\n\nStepwise regression\nPost hoc power analysis\n“Little Jiffy” Factor Analysis (PCA with Varimax & Kaiser Criterion of Eigenvalues &gt; 1; default in SPSS)\nChoosing covariates based on significance or univariate associations\nLatent class growth models (note: very different from latent growth curve models)\nMagnitude-Based Inference\nANCOVA applied to observational data — Lord’s paradox\nPropensity Score Matching\nPartial Least Squares SEM\nStatistical confusion of assumption and inference / affirmation of the consequent in analyses",
-    "crumbs": [
-      "Part II: Methods",
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Interpretation methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
-    ]
-  },
-  {
-    "objectID": "chapters/interpretation_methods.html#easter-egg-research",
-    "href": "chapters/interpretation_methods.html#easter-egg-research",
-    "title": "4  Interpretation methods ✎ Outline",
-    "section": "4.5 Easter egg research",
-    "text": "4.5 Easter egg research\n\nCreating groups via clustering then testing for differences between them\nAssuming differences between groups and then reifying the groups\nK-means or Latent Class Analysis to create groups, followed by t-tests/ANOVA on the same variables to “validate” the groups\nAnalyses that assume the number of clusters and then discover them (e.g., Latent Profile Analysis)",
-    "crumbs": [
-      "Part II: Methods",
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Interpretation methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
-    ]
-  },
-  {
-    "objectID": "chapters/interpretation_methods.html#conditioning-on-post-treatment-effects",
-    "href": "chapters/interpretation_methods.html#conditioning-on-post-treatment-effects",
-    "title": "4  Interpretation methods ✎ Outline",
-    "section": "4.6 Conditioning on post-treatment effects",
-    "text": "4.6 Conditioning on post-treatment effects\n\nCommon cause problems",
-    "crumbs": [
-      "Part II: Methods",
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Interpretation methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
-    ]
-  },
-  {
-    "objectID": "chapters/interpretation_methods.html#causal-claims-implications-and-assumptions",
-    "href": "chapters/interpretation_methods.html#causal-claims-implications-and-assumptions",
-    "title": "4  Interpretation methods ✎ Outline",
-    "section": "4.7 Causal claims, implications, and assumptions",
-    "text": "4.7 Causal claims, implications, and assumptions\n\nCausality tests don’t exist, only causal assumptions\nCausal assumptions do exist and should be clarified\nCausal claims in non-experiments\nCausal claims in experiments that aren’t experiments: pre-post change, follow-up comparisons against LOCF\nThe litmus test of “is this only interesting if it’s causal, yet it’s described as non-causal evidence”",
-    "crumbs": [
-      "Part II: Methods",
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Interpretation methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
-    ]
-  },
-  {
-    "objectID": "chapters/interpretation_methods.html#other-interpretation-issues",
-    "href": "chapters/interpretation_methods.html#other-interpretation-issues",
-    "title": "4  Interpretation methods ✎ Outline",
-    "section": "4.8 Other interpretation issues",
-    "text": "4.8 Other interpretation issues\n\nConfusing IV and DV\nTable 2 fallacy",
-    "crumbs": [
-      "Part II: Methods",
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Interpretation methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
-    ]
-  },
-  {
     "objectID": "chapters/misinterpretation_methods.html",
     "href": "chapters/misinterpretation_methods.html",
     "title": "5  Interpretation methods ✎ Outline",
     "section": "",
-    "text": "5.1 Interpretation of p-values",
-    "crumbs": [
-      "Part II: Methods",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Interpretation methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
-    ]
-  },
-  {
-    "objectID": "chapters/misinterpretation_methods.html#interpretation-of-p-values",
-    "href": "chapters/misinterpretation_methods.html#interpretation-of-p-values",
-    "title": "5  Interpretation methods ✎ Outline",
-    "section": "",
-    "text": "Intuitions for p-values\nAlpha, power, diagnosticity refreshers\n\nDistribution of unbiased p-values under null/alternative\n\np-hacking and its impact on p-values and effect sizes\nMethods that aren’t useful for trustworthiness assessment but are good for intuitions: distribution of biased p-values, p-curve, z-curve\nToo good to be true in the context of power vs significance rate\nPeeking and trends towards significance",
+    "text": "5.1 Misinterpretation of p-values",
     "crumbs": [
       "Part II: Methods",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Interpretation methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
@@ -383,8 +295,8 @@
     "objectID": "chapters/misinterpretation_methods.html#misinterpretation-of-p-values",
     "href": "chapters/misinterpretation_methods.html#misinterpretation-of-p-values",
     "title": "5  Interpretation methods ✎ Outline",
-    "section": "5.2 Misinterpretation of p-values",
-    "text": "5.2 Misinterpretation of p-values\n\nNon-significant p-values as evidence for the null\nDifference between significant and non-significant is not itself significant\nSimply claiming differences with non-significant p-values",
+    "section": "",
+    "text": "Non-significant p-values as evidence for the null\nDifference between significant and non-significant is not itself significant\nSimply claiming differences with non-significant p-values",
     "crumbs": [
       "Part II: Methods",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Interpretation methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
@@ -394,8 +306,8 @@
     "objectID": "chapters/misinterpretation_methods.html#misinterpretation-of-specific-metrics",
     "href": "chapters/misinterpretation_methods.html#misinterpretation-of-specific-metrics",
     "title": "5  Interpretation methods ✎ Outline",
-    "section": "5.3 Misinterpretation of specific metrics",
-    "text": "5.3 Misinterpretation of specific metrics\n\nConfusing RR with relative risk, etc.",
+    "section": "5.2 Misinterpretation of specific metrics",
+    "text": "5.2 Misinterpretation of specific metrics\n\nConfusing RR with relative risk, etc.",
     "crumbs": [
       "Part II: Methods",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Interpretation methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
@@ -405,8 +317,8 @@
     "objectID": "chapters/misinterpretation_methods.html#misinterpretation-of-specific-tests",
     "href": "chapters/misinterpretation_methods.html#misinterpretation-of-specific-tests",
     "title": "5  Interpretation methods ✎ Outline",
-    "section": "5.4 Misinterpretation of specific tests",
-    "text": "5.4 Misinterpretation of specific tests\n\nAnalysis-claim misalignment in general; most of the below are a specific class of this\n\nAny test that exists can and will be misaligned somewhere\nNature and magnitude of misalignment, e.g., CLPM lends itself to causal interpretation but can’t give it\nGoals confusion gives rise to misalignment: description, prediction, influence\nThe demand for tests is understandable; “Hot Right Now” stats that are poorly understood as a general problem\n\n\n\n5.4.1 Efficacy claims\n\nEfficacy claims from anything other than a post-intervention comparison with a control group (pre-post, two interventions, etc.)\n\n\n\n5.4.2 MANOVA\n\nThe “Protected F-test” logic: the belief that a significant omnibus MANOVA “protects” subsequent univariate ANOVAs from Type I error inflation\n\n\n\n5.4.3 Mediation and PROCESS macro\n\nMediation\nPROCESS macro — “That’s a lot to process”\n\n\n\n5.4.4 CLPM and variants\n\nCross-lagged panel models and causal interpretation limitations\n\n\n\n5.4.5 Bifactor models in SEM\n\nReal-world data rarely perfectly follows proportionality constraints, so the less-restricted bifactor model will statistically outperform the higher-order model in nearly every CFA application, regardless of the “true” structure\nBifactor model is more robust to minor misspecifications because its direct paths to items allow it to “soak up” variance that a more constrained higher-order model cannot\n\n\n\n5.4.6 ANOVA\n\nHidden multiplicity in ANOVA\nLack of power in higher order interactions (problems with both false positives and false negatives)\n\n\n\n5.4.7 Other commonly misused methods\n\nStepwise regression\nPost hoc power analysis\n“Little Jiffy” Factor Analysis (PCA with Varimax & Kaiser Criterion of Eigenvalues &gt; 1; default in SPSS)\nChoosing covariates based on significance or univariate associations\nLatent class growth models (note: very different from latent growth curve models)\nMagnitude-Based Inference\nANCOVA applied to observational data — Lord’s paradox\nPropensity Score Matching\nPartial Least Squares SEM\nStatistical confusion of assumption and inference / affirmation of the consequent in analyses",
+    "section": "5.3 Misinterpretation of specific tests",
+    "text": "5.3 Misinterpretation of specific tests\n\nAnalysis-claim misalignment in general; most of the below are a specific class of this\n\nAny test that exists can and will be misaligned somewhere\nNature and magnitude of misalignment, e.g., CLPM lends itself to causal interpretation but can’t give it\nGoals confusion gives rise to misalignment: description, prediction, influence\nThe demand for tests is understandable; “Hot Right Now” stats that are poorly understood as a general problem\n\n\n\n5.3.1 Efficacy claims\n\nEfficacy claims from anything other than a post-intervention comparison with a control group (pre-post, two interventions, etc.)\n\n\n\n5.3.2 MANOVA\n\nThe “Protected F-test” logic: the belief that a significant omnibus MANOVA “protects” subsequent univariate ANOVAs from Type I error inflation\n\n\n\n5.3.3 Mediation and PROCESS macro\n\nMediation\nPROCESS macro — “That’s a lot to process”\n\n\n\n5.3.4 CLPM and variants\n\nCross-lagged panel models and causal interpretation limitations\n\n\n\n5.3.5 Bifactor models in SEM\n\nReal-world data rarely perfectly follows proportionality constraints, so the less-restricted bifactor model will statistically outperform the higher-order model in nearly every CFA application, regardless of the “true” structure\nBifactor model is more robust to minor misspecifications because its direct paths to items allow it to “soak up” variance that a more constrained higher-order model cannot\n\n\n\n5.3.6 ANOVA\n\nHidden multiplicity in ANOVA\nLack of power in higher order interactions (problems with both false positives and false negatives)\n\n\n\n5.3.7 Other commonly misused methods\n\nStepwise regression\nPost hoc power analysis\n“Little Jiffy” Factor Analysis (PCA with Varimax & Kaiser Criterion of Eigenvalues &gt; 1; default in SPSS)\nChoosing covariates based on significance or univariate associations\nLatent class growth models (note: very different from latent growth curve models)\nMagnitude-Based Inference\nANCOVA applied to observational data — Lord’s paradox\nPropensity Score Matching\nPartial Least Squares SEM\nStatistical confusion of assumption and inference / affirmation of the consequent in analyses",
     "crumbs": [
       "Part II: Methods",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Interpretation methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
@@ -416,8 +328,8 @@
     "objectID": "chapters/misinterpretation_methods.html#easter-egg-research",
     "href": "chapters/misinterpretation_methods.html#easter-egg-research",
     "title": "5  Interpretation methods ✎ Outline",
-    "section": "5.5 Easter egg research",
-    "text": "5.5 Easter egg research\n\nCreating groups via clustering then testing for differences between them\nAssuming differences between groups and then reifying the groups\nK-means or Latent Class Analysis to create groups, followed by t-tests/ANOVA on the same variables to “validate” the groups\nAnalyses that assume the number of clusters and then discover them (e.g., Latent Profile Analysis)",
+    "section": "5.4 Easter egg research",
+    "text": "5.4 Easter egg research\n\nCreating groups via clustering then testing for differences between them\nAssuming differences between groups and then reifying the groups\nK-means or Latent Class Analysis to create groups, followed by t-tests/ANOVA on the same variables to “validate” the groups\nAnalyses that assume the number of clusters and then discover them (e.g., Latent Profile Analysis)",
     "crumbs": [
       "Part II: Methods",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Interpretation methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
@@ -427,8 +339,8 @@
     "objectID": "chapters/misinterpretation_methods.html#conditioning-on-post-treatment-effects",
     "href": "chapters/misinterpretation_methods.html#conditioning-on-post-treatment-effects",
     "title": "5  Interpretation methods ✎ Outline",
-    "section": "5.6 Conditioning on post-treatment effects",
-    "text": "5.6 Conditioning on post-treatment effects\n\nCommon cause problems",
+    "section": "5.5 Conditioning on post-treatment effects",
+    "text": "5.5 Conditioning on post-treatment effects\n\nCommon cause problems",
     "crumbs": [
       "Part II: Methods",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Interpretation methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
@@ -438,8 +350,8 @@
     "objectID": "chapters/misinterpretation_methods.html#causal-claims-implications-and-assumptions",
     "href": "chapters/misinterpretation_methods.html#causal-claims-implications-and-assumptions",
     "title": "5  Interpretation methods ✎ Outline",
-    "section": "5.7 Causal claims, implications, and assumptions",
-    "text": "5.7 Causal claims, implications, and assumptions\n\nCausality tests don’t exist, only causal assumptions\nCausal assumptions do exist and should be clarified\nCausal claims in non-experiments\nCausal claims in experiments that aren’t experiments: pre-post change, follow-up comparisons against LOCF\nThe litmus test of “is this only interesting if it’s causal, yet it’s described as non-causal evidence”",
+    "section": "5.6 Causal claims, implications, and assumptions",
+    "text": "5.6 Causal claims, implications, and assumptions\n\nCausality tests don’t exist, only causal assumptions\nCausal assumptions do exist and should be clarified\nCausal claims in non-experiments\nCausal claims in experiments that aren’t experiments: pre-post change, follow-up comparisons against LOCF\nThe litmus test of “is this only interesting if it’s causal, yet it’s described as non-causal evidence”",
     "crumbs": [
       "Part II: Methods",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Interpretation methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"
@@ -449,8 +361,8 @@
     "objectID": "chapters/misinterpretation_methods.html#other-interpretation-issues",
     "href": "chapters/misinterpretation_methods.html#other-interpretation-issues",
     "title": "5  Interpretation methods ✎ Outline",
-    "section": "5.8 Other interpretation issues",
-    "text": "5.8 Other interpretation issues\n\nConfusing IV and DV\nTable 2 fallacy",
+    "section": "5.7 Other interpretation issues",
+    "text": "5.7 Other interpretation issues\n\nConfusing IV and DV\nTable 2 fallacy",
     "crumbs": [
       "Part II: Methods",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Interpretation methods <span class=\"badge badge-draft1\">✎ Outline</span></span>"

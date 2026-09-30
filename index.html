@@ -120,18 +120,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   main.content h4 { margin-top: 1.5rem; }
   .kable-table table { width: 70%; margin: 0 auto; }
   .references-apa p { padding-left: 2em; text-indent: -2em; }
-  .big-number { text-align: center; margin: 3rem auto; max-width: 32rem; }
-  .big-number .stat {
-    display: block; font-size: 5rem; font-weight: 700; line-height: 1;
+  /* .big-number: [89%]{.number} then [explanatory text]{.description}
+     .big-quote:  [quote text]{.quote} then [source]{.citation}
+     each works as a span (use a trailing \ for line breaks) or a div (for multiple paragraphs) */
+  .big-number, .big-quote { text-align: center; margin: 2.5rem auto; }
+  .big-number { max-width: 32rem; }
+  .big-quote  { max-width: 36rem; }
+  .big-number .number, .big-quote .quote, .big-number .description, .big-quote .citation { display: block; }
+  .big-number .number {
+    font-size: 5rem; font-weight: 700; line-height: 1;
     color: var(--bs-primary); margin-bottom: 0.75rem;
   }
-  .big-number p { font-size: 1.05rem; color: var(--bs-secondary-color); }
-  .big-quote { text-align: center; margin: 2.5rem auto; max-width: 36rem; }
-  .big-quote p { font-size: 1rem; color: var(--bs-secondary-color); }
-  .big-quote p:first-child {
+  .big-quote .quote {
     font-size: 1.5rem; font-weight: 700; line-height: 1.35;
     color: var(--bs-primary); margin-bottom: 0.75rem;
   }
+  .big-number .description { font-size: 1.05rem; color: var(--bs-secondary-color); }
+  .big-quote .citation { font-size: 1rem; color: var(--bs-secondary-color); }
   .badge {
     display: inline-flex; align-items: center; gap: 0.3em;
     padding: 0.2em 0.65em; border-radius: 20px;

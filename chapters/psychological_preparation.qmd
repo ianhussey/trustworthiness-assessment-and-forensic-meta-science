@@ -8,16 +8,11 @@ if(file.exists("../_setup.R")){source("../_setup.R")}
 ## Be willing to look
 
 - "A few outsiders and weirdos saw the giant lie at the heart of the economy by doing something the others never thought to do: They looked."
-- Be willing to consider that fraud-like behavior occurs
+<!-- - Be willing to consider that fraud-like behavior occurs -->
 
 ## Do the numbers matter
 
 - As a premise for checking
-
-## Not rewarding incoherence
-
-- Not rewarding motte and baileys / evaluating articles based on their strongest claims
-- Authors should not be rewarded for publishing a paper saying "1+1=3" as long as they have a footnote saying "jk lmao"; the footnote doesn't insulate you from critique, especially if it's being cited for the claim and not the footnote
 
 ## Think stupider
 
@@ -37,16 +32,29 @@ if(file.exists("../_setup.R")){source("../_setup.R")}
 
 ## Avoiding playing detective
 
-- The burden of proof is on the original authors to substantiate their claims; trustworthiness assessment only has to explain the issue, not account for it
-- You don't have to unfuck it
+- The burden of proof is on the original authors to substantiate their claims; trustworthiness assessment only has to quantify if there are issues in published work, not fully speculate or account for how they might have arisen. Speculation about intent is often actively unhelpful. 
 
-## Who cares about intent
+## Highlighting issues does not require solving them
 
-- Negligence < recklessness < intent
-- That's not useful but it's also usually not your role. Trustworthiness assessment of research is a separate (although sometimes prior-) step from research integrity assessments done e.g., by universities that determine guilt etc.
-- Trustworthiness assessment is analogous to forensic accounting or forensic lab work; not the courts that then determine whether fraud occurred or not
+- [blog post on this](https://mmmdata.io/posts/2025/07/critique-does-not-require-solution/)
 
-## Untrustworthiness as an individual differences factor
+## Post-publication scrutiny should focus on what matters
 
-- Emphasis on avoiding witch hunts risks ignoring sensible implications of seeing untrustworthy research as a human factors problem that are nested in individuals, research groups, practices, etc.
-- Systematic patterns matter
+- [blog post on this](https://mmmdata.io/posts/2025/08/post-publication-peer-review-should-focus-on-highly-influential-articles/)
+
+## Not rewarding incoherence
+
+- Not rewarding motte and baileys / evaluating articles based on their strongest claims
+- Authors should not be rewarded for publishing a paper saying "1+1=3" as long as they have a footnote saying "jk lmao"; the footnote doesn't insulate you from critique, especially if it's being cited for the claim and not the footnote
+
+
+<!-- ## Who cares about intent -->
+
+<!-- - Negligence < recklessness < intent -->
+<!-- - That's not useful but it's also usually not your role. Trustworthiness assessment of research is a separate (although sometimes prior-) step from research integrity assessments done e.g., by universities that determine guilt etc. -->
+<!-- - Trustworthiness assessment is analogous to forensic accounting or forensic lab work; not the courts that then determine whether fraud occurred or not -->
+
+<!-- ## Untrustworthiness as an individual differences factor -->
+
+<!-- - Emphasis on avoiding witch hunts risks ignoring sensible implications of seeing untrustworthy research as a human factors problem that are nested in individuals, research groups, practices, etc. -->
+<!-- - Systematic patterns matter -->

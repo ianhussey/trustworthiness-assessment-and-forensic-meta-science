@@ -11,44 +11,44 @@ book:
     - name: Ian Hussey
       orcid: 0000-0001-8906-7559
       email: ian.hussey@unibe.ch
-    - name: Malte Elson
-      orcid: 0000-0001-7806-9583
-      email: malte.elson@unibe.ch
+    # - name: Malte Elson
+    #   orcid: 0000-0001-7806-9583
+    #   email: malte.elson@unibe.ch
   date: today
   chapters:
     - index.qmd
 
-    - part: "Part I: Concepts"
-      chapters: 
-        - chapters/scope_and_need.qmd # +what is sleuthing
-        - chapters/psychological_preparation.qmd
-        - chapters/organising_principles.qmd # judgements/conclusions from forensic methods; repeated and overlooked info; possibility and plausibility; complicated, boring, consequential.
+    # - part: "Part I: Concepts"
+    #   chapters: 
+        # - chapters/scope_and_need.qmd # +what is sleuthing
+        # - chapters/psychological_preparation.qmd
+        # - chapters/organising_principles.qmd # judgements/conclusions from forensic methods; repeated and overlooked info; possibility and plausibility; complicated, boring, consequential.
         
     - part: "Part II: Methods"
       chapters:
         - chapters/interpretation_methods.qmd
-        - chapters/effect_size_methods.qmd
-        - chapters/repetition/consistency_methods.qmd
-        - chapters/recalculation_methods.qmd
-        - chapters/granularity_methods.qmd
-        - chapters/bounds_methods.qmd
-        - chapters/reconstruction_resampling_simulation-methods.qmd
-        - chapters/design_methods.qmd
-        - chapters/measurement_methods.qmd
-        - chapters/theory_specification_methods.qmd
-        - chapters/data_extraction_methods.qmd
+        # - chapters/effect_size_methods.qmd
+        # - chapters/repetition_and_consistency_methods.qmd
+        # - chapters/recalculation_methods.qmd
+        # - chapters/granularity_methods.qmd
+        # - chapters/bounds_methods.qmd
+        # - chapters/reconstruction_resampling_simulation_methods.qmd
+        # - chapters/design_methods.qmd
+        # - chapters/measurement_methods.qmd
+        # - chapters/theory_specification_methods.qmd
+        # - chapters/data_extraction_methods.qmd
 
-    - part: "Part III: Organising"
-      chapters:
-        - exercises/critiquing_specific_types_of_articles.qmd
-        - exercises/inspect_sr.qmd
-        - exercises/organising_critique.qmd # not playing detective? or earlier?
-        - exercises/reflexive_critique.qmd # not playing detective? or earlier?
+    # - part: "Part III: Organising"
+    #   chapters:
+        # - exercises/critiquing_specific_types_of_articles.qmd
+        # - exercises/inspect_sr.qmd
+        # - exercises/organising_critique.qmd # not playing detective? or earlier?
+        # - exercises/reflexive_critique.qmd # not playing detective? or earlier?
         
-    - part: "Part IV: Developing and validating methods"
-      chapters:
-        - chapters/forensic_methods_require_validation.qmd
-        - chapters/validation_using_simulated_data.qmd
+    # - part: "Part IV: Developing and validating methods"
+    #   chapters:
+        # - chapters/forensic_methods_require_validation.qmd
+        # - chapters/validation_using_simulated_data.qmd
 
     # - part: "Exercises"
     #   chapters:
@@ -56,7 +56,7 @@ book:
         
     - part: "Appendices"
       chapters:
-        - appendices/lesson_plan.qmd
+        #- appendices/lesson_plan.qmd
         - license.qmd
 
 #bibliography: references.bib

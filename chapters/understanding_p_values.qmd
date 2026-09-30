@@ -11,12 +11,10 @@ The *p*-value is the most widely reported inferential statistic in psychology an
 
 Although there is an entirely separate chapter on specific common misinterpretations of *p*-values later, it is worth beginning this one with an assessment of our own (mis)understandings, before discussing correct interpretations and deeper understandings of the *p*-value.
 
-The questionnaire below was first used by @oakes1986 with academic psychologists, and has since been reused, with minor changes, in Israel [@falk1995], Germany [@haller2002], Spain [@badenesribera2015], and China [@lyu2018; @lyu2020]. The wording here follows Haller and Krauss [-@haller2002].
-
 Answer all six statements, then click the button at the bottom to see how you did.
 
 ::: {.webex-check .webex-box}
-Suppose you have a treatment that you suspect may alter performance on a certain task. You compare the means of your control and experimental groups (say 20 subjects in each sample). Further, suppose you use a simple independent means *t*-test and your result is (*t* = 2.7, *d.f.* = 18, *p* = 0.01). Please mark each of the statements below as "true" or "false". "False" means that the statement does not follow logically from the above premises. Also note that one, several or none of the statements may be correct.
+Suppose you have a treatment that you suspect may alter performance on a certain task. You compare the means of your control and experimental groups (say 20 subjects in each sample). Further, suppose you use a simple independent means *t*-test and your result is (*t* = 2.7, *df* = 18, *p* = 0.01). Please mark each of the statements below as "true" or "false". "False" means that the statement does not follow logically from the above premises. Also note that one, several or none of the statements may be correct.
 
 1.  You have absolutely disproved the null hypothesis (that is, there is no difference between the population means). `r webexercises::torf(FALSE)`
 2.  You have found the probability of the null hypothesis being true. `r webexercises::torf(FALSE)`
@@ -40,6 +38,8 @@ All six statements are false. Each one corresponds to a recognisable fallacy: th
 `r webexercises::unhide()`
 
 ### Prevalence of misinterpretations of *p*-values
+
+The questionnaire above was first used by @oakes1986 with academic psychologists, and has since been reused, with minor changes, in Israel [@falk1995], Germany [@haller2002], Spain [@badenesribera2015], and China [@lyu2018; @lyu2020]. The wording here follows Haller and Krauss [-@haller2002].
 
 If you marked any statement as true, you are in the majority.
 

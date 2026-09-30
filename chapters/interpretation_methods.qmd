@@ -1,4 +1,4 @@
-# Interpretation methods [✎ Outline]{.badge .badge-draft1}
+# Interpretation methods [✎ Draft]{.badge .badge-draft2}
 
 ```{r}
 #| include: false
@@ -16,31 +16,26 @@ The questionnaire below was first used by Oakes (1986) with academic psychologis
 Answer all six statements, then click the button at the bottom to see how you did.
 
 ::: {.webex-check .webex-box}
-Suppose you have a treatment that you suspect may alter performance on a certain task. 
-You compare the means of your control and experimental groups (say 20 subjects in each sample). 
-Further, suppose you use a simple independent means *t*-test and your result is (*t* = 2.7, *d.f.* = 18, *p* = 0.01). 
-Please mark each of the statements below as "true" or "false". 
-"False" means that the statement does not follow logically from the above premises. 
-Also note that one, several or none of the statements may be correct.
+Suppose you have a treatment that you suspect may alter performance on a certain task. You compare the means of your control and experimental groups (say 20 subjects in each sample). Further, suppose you use a simple independent means *t*-test and your result is (*t* = 2.7, *d.f.* = 18, *p* = 0.01). Please mark each of the statements below as "true" or "false". "False" means that the statement does not follow logically from the above premises. Also note that one, several or none of the statements may be correct.
 
-1. You have absolutely disproved the null hypothesis (that is, there is no difference between the population means). `r webexercises::torf(FALSE)`
-2. You have found the probability of the null hypothesis being true. `r webexercises::torf(FALSE)`
-3. You have absolutely proved your experimental hypothesis (that there is a difference between the population means). `r webexercises::torf(FALSE)`
-4. You can deduce the probability of the experimental hypothesis being true. `r webexercises::torf(FALSE)`
-5. You know, if you decide to reject the null hypothesis, the probability that you are making the wrong decision. `r webexercises::torf(FALSE)`
-6. You have a reliable experimental finding in the sense that if, hypothetically, the experiment were repeated a great number of times, you would obtain a significant result on 99% of occasions. `r webexercises::torf(FALSE)`
+1.  You have absolutely disproved the null hypothesis (that is, there is no difference between the population means). `r webexercises::torf(FALSE)`
+2.  You have found the probability of the null hypothesis being true. `r webexercises::torf(FALSE)`
+3.  You have absolutely proved your experimental hypothesis (that there is a difference between the population means). `r webexercises::torf(FALSE)`
+4.  You can deduce the probability of the experimental hypothesis being true. `r webexercises::torf(FALSE)`
+5.  You know, if you decide to reject the null hypothesis, the probability that you are making the wrong decision. `r webexercises::torf(FALSE)`
+6.  You have a reliable experimental finding in the sense that if, hypothetically, the experiment were repeated a great number of times, you would obtain a significant result on 99% of occasions. `r webexercises::torf(FALSE)`
 :::
 
 `r webexercises::hide("Why is each statement false?")`
 
 All six statements are false. Each one corresponds to a recognisable fallacy.
 
-1. **Certainty (disproof).** A significance test gives a probabilistic statement about data, not a proof. Data this extreme occur under the null model 1% of the time, so the null hypothesis has not been disproved.
-2. **Inverse probability.** The *p*-value is the probability of data at least this extreme *given* the null model, P(data \| H0). It is not the probability of the null hypothesis given the data, P(H0 \| data). Getting from one to the other requires a prior probability for H0, which a significance test does not use.
-3. **Certainty (proof).** The mirror image of statement 1. Rejecting the null does not prove the alternative, and even if a difference exists, it does not establish that the experimental hypothesis's explanation for it is correct.
-4. **Inverse probability, again.** The probability of the experimental hypothesis is no more deducible from *p* than the probability of the null is.
-5. **Error-rate confusion.** This reads *p* as the probability that rejecting H0 is a mistake, i.e., P(H0 \| rejection). That is the false discovery risk, which depends on the prior probability of H0 and on statistical power, neither of which is given. The *p*-value is also not the Type I error rate: α is fixed before the study and describes the long-run behaviour of the procedure, not the probability of error in this particular decision.
-6. **Replication fallacy.** 1 − *p* is not the probability of a significant replication. The replication probability depends on the true effect size and the replication's power. If the observed effect were exactly the true effect, a same-sized replication would be significant only about 70–75% of the time; and because significant results tend to overestimate effects, the real figure is usually lower.
+1.  **Certainty (disproof).** A significance test gives a probabilistic statement about data, not a proof. Data this extreme occur under the null model 1% of the time, so the null hypothesis has not been disproved.
+2.  **Inverse probability.** The *p*-value is the probability of data at least this extreme *given* the null model, P(data \| H0). It is not the probability of the null hypothesis given the data, P(H0 \| data). Getting from one to the other requires a prior probability for H0, which a significance test does not use.
+3.  **Certainty (proof).** The mirror image of statement 1. Rejecting the null does not prove the alternative, and even if a difference exists, it does not establish that the experimental hypothesis's explanation for it is correct.
+4.  **Inverse probability, again.** The probability of the experimental hypothesis is no more deducible from *p* than the probability of the null is.
+5.  **Error-rate confusion.** This reads *p* as the probability that rejecting H0 is a mistake, i.e., P(H0 \| rejection). That is the false discovery risk, which depends on the prior probability of H0 and on statistical power, neither of which is given. The *p*-value is also not the Type I error rate: α is fixed before the study and describes the long-run behaviour of the procedure, not the probability of error in this particular decision.
+6.  **Replication fallacy.** 1 − *p* is not the probability of a significant replication. The replication probability depends on the true effect size and the replication's power. If the observed effect were exactly the true effect, a same-sized replication would be significant only about 70–75% of the time; and because significant results tend to overestimate effects, the real figure is usually lower.
 
 `r webexercises::unhide()`
 
@@ -48,17 +43,21 @@ All six statements are false. Each one corresponds to a recognisable fallacy.
 
 If you marked any statement as true, you are in the majority.
 
+::: big-number
+[>90%]{.stat}
+
+of psychology students and professors agree with one or more of these misinterpretations of significant *p*-values, most often by describing *p* as the probability that the results occurred by chance (see Gigerenzer, 2018 for review).
+:::
+
 - Oakes (1986) found that 97% of the 70 academic psychologists he surveyed endorsed at least one of the statements (Gigerenzer, 2018). As summarised by Cohen (1994), 68 of 70 interpreted *p* as the probability that H0 is true, and 42 believed a *p* of .01 implied a 99% chance that a replication would be significant.
 - Haller and Krauss (2002) gave the questionnaire to students, methodology instructors, and scientists in Germany. As reported by Gigerenzer (2004), none of the 44 psychology students rejected all six statements, compared with 4 of 39 scientists who did not teach statistics and 6 of 30 methodology instructors who did.
 - Lyu et al. (2018) found that 99% of 362 psychology researchers and students in China endorsed at least one false statement. In a larger sample of 1,479 researchers and students across fields, Lyu et al. (2020) found that misinterpretation did not vary meaningfully by degree, field, or career stage, and that respondents were largely unaware of their errors.
 - Badenes-Ribera et al. (2016) found the inverse-probability fallacy to be the most common error among academic psychologists in Italy and Chile, followed by the replication fallacy.
 
-Gigerenzer (2018) compiles these results across countries and is the best single overview.
-
 @tbl-any-misinterpretation summarises these studies using Gigerenzer's (2018) Table 2, showing the percentage of respondents in each sample who endorsed at least one of the six false statements in the quiz above.
 
 | Sample | Study | *N* | Endorsed at least one false statement (%) |
-|:---|:---|---:|---:|
+|:-----------------|:-----------------|-----------------:|-----------------:|
 | Professional | Oakes (1986) | 70 | 97 |
 | Professional | Haller & Krauss (2002): statistics teachers | 30 | 80 |
 | Professional | Haller & Krauss (2002): other professors of psychology | 39 | 90 |
@@ -69,54 +68,137 @@ Gigerenzer (2018) compiles these results across countries and is the best single
 
 : Percentage of respondents who endorsed at least one false statement about a significant *p*-value. Adapted from Gigerenzer (2018, Table 2). Oakes (1986) and Haller and Krauss (2002) used the questionnaire in the quiz above, with *p* = .01. Badenes-Ribera et al. (2015, 2016) used their own items with *p* = .001, and did not include statements 3 and 5. Badenes-Ribera et al. (2015) reported this percentage only for all respondents combined, so their six subsamples of academic psychologists are pooled here. {#tbl-any-misinterpretation}
 
-### Errors in intro to psych textbooks' definitions 
+#### How much should we trust these prevalence estimates?
+
+The direction of this literature is robust, but the precise percentages should be treated with some caution. The questionnaires consist entirely of false statements, which means they cannot distinguish a respondent who misunderstands *p*-values from one who is uncertain, reads the items charitably, or assumes that at least one statement must be true. McShane and Gal (2017) also note that, as worded, some items can be read as questions about unknown population parameters rather than about the observed result. Similar criticisms have been made of the equivalent questionnaire for confidence intervals (García-Pérez & Alcalá-Quintana, 2016; Miller & Ulrich, 2016). Figures such as "90–99% of researchers endorse at least one false statement" are therefore better read as evidence that misinterpretation is common across fields, career stages, and countries than as well-measured prevalence estimates.
+
+### Errors in intro to psych textbooks' definitions
 
 The errors are not confined to survey responses. They are also in the textbooks.
 
-::: {.big-number}
+::: big-number
 [89%]{.stat}
 
 of introductory psychology textbooks that defined or explained statistical significance did so incorrectly, most often by describing *p* as the probability that the results occurred by chance (Cassidy et al., 2019).
 :::
 
-Students who give these answers may therefore be accurately recalling what they were taught. The errors also reach the published literature: Murphy et al. (2025) estimated that 76–85% of psychology articles that discussed a nonsignificant result interpreted it as evidence that the effect was absent, with no significant change between 2009 and 2021.
+## Misinterpretations in the literature
 
-### How much should we trust these prevalence estimates?
+Students who give these answers may therefore be accurately recalling what they were taught. The errors also reach the published literature.
 
-The direction of this literature is robust, but the precise percentages should be treated with some caution. The questionnaires consist entirely of false statements, which means they cannot distinguish a respondent who misunderstands *p*-values from one who is uncertain, reads the items charitably, or assumes that at least one statement must be true. McShane and Gal (2017) also note that, as worded, some items can be read as questions about unknown population parameters rather than about the observed result. Similar criticisms have been made of the equivalent questionnaire for confidence intervals (García-Pérez & Alcalá-Quintana, 2016; Miller & Ulrich, 2016). Figures such as "90–99% of researchers endorse at least one false statement" are therefore better read as evidence that misinterpretation is common across fields, career stages, and countries than as well-measured prevalence estimates.
+::: big-number
+[76–85%]{.stat}
+
+of psychology articles that discussed a nonsignificant result interpreted it as evidence that the effect was absent, with no significant change between 2009 and 2021 (Murphy et al., 2025).
+:::
 
 ### What a *p*-value is
 
-The American Statistical Association's statement on *p*-values (Wasserstein & Lazar, 2016) describes the *p*-value informally as the probability, under a specified statistical model, that a summary of the data would be equal to or more extreme than its observed value. Greenland et al. (2016) make the role of the model explicit: the probability is calculated assuming every model assumption is correct, including the test hypothesis.
+It's important to start by emphasizing that I and this book should not be considered the authoritative source of the definition and interpretation of *p*-values. For these, see the original sources cited below. 
 
-This matters for trustworthiness assessment. A small *p*-value indicates that the data are unusual under the whole model, but it does not say which assumption has failed. The null hypothesis is one assumption; others include random sampling or assignment, correct model specification, and the absence of selective reporting or analytic flexibility. When those other assumptions are doubtful, a small *p*-value is correspondingly less informative about the null hypothesis.
+#### The formal definition
 
-### Implications for trustworthiness assessment
+The definition found in most statistics textbooks descends from Fisher's significance tests and is stated formally by Cox (2006). Choose a test statistic *T* that measures how far the data depart from what the null hypothesis predicts. The *p*-value is the probability, calculated assuming the null hypothesis is true, of obtaining a value of *T* at least as extreme as the one actually observed:
 
-- Misinterpretations of *p*-values are a common source of misalignment between an article's results and its conclusions. The rest of this chapter, and the next, cover how to spot them.
-- Because these misinterpretations are so common among researchers, they are also common among assessors. Checking our own understanding is a prerequisite for judging others'.
-- A misinterpreted *p*-value makes the written conclusions untrustworthy even when the numerical results are accurate. It is evidence of a claim–evidence problem, not of fabrication or error in the numbers themselves.
+$$
+p = \Pr(T \geq t_{\text{obs}};\ H_0)
+$$
 
-## Interpretation of *p*-values
+The semicolon rather than a conditional bar (\|) is deliberate. In the frequentist framework H0 is not a random event with a probability of its own; it is an assumption under which the probability is calculated. Three ingredients are always involved:
 
-- Intuitions for *p*-values
-- Alpha, power, diagnosticity refreshers
-  - Distribution of unbiased *p*-values under null/alternative
-- *p*-hacking and its impact on *p*-values and effect sizes
-- Methods that aren't useful for trustworthiness assessment but are good for intuitions: distribution of biased *p*-values, *p*-curve, *z*-curve
-- Too good to be true in the context of power vs significance rate
-- Peeking and trends towards significance
+1.  **A test statistic**, such as *t*, *F*, or χ², which summarises the data. For a two-sided test, *T* is the absolute value, e.g., \|*t*\|, so that departures in either direction count as extreme.
+2.  **A reference distribution** for that statistic, derived by assuming H0 is true.
+3.  **A tail**: the probability of the observed value *or anything more extreme*, not of the observed value alone.
+
+Applied to the quiz scenario: if there were truly no difference between the population means, and the other assumptions of the *t*-test held, a *t* statistic at least as far from zero as 2.7 would arise in about 1.5% of repeated studies with 18 degrees of freedom. (The questionnaire's *p* = .01 is rounded; the exact two-sided value for *t*(18) = 2.7 is .015.)
+
+This definition is the key to every statement in the quiz. The *p*-value is calculated by *assuming* H0 is true, so it cannot also be the probability that H0 is true. As Greenland et al. (2016) put it, it is hard to see how a probability deduced from a set of assumptions could be the probability of those same assumptions.
+
+#### "The model" is the null model
+
+The American Statistical Association's statement on *p*-values (Wasserstein & Lazar, 2016) gives an informal definition that is often quoted:
+
+::: big-quote
+"the [long-run] probability under a specified statistical model that a statistical summary of the data ... would be equal to or more extreme than its observed value."
+
+American Statistical Association's statement on *p*-values (Wasserstein & Lazar, 2016).
+:::
+
+Many readers initially struggle with what "a specified statistical model" refers to. It is not the researcher's hypothesis, the alternative hypothesis, but rather the **null model**: the null hypothesis *together with* every other assumption needed to derive the reference distribution. The statement's first principle makes this explicit, describing the most common context as "a model, constructed under a set of assumptions, together with a so-called 'null hypothesis'". For the independent-samples *t*-test in the quiz, the null model includes:
+
+- **The null hypothesis itself**: the population means are equal.
+- **Distributional assumptions**: the outcome is normally distributed within each group, with equal variances.
+- **Design assumptions**: observations are independent, and participants were randomly sampled or randomly assigned.
+- **Analysis and reporting assumptions**: the test was planned before seeing the data, and this *p*-value was not selected for reporting from among many because it was small.
+
+Greenland et al. (2016) build this into their definition.
+
+::: big-quote
+The *p*-value is "the [long-run] probability that the chosen test statistic would have been at least as large as its observed value if every model assumption were correct, including the test hypothesis."
+
+Greenland et al. (2016)
+:::
+
+In their terms, H0 is just the one assumption that has been *targeted* for testing (the "test hypothesis"); the *p*-value itself tests all of them at once.
+
+#### Small and large *p*-values
+
+It follows that a *p*-value is best read as a measure of **compatibility** between the data and the whole null model, running from 0 (the data are completely incompatible with the model) to 1 (the data are exactly what the model predicts) (Greenland et al., 2016).
+
+- **A small *p*-value** says that the data would be unusual if every assumption of the null model were true. It does not say which assumption is false. H0 may be false, or the design may have been compromised, the distributional assumptions may not hold, or the result may have been selected for reporting because it was small.
+- **A large *p*-value** says only that the data are not unusual under the null model. It does not show that H0 is true: the same data would also be unremarkable under many other hypotheses, and a large *p*-value can itself result from violated assumptions.
+
+This is why selective reporting matters so much. The ASA statement notes that when many analyses are conducted and only some are reported, the reported *p*-values become "essentially uninterpretable" (Wasserstein & Lazar, 2016). In null-model terms, the assumption that the result was not chosen for its *p*-value has been violated, so the reference distribution no longer applies.
+
+#### What the ASA statements say
+
+The 2016 ASA statement sets out six principles, summarised here:
+
+1.  *p*-values can indicate how incompatible the data are with a specified statistical model.
+2.  *p*-values do not measure the probability that the hypothesis studied is true, or the probability that the data were produced by random chance alone.
+3.  Scientific conclusions and policy decisions should not be based only on whether a *p*-value passes a threshold.
+4.  Proper inference requires full reporting and transparency.
+5.  A *p*-value, or statistical significance, does not measure the size of an effect or the importance of a result.
+6.  By itself, a *p*-value does not provide a good measure of evidence about a model or hypothesis.
+
+The second principle rules out the most common textbook error identified by Cassidy et al. (2019). The claim that *p* is "the probability that the results occurred by chance" reverses the definition: the *p*-value is calculated *assuming* that chance alone is operating, so it cannot be the probability that chance alone is operating (Greenland et al., 2016).
+
+A later statement from a task force convened by the ASA's president (Benjamini et al., 2021) is more positive in tone. It stresses that *p*-values and significance tests, properly applied and interpreted, are valid tools that increase the rigour of conclusions and should not be abandoned. But it agrees on the essentials. *p*-values should be understood as assessments of observations relative to sampling variation, not as measures of practical significance, and any significance threshold should be chosen deliberately, based on the study's goals and the consequences of wrong decisions.
+
+<!-- #### Why this matters for trustworthiness assessment -->
+
+<!-- The null-model view is what makes a *p*-value useful for assessing trustworthiness, and also what limits it. A reported *p*-value is informative about H0 only to the extent that the other assumptions of the null model are credible. Much of this book is about checking those other assumptions: whether the design was as described, whether the reported statistics are internally consistent, and whether the analyses reported are the analyses that were run. When those assumptions are doubtful, a small *p*-value says correspondingly little about the null hypothesis. -->
+
+<!-- ### Implications for trustworthiness assessment -->
+
+<!-- - Misinterpretations of *p*-values are a common source of misalignment between an article's results and its conclusions. The rest of this chapter, and the next, cover how to spot them. -->
+<!-- - Because these misinterpretations are so common among researchers, they are also common among assessors. Checking our own understanding is a prerequisite for judging others'. -->
+<!-- - A misinterpreted *p*-value makes the written conclusions untrustworthy even when the numerical results are accurate. It is evidence of a claim–evidence problem, not of fabrication or error in the numbers themselves. -->
+
+<!-- ## Interpretation of *p*-values -->
+
+<!-- - Intuitions for *p*-values -->
+<!-- - Alpha, power, diagnosticity refreshers -->
+<!--   - Distribution of unbiased *p*-values under null/alternative -->
+<!-- - *p*-hacking and its impact on *p*-values and effect sizes -->
+<!-- - Methods that aren't useful for trustworthiness assessment but are good for intuitions: distribution of biased *p*-values, *p*-curve, *z*-curve -->
+<!-- - Too good to be true in the context of power vs significance rate -->
+<!-- - Peeking and trends towards significance -->
 
 ## References {.unnumbered}
 
-::: {.references-apa}
+::: references-apa
 Badenes-Ribera, L., Frías-Navarro, D., Iotti, B., Bonilla-Campos, A., & Longobardi, C. (2016). Misconceptions of the *p*-value among Chilean and Italian academic psychologists. *Frontiers in Psychology*, *7*, Article 1247. <https://doi.org/10.3389/fpsyg.2016.01247>
 
 Badenes-Ribera, L., Frías-Navarro, D., Monterde-i-Bort, H., & Pascual-Soler, M. (2015). Interpretation of the *p* value: A national survey study in academic psychologists from Spain. *Psicothema*, *27*(3), 290–295. <https://doi.org/10.7334/psicothema2014.283>
 
+Benjamini, Y., De Veaux, R., Efron, B., Evans, S., Glickman, M., Graubard, B. I., He, X., Meng, X.-L., Reid, N., Stigler, S. M., Vardeman, S. B., Wikle, C. K., Wright, T., Young, L. J., & Kafadar, K. (2021). ASA President's Task Force statement on statistical significance and replicability. *Harvard Data Science Review*, *3*(3). <https://doi.org/10.1162/99608f92.f0ad0287>
+
 Cassidy, S. A., Dimova, R., Giguère, B., Spence, J. R., & Stanley, D. J. (2019). Failing grade: 89% of introduction-to-psychology textbooks that define or explain statistical significance do so incorrectly. *Advances in Methods and Practices in Psychological Science*, *2*(3), 233–239. <https://doi.org/10.1177/2515245919858072>
 
-Cohen, J. (1994). The earth is round (*p* < .05). *American Psychologist*, *49*(12), 997–1003. <https://doi.org/10.1037/0003-066X.49.12.997>
+Cohen, J. (1994). The earth is round (*p* \< .05). *American Psychologist*, *49*(12), 997–1003. <https://doi.org/10.1037/0003-066X.49.12.997>
+
+Cox, D. R. (2006). *Principles of statistical inference*. Cambridge University Press. <https://doi.org/10.1017/CBO9780511813559>
 
 Falk, R., & Greenbaum, C. W. (1995). Significance tests die hard: The amazing persistence of a probabilistic misconception. *Theory & Psychology*, *5*(1), 75–98. <https://doi.org/10.1177/0959354395051004>
 

@@ -1,4 +1,4 @@
-# Design methods <span class="badge badge-draft1">✎ Outline</span>
+# Design methods [✎ Outline]{.badge .badge-draft1}
 
 ```{r}
 #| include: false

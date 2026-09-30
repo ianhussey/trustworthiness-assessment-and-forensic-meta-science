@@ -1,4 +1,4 @@
-# Repetition and consistency methods <span class="badge badge-draft1">✎ Outline</span>
+# Repetition and consistency methods [✎ Outline]{.badge .badge-draft1}
 
 ```{r}
 #| include: false

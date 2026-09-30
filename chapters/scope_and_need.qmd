@@ -1,4 +1,4 @@
-# Scope and need <span class="badge badge-draft1">✎ Outline</span>
+# Scope and need [✎ Outline]{.badge .badge-draft1}
 
 ```{r}
 #| include: false

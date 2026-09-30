@@ -1,4 +1,4 @@
-# Organising principles <span class="badge badge-draft1">✎ Outline</span>
+# Organising principles [✎ Outline]{.badge .badge-draft1}
 
 ```{r}
 #| include: false

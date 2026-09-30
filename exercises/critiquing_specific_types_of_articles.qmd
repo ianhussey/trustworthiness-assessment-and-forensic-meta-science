@@ -1,4 +1,4 @@
-# Critiquing specific types of articles <span class="badge badge-draft1">✎ Outline</span>
+# Critiquing specific types of articles [✎ Outline]{.badge .badge-draft1}
 
 ```{r}
 #| include: false

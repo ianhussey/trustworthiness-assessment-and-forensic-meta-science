@@ -1,4 +1,4 @@
-# Reconstruction, resampling, and simulation methods <span class="badge badge-draft1">✎ Outline</span>
+# Reconstruction, resampling, and simulation methods [✎ Outline]{.badge .badge-draft1}
 
 ```{r}
 #| include: false

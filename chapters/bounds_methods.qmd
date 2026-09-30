@@ -1,4 +1,4 @@
-# Bounds methods <span class="badge badge-draft1">✎ Outline</span>
+# Bounds methods [✎ Outline]{.badge .badge-draft1}
 
 ```{r}
 #| include: false

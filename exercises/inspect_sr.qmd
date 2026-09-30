@@ -1,4 +1,4 @@
-# INSPECT-SR <span class="badge badge-draft1">✎ Outline</span>
+# INSPECT-SR [✎ Outline]{.badge .badge-draft1}
 
 ```{r}
 #| include: false

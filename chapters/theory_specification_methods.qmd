@@ -1,4 +1,4 @@
-# Theory specification methods <span class="badge badge-draft1">✎ Outline</span>
+# Theory specification methods [✎ Outline]{.badge .badge-draft1}
 
 ```{r}
 #| include: false

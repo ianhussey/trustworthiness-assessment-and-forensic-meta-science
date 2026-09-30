@@ -1,4 +1,4 @@
-# Misinterpretation methods <span class="badge badge-draft1">✎ Outline</span>
+# Misinterpretation methods [✎ Outline]{.badge .badge-draft1}
 
 ```{r}
 #| include: false
@@ -54,7 +54,7 @@ if(file.exists("../_setup.R")){source("../_setup.R")}
 
 - Stepwise regression
 - Post hoc power analysis
-- "Little Jiffy" Factor Analysis (PCA with Varimax & Kaiser Criterion of Eigenvalues > 1; default in SPSS)
+- "Little Jiffy" Factor Analysis (PCA with Varimax & Kaiser Criterion of Eigenvalues \> 1; default in SPSS)
 - Choosing covariates based on significance or univariate associations
 - Latent class growth models (note: very different from latent growth curve models)
 - Magnitude-Based Inference

@@ -1,4 +1,4 @@
-# Validating meta-science methods using simulated data <span class="badge badge-draft1">✎ Outline</span>
+# Validating meta-science methods using simulated data [✎ Outline]{.badge .badge-draft1}
 
 ```{r}
 #| include: false

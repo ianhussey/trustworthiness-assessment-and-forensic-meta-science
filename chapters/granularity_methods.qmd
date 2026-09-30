@@ -1,4 +1,4 @@
-# Granularity methods <span class="badge badge-draft1">✎ Outline</span>
+# Granularity methods [✎ Outline]{.badge .badge-draft1}
 
 ```{r}
 #| include: false

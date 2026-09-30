@@ -1,66 +1,60 @@
 project:
   type: book
   resources:
-    - CNAME
-    - "!slides/"
-
+  - CNAME
+  - '!slides/'
 book:
-  title: "Trustworthiness Assessment"
-  subtitle: "and Forensic Meta-Science"
+  title: Trustworthiness Assessment
+  subtitle: and Forensic Meta-Science
   author:
-    - name: Ian Hussey
-      orcid: 0000-0001-8906-7559
-      email: ian.hussey@unibe.ch
-    # - name: Malte Elson
-    #   orcid: 0000-0001-7806-9583
-    #   email: malte.elson@unibe.ch
+  - name: Ian Hussey
+    orcid: 0000-0001-8906-7559
+    email: ian.hussey@unibe.ch
+  # - name: Malte Elson
+  #   orcid: 0000-0001-7806-9583
+  #   email: malte.elson@unibe.ch
   date: today
+  
   chapters:
-    - index.qmd
-
-    - part: "Part I: Concepts"
-      chapters:
-        - chapters/scope_and_need.qmd # +what is sleuthing
-        - chapters/psychological_preparation.qmd
-        - chapters/organising_principles.qmd # judgements/conclusions from forensic methods; repeated and overlooked info; possibility and plausibility; complicated, boring, consequential.
-        
-    - part: "Part II: Methods"
-      chapters:
-        - chapters/interpretation_methods.qmd
-        - chapters/misinterpretation_methods.qmd
-        - chapters/effect_size_methods.qmd
-        - chapters/repetition_and_consistency_methods.qmd
-        - chapters/recalculation_methods.qmd
-        - chapters/granularity_methods.qmd
-        - chapters/bounds_methods.qmd
-        - chapters/reconstruction_resampling_simulation_methods.qmd
-        - chapters/design_methods.qmd
-        - chapters/measurement_methods.qmd
-        - chapters/theory_specification_methods.qmd
-        - chapters/data_extraction_methods.qmd
-
-    - part: "Part III: Organising"
-      chapters:
-        - exercises/critiquing_specific_types_of_articles.qmd
-        - exercises/inspect_sr.qmd
-        - exercises/organising_critique.qmd # not playing detective? or earlier?
-        - exercises/reflexive_critique.qmd # not playing detective? or earlier?
-        
-    - part: "Part IV: Developing and validating methods"
-      chapters:
-        - chapters/forensic_methods_require_validation.qmd
-        - chapters/validation_using_simulated_data.qmd
-
-    # - part: "Exercises"
-    #   chapters:
-    #     # the worst article ever written
-        
-    - part: "Appendices"
-      chapters:
-        - appendices/lesson_plan.qmd
-
-#bibliography: references.bib
-
+  - index.qmd
+  
+  - part: 'Part I: Concepts'
+    chapters:
+    - chapters/scope_and_need.qmd
+    - chapters/psychological_preparation.qmd
+    - chapters/organising_principles.qmd
+    
+  - part: 'Part II: Methods'
+    chapters:
+    - chapters/interpretation_methods.qmd
+    - chapters/misinterpretation_methods.qmd
+    - chapters/effect_size_methods.qmd
+    - chapters/repetition_and_consistency_methods.qmd
+    - chapters/recalculation_methods.qmd
+    - chapters/granularity_methods.qmd
+    - chapters/bounds_methods.qmd
+    - chapters/reconstruction_resampling_simulation_methods.qmd
+    - chapters/design_methods.qmd
+    - chapters/measurement_methods.qmd
+    - chapters/theory_specification_methods.qmd
+    - chapters/data_extraction_methods.qmd
+    
+  - part: 'Part III: Organising'
+    chapters:
+    - exercises/critiquing_specific_types_of_articles.qmd
+    - exercises/inspect_sr.qmd
+    - exercises/organising_critique.qmd
+    - exercises/reflexive_critique.qmd
+    
+  - part: 'Part IV: Developing and validating methods'
+    chapters:
+    - chapters/forensic_methods_require_validation.qmd
+    - chapters/validation_using_simulated_data.qmd
+    
+  - part: 'Appendices'
+    chapters: 
+    - appendices/lesson_plan.qmd
+    
 format:
   html:
     toc: true
@@ -87,6 +81,7 @@ format:
           main.content h3 { margin-top: 2rem; }
           main.content h4 { margin-top: 1.5rem; }
           .kable-table table { width: 70%; margin: 0 auto; }
+          .references-apa p { padding-left: 2em; text-indent: -2em; }
           .badge {
             display: inline-flex; align-items: center; gap: 0.3em;
             padding: 0.2em 0.65em; border-radius: 20px;
@@ -99,7 +94,7 @@ format:
           .badge-complete { background: #e6f4ea; color: #1e6e3a; border: 1px solid #b7dfbe; }
           .quarto-color-scheme-toggle::after { content: " Dark mode"; font-family: sans-serif; font-size: 0.85em; }
         </style>
-
-editor: visual
-
+    css: include/webex.css
+    include-after-body: include/webex.js
+editor: source
 cover-image: cover.png

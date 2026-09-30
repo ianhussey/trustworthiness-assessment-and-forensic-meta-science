@@ -1,4 +1,4 @@
-# Reflexive critique <span class="badge badge-draft1">✎ Outline</span>
+# Reflexive critique [✎ Outline]{.badge .badge-draft1}
 
 ```{r}
 #| include: false

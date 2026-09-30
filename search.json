@@ -24,14 +24,14 @@
     "href": "index.html#other-learning-resources",
     "title": "Trustworthiness Assessment",
     "section": "Other learning resources",
-    "text": "Other learning resources\nThere are many excellent Open Source resources to learn simulation studies in R and {tidyverse}. Readers are encouraged to seek them out to support the materials already provided in this book. I can particularly recommend the following ones:\n\nHeathers, J. (2025) An Introduction To Forensic Metascience eBook\nCOSIG: The Collection of Open Science Integrity Guides. Website:cosig.net. doi:10.17605/OSF.IO/2KDEZ\nOzturk, Y., Pirelli, S., Richardson, R.A.K. (2026). Introducing COSIG: The Collection of Open Science Integrity Guides. Zenodo. PLOS Biology 24(6): e3003817. doi:10.1371/journal.pbio.3003817\ntrustworthy.scientific.claims: A hub for open-source forensic meta-science methods for assessing the trustworthiness of scientific research. Discover available guides and tools, or contribute to development.",
+    "text": "Other learning resources\nThere are many excellent Open Source resources to learn simulation studies in R and {tidyverse}. Readers are encouraged to seek them out to support the materials already provided in this book. I can particularly recommend the following ones:\n\nHeathers, J. (2025) An Introduction To Forensic Metascience. Website: https://jamesheathers.curve.space\nCOSIG: The Collection of Open Science Integrity Guides. Website:cosig.net. doi: 10.17605/OSF.IO/2KDEZ\nOzturk, Y., Pirelli, S., Richardson, R.A.K. (2026). Introducing COSIG: The Collection of Open Science Integrity Guides. Zenodo. PLOS Biology 24(6): e3003817. doi: 10.1371/journal.pbio.3003817\ntrustworthy.scientific.claims: A hub for open-source forensic meta-science methods for assessing the trustworthiness of scientific research. Discover available guides and tools, or contribute to development.",
     "crumbs": [
       "Introduction"
     ]
   },
   {
-    "objectID": "index.html#license",
-    "href": "index.html#license",
+    "objectID": "index.html#sec-license",
+    "href": "index.html#sec-license",
     "title": "Trustworthiness Assessment",
     "section": "License",
     "text": "License\n© Ian Hussey (2026)\nText and figures are licensed under a Creative Commons Attribution 4.0 (CC BY 4.0) license.\nCode is licensed under the MIT License.\nYou are free to copy, share, adapt, and reuse the contents of this book — text, figures, and code — for any purpose, including commercial use, provided you cite its source. See suggested citation below.",

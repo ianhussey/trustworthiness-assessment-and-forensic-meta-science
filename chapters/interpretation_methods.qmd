@@ -158,7 +158,7 @@ This can be formalised as $P(H_1 \mid D)$, the probability of the alternative hy
 
 ::: big-quote
 [Given that the null model is true,\
-how improbable are data like mine?]{.quote}
+how improbable is my data?]{.quote}
 :::
 
 This can be formalised as $P(D \mid H_0)$, the probability of the data given the null hypothesis. Here $D$ is shorthand for "data at least as extreme as those observed", and the conditional bar is used loosely for "assuming", as it usually is in teaching (see the note on the semicolon above).
@@ -166,7 +166,7 @@ This can be formalised as $P(D \mid H_0)$, the probability of the data given the
 Significance testing then adds an inferential step that is not part of the probability calculation at all:
 
 ::: big-quote
-[Given that the null model is true, how improbable are data like mine?\
+[Given that the null model is true, how improbable is my data?\
 If very improbable, we will act as if the alternative hypothesis is true.]{.quote}
 :::
 
@@ -232,6 +232,144 @@ The second principle rules out the most common textbook error identified by Cass
 
 A later statement from a task force convened by the ASA's president (Benjamini et al., 2021) is more positive in tone. It stresses that *p*-values and significance tests, properly applied and interpreted, are valid tools that increase the rigour of conclusions and should not be abandoned. But it agrees on the essentials. *p*-values should be understood as assessments of observations relative to sampling variation, not as measures of practical significance, and any significance threshold should be chosen deliberately, based on the study's goals and the consequences of wrong decisions.
 
+## How *p*-values are distributed
+
+A good test of whether we understand *p*-values is whether we can say how they behave across many studies. Most researchers cannot answer two simple questions: if we ran the same study many times, what would the distribution of *p*-values look like (a) when the null hypothesis is true, and (b) when the alternative hypothesis is true?
+
+- **When $H_0$ is true** (and the other assumptions of the null model hold), *p*-values are **uniformly distributed** between 0 and 1. Every value is equally likely. This follows directly from the definition: 5% of *p*-values fall below .05, 1% below .01, and 10% below .10. There is nothing special about .05; it is simply where we have chosen to draw the line.
+- **When $H_1$ is true**, *p*-values are **skewed towards zero**, and increasingly so as the true effect size or the sample size increases. The proportion that fall below .05 is, by definition, the study's statistical power.
+
+One consequence is that *p*-values just below .05 are not particularly strong evidence against the null. In a study with 80% power, only about 3% of *p*-values fall between .04 and .05. In a study with 99% power, the figure is about 0.3%, which is *less* than the 1% expected when $H_0$ is true (Lakens, 2022). A literature full of *p*-values between .01 and .05, from studies that claim to be well powered, is therefore itself a signal worth attending to.
+
+Explore this with the plot below. Set the effect size to 0 to see the uniform distribution under $H_0$, then increase the effect size or sample size and watch the *p*-values pile up near zero. The dashed line shows what the distribution would be if $H_0$ were true.
+
+```{ojs}
+//| echo: false
+viewof es = Inputs.range([0, 1.5], {value: 0.5, step: 0.05, label: "True effect size (Cohen's d)"})
+viewof n = Inputs.range([5, 200], {value: 50, step: 1, label: "Participants per group"})
+viewof zoom = Inputs.toggle({label: "Zoom in on p < .10", value: false})
+```
+
+```{ojs}
+//| echo: false
+Plot.plot({
+  height: 320,
+  marginLeft: 50,
+  x: {label: "p-value", domain: [0, xmax]},
+  y: {label: "Proportion of p-values", grid: true},
+  marks: [
+    Plot.rectY(bins, {x1: "lo", x2: "hi", y: "prop", fill: d => d.sig ? "#2780e3" : "#adb5bd", insetLeft: 0.5, insetRight: 0.5}),
+    Plot.ruleY([binWidth], {stroke: "currentColor", strokeDasharray: "4,3"}),
+    Plot.ruleY([0])
+  ]
+})
+```
+
+```{ojs}
+//| echo: false
+md`Proportion of *p*-values below .05 (${es === 0 ? "the false positive rate, α" : "power"}): **${(100 * pCdf(0.05)).toFixed(1)}%**  
+Proportion between .04 and .05: **${(100 * (pCdf(0.05) - pCdf(0.04))).toFixed(1)}%** (if H<sub>0</sub> were true: 1%)`
+```
+
+```{ojs}
+//| echo: false
+// p-value distribution for a two-sided, two-sample test, using the normal approximation to the t-test
+// (slightly overestimates power in small samples). For noncentrality delta, P(p <= x) = Phi(delta - z) + Phi(-delta - z),
+// where z = Phi^-1(1 - x/2).
+delta = es * Math.sqrt(n / 2)
+xmax = zoom ? 0.1 : 1
+binWidth = zoom ? 0.005 : 0.01
+bins = d3.range(Math.round(xmax / binWidth)).map(i => {
+  const lo = i * binWidth, hi = (i + 1) * binWidth
+  return {lo, hi, prop: pCdf(hi) - pCdf(lo), sig: hi <= 0.05 + 1e-9}
+})
+function pCdf(x) {
+  return pCdfAt(x, delta)
+}
+function pCdfAt(x, ncp) {
+  if (x <= 0) return 0
+  if (x >= 1) return 1
+  const z = normInv(1 - x / 2)
+  return normCdf(ncp - z) + normCdf(-ncp - z)
+}
+function normCdf(x) {
+  // Abramowitz & Stegun 7.1.26
+  const t = 1 / (1 + 0.3275911 * Math.abs(x) / Math.SQRT2)
+  const erf = 1 - (((((1.061405429 * t - 1.453152027) * t) + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t * Math.exp(-x * x / 2)
+  return x >= 0 ? 0.5 * (1 + erf) : 0.5 * (1 - erf)
+}
+function normInv(p) {
+  // Acklam's algorithm
+  const a = [-3.969683028665376e+01, 2.209460984245205e+02, -2.759285104469687e+02, 1.383577518672690e+02, -3.066479806614716e+01, 2.506628277459239e+00]
+  const b = [-5.447609879822406e+01, 1.615858368580409e+02, -1.556989798598866e+02, 6.680131188771972e+01, -1.328068155288572e+01]
+  const c = [-7.784894002430293e-03, -3.223964580411365e-01, -2.400758277161838e+00, -2.549732539343734e+00, 4.374664141464968e+00, 2.938163982698783e+00]
+  const e = [7.784695709041462e-03, 3.224671290700398e-01, 2.445134137142996e+00, 3.754408661907416e+00]
+  const plow = 0.02425
+  if (p < plow) {
+    const q = Math.sqrt(-2 * Math.log(p))
+    return (((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]) / ((((e[0] * q + e[1]) * q + e[2]) * q + e[3]) * q + 1)
+  }
+  if (p > 1 - plow) return -normInv(1 - p)
+  const q = p - 0.5, r = q * q
+  return (((((a[0] * r + a[1]) * r + a[2]) * r + a[3]) * r + a[4]) * r + a[5]) * q / (((((b[0] * r + b[1]) * r + b[2]) * r + b[3]) * r + b[4]) * r + 1)
+}
+```
+
+For a fuller version, including the distribution of *p*-values for any power and the option to simulate studies one at a time, see Kristoffer Magnusson's interactive visualisation at [rpsychologist.com/d3/pdist](https://rpsychologist.com/d3/pdist).
+
+### Distributions that cannot occur naturally
+
+Because unbiased *p*-values are either flat (under $H_0$) or skewed towards zero (under $H_1$), there is no natural way for a collection of *p*-values to cluster just below .05. An excess of *p*-values just under the significance threshold requires some form of bias, such as publication bias or *p*-hacking. Masicampo and Lalande (2012) reported such a "peculiar prevalence" of *p*-values just below .05 in three psychology journals. The evidence is more mixed than that headline suggests: in a much larger sample of 258,050 test results, Hartgerink et al. (2016) found a bump below .05 in some journals, but it disappeared when *p*-values were recalculated from the reported test statistics. They did, however, find clear evidence of *p*-values being incorrectly rounded down to below .05.
+
+@fig-peculiar-prevalence illustrates what this kind of distortion looks like. It shows a hypothetical literature in which half of the tested hypotheses are true and studies have 50% power. The dashed line shows the distribution of *p*-values we would expect without bias. The bars show what happens if 30% of the results that would have fallen between .05 and .10 are instead nudged to just below .05, for example by trying a different outlier exclusion rule or adding a covariate: a dip above the threshold and a bump just below it.
+
+```{ojs}
+//| echo: false
+//| label: fig-peculiar-prevalence
+//| fig-cap: "Illustrative distribution of reported *p*-values between 0 and .10 in a hypothetical biased literature (50% true hypotheses, 50% power, 30% of *p*-values between .05 and .10 moved to just below .05). The dashed line shows the expected distribution without bias. These are not real data, but rather illustrate the general pattern observed by studies such as Masicampo and Lalande (2012) and Hartgerink et al. (2016)."
+Plot.plot({
+  height: 320,
+  marginLeft: 50,
+  x: {label: "p-value", domain: [0, 0.1]},
+  y: {label: "Proportion of p-values", grid: true},
+  marks: [
+    Plot.rectY(biasedBins, {x1: "lo", x2: "hi", y: "biased", fill: d => d.sig ? "#2780e3" : "#adb5bd", insetLeft: 0.5, insetRight: 0.5}),
+    Plot.lineY(biasedBins.map(d => ({x: d.lo, y: d.unbiased})).concat([{x: 0.1, y: biasedBins.at(-1).unbiased}]), {x: "x", y: "y", curve: "step-after", stroke: "currentColor", strokeDasharray: "4,3"}),
+    Plot.ruleY([0])
+  ]
+})
+```
+
+```{ojs}
+//| echo: false
+// Illustrative biased literature: 50% true nulls (uniform p-values) and 50% true effects studied with 50% power
+// (noncentrality 1.96). 30% of the p-values in (.05, .10] are moved to (.04, .05], two-thirds of them to (.045, .05].
+biasedBins = {
+  const w = 0.005, ncpHalfPower = 1.96, moved = 0.3
+  const b = d3.range(20).map(i => {
+    const lo = i * w, hi = (i + 1) * w
+    const unbiased = 0.5 * w + 0.5 * (pCdfAt(hi, ncpHalfPower) - pCdfAt(lo, ncpHalfPower))
+    return {lo, hi, unbiased, biased: unbiased, sig: hi <= 0.05 + 1e-9}
+  })
+  const removed = d3.sum(b.slice(10), d => d.unbiased * moved)
+  b.slice(10).forEach(d => d.biased = d.unbiased * (1 - moved))
+  b[8].biased += removed / 3
+  b[9].biased += removed * 2 / 3
+  return b
+}
+```
+
+Similar distortions are not limited to *p*-values. Wherever a rule-of-thumb threshold determines whether a result is considered acceptable, there is pressure to meet it. Hussey et al. (2025) found a similar excess of Cronbach's α values at the conventional .70 threshold for acceptable reliability, across more than 180,000 α values from the general psychology literature, the industrial and organisational psychology literature, and the APA's PsycTests database.
+
+### Detecting biased *p*-values
+
+The shape of a set of significant *p*-values is also the basis of methods that aim to diagnose a given literature: *p*-curve, which tests for "evidential value" and *p*-hacking and estimates effect sizes corrected for publication bias (Simonsohn et al., 2014a, 2014b), and *Z*-curve, which estimates the expected replication and discovery rates of a set of studies (Brunner & Schimmack, 2020; Bartoš & Schimmack, 2022). Both methods are widely used, and both have been seriously criticised.
+
+- ***p*-curve.** Several forms of *p*-hacking do not produce the left-skewed distribution that *p*-curve looks for. Ulrich and Miller (2015) showed this for selecting among multiple analyses, prompting a revised version of the method (Simonsohn et al., 2015). Bishop and Thompson (2016) showed it for selectively reporting among uncorrelated outcome variables. Conversely, a right-skewed *p*-curve does not guarantee true effects: in observational research, even minimal confounding makes true effects indistinguishable from *p*-hacked null effects (Bruns & Ioannidis, 2016), and a left-skewed curve can arise from selective *non*-reporting even when all effects are real (Erdfelder & Heck, 2019). Its effect size estimates are biased under moderate to large heterogeneity (McShane et al., 2016; van Aert et al., 2016). Most recently, Morey and Davis-Stober (2026) showed that the *p*-curve tests lack basic properties expected of statistical tests, and recommended against using them.
+- ***Z*-curve.** Pek et al. (2026) argued that *z*-curve's expected discovery rate has no clear link to credibility, that its estimators can be biased and inconsistent, and that most published applications do not check its assumptions (e.g., independent *p*-values from focal tests). They recommended against using it to evaluate research findings. Schimmack and Soto (2026) replied that these limitations apply to selection models in general, not to *z*-curve specifically.
+
+Given this unresolved debate and, more importantly, the fact that these methods can only be applied to a large number of papers (e.g., a literature on a given effect), these methods are not covered further in this book, which focuses on methods for detecting impossible or implausible results within individual articles.
+
 <!-- #### Why this matters for trustworthiness assessment -->
 
 <!-- The null-model view is what makes a *p*-value useful for assessing trustworthiness, and also what limits it. A reported *p*-value is informative about $H_0$ only to the extent that the other assumptions of the null model are credible. Much of this book is about checking those other assumptions: whether the design was as described, whether the reported statistics are internally consistent, and whether the analyses reported are the analyses that were run. When those assumptions are doubtful, a small *p*-value says correspondingly little about the null hypothesis. -->
@@ -259,13 +397,23 @@ Badenes-Ribera, L., Frías-Navarro, D., Iotti, B., Bonilla-Campos, A., & Longoba
 
 Badenes-Ribera, L., Frías-Navarro, D., Monterde-i-Bort, H., & Pascual-Soler, M. (2015). Interpretation of the *p* value: A national survey study in academic psychologists from Spain. *Psicothema*, *27*(3), 290–295. <https://doi.org/10.7334/psicothema2014.283>
 
+Bartoš, F., & Schimmack, U. (2022). Z-curve 2.0: Estimating replication rates and discovery rates. *Meta-Psychology*, *6*. <https://doi.org/10.15626/MP.2021.2720>
+
 Benjamini, Y., De Veaux, R., Efron, B., Evans, S., Glickman, M., Graubard, B. I., He, X., Meng, X.-L., Reid, N., Stigler, S. M., Vardeman, S. B., Wikle, C. K., Wright, T., Young, L. J., & Kafadar, K. (2021). ASA President's Task Force statement on statistical significance and replicability. *Harvard Data Science Review*, *3*(3). <https://doi.org/10.1162/99608f92.f0ad0287>
+
+Bishop, D. V. M., & Thompson, P. A. (2016). Problems in using *p*-curve analysis and text-mining to detect rate of *p*-hacking and evidential value. *PeerJ*, *4*, Article e1715. <https://doi.org/10.7717/peerj.1715>
+
+Brunner, J., & Schimmack, U. (2020). Estimating population mean power under conditions of heterogeneity and selection for significance. *Meta-Psychology*, *4*. <https://doi.org/10.15626/MP.2018.874>
+
+Bruns, S. B., & Ioannidis, J. P. A. (2016). *p*-curve and *p*-hacking in observational research. *PLOS ONE*, *11*(2), Article e0149144. <https://doi.org/10.1371/journal.pone.0149144>
 
 Cassidy, S. A., Dimova, R., Giguère, B., Spence, J. R., & Stanley, D. J. (2019). Failing grade: 89% of introduction-to-psychology textbooks that define or explain statistical significance do so incorrectly. *Advances in Methods and Practices in Psychological Science*, *2*(3), 233–239. <https://doi.org/10.1177/2515245919858072>
 
 Cohen, J. (1994). The earth is round (*p* \< .05). *American Psychologist*, *49*(12), 997–1003. <https://doi.org/10.1037/0003-066X.49.12.997>
 
 Cox, D. R. (2006). *Principles of statistical inference*. Cambridge University Press. <https://doi.org/10.1017/CBO9780511813559>
+
+Erdfelder, E., & Heck, D. W. (2019). Detecting evidential value and *p*-hacking with the *p*-curve tool: A word of caution. *Zeitschrift für Psychologie*, *227*(4), 249–260. <https://doi.org/10.1027/2151-2604/a000383>
 
 Falk, R., & Greenbaum, C. W. (1995). Significance tests die hard: The amazing persistence of a probabilistic misconception. *Theory & Psychology*, *5*(1), 75–98. <https://doi.org/10.1177/0959354395051004>
 
@@ -279,6 +427,10 @@ Greenland, S., Senn, S. J., Rothman, K. J., Carlin, J. B., Poole, C., Goodman, S
 
 Haller, H., & Krauss, S. (2002). Misinterpretations of significance: A problem students share with their teachers? *Methods of Psychological Research Online*, *7*(1), 1–20. <https://epub.uni-regensburg.de/34338/>
 
+Hartgerink, C. H. J., van Aert, R. C. M., Nuijten, M. B., Wicherts, J. M., & van Assen, M. A. L. M. (2016). Distributions of *p*-values smaller than .05 in psychology: What is going on? *PeerJ*, *4*, Article e1935. <https://doi.org/10.7717/peerj.1935>
+
+Hussey, I., Alsalti, T., Bosco, F., Elson, M., & Arslan, R. C. (2025). An aberrant abundance of Cronbach's alpha values at .70. *Advances in Methods and Practices in Psychological Science*, *8*(1), Article 25152459241287123. <https://doi.org/10.1177/25152459241287123>
+
 Kruschke, J. K. (2015). *Doing Bayesian data analysis: A tutorial with R, JAGS, and Stan* (2nd ed.). Academic Press. <https://doi.org/10.1016/C2012-0-00477-2>
 
 Lakens, D. (2022). *Improving your statistical inferences* (Version 1.0.0). Zenodo. <https://doi.org/10.5281/zenodo.6409077>
@@ -287,15 +439,36 @@ Lyu, X.-K., Xu, Y., Zhao, X.-F., Zuo, X.-N., & Hu, C.-P. (2020). Beyond psycholo
 
 Lyu, Z., Peng, K., & Hu, C.-P. (2018). *P*-value, confidence intervals, and statistical inference: A new dataset of misinterpretation. *Frontiers in Psychology*, *9*, Article 868. <https://doi.org/10.3389/fpsyg.2018.00868>
 
+Masicampo, E. J., & Lalande, D. R. (2012). A peculiar prevalence of *p* values just below .05. *Quarterly Journal of Experimental Psychology*, *65*(11), 2271–2279. <https://doi.org/10.1080/17470218.2012.711335>
+
 McElreath, R. (2020). *Statistical rethinking: A Bayesian course with examples in R and Stan* (2nd ed.). CRC Press. <https://doi.org/10.1201/9780429029608>
+
+McShane, B. B., Böckenholt, U., & Hansen, K. T. (2016). Adjusting for publication bias in meta-analysis: An evaluation of selection methods and some cautionary notes. *Perspectives on Psychological Science*, *11*(5), 730–749. <https://doi.org/10.1177/1745691616662243>
 
 McShane, B. B., & Gal, D. (2017). Statistical significance and the dichotomization of evidence. *Journal of the American Statistical Association*, *112*(519), 885–895. <https://doi.org/10.1080/01621459.2017.1289846>
 
 Miller, J., & Ulrich, R. (2016). Interpreting confidence intervals: A comment on Hoekstra, Morey, Rouder, and Wagenmakers (2014). *Psychonomic Bulletin & Review*, *23*(1), 124–130. <https://doi.org/10.3758/s13423-015-0859-7>
 
+Morey, R. D., & Davis-Stober, C. P. (2026). On the poor statistical properties of the *P*-curve meta-analytic procedure. *Journal of the American Statistical Association*, *121*(553), 741–753. <https://doi.org/10.1080/01621459.2025.2544397>
+
 Murphy, S. L., Merz, R., Reimann, L.-E., & Fernández, A. (2025). Nonsignificance misinterpreted as an effect's absence in psychology: Prevalence and temporal analyses. *Royal Society Open Science*, *12*(3), Article 242167. <https://doi.org/10.1098/rsos.242167>
 
 Oakes, M. (1986). *Statistical inference: A commentary for the social and behavioural sciences*. Wiley.
 
+Pek, J., Wu, H., Liu, Y., Dusenbery, K. J., & Wegener, D. T. (2026). What does a *Z*-curve analysis tell us? *Cognition and Emotion*. Advance online publication. <https://doi.org/10.1080/02699931.2026.2613139>
+
+Schimmack, U., & Soto, M. D. (2026). A response to Pek et al.'s commentary on *Z*-curve: Clarifying the assumptions of selection models. *Cognition and Emotion*. Advance online publication. <https://doi.org/10.1080/02699931.2026.2678998>
+
+Simonsohn, U., Nelson, L. D., & Simmons, J. P. (2014a). *P*-curve: A key to the file-drawer. *Journal of Experimental Psychology: General*, *143*(2), 534–547. <https://doi.org/10.1037/a0033242>
+
+Simonsohn, U., Nelson, L. D., & Simmons, J. P. (2014b). *p*-curve and effect size: Correcting for publication bias using only significant results. *Perspectives on Psychological Science*, *9*(6), 666–681. <https://doi.org/10.1177/1745691614553988>
+
+Simonsohn, U., Simmons, J. P., & Nelson, L. D. (2015). Better *P*-curves: Making *P*-curve analysis more robust to errors, fraud, and ambitious *P*-hacking, a reply to Ulrich and Miller (2015). *Journal of Experimental Psychology: General*, *144*(6), 1146–1152. <https://doi.org/10.1037/xge0000104>
+
+Ulrich, R., & Miller, J. (2015). *p*-hacking by post hoc selection with multiple opportunities: Detectability by skewness test? Comment on Simonsohn, Nelson, and Simmons (2014). *Journal of Experimental Psychology: General*, *144*(6), 1137–1145. <https://doi.org/10.1037/xge0000086>
+
+van Aert, R. C. M., Wicherts, J. M., & van Assen, M. A. L. M. (2016). Conducting meta-analyses based on *p* values: Reservations and recommendations for applying *p*-uniform and *p*-curve. *Perspectives on Psychological Science*, *11*(5), 713–729. <https://doi.org/10.1177/1745691616650874>
+
 Wasserstein, R. L., & Lazar, N. A. (2016). The ASA statement on *p*-values: Context, process, and purpose. *The American Statistician*, *70*(2), 129–133. <https://doi.org/10.1080/00031305.2016.1154108>
+
 :::

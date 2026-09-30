@@ -3,3 +3,6 @@
 /_book/*
 .Rproj.user
 /sources
+*.Rhistory
+*.DS_Store
+

@@ -21,6 +21,7 @@ if(file.exists("../_setup.R")){source("../_setup.R")}
 ## Communicating critique
 
 - Communication pathways to elicit correction of the scientific record and scientific belief
+- TODO: COSIG guidelines; material on how to inform editors about their almost unlimited power to retract and ask for more data; the need to ask the “did this even happen” question etc. this part of the book could be for editors.
 
 ## Dealing with common responses
 

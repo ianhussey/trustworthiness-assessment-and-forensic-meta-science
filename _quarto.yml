@@ -51,6 +51,8 @@ book:
     - chapters/forensic_methods_require_validation.qmd
     - chapters/validation_using_simulated_data.qmd
     
+  - references.qmd
+    
   - part: 'Appendices'
     chapters: 
     - appendices/lesson_plan.qmd

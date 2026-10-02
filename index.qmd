@@ -2,7 +2,7 @@
 
 This is the skeleton of a book we are slowly writing. For the moment, you should not expect any meaningful content here.
 
-This [Open Source](license.qmd) eBook provides materials for the semester-long Master's seminar course "Estimating the Credibility of Past Research" that Ian delivers at the University of Bern's Institute of Psychology.
+This [Open Source](#sec-license) eBook provides materials for the semester-long Master's seminar course "Estimating the Credibility of Past Research" that Ian delivers at the University of Bern's Institute of Psychology.
 
 This book is split into four parts:
 
@@ -15,12 +15,12 @@ This book is split into four parts:
 
 There are many excellent Open Source resources to learn simulation studies in R and {tidyverse}. Readers are encouraged to seek them out to support the materials already provided in this book. I can particularly recommend the following ones:
 
-- Heathers, J. (2025) An Introduction To Forensic Metascience [eBook](https://jamesheathers.curve.space/)
-- COSIG: The Collection of Open Science Integrity Guides. Website:[cosig.net](https://cosig.net). doi:[10.17605/OSF.IO/2KDEZ](https://doi.org/10.17605/OSF.IO/2KDEZ)
-- Ozturk, Y., Pirelli, S., Richardson, R.A.K. (2026). Introducing COSIG: The Collection of Open Science Integrity Guides. Zenodo. PLOS Biology 24(6): e3003817. doi:[10.1371/journal.pbio.3003817](https://doi.org/10.1371/journal.pbio.3003817)
-- [trustworthy.scientific.claims: A hub for open-source forensic meta-science methods for assessing the trustworthiness of scientific research. Discover available guides and tools, or contribute to development.](https://trustworthy.scientific.claims/)
+- Heathers, J. (2025) An Introduction To Forensic Metascience. Website: [https://jamesheathers.curve.space](https://jamesheathers.curve.space/)
+- COSIG: The Collection of Open Science Integrity Guides. Website:[cosig.net](https://cosig.net). doi: [10.17605/OSF.IO/2KDEZ](https://doi.org/10.17605/OSF.IO/2KDEZ)
+- Ozturk, Y., Pirelli, S., Richardson, R.A.K. (2026). Introducing COSIG: The Collection of Open Science Integrity Guides. Zenodo. PLOS Biology 24(6): e3003817. doi: [10.1371/journal.pbio.3003817](https://doi.org/10.1371/journal.pbio.3003817)
+- [trustworthy.scientific.claims](https://trustworthy.scientific.claims/): A hub for open-source forensic meta-science methods for assessing the trustworthiness of scientific research. Discover available guides and tools, or contribute to development.
 
-## License
+## License {#sec-license}
 
 © Ian Hussey (2026)
 

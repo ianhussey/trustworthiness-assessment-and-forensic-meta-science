@@ -1,24 +1,399 @@
-# Misinterpretation methods [✎ Outline]{.badge .badge-draft1} {#sec-misinterpretation}
+# Misinterpretation methods [✎ Draft]{.badge .badge-draft2} {#sec-misinterpretation}
 
 ```{r}
 #| include: false
 if(file.exists("../_setup.R")){source("../_setup.R")}
 ```
 
-## Misinterpretation of *p*-values
+Many problems with published research are not errors in the numbers. The numbers are right, but the conclusions drawn from them do not follow. These are failures of claim–evidence alignment, and they are some of the easiest to detect, because the evidence needed to spot them is usually printed in the article itself.
 
-## Misinterpretations in the literature
+This chapter starts with two misinterpretations of *p*-values that are common, consequential, and checkable:
 
-Students who give these answers may therefore be accurately recalling what they were taught. The errors also reach the published literature.
+1. **Absence of evidence is not evidence of absence.** A nonsignificant result is read as showing that there is no effect.
+2. **The difference between "significant" and "not significant" is not itself statistically significant.** One effect is significant and another is not, and this is read as showing that the two effects differ.
+
+Both errors treat the significance threshold as a verdict about the world rather than a statement about the data, and both can usually be checked by calculating one additional number from what the authors report: a confidence interval for the effect in the first case, and a test of the difference in the second.
+
+## Absence of evidence is not evidence of absence {#sec-absence-of-evidence}
+
+::: big-quote
+[Absence of evidence is not evidence of absence.]{.quote}
+
+[@altman1995]{.citation}
+:::
+
+### The error
+
+A *p*-value above .05 is often reported as if it showed that there is no effect: the treatment "did not work", the groups "did not differ", the variable "had no influence", the two conditions were "equivalent", or the trial was "negative". @altman1995 point out that the label "negative" wrongly implies that the study has shown that there is no difference, "whereas usually all that has been shown is an absence of evidence of a difference". These are very different statements.
+
+Recall from @sec-null-model that the *p*-value measures how compatible the data are with the null model. A *p*-value above .05 tells us that the data are not incompatible enough with the null model for us to reject it. It does not tell us that the null model is correct, because the same data are usually also compatible with many other effect sizes, including some that would be large and important. Which effect sizes the data are compatible with is exactly what the confidence interval shows. A nonsignificant result with a narrow interval around zero is informative. A nonsignificant result with a wide interval, stretching from a small harmful effect to a large beneficial one, tells us very little.
+
+The plot below shows two hypothetical studies with exactly the same *p*-value, laid out as in the dance of the *p*-values (@sec-dance): each study's *p*-value is on the right and its effect size estimate is on the left. Both studies are nonsignificant, and both would typically be reported in the same way: "there was no significant effect, *p* = .505". The plot starts by showing only the *p*-values, and on this information the two studies are indistinguishable. Now click the button to reveal their effect sizes and 95% confidence intervals. Study A estimated the effect precisely, and its interval shows that any effect is at most very small (*d* between −0.06 and 0.12). Study B estimated it very imprecisely, and its data are compatible with anything from a moderate negative effect to a large positive one. The *p*-value is the same, but what the two studies tell us about the size of the effect is completely different. Only Study A comes close to providing evidence that there is no meaningful effect; Study B provides almost no information either way.
+
+```{ojs}
+//| echo: false
+viewof showDs = {
+  // a button that toggles between showing and hiding the estimates, styled like Inputs.button.
+  // the value is stored on a wrapping div, because a button's own value property is always a string
+  const button = html`<button class="btn btn-quarto">Show effect sizes and 95% CIs</button>`
+  const view = html`<div>${button}</div>`
+  view.value = false
+  button.onclick = () => {
+    view.value = !view.value
+    button.textContent = `${view.value ? "Hide" : "Show"} effect sizes and 95% CIs`
+    view.dispatchEvent(new Event("input", {bubbles: true}))
+  }
+  return view
+}
+```
+
+```{ojs}
+//| echo: false
+html`<div style="display: flex; gap: 10px;">
+  <div><div style="text-align: center; font-weight: 600;">Cohen's <i>d</i> effect size</div>${samePLeft}</div>
+  <div><div style="text-align: center; font-weight: 600;"><i>p</i>-value</div>${samePRight}</div>
+</div>`
+```
+
+```{ojs}
+//| echo: false
+samePPanelData = [
+  {study: "Study A", est: 0.03, se: 0.045},
+  {study: "Study B", est: 0.30, se: 0.45}
+].map(d => ({...d, lo: d.est - 1.96 * d.se, hi: d.est + 1.96 * d.se, p: 2 * normCdf(-Math.abs(d.est / d.se))}))
+samePPanelWidth = Math.max(160, Math.floor((width - 10) / 2))
+samePLeft = Plot.plot({
+  width: samePPanelWidth, height: 220, marginTop: 20, marginLeft: 65, marginRight: 15, marginBottom: 40,
+  x: {label: "Effect size (d) and 95% CI", domain: [-1, 1.4], grid: true},
+  y: {label: null, domain: samePPanelData.map(d => d.study), padding: 0.5},
+  style: {fontSize: "12px"},
+  marks: [
+    Plot.frame({stroke: "currentColor"}),
+    Plot.ruleX([0], {stroke: "currentColor", strokeDasharray: "4,3", strokeOpacity: 0.4}),
+    showDs
+      ? Plot.ruleY(samePPanelData, {y: "study", x1: "lo", x2: "hi", stroke: "#adb5bd", strokeWidth: 2})
+      : Plot.text(["?"], {frameAnchor: "middle", fontSize: 40, fillOpacity: 0.3}),
+    showDs ? Plot.dot(samePPanelData, {x: "est", y: "study", fill: "#adb5bd", r: 5}) : null,
+    showDs ? Plot.text(samePPanelData, {x: "est", y: "study", text: d => `${d.est.toFixed(2)} [${d.lo.toFixed(2)}, ${d.hi.toFixed(2)}]`, dy: -14, fontWeight: 600, fontSize: 13}) : null
+  ]
+})
+samePRight = Plot.plot({
+  width: samePPanelWidth, height: 220, marginTop: 20, marginLeft: 15, marginRight: 15, marginBottom: 40,
+  x: {label: "p-value", domain: [0, 1], grid: true, ticks: [0, 0.05, 0.25, 0.5, 0.75, 1], tickFormat: d => d === 0 ? "0" : String(d).replace(/^0/, "")},
+  y: {label: null, domain: samePPanelData.map(d => d.study), padding: 0.5, axis: null},
+  style: {fontSize: "12px"},
+  marks: [
+    Plot.frame({stroke: "currentColor"}),
+    Plot.ruleX([0.05], {stroke: "currentColor", strokeDasharray: "4,3", strokeOpacity: 0.4}),
+    Plot.dot(samePPanelData, {x: "p", y: "study", fill: "#adb5bd", r: 5}),
+    Plot.text(samePPanelData, {x: "p", y: "study", text: d => `p ${fmtP(d.p)}`, dy: -14, fontWeight: 600, fontSize: 13})
+  ]
+})
+```
+
+### Why it matters
+
+Most studies are too small to detect effects of the size that would matter. @altman1995 describe a review by Freiman and colleagues of 71 "negative" trials published in the *New England Journal of Medicine*: only about 30% were large enough to have a 90% chance of detecting even a 50% difference in effectiveness between the treatments being compared. They also describe a trial comparing two treatments for variceal bleeding that recruited 100 patients when its own power calculation had called for 1,800. It concluded that the treatments were equally effective, even though the 95% confidence interval included differences in cure rates of up to 20 percentage points. In the most dramatic of their examples, only 5 of 24 trials of fibrinolytic treatment (mostly streptokinase) after heart attack had found a statistically significant reduction in mortality. An overview of all the trials found a clinically worthwhile 22% reduction, but the lack of significance in most individual trials had led to a long delay before this was appreciated.
+
+The consequences are not limited to medicine. In the 1970s, many US states began to allow drivers to turn right at red traffic lights. Before-and-after studies of individual intersections and jurisdictions typically found no statistically significant increase in crashes, and this was taken to mean that the change was safe [@hauer2004]. The individual studies were small, however. When Preusser and colleagues [-@preusser1982] examined larger samples of crash data from several jurisdictions, they found that crashes involving pedestrians and right-turning vehicles at signalised intersections increased by between 48% and 107%, and those involving cyclists by between 72% and 82%. @hauer2004 uses this case as one of his examples of "the harm done by tests of significance".
+
+<!-- TODO: the slides include the "29 extra deaths (+9.4%)" figure for RTOR - add with a source once located. -->
+
+### How common is it?
+
+@aczel2018 examined every nonsignificant result mentioned in the abstracts of articles published in 2015 in three psychology journals (*Psychonomic Bulletin & Review*, *Journal of Experimental Psychology: General*, and *Psychological Science*). In 72% of the 137 cases, the authors interpreted the nonsignificant result as evidence that the effect was absent. When Aczel et al. reanalysed the results using Bayes factors, fewer than 5% provided strong evidence for the null hypothesis over the alternative.
 
 ::: big-number
 [76–85%]{.number}
 
-[of psychology articles that discussed a nonsignificant result interpreted it as evidence that the effect was absent, with no significant change between 2009 and 2021 (Murphy et al., 2025).]{.description}
+[of psychology articles that discussed a nonsignificant result interpreted it as evidence that the effect was absent, with no significant change between 2009 and 2021 [@murphy2025].]{.description}
 :::
 
+@murphy2025 coded the discussion sections of 599 articles in ten psychology journals. Between 54% and 62% of articles explicitly claimed that a nonsignificant result meant there was no effect in the population, while only 4–8% explicitly discussed the possibility that an effect existed but had not been detected.
 
+### Examples
 
+Consider the following statements, of the kind that appear in results sections every day:
+
+- "A *t* test for independent samples on object-location memory showed no significant effect of priming, *t*(99) = .50, *p* = .616, *d* = .12."
+- "The mean proportions of perseverative responses to these tones were very similar between participant groups ... with no significant group difference, *t*(30) = .66, *p* = .51, *d* = .23."
+
+The first is phrased carefully: it reports only that the effect was not significant. The second goes further, describing the groups as "very similar". Whether that is justified depends on what the confidence interval looks like, which the authors do not report. We return to this example below and calculate it.
+
+A higher-profile example comes from a large online study of the "Reading the Mind in the Eyes" test, a measure of theory of mind [@baroncohen2015]. Among typical adults, women scored higher than men on average. Among adults with autism, the authors reported that a two-way ANOVA "showed ... an absence of a sex difference between males and females with autism (*p* = 0.907)", and the article's title describes a "complete absence of typical sex difference". The *p*-value alone cannot support this claim. The question to ask is: do these data show that men and women with autism have equivalent average scores, or only that a difference was not detected? The answer depends on the precision of the estimate of the sex difference within the autism group, and on what size of difference would be considered meaningful. Note also that the claim that the sex difference is *absent in autism but present in typical adults* is a comparison between a significant and a nonsignificant effect, which is the second error covered in this chapter (@sec-difference-in-significance).
+
+<!-- TODO: add the Payne et al. (2013, PSPB) "no evidence that validity in the AMP depends on intentionally rating primes" example, with details of how absence claims can serve motivated reasoning. -->
+
+### What would count as evidence of absence?
+
+A nonsignificant difference test cannot show that an effect is absent, but other analyses can provide evidence that an effect is absent, or at least too small to matter:
+
+- **Confidence intervals.** If the whole interval lies within a range of effects that everyone would agree are trivially small, the data are informative about the absence of a meaningful effect.
+- **Equivalence tests.** The two one-sided tests (TOST) procedure formalises this. The researcher specifies a smallest effect size of interest, which defines equivalence bounds (for example, *d* = −0.3 to 0.3), and then tests whether the effect is significantly *greater than the lower bound* and significantly *less than the upper bound* [@lakens2017equivalence; @lakens2018equivalence]. If both tests are significant, the effect can be declared practically equivalent to zero. This corresponds to checking whether the 90% confidence interval lies entirely inside the bounds.
+- **Bayes factors**, which quantify the relative evidence for the null and alternative hypotheses (@sec-bayes), as in the reanalysis by @aczel2018.
+
+Crossing a difference test with an equivalence test gives four possible conclusions, not two:
+
+|                               | Equivalence test *p* < .05 | Equivalence test *p* ≥ .05 |
+|-------------------------------|----------------------------|----------------------------|
+| **Difference test *p* < .05** | An effect exists, but it is too small to matter | An effect exists and it may be meaningful |
+| **Difference test *p* ≥ .05** | Evidence of absence of a meaningful effect | Inconclusive: absence of evidence |
+
+The plot below shows four hypothetical studies, one in each cell of this table. Each study's estimate is shown with its 95% confidence interval, along with the *p*-value of the traditional difference test (is the effect different from zero?) and of the equivalence test (is the effect smaller than the smallest effect size of interest?). Try changing the equivalence bounds. Notice that Study 3 is nonsignificant under the difference test, just like Study 4, but it is compatible with everything from a moderate negative effect to a large positive one. Its nonsignificance is absence of evidence. Only Study 4 provides evidence of absence, and only relative to bounds that someone has to justify.
+
+```{ojs}
+//| echo: false
+viewof eqBound = Inputs.range([0.05, 0.6], {value: 0.3, step: 0.05, label: "Equivalence bounds (±d)"})
+```
+
+```{ojs}
+//| echo: false
+eqStudies = [
+  {study: "Study 1", est: 0.60, se: 0.15},
+  {study: "Study 2", est: 0.12, se: 0.04},
+  {study: "Study 3", est: 0.10, se: 0.30},
+  {study: "Study 4", est: 0.03, se: 0.06}
+].map(d => {
+  const pDiff = 2 * normCdf(-Math.abs(d.est / d.se))
+  // two one-sided tests: the TOST p-value is the larger of the two one-sided p-values
+  const pLower = 1 - normCdf((d.est + eqBound) / d.se)
+  const pUpper = normCdf((d.est - eqBound) / d.se)
+  const pEq = Math.max(pLower, pUpper)
+  return {...d, lo: d.est - 1.96 * d.se, hi: d.est + 1.96 * d.se, pDiff, pEq,
+          label: `${d.study}\ndifference p ${fmtP(pDiff)}\nequivalence p ${fmtP(pEq)}`}
+})
+
+Plot.plot({
+  height: 360,
+  marginLeft: 180,
+  marginBottom: 45,
+  marginRight: 20,
+  x: {label: "Cohen's d with 95% CI", labelAnchor: "center", labelOffset: 38, domain: [-0.8, 1.2]},
+  y: {label: null, type: "point", domain: eqStudies.map(d => d.label), padding: 0.5, axis: null},
+  style: {fontSize: "13px"},
+  marks: [
+    Plot.text(eqStudies, {x: -0.8, y: "label", text: "label", textAnchor: "end", dx: -10, lineHeight: 1.25}),
+    Plot.rect([{}], {x1: -eqBound, x2: eqBound, fill: "#2780e3", fillOpacity: 0.12}),
+    Plot.ruleX([0], {stroke: "currentColor", strokeDasharray: "4,3", strokeOpacity: 0.6}),
+    Plot.ruleX([-eqBound, eqBound], {stroke: "#2780e3", strokeOpacity: 0.6}),
+    Plot.link(eqStudies, {x1: "lo", x2: "hi", y1: "label", y2: "label", stroke: d => colourFor(d), strokeWidth: 2.5}),
+    Plot.dot(eqStudies, {x: "est", y: "label", fill: d => colourFor(d), r: 6})
+  ]
+})
+```
+
+```{ojs}
+//| echo: false
+md`Shaded region: equivalence bounds of *d* = ±${eqBound.toFixed(2)}. Green: significant difference from zero. Blue: statistically equivalent to zero. Purple: both. Grey: neither (inconclusive).`
+```
+
+```{ojs}
+//| echo: false
+function colourFor(d) {
+  const sigDiff = d.pDiff < 0.05, sigEq = d.pEq < 0.05
+  return sigDiff && sigEq ? "#8e5bb5" : sigDiff ? "#3b9c6e" : sigEq ? "#2780e3" : "#8a8a8a"
+}
+function fmtP(p) {
+  if (p < 0.001) return "< .001"
+  return "= " + p.toFixed(3).replace(/^0/, "")
+}
+function normCdf(x) {
+  // Abramowitz & Stegun 7.1.26
+  const t = 1 / (1 + 0.3275911 * Math.abs(x) / Math.SQRT2)
+  const erf = 1 - (((((1.061405429 * t - 1.453152027) * t) + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t * Math.exp(-x * x / 2)
+  return x >= 0 ? 0.5 * (1 + erf) : 0.5 * (1 - erf)
+}
+```
+
+### Checking for this error in trustworthiness assessment
+
+1. **Find the claims of absence.** Look for phrases such as "no effect", "did not differ", "no difference", "unaffected", "unrelated", "similar", "equivalent", "comparable", "failed to replicate", "no evidence that", and "negative trial", particularly in abstracts and discussions, where results are summarised most loosely.
+2. **Find the evidence for each claim.** Is the claim supported by an equivalence test, a Bayes factor, or a confidence interval that excludes meaningful effects? Or only by *p* > .05?
+3. **If no interval is reported, reconstruct one.** A confidence interval can usually be calculated from the reported test statistic, degrees of freedom, and group sizes (see @sec-recalculation).
+4. **Ask what size of effect would matter**, and whether the interval rules it out. If the authors reported a power analysis, the effect size they powered the study for is a natural benchmark: if the interval includes it, the study cannot claim to have ruled it out.
+5. **Ask whether the argument depends on the absence claim.** Claims of absence are often doing important work: that groups did not differ at baseline, that a treatment had no side effects, that a manipulation did not also change mood, or that an effect did not depend on participants' awareness. They are also often convenient for the authors, which is a good reason to check them carefully.
+
+#### Worked example
+
+Take the second statement above: *t*(30) = .66, *p* = .51, *d* = .23, reported as showing that the two groups were "very similar". Assuming equal group sizes of 16, we can reconstruct the 95% confidence interval for *d* from the *t* statistic using the noncentral *t* distribution:
+
+```{r}
+# 95% CI for Cohen's d from an independent-samples t test, via the noncentral t distribution
+ci_d_from_t <- function(t, n1, n2, conf = .95) {
+  alpha <- 1 - conf
+  df <- n1 + n2 - 2
+  ncp_lower <- uniroot(function(ncp) pt(t, df, ncp) - (1 - alpha/2), c(t - 10, t + 10))$root
+  ncp_upper <- uniroot(function(ncp) pt(t, df, ncp) - alpha/2, c(t - 10, t + 10))$root
+  scale <- sqrt(1/n1 + 1/n2)
+  round(c(d = t * scale, lower = ncp_lower * scale, upper = ncp_upper * scale), 2)
+}
+
+ci_d_from_t(t = 0.66, n1 = 16, n2 = 16)
+```
+
+The data are compatible with anything from a moderate effect in one direction (*d* = −0.46) to a large effect in the other (*d* = 0.93). With 16 participants per group, the study had only about 28% power to detect a difference of *d* = 0.5. The groups may be very similar, but this study cannot tell us whether they are. The appropriate description is that the difference was not statistically significant and was estimated imprecisely.
+
+### Test yourself
+
+::: {.webex-check .webex-box}
+A randomised trial with 20 patients per group compared a new analgesic with placebo and found no significant difference in pain scores, *t*(38) = 1.10, *p* = .28, *d* = 0.35, 95% CI [−0.28, 0.97]. Mark each statement as true or false.
+
+1.  The trial shows that the drug does not reduce pain. `r webexercises::torf(FALSE)`
+2.  The data are compatible with the drug having no effect on pain. `r webexercises::torf(TRUE)`
+3.  The data are compatible with the drug having a large effect on pain. `r webexercises::torf(TRUE)`
+4.  The trial provides good evidence that the drug and placebo are equivalent. `r webexercises::torf(FALSE)`
+5.  To claim that the drug's effect is too small to matter, the authors would need to specify what size of effect would matter and show that the data rule out effects that large. `r webexercises::torf(TRUE)`
+:::
+
+## The difference between "significant" and "not significant" is not itself statistically significant {#sec-difference-in-significance}
+
+::: big-quote
+[The difference between "significant" and "not significant" is not itself statistically significant.]{.quote}
+
+[@gelman2006]{.citation}
+:::
+
+### The error
+
+The second error involves comparing two results by comparing their *p*-values. One effect is significant and another is not, and this is read as showing that the two effects are different: the treatment worked in women but not in men; the effect was found in the original study but not in the replication; the intervention group improved but the control group did not; the effect appeared with one analysis but disappeared with another.
+
+This does not follow. A claim that two effects differ is a claim about the *difference* between them, and it has to be tested directly, with a test of the difference or of the interaction. @gelman2006 emphasise that this is not simply the familiar point that the .05 threshold is arbitrary, so that *p* = .049 and *p* = .051 are practically the same result. Rather, "even large changes in significance levels can correspond to small, nonsignificant changes in the underlying quantities".
+
+### A simple example
+
+@gelman2006 illustrate this with two independent studies that estimate the same effect with the same standard error: 25 ± 10 and 10 ± 10. Study A is significant (*p* = .01); Study B is not (*p* = .32). The tempting conclusion is that A found an effect, B did not, and therefore the two studies found different results.
+
+But the difference between the two estimates is 15, and the difference has its own, larger, standard error: $\sqrt{10^2 + 10^2} \approx 14$. The test of the difference gives *p* = .29, which is no more significant than Study B on its own. Study A crossing the threshold while Study B does not could easily happen even if the two true effects were identical.
+
+```{ojs}
+//| echo: false
+viewof estA = Inputs.range([-40, 60], {value: 25, step: 0.5, label: "Study A: estimate"})
+viewof seA = Inputs.range([0.5, 25], {value: 10, step: 0.5, label: "Study A: standard error"})
+viewof estB = Inputs.range([-40, 60], {value: 10, step: 0.5, label: "Study B: estimate"})
+viewof seB = Inputs.range([0.5, 25], {value: 10, step: 0.5, label: "Study B: standard error"})
+```
+
+```{ojs}
+//| echo: false
+gsRows = {
+  const seDiff = Math.sqrt(seA ** 2 + seB ** 2)
+  return [
+    {name: "Study A", est: estA, se: seA, colour: "#3b9c6e"},
+    {name: "Study B", est: estB, se: seB, colour: "#8a8a8a"},
+    {name: "A − B", est: estA - estB, se: seDiff, colour: "#d9622b"}
+  ].map(d => {
+    const p = 2 * normCdf(-Math.abs(d.est / d.se))
+    return {...d, lo: d.est - 1.96 * d.se, hi: d.est + 1.96 * d.se, p,
+            label: `${d.name}\n${fmtNum(d.est)} ± ${fmtNum(d.se)}, p ${fmtP(p)}`}
+  })
+}
+
+Plot.plot({
+  height: 280,
+  marginLeft: 160,
+  marginBottom: 45,
+  marginRight: 20,
+  x: {label: "Estimate with 95% CI", labelAnchor: "center", labelOffset: 38, domain: [gsXmin, Math.max(45, ...gsRows.map(d => d.hi))]},
+  y: {label: null, type: "point", domain: gsRows.map(d => d.label), padding: 0.5, axis: null},
+  style: {fontSize: "13px"},
+  marks: [
+    Plot.text(gsRows, {x: gsXmin, y: "label", text: "label", textAnchor: "end", dx: -10, lineHeight: 1.25}),
+    Plot.ruleX([0], {stroke: "currentColor", strokeDasharray: "4,3", strokeOpacity: 0.6}),
+    Plot.link(gsRows, {x1: "lo", x2: "hi", y1: "label", y2: "label", stroke: "colour", strokeWidth: 2.5}),
+    Plot.dot(gsRows, {x: "est", y: "label", fill: "colour", r: 6})
+  ]
+})
+```
+
+```{ojs}
+//| echo: false
+gsXmin = Math.min(-10, ...gsRows.map(d => d.lo))
+
+function fmtNum(x) {
+  return Number.isInteger(x) ? String(x) : x.toFixed(1)
+}
+```
+
+The plot starts with Gelman and Stern's numbers. The key feature is the third row, which shows the difference between the two studies and its confidence interval. Whether each study's interval excludes zero tells us nothing about whether the studies differ from each other. Only the interval for the difference tells us that. Try moving Study B's estimate to see how far apart the two estimates have to be before the difference becomes significant, and then try shrinking both standard errors.
+
+@gelman2006 add a third study with a much larger sample, which estimates the effect as 2.5 ± 1.0. This study is exactly as significant as Study A (*p* = .01). Judged by significance alone, it "replicates" Study A. But its estimate is ten times smaller, and the difference between A and this study *is* significant (22.5 ± 10.0, *p* = .03). Its estimate is much closer to that of Study B, the "failed" study. Set Study A to 25 ± 10 and Study B to 2.5 ± 1 to see this. Comparing significance levels can therefore mislead in both directions: it can make results that do not differ look different, and results that do differ look the same.
+
+A related point concerns overlapping confidence intervals. Checking whether two intervals overlap is not a test of their difference either. Two independent estimates with the same standard error whose 95% intervals just touch differ with *p* ≈ .006, and intervals that overlap moderately can still differ significantly. Researchers are not good at judging this by eye [@belia2005]. When in doubt, calculate the difference.
+
+### Where it appears
+
+The error can occur wherever two results are compared, including:
+
+- **Subgroups.** The effect is significant in one group (women, younger adults, patients) but not another, and the authors conclude that the effect is specific to that group, without testing the interaction.
+- **Conditions within a study.** The intervention group improved significantly from baseline and the control group did not, so the intervention is declared effective, without comparing the change between groups. @nieuwenhuis2011 illustrate this and related forms of the error.
+- **Predictors.** @gelman2006 discuss an influential finding that men's sexual orientation was significantly associated with the number of older brothers but not with the number of older sisters, which was widely reported as showing that only older brothers mattered. The two coefficients were never compared, and Gelman and Stern suspect, from the published figures, that the difference between them was not significant.
+- **Series of estimates.** In another of their examples, a study of the effects of electromagnetic fields at many different frequencies grouped the frequencies by whether their effects were significant, and interpreted the groups as reflecting different underlying processes. Plotting the estimates with their standard errors showed a fairly consistent effect across frequencies, with the apparent structure attributable to sampling variability.
+- **Analytic choices.** An effect is significant with one outlier exclusion rule or covariate set but not another, and this is taken as showing that the choice changes the result.
+- **Original studies and replications**, covered below.
+
+@moran2021 provides an example of the analytic choice type, from a registered replication report of a study of whether attitudes can be learned from stimulus pairings that participants are not aware of. The answer depended on how "unaware" participants were defined. Excluding participants using the original study's awareness criterion, the pooled effect was *g* = 0.12, 95% CI [0.05, 0.20]; using an alternative criterion, it was *g* = 0.03, 95% CI [−0.06, 0.13]. Does the exclusion criterion change the result? The two intervals cannot answer this question on their own. Answering it requires an estimate of the difference between the two effects and its uncertainty, and because the two analyses share many of the same participants, that requires an analysis that accounts for the overlap rather than the simple formula used above.
+
+### How common is it?
+
+::: big-number
+[50%]{.number}
+
+[of the neuroscience articles that compared two effects in a way that invited this error made it: 79 of 157, among 513 articles in five top journals [@nieuwenhuis2011].]{.description}
+:::
+
+@nieuwenhuis2011 reviewed 513 behavioural, systems, and cognitive neuroscience articles published in *Science*, *Nature*, *Nature Neuroscience*, *Neuron*, and *The Journal of Neuroscience*. Of the 157 articles in which the authors compared two effects in a way that could lead to the error, 78 used the correct procedure (testing the difference or interaction) and 79 used the incorrect one. An additional analysis suggested that the error was even more common in cellular and molecular neuroscience. Their article is short and has a clear illustrative figure showing the common forms of the error, making it a good companion reading to @gelman2006.
+
+### Checking for this error in trustworthiness assessment
+
+1. **Find the comparative claims.** Look for phrases such as "but not", "only in", "specific to", "selectively", "moderated by", "depended on", "disappeared when", "was eliminated", "was stronger in", and "failed to replicate".
+2. **Check whether the difference was tested.** Is there a test of the interaction, the moderation, or the difference between the estimates? If the claim rests only on one *p*-value being below .05 and another being above, the claim is not supported as stated.
+3. **If the estimates are independent, test the difference yourself.** For two independent estimates with standard errors, the difference is tested with $z = (b_1 - b_2) / \sqrt{SE_1^2 + SE_2^2}$. If only a 95% confidence interval is reported, the standard error can be approximated as its width divided by 3.92.
+4. **If the estimates are not independent**, for example two outcomes measured in the same participants, two coefficients in the same regression model, or two analyses of overlapping samples, this formula is not valid, because it ignores the covariance between them. Note that the difference was not tested and that it cannot be reconstructed from the reported information.
+
+```{r}
+# test of the difference between two independent estimates
+diff_test <- function(est1, se1, est2, se2) {
+  diff <- est1 - est2
+  se_diff <- sqrt(se1^2 + se2^2)
+  z <- diff / se_diff
+  round(c(diff = diff, se = se_diff, z = z, p = 2 * pnorm(-abs(z))), 3)
+}
+
+# approximate standard error from a 95% confidence interval
+se_from_ci <- function(lower, upper) {
+  (upper - lower) / (2 * qnorm(.975))
+}
+
+# Gelman and Stern's example
+diff_test(est1 = 25, se1 = 10, est2 = 10, se2 = 10)
+```
+
+### Implications for replication
+
+The same logic applies to replications. It is common to judge whether a replication "succeeded" by whether it was significant, and whether it "failed" by whether it was not. This compares significance levels, and has both of the problems described above. A nonsignificant replication does not show that the original and replication results differ, and a significant replication does not show that they agree.
+
+There is a further problem. The precision of any test of the difference between an original study and its replication is limited by the less precise of the two, which is usually the original. @morey2016 argue that because original studies in psychology are often so small, many published results are effectively unfalsifiable by replication: even a replication with an enormous sample cannot show that its result differs from the original's.
+
+Consider an original study with 10 participants per group that found *p* = .03, corresponding to *d* = 1.05, 95% CI [0.12, 1.99]. Suppose a replication with 5,000 participants per group finds *d* = 0.20, 95% CI [0.16, 0.24]. The replication is highly significant, so by the criterion of significance it "succeeded". Yet its estimate is one fifth of the original, and the test of the difference between them is not significant:
+
+```{r}
+diff_test(est1 = 1.05, se1 = se_from_ci(0.12, 1.99),
+          est2 = 0.20, se2 = se_from_ci(0.16, 0.24))
+```
+
+The replication was not the problem. Because the original's standard error is almost 0.48, the difference between the two studies would have to be about 0.94 standard deviations before it could reach significance, however large the replication. The original study was too imprecise to tell us much about the size of the effect, and so it is also too imprecise to be contradicted. In trustworthiness assessment, this is a reason to focus on effect size estimates and their precision, and to be cautious of any conclusion, from the original authors or from replicators, that rests on whether results fell on the same side of .05.
+
+### Test yourself
+
+::: {.webex-check .webex-box}
+An article reports that a memory training programme improved recall in younger adults, *p* = .01, but not in older adults, *p* = .20. The abstract concludes that "the benefits of memory training are limited to younger adults". Mark each statement as true or false.
+
+1.  The results show that the effect of training differs between younger and older adults. `r webexercises::torf(FALSE)`
+2.  To support the conclusion in the abstract, the authors would need to test the age group × training interaction. `r webexercises::torf(TRUE)`
+3.  If the 95% confidence intervals for the two age groups overlap, the effects cannot be significantly different. `r webexercises::torf(FALSE)`
+4.  If the two age groups are independent samples and the article reports the estimates and their standard errors, a reader can test the difference themselves. `r webexercises::torf(TRUE)`
+5.  If a large replication finds a significant effect of training in younger adults, it has found the same result as the original study. `r webexercises::torf(FALSE)`
+:::
 
 <!-- - Non-significant *p*-values as evidence for the null -->
 <!-- - Difference between significant and non-significant is not itself significant -->

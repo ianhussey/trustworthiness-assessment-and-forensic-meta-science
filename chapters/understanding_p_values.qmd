@@ -330,7 +330,7 @@ function normInv(p) {
 
 For a fuller version, including the distribution of *p*-values for any power and the option to simulate studies one at a time, see Kristoffer Magnusson's interactive visualisation at [rpsychologist.com/d3/pdist](https://rpsychologist.com/d3/pdist).
 
-#### The dance of the *p*-values
+#### The dance of the *p*-values {#sec-dance}
 
 The distribution in the plot above is also what we would see if we repeated *the same study* many times: same design, same sample size, same true effect. Each repetition gives a different *p*-value, and the spread is much wider than most researchers expect. With 50% power, an exact replication of a study could easily produce anything from *p* < .001 to *p* > .50. @cumming2008 called this the "dance of the *p*-values". In one simulation of 25 repetitions of a typical experiment, *p* ranged from below .001 to .76. He showed that if an initial experiment gives a two-tailed *p* of .05, there is an 80% chance that the one-tailed *p*-value from an exact replication will fall anywhere between .00008 and .44, and that this interval is just as wide whatever the sample size.
 
@@ -776,8 +776,3 @@ Understanding what a *p*-value is, and how *p*-values behave, matters for trustw
 **4. Distributions of *p*-values are flags, not verdicts.** A set of results clustered just below (or just above) .05 is one of the fingerprints of a low-powered or biased literature, and it predicts poor replicability (@sec-barely-significant).
 
 For an individual article, however, this is a weaker signal. Any single *p*-value between .02 and .05 is entirely possible under honest research practices, whether because the study had modest power or simply by chance. The signal lies in patterns across many results: for example, when all of an article's key results fall between .02 and .05, or when a multi-study article reports more significant results than its power could plausibly produce. In null-model terms (@sec-null-model), such a pattern is evidence that some assumption of the null model has failed, and it points to the analysis and reporting assumptions rather than to $H_0$ itself: true effects studied with adequate power do not produce clusters of fragile *p*-values, but selective analysis and reporting do. Even then, excess-significance tests depend on judgements about which experiments and tests bear on the same claim, and on power estimated from the same, possibly inflated, effect sizes. For example, van Boxtel and Koch [-@vanboxtel2016] argued that @francis2014psychsci had wrongly flagged their article by including experiments and tests that did not bear on their central hypothesis, and that similar inclusion decisions could affect 34 of the 44 articles he analysed. @francis2016 replied that the tests he included were those the original authors had themselves used to support their theoretical claims, and that the appearance of excess success remained. Such patterns are therefore best treated as a reason to look more closely, using the methods in the rest of this book, rather than as a conclusion in themselves.
-
-## References {.unnumbered}
-
-::: {#refs}
-:::

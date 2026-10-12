@@ -13,14 +13,13 @@ if(file.exists("../_setup.R")){source("../_setup.R")}
 
 Standardised effect sizes are built from means and standard deviations, so it helps to have a feel for which combinations of the two a given scale can produce. Most scales in psychology are bounded and produce integer responses: a 1–7 Likert item cannot produce a response of 0 or of 4.5. The app below lets you build a sample on such a scale. Set the logical minimum and maximum of the scale, and then set the number of observations at each response option in either of two ways. First, you can draw the distribution: click anywhere in a column to set its bar to that height, or hold the mouse button down and drag across the plot to draw the whole histogram in one movement. The vertical axis rescales when you release, so dragging a bar to the top of the plot makes room for larger counts. Second, you can type the exact number of observations for each response option into the boxes under the axis.
 
-The mean, standard deviation, and sample size update as you go, and the marker under the axis shows the mean ± 1 *SD*. The **Show 95% CIs** button adds confidence intervals to the mean and the standard deviation. An interval for a standard deviation is rarely reported, but it can be calculated, from the chi-squared distribution. Both intervals assume normally distributed data, so they do not respect the bounds of the scale.
+The mean and the standard deviation are plotted below the frequencies, each with its 95% confidence interval, and update as you go. An interval for a standard deviation is rarely reported, but it can be calculated, from the chi-squared distribution. Both intervals assume normally distributed data, so they do not respect the bounds of the scale.
 
 ```{ojs}
 //| echo: false
-// the plot below attaches the buttons' actions. whether CIs are shown is kept on the toggle button itself
+// the plot below attaches the button's action
 oneButtons = html`<div class="sb-buttons">
   <button class="btn btn-quarto sb-clear">Clear</button>
-  <button class="btn btn-quarto sb-toggle-ci">Show 95% CIs</button>
 </div>`
 ```
 
@@ -35,25 +34,31 @@ viewof oneMax = Inputs.number({value: 7, step: 1, label: "Scale maximum"})
 onePlot = {
   const scores = scaleScores(oneMin, oneMax)
   if (!scores) return scaleMessage()
-  const mText = html`<span></span>`, sdText = html`<span></span>`, nText = html`<span></span>`
-  const clearButton = oneButtons.querySelector(".sb-clear"), ciButton = oneButtons.querySelector(".sb-toggle-ci")
+  const colour = "#2780e3"
+  const estimatesPlot = html`<div></div>`
+  // the estimates are plotted in separate subplots, so that each has its own horizontal axis
+  const subplots = [
+    {title: "Mean", names: ["Mean"], unit: "Scale units", include: [0, 1]},
+    {title: "Standard deviation", names: ["SD"], unit: "Scale units", include: [0, 1]}
+  ]
   const update = () => {
     const stats = panel.stats()
-    const text = fmtMeanSd(stats, ciButton.dataset.on === "true")
-    mText.textContent = text.mean
-    sdText.textContent = text.sd
-    nText.textContent = stats.n
+    const rows = []
+    const [lower, upper] = meanCi(stats) ?? [stats.mean, stats.mean]
+    if (stats.n > 0) rows.push({name: "Mean", est: stats.mean, lower, upper, colour})
+    const [sdLower, sdUpper] = sdCi(stats) ?? [stats.sd, stats.sd]
+    if (stats.n > 1) rows.push({name: "SD", est: stats.sd, lower: sdLower, upper: sdUpper, colour})
+    estimatesPlot.replaceChildren(...estimateSubplots(subplots, rows, width))
   }
   const panel = frequencyPanel(scores, oneStore, {onChange: update})
-  panel.append(html`<div class="sb-stats"><span><i>M</i> = ${mText}</span><span><i>SD</i> = ${sdText}</span><span><i>N</i> = ${nText}</span></div>`)
-  clearButton.onclick = () => { oneStore.clear(); panel.refresh(); update() }
-  ciButton.onclick = () => {
-    ciButton.dataset.on = ciButton.dataset.on !== "true"
-    ciButton.textContent = `${ciButton.dataset.on === "true" ? "Hide" : "Show"} 95% CIs`
-    update()
-  }
+  panel.style.setProperty("--sb", colour)
+  oneButtons.querySelector(".sb-clear").onclick = () => { oneStore.clear(); panel.refresh(); update() }
   update()
-  return panel
+  return html`<div>
+    ${panel}
+    <div class="sb-title">Estimates with 95% CIs</div>
+    ${estimatesPlot}
+  </div>`
 }
 ```
 
@@ -104,7 +109,7 @@ dPlot = {
   const grey = "#8a8a8a"
   // the estimates are plotted in three subplots, by type, so that each type has its own horizontal axis
   const subplots = [
-   {title: "Standardized Mean Difference", names: ["Cohen's d"], unit: "Standardized unites", include: [-1, 1]},
+   {title: "Standardized Mean Difference", names: ["Cohen's d"], unit: "Standardized units", include: [-1, 1]},
     {title: "Means", names: [...groups.map(g => `${g.short} mean`), "Mean difference"], unit: "Scale units", include: [0, 1]},
     {title: "Standard deviations", names: [...groups.map(g => `${g.short} SD`), "Pooled SD"], unit: "Scale units", include: [0, 1]}
   ]
@@ -137,24 +142,10 @@ dPlot = {
         {name: "Cohen's d", est: diff / pooled, lower: ncp(0.025) * scale, upper: ncp(0.975) * scale, colour: grey}
       )
     }
-    estimatesPlot.replaceChildren(...subplots.map(s => {
-      const data = rows.filter(d => s.names.includes(d.name))
-      return html`<div><div class="sb-subtitle">${s.title}</div>${Plot.plot({
-        width, height: 55 + 32 * s.names.length, marginTop: 5, marginLeft: 130, marginRight: 20, marginBottom: 45,
-        x: {label: s.unit, labelAnchor: "center", labelOffset: 38, grid: true, nice: true, ticks: 5,
-            domain: d3.extent([...s.include, ...data.flatMap(d => [d.lower, d.upper])])},
-        y: {label: null, type: "point", domain: s.names, padding: 0.5, tickSize: 0},
-        style: {fontSize: "13px"},
-        marks: [
-          Plot.ruleX([0], {stroke: "currentColor", strokeDasharray: "4,3", strokeOpacity: 0.6}),
-          Plot.link(data, {x1: "lower", x2: "upper", y1: "name", y2: "name", stroke: "colour", strokeWidth: 2.5}),
-          Plot.dot(data, {x: "est", y: "name", fill: "colour", r: 6, symbol: "square"})
-        ]
-      })}</div>`
-    }))
+    estimatesPlot.replaceChildren(...estimateSubplots(subplots, rows, width))
   }
   for (const g of groups) {
-    g.panel = frequencyPanel(scores, g.store, {tallest, marker: false, onChange: ({rescaled}) => {
+    g.panel = frequencyPanel(scores, g.store, {tallest, onChange: ({rescaled}) => {
       if (rescaled) groups.forEach(other => { if (other !== g) other.panel.refresh() })
       update()
     }})
@@ -186,13 +177,12 @@ dStores = ({
 ```{ojs}
 //| echo: false
 // shared by the apps above
-function frequencyPanel(scores, store, {onChange = () => {}, tallest, marker = true} = {}) {
+function frequencyPanel(scores, store, {onChange = () => {}, tallest} = {}) {
   // a histogram of the counts in store (a Map of score -> count) that can be edited by drawing in the plot or by
   // typing counts under the axis. onChange is called after every edit, with rescaled: true if the vertical axis
   // may have changed. tallest optionally supplies the count that the vertical axis has to fit, for panels that
-  // share an axis. marker: false leaves out the mean ± 1 SD marker under the axis. the returned element has two extra methods: stats(), and refresh() to redraw after the store
+  // share an axis. the returned element has two extra methods: stats(), and refresh() to redraw after the store
   // has been changed from outside
-  const lo = scores[0]
   const count = s => store.get(s) ?? 0
   const clamp = (x, min, max) => Math.max(min, Math.min(max, x))
 
@@ -202,12 +192,10 @@ function frequencyPanel(scores, store, {onChange = () => {}, tallest, marker = t
   const grid = html`<div></div>`
   const plot = html`<div class="sb-plot">${grid}${scores.map((s, i) => html`<div class="sb-barcol">${ghosts[i]}${bars[i]}</div>`)}</div>`
   const inputs = scores.map(s => html`<input type="number" min="0" step="1" title="Number of observations at ${s}" aria-label="Number of observations at ${s}">`)
-  const sdBar = html`<div class="sb-sd"></div>`, meanDot = html`<div class="sb-mean"></div>`
   const node = html`<div class="sample-builder">
     ${plot}
     <div class="sb-axis">${scores.map(s => html`<span>${s}</span>`)}</div>
     <div class="sb-counts">${inputs}</div>
-    ${marker ? html`<div class="sb-summary">${sdBar}${meanDot}</div>` : ""}
   </div>`
   node.stats = () => sampleStats(new Map(scores.map(s => [s, count(s)])))
 
@@ -218,19 +206,11 @@ function frequencyPanel(scores, store, {onChange = () => {}, tallest, marker = t
     grid.replaceChildren(...d3.ticks(0, yMax, 5).filter(d => d > 0).map(d => html`<div class="sb-gridline" style="bottom: ${d / yMax * 100}%;"><span>${d}</span></div>`))
   }
   const paint = () => {
-    const {n, mean, sd} = node.stats()
     scores.forEach((s, i) => {
       bars[i].style.height = `${Math.min(1, count(s) / yMax) * 100}%`
       // leave the box the user is typing in alone
       if (inputs[i] !== document.activeElement) inputs[i].value = count(s)
     })
-    // horizontal position of a score, as a percentage of the plot width
-    const pos = x => (x - lo + 0.5) / scores.length * 100
-    sdBar.style.display = n > 1 ? "" : "none"
-    sdBar.style.left = `${pos(mean - sd)}%`
-    sdBar.style.width = `${2 * sd / scores.length * 100}%`
-    meanDot.style.display = n > 0 ? "" : "none"
-    meanDot.style.left = `${pos(mean)}%`
   }
   node.refresh = () => { rescale(); paint() }
 
@@ -301,15 +281,24 @@ function scaleScores(min, max) {
 function scaleMessage() {
   return html`<div style="color: var(--bs-secondary-color);">Set the minimum and maximum to whole numbers, with the minimum below the maximum and no more than 31 response options.</div>`
 }
-function fmtMeanSd({n, mean, sd}, showCi) {
-  // text for a sample's mean and SD, optionally with normal-theory 95% CIs:
-  // t distribution for the mean, chi-squared distribution for the SD
-  const withCi = showCi && n > 1 && sd > 0
-  const ci = (lower, upper) => withCi ? `, ${fmtCi(lower, upper)}` : ""
-  return {
-    mean: n > 0 ? mean.toFixed(2) + (withCi ? ci(...meanCi({n, mean, sd})) : "") : "–",
-    sd: n > 1 ? sd.toFixed(2) + (withCi ? ci(...sdCi({n, sd})) : "") : "–"
-  }
+function estimateSubplots(subplots, rows, width) {
+  // one small plot of point estimates and 95% CIs per subplot ({title, names, unit, include}), drawing the rows
+  // ({name, est, lower, upper, colour}) whose names it lists. include gives values that the axis always covers
+  return subplots.map(s => {
+    const data = rows.filter(d => s.names.includes(d.name))
+    return html`<div><div class="sb-subtitle">${s.title}</div>${Plot.plot({
+      width, height: 55 + 32 * s.names.length, marginTop: 5, marginLeft: 130, marginRight: 20, marginBottom: 45,
+      x: {label: s.unit, labelAnchor: "center", labelOffset: 38, grid: true, nice: true, ticks: 5,
+          domain: d3.extent([...s.include, ...data.flatMap(d => [d.lower, d.upper])])},
+      y: {label: null, type: "point", domain: s.names, padding: 0.5, tickSize: 0},
+      style: {fontSize: "13px"},
+      marks: [
+        Plot.ruleX([0], {stroke: "currentColor", strokeDasharray: "4,3", strokeOpacity: 0.6}),
+        Plot.link(data, {x1: "lower", x2: "upper", y1: "name", y2: "name", stroke: "colour", strokeWidth: 2.5}),
+        Plot.dot(data, {x: "est", y: "name", fill: "colour", r: 6, symbol: "square"})
+      ]
+    })}</div>`
+  })
 }
 function meanCi({n, mean, sd}) {
   // 95% CI for a mean, or null if it cannot be calculated
@@ -321,9 +310,6 @@ function sdCi({n, sd}) {
   // 95% CI for an SD, or null if it cannot be calculated
   if (!(n > 1 && sd > 0)) return null
   return [sd * Math.sqrt((n - 1) / chisqQuantile(0.975, n - 1)), sd * Math.sqrt((n - 1) / chisqQuantile(0.025, n - 1))]
-}
-function fmtCi(lower, upper) {
-  return `95% CI [${lower.toFixed(2)}, ${upper.toFixed(2)}]`
 }
 
 function sampleStats(counts) {
@@ -352,10 +338,6 @@ sampleBuilderStyle = html`<style>
   .sample-builder .sb-counts input { flex: 1 1 0; min-width: 0; margin: 0 2px; padding: 1px 0; text-align: center; font-size: 12px; color: inherit; background: transparent; border: 1px solid rgba(128, 128, 128, 0.4); border-radius: 3px; appearance: textfield; -moz-appearance: textfield; }
   .sample-builder .sb-counts input:focus { outline: none; border-color: var(--sb); }
   .sample-builder .sb-counts input::-webkit-inner-spin-button, .sample-builder .sb-counts input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
-  .sample-builder .sb-summary { position: relative; height: 14px; overflow: hidden; margin-top: 0.9rem; }
-  .sample-builder .sb-sd { position: absolute; top: 6px; height: 2px; background: var(--sb); opacity: 0.5; }
-  .sample-builder .sb-mean { position: absolute; top: 2px; width: 10px; height: 10px; margin-left: -5px; background: var(--sb); }
-  .sb-stats { display: flex; align-items: center; gap: 0.25rem 1.5rem; flex-wrap: wrap; margin-top: 1.25rem; font-size: 1.1rem; font-weight: 600; }
   .sb-title { font-weight: 600; margin-top: 1.5rem; }
   .sb-subtitle { font-size: 0.9rem; font-weight: 600; margin: 0.75rem 0 0.25rem; color: var(--bs-secondary-color); }
   .sb-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }

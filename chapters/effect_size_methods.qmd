@@ -9,6 +9,453 @@ if(file.exists("../_setup.R")){source("../_setup.R")}
 
 - Calculation of Cohen's *d*, *r*, etc.
 
+### Means and standard deviations on bounded scales {#sec-mean-sd-builder}
+
+Standardised effect sizes are built from means and standard deviations, so it helps to have a feel for which combinations of the two a given scale can produce. Most scales in psychology are bounded and produce integer responses: a 1–7 Likert item cannot produce a response of 0 or of 4.5. The app below lets you build a sample on such a scale. Set the logical minimum and maximum of the scale, and then set the number of observations at each response option in either of two ways. First, you can draw the distribution: click anywhere in a column to set its bar to that height, or hold the mouse button down and drag across the plot to draw the whole histogram in one movement. The vertical axis rescales when you release, so dragging a bar to the top of the plot makes room for larger counts. Second, you can type the exact number of observations for each response option into the boxes under the axis.
+
+The mean, standard deviation, and sample size update as you go, and the marker under the axis shows the mean ± 1 *SD*. The **Show 95% CIs** button adds confidence intervals to the mean and the standard deviation. An interval for a standard deviation is rarely reported, but it can be calculated, from the chi-squared distribution. Both intervals assume normally distributed data, so they do not respect the bounds of the scale.
+
+```{ojs}
+//| echo: false
+// the plot below attaches the buttons' actions. whether CIs are shown is kept on the toggle button itself
+oneButtons = html`<div class="sb-buttons">
+  <button class="btn btn-quarto sb-clear">Clear</button>
+  <button class="btn btn-quarto sb-toggle-ci">Show 95% CIs</button>
+</div>`
+```
+
+```{ojs}
+//| echo: false
+viewof oneMin = Inputs.number({value: 1, step: 1, label: "Scale minimum"})
+viewof oneMax = Inputs.number({value: 7, step: 1, label: "Scale maximum"})
+```
+
+```{ojs}
+//| echo: false
+onePlot = {
+  const scores = scaleScores(oneMin, oneMax)
+  if (!scores) return scaleMessage()
+  const mText = html`<span></span>`, sdText = html`<span></span>`, nText = html`<span></span>`
+  const clearButton = oneButtons.querySelector(".sb-clear"), ciButton = oneButtons.querySelector(".sb-toggle-ci")
+  const update = () => {
+    const stats = panel.stats()
+    const text = fmtMeanSd(stats, ciButton.dataset.on === "true")
+    mText.textContent = text.mean
+    sdText.textContent = text.sd
+    nText.textContent = stats.n
+  }
+  const panel = frequencyPanel(scores, oneStore, {onChange: update})
+  panel.append(html`<div class="sb-stats"><span><i>M</i> = ${mText}</span><span><i>SD</i> = ${sdText}</span><span><i>N</i> = ${nText}</span></div>`)
+  clearButton.onclick = () => { oneStore.clear(); panel.refresh(); update() }
+  ciButton.onclick = () => {
+    ciButton.dataset.on = ciButton.dataset.on !== "true"
+    ciButton.textContent = `${ciButton.dataset.on === "true" ? "Hide" : "Show"} 95% CIs`
+    update()
+  }
+  update()
+  return panel
+}
+```
+
+```{ojs}
+//| echo: false
+// starting sample; observations outside the current scale bounds are kept but not shown or counted
+oneStore = new Map([[3, 2], [4, 4], [5, 3], [6, 1]])
+```
+
+Try to build a sample with a mean near the top of the scale and a large standard deviation, and notice that you cannot: the closer the mean is to either bound, the smaller the largest possible *SD* becomes. The largest *SD* of all comes from putting half of the observations at each end of the scale.
+
+### Cohen's *d* from two samples {#sec-cohens-d-builder}
+
+Cohen's *d* for two independent groups is the difference between their means divided by their pooled standard deviation:
+
+$$
+d = \frac{M_1 - M_2}{SD_{pooled}}, \qquad SD_{pooled} = \sqrt{\frac{(n_1 - 1)SD_1^2 + (n_2 - 1)SD_2^2}{n_1 + n_2 - 2}}
+$$
+
+The app below works in the same way as the one above, but with two samples on the same scale: an intervention condition and a control condition. Draw or type the frequencies for each condition, and the third panel plots the mean difference (intervention minus control), the pooled *SD*, and Cohen's *d*, each with its 95% confidence interval, with the values printed underneath. The mean difference and the pooled *SD* are in the units of the scale, whereas *d* is in standard deviations. The **Hide 95% CIs** button removes the intervals from the printed values, including those for each condition's mean and *SD*, but the plotted intervals are always shown. The interval for the mean difference uses the *t* distribution, the interval for the pooled *SD* uses the chi-squared distribution, and the interval for *d* uses the noncentral *t* distribution, as in the worked example in @sec-absence-of-evidence. Try changing only the spread of the two samples while keeping their means the same, to see how much *d* depends on the standard deviation, and try to find the largest *d* that the scale allows.
+
+```{ojs}
+//| echo: false
+// the plot below attaches the buttons' actions. whether CIs are shown is kept on the toggle button itself
+dButtons = html`<div class="sb-buttons">
+  <button class="btn btn-quarto sb-clear">Clear</button>
+  <button class="btn btn-quarto sb-toggle-ci" data-on="true">Hide 95% CIs</button>
+</div>`
+```
+
+```{ojs}
+//| echo: false
+viewof dMin = Inputs.number({value: 1, step: 1, label: "Scale minimum"})
+viewof dMax = Inputs.number({value: 7, step: 1, label: "Scale maximum"})
+```
+
+```{ojs}
+//| echo: false
+dPlot = {
+  const scores = scaleScores(dMin, dMax)
+  if (!scores) return scaleMessage()
+  const groups = [
+    {label: "Intervention condition", store: dStores.intervention, colour: "#2780e3"},
+    {label: "Control condition", store: dStores.control, colour: "#d9622b"}
+  ]
+  // both panels share a vertical axis, so that the heights of their bars are comparable
+  const tallest = () => d3.max(groups, g => d3.max(scores, s => g.store.get(s) ?? 0))
+  const diffText = html`<span></span>`, pooledText = html`<span></span>`, dText = html`<span></span>`
+  const ciButton = dButtons.querySelector(".sb-toggle-ci")
+  const estimatesPlot = html`<div></div>`
+  const update = () => {
+    const showCi = ciButton.dataset.on === "true"
+    for (const g of groups) {
+      const stats = g.panel.stats()
+      const text = fmtMeanSd(stats, showCi)
+      g.text.replaceChildren(
+        html`<span><i>M</i> = ${text.mean}</span>`,
+        html`<span><i>SD</i> = ${text.sd}</span>`,
+        html`<span><i>N</i> = ${stats.n}</span>`
+      )
+    }
+    const a = groups[0].panel.stats(), b = groups[1].panel.stats()
+    const df = a.n + b.n - 2
+    const pooled = Math.sqrt((a.ss + b.ss) / df)
+    if (!(a.n > 0 && b.n > 0 && df > 0 && pooled > 0)) {
+      diffText.textContent = pooledText.textContent = dText.textContent = "–"
+      estimatesPlot.replaceChildren()
+      return
+    }
+    const diff = a.mean - b.mean
+    const scale = Math.sqrt(1 / a.n + 1 / b.n)
+    const tCrit = tQuantile(0.975, df)
+    // Cohen's d: the bounds are the noncentrality parameters under which the observed t would sit at the
+    // 97.5th and 2.5th percentiles of the noncentral t distribution, converted from t to d
+    const t = diff / (pooled * scale)
+    const ncp = p => bisect(x => 1 - nctCdf(t, df, x), p, -10 - 2 * Math.abs(t), 10 + 2 * Math.abs(t))
+    const estimates = [
+      // mean difference: t distribution
+      {name: "Mean difference", text: diffText, est: diff, lower: diff - tCrit * pooled * scale, upper: diff + tCrit * pooled * scale},
+      // pooled SD: chi-squared distribution
+      {name: "Pooled SD", text: pooledText, est: pooled, lower: pooled * Math.sqrt(df / chisqQuantile(0.975, df)), upper: pooled * Math.sqrt(df / chisqQuantile(0.025, df))},
+      {name: "Cohen's d", text: dText, est: diff / pooled, lower: ncp(0.025) * scale, upper: ncp(0.975) * scale}
+    ]
+    for (const d of estimates) d.text.textContent = d.est.toFixed(2) + (showCi ? `, ${fmtCi(d.lower, d.upper)}` : "")
+    estimatesPlot.replaceChildren(Plot.plot({
+      width, height: 190, marginLeft: 120, marginRight: 20, marginBottom: 45,
+      x: {label: "Estimate with 95% CI", labelAnchor: "center", labelOffset: 38, grid: true, nice: true,
+          domain: d3.extent([-1, 1, ...estimates.flatMap(d => [d.lower, d.upper])])},
+      y: {label: null, type: "point", domain: estimates.map(d => d.name), padding: 0.5, tickSize: 0},
+      style: {fontSize: "13px"},
+      marks: [
+        Plot.ruleX([0], {stroke: "currentColor", strokeDasharray: "4,3", strokeOpacity: 0.6}),
+        Plot.link(estimates, {x1: "lower", x2: "upper", y1: "name", y2: "name", stroke: "#8a8a8a", strokeWidth: 2.5}),
+        Plot.dot(estimates, {x: "est", y: "name", fill: "#8a8a8a", r: 6, symbol: "square"})
+      ]
+    }))
+  }
+  for (const g of groups) {
+    g.text = html`<div class="sb-stats sb-group-stats"></div>`
+    g.panel = frequencyPanel(scores, g.store, {tallest, onChange: ({rescaled}) => {
+      if (rescaled) groups.forEach(other => { if (other !== g) other.panel.refresh() })
+      update()
+    }})
+    g.panel.style.setProperty("--sb", g.colour)
+    g.panel.append(g.text)
+  }
+  dButtons.querySelector(".sb-clear").onclick = () => {
+    groups.forEach(g => g.store.clear())
+    groups.forEach(g => g.panel.refresh())
+    update()
+  }
+  ciButton.onclick = () => {
+    ciButton.dataset.on = ciButton.dataset.on !== "true"
+    ciButton.textContent = `${ciButton.dataset.on === "true" ? "Hide" : "Show"} 95% CIs`
+    update()
+  }
+  update()
+  return html`<div>
+    ${groups.map(g => html`<div><div class="sb-title" style="color: ${g.colour};">${g.label}</div>${g.panel}</div>`)}
+    <div class="sb-title">Estimates</div>
+    ${estimatesPlot}
+    <div class="sb-results">
+      <div>Mean difference = ${diffText}</div>
+      <div>Pooled <i>SD</i> = ${pooledText}</div>
+      <div>Cohen's <i>d</i> = ${dText}</div>
+    </div>
+  </div>`
+}
+```
+
+```{ojs}
+//| echo: false
+// starting samples; observations outside the current scale bounds are kept but not shown or counted
+dStores = ({
+  intervention: new Map([[3, 2], [4, 4], [5, 7], [6, 5], [7, 2]]),
+  control: new Map([[2, 2], [3, 5], [4, 7], [5, 4], [6, 2]])
+})
+```
+
+```{ojs}
+//| echo: false
+// shared by the apps above
+function frequencyPanel(scores, store, {onChange = () => {}, tallest} = {}) {
+  // a histogram of the counts in store (a Map of score -> count) that can be edited by drawing in the plot or by
+  // typing counts under the axis. onChange is called after every edit, with rescaled: true if the vertical axis
+  // may have changed. tallest optionally supplies the count that the vertical axis has to fit, for panels that
+  // share an axis. the returned element has two extra methods: stats(), and refresh() to redraw after the store
+  // has been changed from outside
+  const lo = scores[0]
+  const count = s => store.get(s) ?? 0
+  const clamp = (x, min, max) => Math.max(min, Math.min(max, x))
+
+  // the plot is built once and then updated in place, so that it is not replaced in the middle of a drag
+  const bars = scores.map(() => html`<div class="sb-bar"></div>`)
+  const ghosts = scores.map(() => html`<div class="sb-ghost"><span></span></div>`)
+  const grid = html`<div></div>`
+  const plot = html`<div class="sb-plot">${grid}${scores.map((s, i) => html`<div class="sb-barcol">${ghosts[i]}${bars[i]}</div>`)}</div>`
+  const inputs = scores.map(s => html`<input type="number" min="0" step="1" title="Number of observations at ${s}" aria-label="Number of observations at ${s}">`)
+  const sdBar = html`<div class="sb-sd"></div>`, meanDot = html`<div class="sb-mean"></div>`
+  const node = html`<div class="sample-builder">
+    ${plot}
+    <div class="sb-axis">${scores.map(s => html`<span>${s}</span>`)}</div>
+    <div class="sb-counts">${inputs}</div>
+    <div class="sb-summary">${sdBar}${meanDot}</div>
+  </div>`
+  node.stats = () => sampleStats(new Map(scores.map(s => [s, count(s)])))
+
+  // top of the vertical axis: a round number with some headroom above the tallest bar
+  let yMax
+  const rescale = () => {
+    yMax = Math.max(10, d3.nice(0, (tallest ? tallest() : d3.max(scores, count)) * 1.25, 5)[1])
+    grid.replaceChildren(...d3.ticks(0, yMax, 5).filter(d => d > 0).map(d => html`<div class="sb-gridline" style="bottom: ${d / yMax * 100}%;"><span>${d}</span></div>`))
+  }
+  const paint = () => {
+    const {n, mean, sd} = node.stats()
+    scores.forEach((s, i) => {
+      bars[i].style.height = `${Math.min(1, count(s) / yMax) * 100}%`
+      // leave the box the user is typing in alone
+      if (inputs[i] !== document.activeElement) inputs[i].value = count(s)
+    })
+    // horizontal position of a score, as a percentage of the plot width
+    const pos = x => (x - lo + 0.5) / scores.length * 100
+    sdBar.style.display = n > 1 ? "" : "none"
+    sdBar.style.left = `${pos(mean - sd)}%`
+    sdBar.style.width = `${2 * sd / scores.length * 100}%`
+    meanDot.style.display = n > 0 ? "" : "none"
+    meanDot.style.left = `${pos(mean)}%`
+  }
+  node.refresh = () => { rescale(); paint() }
+
+  // drawing: the pointer's column gives the response option and its height gives the count
+  const at = e => {
+    const r = plot.getBoundingClientRect()
+    return {
+      i: clamp(Math.floor((e.clientX - r.left) / r.width * scores.length), 0, scores.length - 1),
+      k: clamp(Math.round((r.bottom - e.clientY) / r.height * yMax), 0, yMax)
+    }
+  }
+  const showGhost = (cur) => ghosts.forEach((g, i) => {
+    g.style.display = cur && i === cur.i ? "block" : "none"
+    if (cur && i === cur.i) { g.style.height = `${cur.k / yMax * 100}%`; g.firstChild.textContent = cur.k }
+  })
+  let last = null
+  plot.onpointerdown = e => {
+    if (e.button !== 0) return
+    e.preventDefault()
+    plot.setPointerCapture(e.pointerId)
+    last = at(e)
+    store.set(scores[last.i], last.k)
+    showGhost(last)
+    paint()
+    onChange({rescaled: false})
+  }
+  plot.onpointermove = e => {
+    const cur = at(e)
+    showGhost(cur)
+    if (!last) return
+    // also set any columns that the pointer skipped over since the last event, interpolating their heights
+    const step = Math.sign(cur.i - last.i)
+    for (let i = last.i; i !== cur.i; i += step) {
+      store.set(scores[i + step], Math.round(last.k + (cur.k - last.k) * (i + step - last.i) / (cur.i - last.i)))
+    }
+    store.set(scores[cur.i], cur.k)
+    last = cur
+    paint()
+    onChange({rescaled: false})
+  }
+  plot.onpointerup = plot.onpointercancel = () => {
+    if (!last) return
+    last = null
+    showGhost(null)
+    node.refresh()
+    onChange({rescaled: true})
+  }
+  plot.onpointerleave = () => { if (!last) showGhost(null) }
+
+  // typing: exact counts
+  inputs.forEach((input, i) => {
+    input.oninput = () => {
+      store.set(scores[i], clamp(Math.floor(+input.value) || 0, 0, 9999))
+      node.refresh()
+      onChange({rescaled: true})
+    }
+    input.onblur = paint
+  })
+
+  node.refresh()
+  return node
+}
+
+function scaleScores(min, max) {
+  // the response options of a scale, or null if the bounds are not usable
+  return Number.isInteger(min) && Number.isInteger(max) && min < max && max - min <= 30 ? d3.range(min, max + 1) : null
+}
+function scaleMessage() {
+  return html`<div style="color: var(--bs-secondary-color);">Set the minimum and maximum to whole numbers, with the minimum below the maximum and no more than 31 response options.</div>`
+}
+function fmtMeanSd({n, mean, sd}, showCi) {
+  // text for a sample's mean and SD, optionally with normal-theory 95% CIs:
+  // t distribution for the mean, chi-squared distribution for the SD
+  const withCi = showCi && n > 1 && sd > 0
+  const ci = (lower, upper) => withCi ? `, ${fmtCi(lower, upper)}` : ""
+  const tCrit = withCi ? tQuantile(0.975, n - 1) : NaN
+  return {
+    mean: n > 0 ? mean.toFixed(2) + ci(mean - tCrit * sd / Math.sqrt(n), mean + tCrit * sd / Math.sqrt(n)) : "–",
+    sd: n > 1 ? sd.toFixed(2) + ci(sd * Math.sqrt((n - 1) / chisqQuantile(0.975, n - 1)), sd * Math.sqrt((n - 1) / chisqQuantile(0.025, n - 1))) : "–"
+  }
+}
+function fmtCi(lower, upper) {
+  return `95% CI [${lower.toFixed(2)}, ${upper.toFixed(2)}]`
+}
+
+function sampleStats(counts) {
+  // counts: Map of score -> number of observations. ss is the sum of squared deviations from the mean,
+  // and sd is the sample SD (n - 1 denominator)
+  const entries = [...counts]
+  const n = d3.sum(entries, ([, k]) => k)
+  const mean = d3.sum(entries, ([s, k]) => s * k) / n
+  const ss = n > 0 ? d3.sum(entries, ([s, k]) => k * (s - mean) ** 2) : 0
+  return {n, mean, ss, sd: Math.sqrt(ss / (n - 1))}
+}
+
+sampleBuilderStyle = html`<style>
+  .sample-builder { --sb: #2780e3; margin: 1rem 0; padding-left: 2rem; }
+  .sample-builder .sb-plot { position: relative; display: flex; height: 240px; border-bottom: 1px solid currentColor; cursor: crosshair; touch-action: none; user-select: none; -webkit-user-select: none; }
+  .sample-builder .sb-gridline { position: absolute; left: 0; right: 0; border-top: 1px solid rgba(128, 128, 128, 0.25); pointer-events: none; }
+  .sample-builder .sb-gridline span { position: absolute; left: -2rem; width: 1.6rem; top: -0.6em; text-align: right; font-size: 11px; line-height: 1.2; }
+  .sample-builder .sb-barcol { flex: 1 1 0; min-width: 0; position: relative; }
+  .sample-builder .sb-bar, .sample-builder .sb-ghost { position: absolute; bottom: 0; left: 15%; right: 15%; border-radius: 2px 2px 0 0; pointer-events: none; }
+  .sample-builder .sb-bar { background: var(--sb); }
+  .sample-builder .sb-ghost { border: 1px dashed var(--sb); border-bottom: none; display: none; }
+  .sample-builder .sb-ghost span { position: absolute; top: -1.4em; left: -1rem; right: -1rem; text-align: center; font-size: 11px; color: var(--sb); }
+  .sample-builder .sb-axis { display: flex; font-size: 12px; }
+  .sample-builder .sb-axis span { flex: 1 1 0; min-width: 0; text-align: center; }
+  .sample-builder .sb-counts { display: flex; margin-top: 2px; }
+  .sample-builder .sb-counts input { flex: 1 1 0; min-width: 0; margin: 0 2px; padding: 1px 0; text-align: center; font-size: 12px; color: inherit; background: transparent; border: 1px solid rgba(128, 128, 128, 0.4); border-radius: 3px; appearance: textfield; -moz-appearance: textfield; }
+  .sample-builder .sb-counts input:focus { outline: none; border-color: var(--sb); }
+  .sample-builder .sb-counts input::-webkit-inner-spin-button, .sample-builder .sb-counts input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+  .sample-builder .sb-summary { position: relative; height: 14px; overflow: hidden; margin-top: 0.9rem; }
+  .sample-builder .sb-sd { position: absolute; top: 6px; height: 2px; background: var(--sb); opacity: 0.5; }
+  .sample-builder .sb-mean { position: absolute; top: 2px; width: 10px; height: 10px; margin-left: -5px; background: var(--sb); }
+  .sample-builder .sb-stats { display: flex; align-items: center; gap: 0.25rem 1.5rem; flex-wrap: wrap; margin-top: 1.25rem; font-size: 1.1rem; font-weight: 600; }
+  .sample-builder .sb-stats.sb-group-stats { margin-top: 0.75rem; font-size: 1rem; }
+  .sb-title { font-weight: 600; margin-top: 1.5rem; }
+  .sb-results { margin: 1.5rem 0 1rem; font-size: 1.1rem; font-weight: 600; }
+  .sb-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+</style>`
+
+// quantiles of the t and chi-squared distributions, found by bisection on their cumulative distribution functions
+function tQuantile(p, df) {
+  const cdf = x => x > 0 ? 1 - 0.5 * betaI(df / (df + x * x), df / 2, 0.5) : 0.5 * betaI(df / (df + x * x), df / 2, 0.5)
+  return bisect(cdf, p, -1e4, 1e4)
+}
+function chisqQuantile(p, df) {
+  return bisect(x => gammaP(df / 2, x / 2), p, 0, df + 20 * Math.sqrt(2 * df) + 50)
+}
+function bisect(cdf, p, lower, upper) {
+  for (let i = 0; i < 100; i++) {
+    const mid = (lower + upper) / 2
+    if (cdf(mid) < p) lower = mid; else upper = mid
+  }
+  return (lower + upper) / 2
+}
+function nctCdf(t, df, ncp) {
+  // cumulative distribution function of the noncentral t distribution. T = (Z + ncp) / (U / sqrt(df)), where Z is
+  // standard normal and U follows a chi distribution, so P(T <= t) is the average of normCdf(t * u / sqrt(df) - ncp)
+  // over the distribution of U. the average is calculated by numerical integration (Simpson's rule)
+  const logConstant = -(df / 2 - 1) * Math.LN2 - logGamma(df / 2)
+  const density = u => u > 0 ? Math.exp((df - 1) * Math.log(u) - u * u / 2 + logConstant) : (df === 1 ? Math.exp(logConstant) : 0)
+  const from = Math.max(0, Math.sqrt(df) - 8), to = Math.sqrt(df) + 8, steps = 400, h = (to - from) / steps
+  let sum = 0
+  for (let i = 0; i <= steps; i++) {
+    const u = from + i * h
+    sum += (i === 0 || i === steps ? 1 : i % 2 ? 4 : 2) * density(u) * normCdf(t * u / Math.sqrt(df) - ncp)
+  }
+  return sum * h / 3
+}
+function normCdf(x) {
+  // Abramowitz & Stegun 7.1.26
+  const t = 1 / (1 + 0.3275911 * Math.abs(x) / Math.SQRT2)
+  const erf = 1 - (((((1.061405429 * t - 1.453152027) * t) + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t * Math.exp(-x * x / 2)
+  return x >= 0 ? 0.5 * (1 + erf) : 0.5 * (1 - erf)
+}
+function logGamma(x) {
+  // Lanczos approximation
+  const c = [76.18009172947146, -86.50532032941677, 24.01409824083091, -1.231739572450155, 0.001208650973866179, -0.000005395239384953]
+  let y = x, sum = 1.000000000190015
+  for (const cj of c) sum += cj / ++y
+  return -(x + 5.5) + (x + 0.5) * Math.log(x + 5.5) + Math.log(2.5066282746310005 * sum / x)
+}
+function gammaP(a, x) {
+  // regularised lower incomplete gamma function: series for small x, continued fraction otherwise
+  if (x <= 0) return 0
+  const front = Math.exp(-x + a * Math.log(x) - logGamma(a))
+  if (x < a + 1) {
+    let term = 1 / a, sum = term
+    for (let n = 1; n < 500; n++) { term *= x / (a + n); sum += term; if (Math.abs(term) < Math.abs(sum) * 1e-14) break }
+    return sum * front
+  }
+  let b = x + 1 - a, c = 1e300, d = 1 / b, h = d
+  for (let i = 1; i < 500; i++) {
+    const an = -i * (i - a)
+    b += 2
+    d = an * d + b; if (Math.abs(d) < 1e-300) d = 1e-300
+    c = b + an / c; if (Math.abs(c) < 1e-300) c = 1e-300
+    d = 1 / d
+    const del = d * c
+    h *= del
+    if (Math.abs(del - 1) < 1e-14) break
+  }
+  return 1 - front * h
+}
+function betaI(x, a, b) {
+  // regularised incomplete beta function, by continued fraction
+  if (x <= 0) return 0
+  if (x >= 1) return 1
+  const front = Math.exp(logGamma(a + b) - logGamma(a) - logGamma(b) + a * Math.log(x) + b * Math.log(1 - x))
+  const cf = (x, a, b) => {
+    let c = 1, d = 1 - (a + b) * x / (a + 1)
+    if (Math.abs(d) < 1e-300) d = 1e-300
+    d = 1 / d
+    let h = d
+    for (let m = 1; m < 500; m++) {
+      let aa = m * (b - m) * x / ((a + 2 * m - 1) * (a + 2 * m))
+      d = 1 + aa * d; if (Math.abs(d) < 1e-300) d = 1e-300
+      c = 1 + aa / c; if (Math.abs(c) < 1e-300) c = 1e-300
+      d = 1 / d
+      h *= d * c
+      aa = -(a + m) * (a + b + m) * x / ((a + 2 * m) * (a + 2 * m + 1))
+      d = 1 + aa * d; if (Math.abs(d) < 1e-300) d = 1e-300
+      c = 1 + aa / c; if (Math.abs(c) < 1e-300) c = 1e-300
+      d = 1 / d
+      const del = d * c
+      h *= del
+      if (Math.abs(del - 1) < 1e-14) break
+    }
+    return h
+  }
+  return x < (a + 1) / (a + b + 2) ? front * cf(x, a, b) / a : 1 - front * cf(1 - x, b, a) / b
+}
+```
+
 ## Distributions of effect sizes
 
 - Distributions of *d*, *r*, partial eta-squared, etc.

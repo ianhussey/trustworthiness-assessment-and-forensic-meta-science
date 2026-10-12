@@ -70,6 +70,98 @@ oneStore = new Map([[3, 2], [4, 4], [5, 3], [6, 1]])
 
 Try to build a sample with a mean near the top of the scale and a large standard deviation, and notice that you cannot: the closer the mean is to either bound, the smaller the largest possible *SD* becomes. The largest *SD* of all comes from putting half of the observations at each end of the scale.
 
+### Standardisation {#sec-standardisation}
+
+The same construct is often measured with different scales, and different scales have different units. Depression, for example, is commonly measured with the BDI-II, which ranges from 0 to 63, the PHQ-9, which ranges from 0 to 27, and the HAM-D, which ranges from 0 to 52. A difference of 5 points between two groups means something different on each of them, so results from studies that used different scales cannot be compared or combined in their original units.
+
+The plot below shows these three scales, each with its logical range and the mean ± 1 *SD* of a hypothetical sample of depressed patients. The values are illustrative, not taken from a particular study. The buttons re-express the same three samples in different units:
+
+- **Scale units** are the original units of each scale.
+- **SD units** divide every score by that sample's standard deviation. This is the standardisation used by Cohen's *d* and other standardised mean differences.
+- **POMP** (percent of maximum possible) re-expresses every score as a percentage of the distance from the scale's minimum to its maximum.
+
+Switch between them and pay attention to what lines up and what does not.
+
+```{ojs}
+//| echo: false
+standardisationPlot = {
+  // illustrative values for a hypothetical sample of depressed patients on each scale
+  const scales = [
+    {name: "BDI-II", min: 0, max: 63, mean: 28, sd: 10},
+    {name: "PHQ-9", min: 0, max: 27, mean: 15, sd: 5},
+    {name: "HAM-D", min: 0, max: 52, mean: 20, sd: 6}
+  ]
+  // each view re-expresses a score v on scale s in different units. aligned names the one quantity that the
+  // view makes the same on every scale, which is highlighted in the labels
+  const views = [
+    {button: "Scale units", axis: "Scale points", digits: 0, aligned: null, f: (s, v) => v,
+     caption: "In scale units, nothing lines up: each scale has its own range, mean, and SD."},
+    {button: "SD units", axis: "Standard deviations", digits: 2, aligned: "sd", f: (s, v) => v / s.sd,
+     caption: "In SD units, one SD is the same length on every scale, so a difference between two means can be expressed as a number of SDs on any of them. Only the SDs line up: the means still differ, and so do the ranges."},
+    {button: "POMP", axis: "Percent of maximum possible (POMP)", digits: 1, aligned: "range", f: (s, v) => (v - s.min) / (s.max - s.min) * 100,
+     caption: "In POMP units, every scale runs from 0 to 100. Only the ranges line up: the means and the SDs still differ."}
+  ]
+  const blue = "#2780e3"
+  const margin = {top: 10, right: 20, bottom: 45, left: 70}, rowHeight = 64
+  const height = margin.top + rowHeight * scales.length + margin.bottom
+  const rowY = i => margin.top + rowHeight * i + 42
+
+  const svg = d3.create("svg").attr("class", "sb-std").attr("width", width).attr("height", height).attr("viewBox", [0, 0, width, height])
+  const axisG = svg.append("g").attr("transform", `translate(0, ${height - margin.bottom})`)
+  const axisLabel = svg.append("text").attr("x", (margin.left + width - margin.right) / 2).attr("y", height - 8).attr("text-anchor", "middle").attr("font-size", 13).attr("fill", "currentColor")
+  const rows = svg.selectAll("g.sb-row").data(scales).join("g").attr("class", "sb-row").attr("transform", (s, i) => `translate(0, ${rowY(i)})`)
+  rows.append("text").attr("x", margin.left - 12).attr("dy", "0.35em").attr("text-anchor", "end").attr("font-size", 13).attr("font-weight", 600).attr("fill", "currentColor").text(s => s.name)
+  const labels = rows.append("text").attr("x", margin.left).attr("y", -20).attr("font-size", 12).attr("fill", "currentColor")
+  // logical range of the scale, with a cap at each end
+  const range = rows.append("line").attr("stroke", "currentColor").attr("stroke-opacity", 0.4).attr("stroke-width", 2)
+  const capLo = rows.append("line").attr("y1", -7).attr("y2", 7).attr("stroke", "currentColor").attr("stroke-opacity", 0.4).attr("stroke-width", 2)
+  const capHi = rows.append("line").attr("y1", -7).attr("y2", 7).attr("stroke", "currentColor").attr("stroke-opacity", 0.4).attr("stroke-width", 2)
+  // mean ± 1 SD
+  const sdBar = rows.append("line").attr("stroke", blue).attr("stroke-width", 5)
+  const meanDot = rows.append("rect").attr("y", -7).attr("width", 14).attr("height", 14).attr("fill", blue)
+
+  const buttons = views.map(v => Object.assign(html`<button class="btn btn-quarto">${v.button}</button>`, {onclick: () => show(v, true)}))
+  const caption = html`<div class="sb-caption"></div>`
+  const show = (view, animate) => {
+    views.forEach((v, i) => buttons[i].classList.toggle("sb-off", v !== view))
+    caption.textContent = view.caption
+    axisLabel.text(view.axis)
+    const x = d3.scaleLinear()
+      .domain([Math.min(0, d3.min(scales, s => view.f(s, s.min))), d3.max(scales, s => view.f(s, s.max))]).nice()
+      .range([margin.left, width - margin.right])
+    const at = (s, v) => x(view.f(s, v))
+    const fmt = v => v.toFixed(view.digits)
+    const highlight = (text, on) => on ? `<tspan font-weight="700" fill="${blue}">${text}</tspan>` : text
+    labels.html(s => [
+      highlight(`range ${+fmt(view.f(s, s.min))} to ${+fmt(view.f(s, s.max))}`, view.aligned === "range"),
+      `M = ${fmt(view.f(s, s.mean))}`,
+      highlight(`SD = ${fmt(view.f(s, s.mean + s.sd) - view.f(s, s.mean))}`, view.aligned === "sd")
+    ].join(" · "))
+    // the elements slide to their new positions, unless the reader has asked for reduced motion
+    const duration = animate && !matchMedia("(prefers-reduced-motion: reduce)").matches ? 800 : 0
+    const move = selection => selection.transition().duration(duration)
+    move(axisG).call(d3.axisBottom(x).ticks(6).tickSizeInner(-(height - margin.top - margin.bottom)).tickPadding(8))
+    move(range).attr("x1", s => at(s, s.min)).attr("x2", s => at(s, s.max))
+    move(capLo).attr("x1", s => at(s, s.min)).attr("x2", s => at(s, s.min))
+    move(capHi).attr("x1", s => at(s, s.max)).attr("x2", s => at(s, s.max))
+    move(sdBar).attr("x1", s => at(s, s.mean - s.sd)).attr("x2", s => at(s, s.mean + s.sd))
+    move(meanDot).attr("x", s => at(s, s.mean) - 7)
+  }
+  show(views[0], false)
+  return html`<div>
+    <div class="sb-buttons">${buttons}</div>
+    ${svg.node()}
+    ${caption}
+  </div>`
+}
+```
+
+Standardising by the *SD* makes one thing comparable across scales: the unit. One *SD* is the same length on every scale, which is what allows a mean difference of 5 points on the BDI-II to be compared with a mean difference of 2.5 points on the PHQ-9. It does not make anything else comparable. The three samples still have different means in *SD* units, and the scales still have different ranges. Note also that the unit is a property of the sample, not of the scale: a study that recruited a more homogeneous sample would have a smaller *SD*, and the same difference in scale points would become a larger standardised difference.
+
+POMP makes a different thing comparable: the range. Every scale runs from 0 to 100, but the samples' means and *SD*s still differ. POMP units depend only on the scale, not on the sample, but they assume that the full range of one scale corresponds to the full range of another, which need not be true.
+
+<!-- TODO: add a citation for POMP (Cohen, Cohen, Aiken & West, 1999) to references.bib and cite it above. -->
+
 ### Cohen's *d* from two samples {#sec-cohens-d-builder}
 
 Cohen's *d* for two independent groups is the difference between their means divided by their pooled standard deviation:
@@ -341,6 +433,14 @@ sampleBuilderStyle = html`<style>
   .sb-title { font-weight: 600; margin-top: 1.5rem; }
   .sb-subtitle { font-size: 0.9rem; font-weight: 600; margin: 0.75rem 0 0.25rem; color: var(--bs-secondary-color); }
   .sb-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  /* standardisation plot: the buttons other than the current view are outlined */
+  .btn.btn-quarto.sb-off { background: transparent; color: #2780e3; }
+  .btn.btn-quarto.sb-off:hover { background: #1f6ab8; color: #fff; }
+  .sb-std { max-width: 100%; overflow: visible; }
+  .sb-std .domain { display: none; }
+  .sb-std .tick line { stroke-opacity: 0.12; }
+  .sb-std .tick text { font-size: 12px; }
+  .sb-caption { min-height: 4.5em; margin: 0.25rem 0 1rem; font-weight: 600; }
 </style>`
 
 // quantiles of the t and chi-squared distributions, found by bisection on their cumulative distribution functions

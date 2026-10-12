@@ -73,14 +73,13 @@ $$
 d = \frac{M_1 - M_2}{SD_{pooled}}, \qquad SD_{pooled} = \sqrt{\frac{(n_1 - 1)SD_1^2 + (n_2 - 1)SD_2^2}{n_1 + n_2 - 2}}
 $$
 
-The app below works in the same way as the one above, but with two samples on the same scale: an intervention condition and a control condition. Draw or type the frequencies for each condition, and the third panel plots the mean difference (intervention minus control), the pooled *SD*, and Cohen's *d*, each with its 95% confidence interval, with the values printed underneath. The mean difference and the pooled *SD* are in the units of the scale, whereas *d* is in standard deviations. The **Hide 95% CIs** button removes the intervals from the printed values, including those for each condition's mean and *SD*, but the plotted intervals are always shown. The interval for the mean difference uses the *t* distribution, the interval for the pooled *SD* uses the chi-squared distribution, and the interval for *d* uses the noncentral *t* distribution, as in the worked example in @sec-absence-of-evidence. Try changing only the spread of the two samples while keeping their means the same, to see how much *d* depends on the standard deviation, and try to find the largest *d* that the scale allows.
+The app below works in the same way as the one above, but with two samples on the same scale: an intervention condition and a control condition. Draw or type the frequencies for each condition, and the estimates below them update as you go, each with its 95% confidence interval. They are plotted in three groups, each with its own axis: the two means and the difference between them (intervention minus control), the two *SD*s and the pooled *SD*, and the standardised mean difference, Cohen's *d*. The first two groups are in the units of the scale, whereas *d* is in standard deviations. The interval for the mean difference uses the *t* distribution, the interval for the pooled *SD* uses the chi-squared distribution, and the interval for *d* uses the noncentral *t* distribution, as in the worked example in @sec-absence-of-evidence. Try changing only the spread of the two samples while keeping their means the same, to see how much *d* depends on the standard deviation, and try to find the largest *d* that the scale allows.
 
 ```{ojs}
 //| echo: false
-// the plot below attaches the buttons' actions. whether CIs are shown is kept on the toggle button itself
+// the plot below attaches the button's action
 dButtons = html`<div class="sb-buttons">
   <button class="btn btn-quarto sb-clear">Clear</button>
-  <button class="btn btn-quarto sb-toggle-ci" data-on="true">Hide 95% CIs</button>
 </div>`
 ```
 
@@ -96,90 +95,81 @@ dPlot = {
   const scores = scaleScores(dMin, dMax)
   if (!scores) return scaleMessage()
   const groups = [
-    {label: "Intervention condition", store: dStores.intervention, colour: "#2780e3"},
-    {label: "Control condition", store: dStores.control, colour: "#d9622b"}
+    {label: "Intervention condition", short: "Intervention", store: dStores.intervention, colour: "#2780e3"},
+    {label: "Control condition", short: "Control", store: dStores.control, colour: "#d9622b"}
   ]
   // both panels share a vertical axis, so that the heights of their bars are comparable
   const tallest = () => d3.max(groups, g => d3.max(scores, s => g.store.get(s) ?? 0))
-  const diffText = html`<span></span>`, pooledText = html`<span></span>`, dText = html`<span></span>`
-  const ciButton = dButtons.querySelector(".sb-toggle-ci")
   const estimatesPlot = html`<div></div>`
+  const grey = "#8a8a8a"
+  // the estimates are plotted in three subplots, by type, so that each type has its own horizontal axis
+  const subplots = [
+   {title: "Standardized Mean Difference", names: ["Cohen's d"], unit: "Standardized unites", include: [-1, 1]},
+    {title: "Means", names: [...groups.map(g => `${g.short} mean`), "Mean difference"], unit: "Scale units", include: [0, 1]},
+    {title: "Standard deviations", names: [...groups.map(g => `${g.short} SD`), "Pooled SD"], unit: "Scale units", include: [0, 1]}
+  ]
   const update = () => {
-    const showCi = ciButton.dataset.on === "true"
+    // rows of the estimates subplots: each condition's mean and SD, then the three effect size statistics
+    const rows = []
     for (const g of groups) {
       const stats = g.panel.stats()
-      const text = fmtMeanSd(stats, showCi)
-      g.text.replaceChildren(
-        html`<span><i>M</i> = ${text.mean}</span>`,
-        html`<span><i>SD</i> = ${text.sd}</span>`,
-        html`<span><i>N</i> = ${stats.n}</span>`
-      )
+      const [lower, upper] = meanCi(stats) ?? [stats.mean, stats.mean]
+      if (stats.n > 0) rows.push({name: `${g.short} mean`, est: stats.mean, lower, upper, colour: g.colour})
+      const [sdLower, sdUpper] = sdCi(stats) ?? [stats.sd, stats.sd]
+      if (stats.n > 1) rows.push({name: `${g.short} SD`, est: stats.sd, lower: sdLower, upper: sdUpper, colour: g.colour})
     }
     const a = groups[0].panel.stats(), b = groups[1].panel.stats()
     const df = a.n + b.n - 2
     const pooled = Math.sqrt((a.ss + b.ss) / df)
-    if (!(a.n > 0 && b.n > 0 && df > 0 && pooled > 0)) {
-      diffText.textContent = pooledText.textContent = dText.textContent = "–"
-      estimatesPlot.replaceChildren()
-      return
+    if (a.n > 0 && b.n > 0 && df > 0 && pooled > 0) {
+      const diff = a.mean - b.mean
+      const scale = Math.sqrt(1 / a.n + 1 / b.n)
+      const tCrit = tQuantile(0.975, df)
+      // Cohen's d: the bounds are the noncentrality parameters under which the observed t would sit at the
+      // 97.5th and 2.5th percentiles of the noncentral t distribution, converted from t to d
+      const t = diff / (pooled * scale)
+      const ncp = p => bisect(x => 1 - nctCdf(t, df, x), p, -10 - 2 * Math.abs(t), 10 + 2 * Math.abs(t))
+      rows.push(
+        // mean difference: t distribution
+        {name: "Mean difference", est: diff, lower: diff - tCrit * pooled * scale, upper: diff + tCrit * pooled * scale, colour: grey},
+        // pooled SD: chi-squared distribution
+        {name: "Pooled SD", est: pooled, lower: pooled * Math.sqrt(df / chisqQuantile(0.975, df)), upper: pooled * Math.sqrt(df / chisqQuantile(0.025, df)), colour: grey},
+        {name: "Cohen's d", est: diff / pooled, lower: ncp(0.025) * scale, upper: ncp(0.975) * scale, colour: grey}
+      )
     }
-    const diff = a.mean - b.mean
-    const scale = Math.sqrt(1 / a.n + 1 / b.n)
-    const tCrit = tQuantile(0.975, df)
-    // Cohen's d: the bounds are the noncentrality parameters under which the observed t would sit at the
-    // 97.5th and 2.5th percentiles of the noncentral t distribution, converted from t to d
-    const t = diff / (pooled * scale)
-    const ncp = p => bisect(x => 1 - nctCdf(t, df, x), p, -10 - 2 * Math.abs(t), 10 + 2 * Math.abs(t))
-    const estimates = [
-      // mean difference: t distribution
-      {name: "Mean difference", text: diffText, est: diff, lower: diff - tCrit * pooled * scale, upper: diff + tCrit * pooled * scale},
-      // pooled SD: chi-squared distribution
-      {name: "Pooled SD", text: pooledText, est: pooled, lower: pooled * Math.sqrt(df / chisqQuantile(0.975, df)), upper: pooled * Math.sqrt(df / chisqQuantile(0.025, df))},
-      {name: "Cohen's d", text: dText, est: diff / pooled, lower: ncp(0.025) * scale, upper: ncp(0.975) * scale}
-    ]
-    for (const d of estimates) d.text.textContent = d.est.toFixed(2) + (showCi ? `, ${fmtCi(d.lower, d.upper)}` : "")
-    estimatesPlot.replaceChildren(Plot.plot({
-      width, height: 190, marginLeft: 120, marginRight: 20, marginBottom: 45,
-      x: {label: "Estimate with 95% CI", labelAnchor: "center", labelOffset: 38, grid: true, nice: true,
-          domain: d3.extent([-1, 1, ...estimates.flatMap(d => [d.lower, d.upper])])},
-      y: {label: null, type: "point", domain: estimates.map(d => d.name), padding: 0.5, tickSize: 0},
-      style: {fontSize: "13px"},
-      marks: [
-        Plot.ruleX([0], {stroke: "currentColor", strokeDasharray: "4,3", strokeOpacity: 0.6}),
-        Plot.link(estimates, {x1: "lower", x2: "upper", y1: "name", y2: "name", stroke: "#8a8a8a", strokeWidth: 2.5}),
-        Plot.dot(estimates, {x: "est", y: "name", fill: "#8a8a8a", r: 6, symbol: "square"})
-      ]
+    estimatesPlot.replaceChildren(...subplots.map(s => {
+      const data = rows.filter(d => s.names.includes(d.name))
+      return html`<div><div class="sb-subtitle">${s.title}</div>${Plot.plot({
+        width, height: 55 + 32 * s.names.length, marginTop: 5, marginLeft: 130, marginRight: 20, marginBottom: 45,
+        x: {label: s.unit, labelAnchor: "center", labelOffset: 38, grid: true, nice: true, ticks: 5,
+            domain: d3.extent([...s.include, ...data.flatMap(d => [d.lower, d.upper])])},
+        y: {label: null, type: "point", domain: s.names, padding: 0.5, tickSize: 0},
+        style: {fontSize: "13px"},
+        marks: [
+          Plot.ruleX([0], {stroke: "currentColor", strokeDasharray: "4,3", strokeOpacity: 0.6}),
+          Plot.link(data, {x1: "lower", x2: "upper", y1: "name", y2: "name", stroke: "colour", strokeWidth: 2.5}),
+          Plot.dot(data, {x: "est", y: "name", fill: "colour", r: 6, symbol: "square"})
+        ]
+      })}</div>`
     }))
   }
   for (const g of groups) {
-    g.text = html`<div class="sb-stats sb-group-stats"></div>`
-    g.panel = frequencyPanel(scores, g.store, {tallest, onChange: ({rescaled}) => {
+    g.panel = frequencyPanel(scores, g.store, {tallest, marker: false, onChange: ({rescaled}) => {
       if (rescaled) groups.forEach(other => { if (other !== g) other.panel.refresh() })
       update()
     }})
     g.panel.style.setProperty("--sb", g.colour)
-    g.panel.append(g.text)
   }
   dButtons.querySelector(".sb-clear").onclick = () => {
     groups.forEach(g => g.store.clear())
     groups.forEach(g => g.panel.refresh())
     update()
   }
-  ciButton.onclick = () => {
-    ciButton.dataset.on = ciButton.dataset.on !== "true"
-    ciButton.textContent = `${ciButton.dataset.on === "true" ? "Hide" : "Show"} 95% CIs`
-    update()
-  }
   update()
   return html`<div>
     ${groups.map(g => html`<div><div class="sb-title" style="color: ${g.colour};">${g.label}</div>${g.panel}</div>`)}
-    <div class="sb-title">Estimates</div>
+    <div class="sb-title">Estimates with 95% CIs</div>
     ${estimatesPlot}
-    <div class="sb-results">
-      <div>Mean difference = ${diffText}</div>
-      <div>Pooled <i>SD</i> = ${pooledText}</div>
-      <div>Cohen's <i>d</i> = ${dText}</div>
-    </div>
   </div>`
 }
 ```
@@ -196,11 +186,11 @@ dStores = ({
 ```{ojs}
 //| echo: false
 // shared by the apps above
-function frequencyPanel(scores, store, {onChange = () => {}, tallest} = {}) {
+function frequencyPanel(scores, store, {onChange = () => {}, tallest, marker = true} = {}) {
   // a histogram of the counts in store (a Map of score -> count) that can be edited by drawing in the plot or by
   // typing counts under the axis. onChange is called after every edit, with rescaled: true if the vertical axis
   // may have changed. tallest optionally supplies the count that the vertical axis has to fit, for panels that
-  // share an axis. the returned element has two extra methods: stats(), and refresh() to redraw after the store
+  // share an axis. marker: false leaves out the mean ± 1 SD marker under the axis. the returned element has two extra methods: stats(), and refresh() to redraw after the store
   // has been changed from outside
   const lo = scores[0]
   const count = s => store.get(s) ?? 0
@@ -217,7 +207,7 @@ function frequencyPanel(scores, store, {onChange = () => {}, tallest} = {}) {
     ${plot}
     <div class="sb-axis">${scores.map(s => html`<span>${s}</span>`)}</div>
     <div class="sb-counts">${inputs}</div>
-    <div class="sb-summary">${sdBar}${meanDot}</div>
+    ${marker ? html`<div class="sb-summary">${sdBar}${meanDot}</div>` : ""}
   </div>`
   node.stats = () => sampleStats(new Map(scores.map(s => [s, count(s)])))
 
@@ -316,11 +306,21 @@ function fmtMeanSd({n, mean, sd}, showCi) {
   // t distribution for the mean, chi-squared distribution for the SD
   const withCi = showCi && n > 1 && sd > 0
   const ci = (lower, upper) => withCi ? `, ${fmtCi(lower, upper)}` : ""
-  const tCrit = withCi ? tQuantile(0.975, n - 1) : NaN
   return {
-    mean: n > 0 ? mean.toFixed(2) + ci(mean - tCrit * sd / Math.sqrt(n), mean + tCrit * sd / Math.sqrt(n)) : "–",
-    sd: n > 1 ? sd.toFixed(2) + ci(sd * Math.sqrt((n - 1) / chisqQuantile(0.975, n - 1)), sd * Math.sqrt((n - 1) / chisqQuantile(0.025, n - 1))) : "–"
+    mean: n > 0 ? mean.toFixed(2) + (withCi ? ci(...meanCi({n, mean, sd})) : "") : "–",
+    sd: n > 1 ? sd.toFixed(2) + (withCi ? ci(...sdCi({n, sd})) : "") : "–"
   }
+}
+function meanCi({n, mean, sd}) {
+  // 95% CI for a mean, or null if it cannot be calculated
+  if (!(n > 1 && sd > 0)) return null
+  const margin = tQuantile(0.975, n - 1) * sd / Math.sqrt(n)
+  return [mean - margin, mean + margin]
+}
+function sdCi({n, sd}) {
+  // 95% CI for an SD, or null if it cannot be calculated
+  if (!(n > 1 && sd > 0)) return null
+  return [sd * Math.sqrt((n - 1) / chisqQuantile(0.975, n - 1)), sd * Math.sqrt((n - 1) / chisqQuantile(0.025, n - 1))]
 }
 function fmtCi(lower, upper) {
   return `95% CI [${lower.toFixed(2)}, ${upper.toFixed(2)}]`
@@ -355,10 +355,9 @@ sampleBuilderStyle = html`<style>
   .sample-builder .sb-summary { position: relative; height: 14px; overflow: hidden; margin-top: 0.9rem; }
   .sample-builder .sb-sd { position: absolute; top: 6px; height: 2px; background: var(--sb); opacity: 0.5; }
   .sample-builder .sb-mean { position: absolute; top: 2px; width: 10px; height: 10px; margin-left: -5px; background: var(--sb); }
-  .sample-builder .sb-stats { display: flex; align-items: center; gap: 0.25rem 1.5rem; flex-wrap: wrap; margin-top: 1.25rem; font-size: 1.1rem; font-weight: 600; }
-  .sample-builder .sb-stats.sb-group-stats { margin-top: 0.75rem; font-size: 1rem; }
+  .sb-stats { display: flex; align-items: center; gap: 0.25rem 1.5rem; flex-wrap: wrap; margin-top: 1.25rem; font-size: 1.1rem; font-weight: 600; }
   .sb-title { font-weight: 600; margin-top: 1.5rem; }
-  .sb-results { margin: 1.5rem 0 1rem; font-size: 1.1rem; font-weight: 600; }
+  .sb-subtitle { font-size: 0.9rem; font-weight: 600; margin: 0.75rem 0 0.25rem; color: var(--bs-secondary-color); }
   .sb-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
 </style>`
 

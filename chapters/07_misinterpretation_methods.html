@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>5&nbsp; Misinterpretation methods ✎ Draft – Trustworthiness Assessment</title>
+<title>8&nbsp; Misinterpretation methods ✎ Draft – Trustworthiness Assessment</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -85,8 +85,8 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/effect_size_methods.html" rel="next">
-<link href="../chapters/understanding_p_values.html" rel="prev">
+<link href="../chapters/08_effect_size_methods.html" rel="next">
+<link href="../chapters/06_standardized_deviations_vs_standards_errors.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -143,6 +143,8 @@ div.csl-indent {
   /* Observable Inputs.button uses .btn-quarto: give it the plots' blue (the default text colour matched its background), and space between stacked buttons */
   .btn.btn-quarto { color: #fff; background-color: #2780e3; border-color: #2780e3; margin: 0.4rem 0; }
   .btn.btn-quarto:hover { background-color: #1f6ab8; border-color: #1f6ab8; }
+  /* quarto adds a copy button to every code cell, which still appears at the top right of Observable JS cells whose code is hidden (echo: false). hide it for those cells only */
+  .code-copy-outer-scaffold > .cell-code.hidden:has(> pre.js) ~ .code-copy-button { display: none; }
   /* .big-number: [89%]{.number} then [explanatory text]{.description}
      .big-quote:  [quote text]{.quote} then [source]{.citation}
      each works as a span (use a trailing \ for line breaks) or a div (for multiple paragraphs) */
@@ -377,7 +379,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/misinterpretation_methods.html">Part II: Methods</a></li><li class="breadcrumb-item"><a href="../chapters/misinterpretation_methods.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Misinterpretation methods <span class="badge badge-draft2">✎ Draft</span></span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/07_misinterpretation_methods.html">Part III: Forensic meta-science methods</a></li><li class="breadcrumb-item"><a href="../chapters/07_misinterpretation_methods.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Misinterpretation methods <span class="badge badge-draft2">✎ Draft</span></span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -411,6 +413,12 @@ window.Quarto = {
  <span class="menu-text">Introduction</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lesson_plan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Lesson plan</span></span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
@@ -422,26 +430,20 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/scope_and_need.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Scope and need <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  <a href="../chapters/01_scope_and_need.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Scope and need <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/psychological_preparation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Psychological preparation <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  <a href="../chapters/02_psychological_preparation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Psychological preparation <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/organising_principles.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Organising principles <span class="badge badge-draft1">✎ Outline</span></span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/understanding_p_values.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Understanding <em>p</em>-values <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+  <a href="../chapters/03_organising_principles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Organising principles <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
       </ul>
@@ -449,7 +451,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Part II: Methods</span></a>
+ <span class="menu-text">Part II: Understanding statistics</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -457,68 +459,20 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/misinterpretation_methods.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Misinterpretation methods <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+  <a href="../chapters/04_understanding_p_values.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Understanding <em>p</em>-values <span class="badge badge-draft2">✎ Draft</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/effect_size_methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Effect size methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  <a href="../chapters/05_standardized_mean_differences_cohens_d.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Standardized Mean Differences (Cohen’s <em>d</em>) <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/repetition_and_consistency_methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Repetition and consistency methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/recalculation_methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Recalculation methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/granularity_methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Granularity methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/bounds_methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Bounds methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/reconstruction_resampling_simulation_methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Reconstruction, resampling, and simulation methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/design_methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Design methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/measurement_methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Measurement methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/theory_specification_methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Theory specification methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/data_extraction_methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Data extraction methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  <a href="../chapters/06_standardized_deviations_vs_standards_errors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Standard Deviations vs.&nbsp;Standards Errors <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
       </ul>
@@ -526,7 +480,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Part III: Organising</span></a>
+ <span class="menu-text">Part III: Forensic meta-science methods</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -534,26 +488,68 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../exercises/critiquing_specific_types_of_articles.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Critiquing specific types of articles <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  <a href="../chapters/07_misinterpretation_methods.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Misinterpretation methods <span class="badge badge-draft2">✎ Draft</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../exercises/inspect_sr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">INSPECT-SR <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  <a href="../chapters/08_effect_size_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Effect size methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../exercises/organising_critique.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Organising critique <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  <a href="../chapters/09_repetition_and_consistency_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Repetition and consistency methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../exercises/reflexive_critique.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Reflexive critique <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  <a href="../chapters/10_recalculation_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Recalculation methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/11_granularity_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Granularity methods <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/12_bounds_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Bounds methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/13_reconstruction_resampling_simulation_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Reconstruction, resampling, and simulation methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/14_design_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Design methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/15_measurement_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Measurement methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/16_theory_specification_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Theory specification methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/17_data_extraction_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Data extraction methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
       </ul>
@@ -561,7 +557,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Part IV: Developing and validating methods</span></a>
+ <span class="menu-text">Part IV: Organising</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -569,14 +565,49 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/forensic_methods_require_validation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Forensic meta-science methods require validation <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  <a href="../exercises/18_critiquing_specific_types_of_articles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Critiquing specific types of articles <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/validation_using_simulated_data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Validating meta-science methods using simulated data <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  <a href="../exercises/19_inspect_sr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">INSPECT-SR <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../exercises/20_organising_critique.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Organising critique <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../exercises/21_reflexive_critique.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Reflexive critique <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part V: Developing and validating forensic methods</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/22_forensic_methods_require_validation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Forensic meta-science methods require validation <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/23_validation_using_simulated_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Validating meta-science methods using simulated data <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
       </ul>
@@ -587,23 +618,6 @@ window.Quarto = {
  <span class="menu-text">References</span></a>
   </div>
 </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
- <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../appendices/lesson_plan.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Lesson plan <span class="badge badge-draft1">✎ Outline</span></span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
     </ul>
     </div>
 </nav>
@@ -614,25 +628,25 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-absence-of-evidence" id="toc-sec-absence-of-evidence" class="nav-link active" data-scroll-target="#sec-absence-of-evidence"><span class="header-section-number">5.1</span> Absence of evidence is not evidence of absence</a>
+  <li><a href="#sec-absence-of-evidence" id="toc-sec-absence-of-evidence" class="nav-link active" data-scroll-target="#sec-absence-of-evidence"><span class="header-section-number">8.1</span> Absence of evidence is not evidence of absence</a>
   <ul class="collapse">
-  <li><a href="#the-error" id="toc-the-error" class="nav-link" data-scroll-target="#the-error"><span class="header-section-number">5.1.1</span> The error</a></li>
-  <li><a href="#why-it-matters" id="toc-why-it-matters" class="nav-link" data-scroll-target="#why-it-matters"><span class="header-section-number">5.1.2</span> Why it matters</a></li>
-  <li><a href="#how-common-is-it" id="toc-how-common-is-it" class="nav-link" data-scroll-target="#how-common-is-it"><span class="header-section-number">5.1.3</span> How common is it?</a></li>
-  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">5.1.4</span> Examples</a></li>
-  <li><a href="#what-would-count-as-evidence-of-absence" id="toc-what-would-count-as-evidence-of-absence" class="nav-link" data-scroll-target="#what-would-count-as-evidence-of-absence"><span class="header-section-number">5.1.5</span> What would count as evidence of absence?</a></li>
-  <li><a href="#checking-for-this-error-in-trustworthiness-assessment" id="toc-checking-for-this-error-in-trustworthiness-assessment" class="nav-link" data-scroll-target="#checking-for-this-error-in-trustworthiness-assessment"><span class="header-section-number">5.1.6</span> Checking for this error in trustworthiness assessment</a></li>
-  <li><a href="#test-yourself" id="toc-test-yourself" class="nav-link" data-scroll-target="#test-yourself"><span class="header-section-number">5.1.7</span> Test yourself</a></li>
+  <li><a href="#the-error" id="toc-the-error" class="nav-link" data-scroll-target="#the-error"><span class="header-section-number">8.1.1</span> The error</a></li>
+  <li><a href="#why-it-matters" id="toc-why-it-matters" class="nav-link" data-scroll-target="#why-it-matters"><span class="header-section-number">8.1.2</span> Why it matters</a></li>
+  <li><a href="#how-common-is-it" id="toc-how-common-is-it" class="nav-link" data-scroll-target="#how-common-is-it"><span class="header-section-number">8.1.3</span> How common is it?</a></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">8.1.4</span> Examples</a></li>
+  <li><a href="#what-would-count-as-evidence-of-absence" id="toc-what-would-count-as-evidence-of-absence" class="nav-link" data-scroll-target="#what-would-count-as-evidence-of-absence"><span class="header-section-number">8.1.5</span> What would count as evidence of absence?</a></li>
+  <li><a href="#checking-for-this-error-in-trustworthiness-assessment" id="toc-checking-for-this-error-in-trustworthiness-assessment" class="nav-link" data-scroll-target="#checking-for-this-error-in-trustworthiness-assessment"><span class="header-section-number">8.1.6</span> Checking for this error in trustworthiness assessment</a></li>
+  <li><a href="#test-yourself" id="toc-test-yourself" class="nav-link" data-scroll-target="#test-yourself"><span class="header-section-number">8.1.7</span> Test yourself</a></li>
   </ul></li>
-  <li><a href="#sec-difference-in-significance" id="toc-sec-difference-in-significance" class="nav-link" data-scroll-target="#sec-difference-in-significance"><span class="header-section-number">5.2</span> The difference between “significant” and “not significant” is not itself statistically significant</a>
+  <li><a href="#sec-difference-in-significance" id="toc-sec-difference-in-significance" class="nav-link" data-scroll-target="#sec-difference-in-significance"><span class="header-section-number">8.2</span> The difference between “significant” and “not significant” is not itself statistically significant</a>
   <ul class="collapse">
-  <li><a href="#the-error-1" id="toc-the-error-1" class="nav-link" data-scroll-target="#the-error-1"><span class="header-section-number">5.2.1</span> The error</a></li>
-  <li><a href="#a-simple-example" id="toc-a-simple-example" class="nav-link" data-scroll-target="#a-simple-example"><span class="header-section-number">5.2.2</span> A simple example</a></li>
-  <li><a href="#where-it-appears" id="toc-where-it-appears" class="nav-link" data-scroll-target="#where-it-appears"><span class="header-section-number">5.2.3</span> Where it appears</a></li>
-  <li><a href="#how-common-is-it-1" id="toc-how-common-is-it-1" class="nav-link" data-scroll-target="#how-common-is-it-1"><span class="header-section-number">5.2.4</span> How common is it?</a></li>
-  <li><a href="#checking-for-this-error-in-trustworthiness-assessment-1" id="toc-checking-for-this-error-in-trustworthiness-assessment-1" class="nav-link" data-scroll-target="#checking-for-this-error-in-trustworthiness-assessment-1"><span class="header-section-number">5.2.5</span> Checking for this error in trustworthiness assessment</a></li>
-  <li><a href="#implications-for-replication" id="toc-implications-for-replication" class="nav-link" data-scroll-target="#implications-for-replication"><span class="header-section-number">5.2.6</span> Implications for replication</a></li>
-  <li><a href="#test-yourself-1" id="toc-test-yourself-1" class="nav-link" data-scroll-target="#test-yourself-1"><span class="header-section-number">5.2.7</span> Test yourself</a></li>
+  <li><a href="#the-error-1" id="toc-the-error-1" class="nav-link" data-scroll-target="#the-error-1"><span class="header-section-number">8.2.1</span> The error</a></li>
+  <li><a href="#a-simple-example" id="toc-a-simple-example" class="nav-link" data-scroll-target="#a-simple-example"><span class="header-section-number">8.2.2</span> A simple example</a></li>
+  <li><a href="#where-it-appears" id="toc-where-it-appears" class="nav-link" data-scroll-target="#where-it-appears"><span class="header-section-number">8.2.3</span> Where it appears</a></li>
+  <li><a href="#how-common-is-it-1" id="toc-how-common-is-it-1" class="nav-link" data-scroll-target="#how-common-is-it-1"><span class="header-section-number">8.2.4</span> How common is it?</a></li>
+  <li><a href="#checking-for-this-error-in-trustworthiness-assessment-1" id="toc-checking-for-this-error-in-trustworthiness-assessment-1" class="nav-link" data-scroll-target="#checking-for-this-error-in-trustworthiness-assessment-1"><span class="header-section-number">8.2.5</span> Checking for this error in trustworthiness assessment</a></li>
+  <li><a href="#implications-for-replication" id="toc-implications-for-replication" class="nav-link" data-scroll-target="#implications-for-replication"><span class="header-section-number">8.2.6</span> Implications for replication</a></li>
+  <li><a href="#test-yourself-1" id="toc-test-yourself-1" class="nav-link" data-scroll-target="#test-yourself-1"><span class="header-section-number">8.2.7</span> Test yourself</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -641,9 +655,9 @@ window.Quarto = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/misinterpretation_methods.html">Part II: Methods</a></li><li class="breadcrumb-item"><a href="../chapters/misinterpretation_methods.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Misinterpretation methods <span class="badge badge-draft2">✎ Draft</span></span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/07_misinterpretation_methods.html">Part III: Forensic meta-science methods</a></li><li class="breadcrumb-item"><a href="../chapters/07_misinterpretation_methods.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Misinterpretation methods <span class="badge badge-draft2">✎ Draft</span></span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span id="sec-misinterpretation" class="quarto-section-identifier"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Misinterpretation methods <span class="badge badge-draft2">✎ Draft</span></span></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span id="sec-misinterpretation" class="quarto-section-identifier"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Misinterpretation methods <span class="badge badge-draft2">✎ Draft</span></span></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -667,17 +681,17 @@ window.Quarto = {
 <li><strong>The difference between “significant” and “not significant” is not itself statistically significant.</strong> One effect is significant and another is not, and this is read as showing that the two effects differ.</li>
 </ol>
 <p>Both errors treat the significance threshold as a verdict about the world rather than a statement about the data, and both can usually be checked by calculating one additional number from what the authors report: a confidence interval for the effect in the first case, and a test of the difference in the second.</p>
-<section id="sec-absence-of-evidence" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="sec-absence-of-evidence"><span class="header-section-number">5.1</span> Absence of evidence is not evidence of absence</h2>
+<section id="sec-absence-of-evidence" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="sec-absence-of-evidence"><span class="header-section-number">8.1</span> Absence of evidence is not evidence of absence</h2>
 <div class="big-quote">
 <p><span class="quote">Absence of evidence is not evidence of absence.</span></p>
 <p><span class="citation"><span class="citation" data-cites="altman1995">Altman &amp; Bland (<a href="../references.html../references.html#ref-altman1995" role="doc-biblioref">1995</a>)</span></span></p>
 </div>
-<section id="the-error" class="level3" data-number="5.1.1">
-<h3 data-number="5.1.1" class="anchored" data-anchor-id="the-error"><span class="header-section-number">5.1.1</span> The error</h3>
+<section id="the-error" class="level3" data-number="8.1.1">
+<h3 data-number="8.1.1" class="anchored" data-anchor-id="the-error"><span class="header-section-number">8.1.1</span> The error</h3>
 <p>A <em>p</em>-value above .05 is often reported as if it showed that there is no effect: the treatment “did not work”, the groups “did not differ”, the variable “had no influence”, the two conditions were “equivalent”, or the trial was “negative”. <span class="citation" data-cites="altman1995">Altman &amp; Bland (<a href="../references.html#ref-altman1995" role="doc-biblioref">1995</a>)</span> point out that the label “negative” wrongly implies that the study has shown that there is no difference, “whereas usually all that has been shown is an absence of evidence of a difference”. These are very different statements.</p>
-<p>Recall from <a href="understanding_p_values.html#sec-null-model" class="quarto-xref"><span>Section 4.2.1.1</span></a> that the <em>p</em>-value measures how compatible the data are with the null model. A <em>p</em>-value above .05 tells us that the data are not incompatible enough with the null model for us to reject it. It does not tell us that the null model is correct, because the same data are usually also compatible with many other effect sizes, including some that would be large and important. Which effect sizes the data are compatible with is exactly what the confidence interval shows. A nonsignificant result with a narrow interval around zero is informative. A nonsignificant result with a wide interval, stretching from a small harmful effect to a large beneficial one, tells us very little.</p>
-<p>The plot below shows two hypothetical studies with exactly the same <em>p</em>-value, laid out as in the dance of the <em>p</em>-values (<a href="understanding_p_values.html#sec-dance" class="quarto-xref"><span>Section 4.4.0.1</span></a>): each study’s <em>p</em>-value is on the right and its effect size estimate is on the left. Both studies are nonsignificant, and both would typically be reported in the same way: “there was no significant effect, <em>p</em> = .505”. The plot starts by showing only the <em>p</em>-values, and on this information the two studies are indistinguishable. Now click the button to reveal their effect sizes and 95% confidence intervals. Study A estimated the effect precisely, and its interval shows that any effect is at most very small (<em>d</em> between −0.06 and 0.12). Study B estimated it very imprecisely, and its data are compatible with anything from a moderate negative effect to a large positive one. The <em>p</em>-value is the same, but what the two studies tell us about the size of the effect is completely different. Only Study A comes close to providing evidence that there is no meaningful effect; Study B provides almost no information either way.</p>
+<p>Recall from <a href="04_understanding_p_values.html#sec-null-model" class="quarto-xref"><span>Section 5.2.1.1</span></a> that the <em>p</em>-value measures how compatible the data are with the null model. A <em>p</em>-value above .05 tells us that the data are not incompatible enough with the null model for us to reject it. It does not tell us that the null model is correct, because the same data are usually also compatible with many other effect sizes, including some that would be large and important. Which effect sizes the data are compatible with is exactly what the confidence interval shows. A nonsignificant result with a narrow interval around zero is informative. A nonsignificant result with a wide interval, stretching from a small harmful effect to a large beneficial one, tells us very little.</p>
+<p>The plot below shows two hypothetical studies with exactly the same <em>p</em>-value, laid out as in the dance of the <em>p</em>-values (<a href="04_understanding_p_values.html#sec-dance" class="quarto-xref"><span>Section 5.4.0.1</span></a>): each study’s <em>p</em>-value is on the right and its effect size estimate is on the left. Both studies are nonsignificant, and both would typically be reported in the same way: “there was no significant effect, <em>p</em> = .505”. The plot starts by showing only the <em>p</em>-values, and on this information the two studies are indistinguishable. Now click the button to reveal their effect sizes and 95% confidence intervals. Study A estimated the effect precisely, and its interval shows that any effect is at most very small (<em>d</em> between −0.06 and 0.12). Study B estimated it very imprecisely, and its data are compatible with anything from a moderate negative effect to a large positive one. The <em>p</em>-value is the same, but what the two studies tell us about the size of the effect is completely different. Only Study A comes close to providing evidence that there is no meaningful effect; Study B provides almost no information either way.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="34" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 33;"><span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>viewof showDs <span class="op">=</span> {</span>
 <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>  <span class="co">// a button that toggles between showing and hiding the estimates, styled like Inputs.button.</span></span>
@@ -772,14 +786,14 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="why-it-matters" class="level3" data-number="5.1.2">
-<h3 data-number="5.1.2" class="anchored" data-anchor-id="why-it-matters"><span class="header-section-number">5.1.2</span> Why it matters</h3>
+<section id="why-it-matters" class="level3" data-number="8.1.2">
+<h3 data-number="8.1.2" class="anchored" data-anchor-id="why-it-matters"><span class="header-section-number">8.1.2</span> Why it matters</h3>
 <p>Most studies are too small to detect effects of the size that would matter. <span class="citation" data-cites="altman1995">Altman &amp; Bland (<a href="../references.html#ref-altman1995" role="doc-biblioref">1995</a>)</span> describe a review by Freiman and colleagues of 71 “negative” trials published in the <em>New England Journal of Medicine</em>: only about 30% were large enough to have a 90% chance of detecting even a 50% difference in effectiveness between the treatments being compared. They also describe a trial comparing two treatments for variceal bleeding that recruited 100 patients when its own power calculation had called for 1,800. It concluded that the treatments were equally effective, even though the 95% confidence interval included differences in cure rates of up to 20 percentage points. In the most dramatic of their examples, only 5 of 24 trials of fibrinolytic treatment (mostly streptokinase) after heart attack had found a statistically significant reduction in mortality. An overview of all the trials found a clinically worthwhile 22% reduction, but the lack of significance in most individual trials had led to a long delay before this was appreciated.</p>
 <p>The consequences are not limited to medicine. In the 1970s, many US states began to allow drivers to turn right at red traffic lights. Before-and-after studies of individual intersections and jurisdictions typically found no statistically significant increase in crashes, and this was taken to mean that the change was safe <span class="citation" data-cites="hauer2004">(<a href="../references.html#ref-hauer2004" role="doc-biblioref">Hauer, 2004</a>)</span>. The individual studies were small, however. When Preusser and colleagues <span class="citation" data-cites="preusser1982">(<a href="../references.html#ref-preusser1982" role="doc-biblioref">1982</a>)</span> examined larger samples of crash data from several jurisdictions, they found that crashes involving pedestrians and right-turning vehicles at signalised intersections increased by between 48% and 107%, and those involving cyclists by between 72% and 82%. <span class="citation" data-cites="hauer2004">Hauer (<a href="../references.html#ref-hauer2004" role="doc-biblioref">2004</a>)</span> uses this case as one of his examples of “the harm done by tests of significance”.</p>
 <!-- TODO: the slides include the "29 extra deaths (+9.4%)" figure for RTOR - add with a source once located. -->
 </section>
-<section id="how-common-is-it" class="level3" data-number="5.1.3">
-<h3 data-number="5.1.3" class="anchored" data-anchor-id="how-common-is-it"><span class="header-section-number">5.1.3</span> How common is it?</h3>
+<section id="how-common-is-it" class="level3" data-number="8.1.3">
+<h3 data-number="8.1.3" class="anchored" data-anchor-id="how-common-is-it"><span class="header-section-number">8.1.3</span> How common is it?</h3>
 <p><span class="citation" data-cites="aczel2018">Aczel et al. (<a href="../references.html#ref-aczel2018" role="doc-biblioref">2018</a>)</span> examined every nonsignificant result mentioned in the abstracts of articles published in 2015 in three psychology journals (<em>Psychonomic Bulletin &amp; Review</em>, <em>Journal of Experimental Psychology: General</em>, and <em>Psychological Science</em>). In 72% of the 137 cases, the authors interpreted the nonsignificant result as evidence that the effect was absent. When Aczel et al.&nbsp;reanalysed the results using Bayes factors, fewer than 5% provided strong evidence for the null hypothesis over the alternative.</p>
 <div class="big-number">
 <p><span class="number">76–85%</span></p>
@@ -787,24 +801,24 @@ window.Quarto = {
 </div>
 <p><span class="citation" data-cites="murphy2025">Murphy et al. (<a href="../references.html#ref-murphy2025" role="doc-biblioref">2025</a>)</span> coded the discussion sections of 599 articles in ten psychology journals. Between 54% and 62% of articles explicitly claimed that a nonsignificant result meant there was no effect in the population, while only 4–8% explicitly discussed the possibility that an effect existed but had not been detected.</p>
 </section>
-<section id="examples" class="level3" data-number="5.1.4">
-<h3 data-number="5.1.4" class="anchored" data-anchor-id="examples"><span class="header-section-number">5.1.4</span> Examples</h3>
+<section id="examples" class="level3" data-number="8.1.4">
+<h3 data-number="8.1.4" class="anchored" data-anchor-id="examples"><span class="header-section-number">8.1.4</span> Examples</h3>
 <p>Consider the following statements, of the kind that appear in results sections every day:</p>
 <ul>
 <li>“A <em>t</em> test for independent samples on object-location memory showed no significant effect of priming, <em>t</em>(99) = .50, <em>p</em> = .616, <em>d</em> = .12.”</li>
 <li>“The mean proportions of perseverative responses to these tones were very similar between participant groups … with no significant group difference, <em>t</em>(30) = .66, <em>p</em> = .51, <em>d</em> = .23.”</li>
 </ul>
 <p>The first is phrased carefully: it reports only that the effect was not significant. The second goes further, describing the groups as “very similar”. Whether that is justified depends on what the confidence interval looks like, which the authors do not report. We return to this example below and calculate it.</p>
-<p>A higher-profile example comes from a large online study of the “Reading the Mind in the Eyes” test, a measure of theory of mind <span class="citation" data-cites="baroncohen2015">(<a href="../references.html#ref-baroncohen2015" role="doc-biblioref">Baron-Cohen et al., 2015</a>)</span>. Among typical adults, women scored higher than men on average. Among adults with autism, the authors reported that a two-way ANOVA “showed … an absence of a sex difference between males and females with autism (<em>p</em> = 0.907)”, and the article’s title describes a “complete absence of typical sex difference”. The <em>p</em>-value alone cannot support this claim. The question to ask is: do these data show that men and women with autism have equivalent average scores, or only that a difference was not detected? The answer depends on the precision of the estimate of the sex difference within the autism group, and on what size of difference would be considered meaningful. Note also that the claim that the sex difference is <em>absent in autism but present in typical adults</em> is a comparison between a significant and a nonsignificant effect, which is the second error covered in this chapter (<a href="#sec-difference-in-significance" class="quarto-xref"><span>Section 5.2</span></a>).</p>
+<p>A higher-profile example comes from a large online study of the “Reading the Mind in the Eyes” test, a measure of theory of mind <span class="citation" data-cites="baroncohen2015">(<a href="../references.html#ref-baroncohen2015" role="doc-biblioref">Baron-Cohen et al., 2015</a>)</span>. Among typical adults, women scored higher than men on average. Among adults with autism, the authors reported that a two-way ANOVA “showed … an absence of a sex difference between males and females with autism (<em>p</em> = 0.907)”, and the article’s title describes a “complete absence of typical sex difference”. The <em>p</em>-value alone cannot support this claim. The question to ask is: do these data show that men and women with autism have equivalent average scores, or only that a difference was not detected? The answer depends on the precision of the estimate of the sex difference within the autism group, and on what size of difference would be considered meaningful. Note also that the claim that the sex difference is <em>absent in autism but present in typical adults</em> is a comparison between a significant and a nonsignificant effect, which is the second error covered in this chapter (<a href="#sec-difference-in-significance" class="quarto-xref"><span>Section 8.2</span></a>).</p>
 <!-- TODO: add the Payne et al. (2013, PSPB) "no evidence that validity in the AMP depends on intentionally rating primes" example, with details of how absence claims can serve motivated reasoning. -->
 </section>
-<section id="what-would-count-as-evidence-of-absence" class="level3" data-number="5.1.5">
-<h3 data-number="5.1.5" class="anchored" data-anchor-id="what-would-count-as-evidence-of-absence"><span class="header-section-number">5.1.5</span> What would count as evidence of absence?</h3>
+<section id="what-would-count-as-evidence-of-absence" class="level3" data-number="8.1.5">
+<h3 data-number="8.1.5" class="anchored" data-anchor-id="what-would-count-as-evidence-of-absence"><span class="header-section-number">8.1.5</span> What would count as evidence of absence?</h3>
 <p>A nonsignificant difference test cannot show that an effect is absent, but other analyses can provide evidence that an effect is absent, or at least too small to matter:</p>
 <ul>
 <li><strong>Confidence intervals.</strong> If the whole interval lies within a range of effects that everyone would agree are trivially small, the data are informative about the absence of a meaningful effect.</li>
 <li><strong>Equivalence tests.</strong> The two one-sided tests (TOST) procedure formalises this. The researcher specifies a smallest effect size of interest, which defines equivalence bounds (for example, <em>d</em> = −0.3 to 0.3), and then tests whether the effect is significantly <em>greater than the lower bound</em> and significantly <em>less than the upper bound</em> <span class="citation" data-cites="lakens2017equivalence lakens2018equivalence">(<a href="../references.html#ref-lakens2017equivalence" role="doc-biblioref">Lakens, 2017</a>; <a href="../references.html#ref-lakens2018equivalence" role="doc-biblioref">Lakens et al., 2018</a>)</span>. If both tests are significant, the effect can be declared practically equivalent to zero. This corresponds to checking whether the 90% confidence interval lies entirely inside the bounds.</li>
-<li><strong>Bayes factors</strong>, which quantify the relative evidence for the null and alternative hypotheses (<a href="understanding_p_values.html#sec-bayes" class="quarto-xref"><span>Section 4.3.4</span></a>), as in the reanalysis by <span class="citation" data-cites="aczel2018">Aczel et al. (<a href="../references.html#ref-aczel2018" role="doc-biblioref">2018</a>)</span>.</li>
+<li><strong>Bayes factors</strong>, which quantify the relative evidence for the null and alternative hypotheses (<a href="04_understanding_p_values.html#sec-bayes" class="quarto-xref"><span>Section 5.3.4</span></a>), as in the reanalysis by <span class="citation" data-cites="aczel2018">Aczel et al. (<a href="../references.html#ref-aczel2018" role="doc-biblioref">2018</a>)</span>.</li>
 </ul>
 <p>Crossing a difference test with an equivalence test gives four possible conclusions, not two:</p>
 <table class="caption-top table">
@@ -936,17 +950,17 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="checking-for-this-error-in-trustworthiness-assessment" class="level3" data-number="5.1.6">
-<h3 data-number="5.1.6" class="anchored" data-anchor-id="checking-for-this-error-in-trustworthiness-assessment"><span class="header-section-number">5.1.6</span> Checking for this error in trustworthiness assessment</h3>
+<section id="checking-for-this-error-in-trustworthiness-assessment" class="level3" data-number="8.1.6">
+<h3 data-number="8.1.6" class="anchored" data-anchor-id="checking-for-this-error-in-trustworthiness-assessment"><span class="header-section-number">8.1.6</span> Checking for this error in trustworthiness assessment</h3>
 <ol type="1">
 <li><strong>Find the claims of absence.</strong> Look for phrases such as “no effect”, “did not differ”, “no difference”, “unaffected”, “unrelated”, “similar”, “equivalent”, “comparable”, “failed to replicate”, “no evidence that”, and “negative trial”, particularly in abstracts and discussions, where results are summarised most loosely.</li>
 <li><strong>Find the evidence for each claim.</strong> Is the claim supported by an equivalence test, a Bayes factor, or a confidence interval that excludes meaningful effects? Or only by <em>p</em> &gt; .05?</li>
-<li><strong>If no interval is reported, reconstruct one.</strong> A confidence interval can usually be calculated from the reported test statistic, degrees of freedom, and group sizes (see <a href="recalculation_methods.html" class="quarto-xref"><span>Chapter 8</span></a>).</li>
+<li><strong>If no interval is reported, reconstruct one.</strong> A confidence interval can usually be calculated from the reported test statistic, degrees of freedom, and group sizes (see <a href="10_recalculation_methods.html" class="quarto-xref"><span>Chapter 11</span></a>).</li>
 <li><strong>Ask what size of effect would matter</strong>, and whether the interval rules it out. If the authors reported a power analysis, the effect size they powered the study for is a natural benchmark: if the interval includes it, the study cannot claim to have ruled it out.</li>
 <li><strong>Ask whether the argument depends on the absence claim.</strong> Claims of absence are often doing important work: that groups did not differ at baseline, that a treatment had no side effects, that a manipulation did not also change mood, or that an effect did not depend on participants’ awareness. They are also often convenient for the authors, which is a good reason to check them carefully.</li>
 </ol>
-<section id="worked-example" class="level4" data-number="5.1.6.1">
-<h4 data-number="5.1.6.1" class="anchored" data-anchor-id="worked-example"><span class="header-section-number">5.1.6.1</span> Worked example</h4>
+<section id="worked-example" class="level4" data-number="8.1.6.1">
+<h4 data-number="8.1.6.1" class="anchored" data-anchor-id="worked-example"><span class="header-section-number">8.1.6.1</span> Worked example</h4>
 <p>Take the second statement above: <em>t</em>(30) = .66, <em>p</em> = .51, <em>d</em> = .23, reported as showing that the two groups were “very similar”. Assuming equal group sizes of 16, we can reconstruct the 95% confidence interval for <em>d</em> from the <em>t</em> statistic using the noncentral <em>t</em> distribution:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 95% CI for Cohen's d from an independent-samples t test, via the noncentral t distribution</span></span>
@@ -968,8 +982,8 @@ window.Quarto = {
 <p>The data are compatible with anything from a moderate effect in one direction (<em>d</em> = −0.46) to a large effect in the other (<em>d</em> = 0.93). With 16 participants per group, the study had only about 28% power to detect a difference of <em>d</em> = 0.5. The groups may be very similar, but this study cannot tell us whether they are. The appropriate description is that the difference was not statistically significant and was estimated imprecisely.</p>
 </section>
 </section>
-<section id="test-yourself" class="level3" data-number="5.1.7">
-<h3 data-number="5.1.7" class="anchored" data-anchor-id="test-yourself"><span class="header-section-number">5.1.7</span> Test yourself</h3>
+<section id="test-yourself" class="level3" data-number="8.1.7">
+<h3 data-number="8.1.7" class="anchored" data-anchor-id="test-yourself"><span class="header-section-number">8.1.7</span> Test yourself</h3>
 <div class="webex-check webex-box">
 <p>A randomised trial with 20 patients per group compared a new analgesic with placebo and found no significant difference in pain scores, <em>t</em>(38) = 1.10, <em>p</em> = .28, <em>d</em> = 0.35, 95% CI [−0.28, 0.97]. Mark each statement as true or false.</p>
 <ol type="1">
@@ -982,19 +996,19 @@ window.Quarto = {
 </div>
 </section>
 </section>
-<section id="sec-difference-in-significance" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="sec-difference-in-significance"><span class="header-section-number">5.2</span> The difference between “significant” and “not significant” is not itself statistically significant</h2>
+<section id="sec-difference-in-significance" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="sec-difference-in-significance"><span class="header-section-number">8.2</span> The difference between “significant” and “not significant” is not itself statistically significant</h2>
 <div class="big-quote">
 <p><span class="quote">The difference between “significant” and “not significant” is not itself statistically significant.</span></p>
 <p><span class="citation"><span class="citation" data-cites="gelman2006">Gelman &amp; Stern (<a href="../references.html../references.html#ref-gelman2006" role="doc-biblioref">2006</a>)</span></span></p>
 </div>
-<section id="the-error-1" class="level3" data-number="5.2.1">
-<h3 data-number="5.2.1" class="anchored" data-anchor-id="the-error-1"><span class="header-section-number">5.2.1</span> The error</h3>
+<section id="the-error-1" class="level3" data-number="8.2.1">
+<h3 data-number="8.2.1" class="anchored" data-anchor-id="the-error-1"><span class="header-section-number">8.2.1</span> The error</h3>
 <p>The second error involves comparing two results by comparing their <em>p</em>-values. One effect is significant and another is not, and this is read as showing that the two effects are different: the treatment worked in women but not in men; the effect was found in the original study but not in the replication; the intervention group improved but the control group did not; the effect appeared with one analysis but disappeared with another.</p>
 <p>This does not follow. A claim that two effects differ is a claim about the <em>difference</em> between them, and it has to be tested directly, with a test of the difference or of the interaction. <span class="citation" data-cites="gelman2006">Gelman &amp; Stern (<a href="../references.html#ref-gelman2006" role="doc-biblioref">2006</a>)</span> emphasise that this is not simply the familiar point that the .05 threshold is arbitrary, so that <em>p</em> = .049 and <em>p</em> = .051 are practically the same result. Rather, “even large changes in significance levels can correspond to small, nonsignificant changes in the underlying quantities”.</p>
 </section>
-<section id="a-simple-example" class="level3" data-number="5.2.2">
-<h3 data-number="5.2.2" class="anchored" data-anchor-id="a-simple-example"><span class="header-section-number">5.2.2</span> A simple example</h3>
+<section id="a-simple-example" class="level3" data-number="8.2.2">
+<h3 data-number="8.2.2" class="anchored" data-anchor-id="a-simple-example"><span class="header-section-number">8.2.2</span> A simple example</h3>
 <p><span class="citation" data-cites="gelman2006">Gelman &amp; Stern (<a href="../references.html#ref-gelman2006" role="doc-biblioref">2006</a>)</span> illustrate this with two independent studies that estimate the same effect with the same standard error: 25 ± 10 and 10 ± 10. Study A is significant (<em>p</em> = .01); Study B is not (<em>p</em> = .32). The tempting conclusion is that A found an effect, B did not, and therefore the two studies found different results.</p>
 <p>But the difference between the two estimates is 15, and the difference has its own, larger, standard error: <span class="math inline">\(\sqrt{10^2 + 10^2} \approx 14\)</span>. The test of the difference gives <em>p</em> = .29, which is no more significant than Study B on its own. Study A crossing the threshold while Study B does not could easily happen even if the two true effects were identical.</p>
 <div class="cell">
@@ -1100,8 +1114,8 @@ window.Quarto = {
 <p><span class="citation" data-cites="gelman2006">Gelman &amp; Stern (<a href="../references.html#ref-gelman2006" role="doc-biblioref">2006</a>)</span> add a third study with a much larger sample, which estimates the effect as 2.5 ± 1.0. This study is exactly as significant as Study A (<em>p</em> = .01). Judged by significance alone, it “replicates” Study A. But its estimate is ten times smaller, and the difference between A and this study <em>is</em> significant (22.5 ± 10.0, <em>p</em> = .03). Its estimate is much closer to that of Study B, the “failed” study. Set Study A to 25 ± 10 and Study B to 2.5 ± 1 to see this. Comparing significance levels can therefore mislead in both directions: it can make results that do not differ look different, and results that do differ look the same.</p>
 <p>A related point concerns overlapping confidence intervals. Checking whether two intervals overlap is not a test of their difference either. Two independent estimates with the same standard error whose 95% intervals just touch differ with <em>p</em> ≈ .006, and intervals that overlap moderately can still differ significantly. Researchers are not good at judging this by eye <span class="citation" data-cites="belia2005">(<a href="../references.html#ref-belia2005" role="doc-biblioref">Belia et al., 2005</a>)</span>. When in doubt, calculate the difference.</p>
 </section>
-<section id="where-it-appears" class="level3" data-number="5.2.3">
-<h3 data-number="5.2.3" class="anchored" data-anchor-id="where-it-appears"><span class="header-section-number">5.2.3</span> Where it appears</h3>
+<section id="where-it-appears" class="level3" data-number="8.2.3">
+<h3 data-number="8.2.3" class="anchored" data-anchor-id="where-it-appears"><span class="header-section-number">8.2.3</span> Where it appears</h3>
 <p>The error can occur wherever two results are compared, including:</p>
 <ul>
 <li><strong>Subgroups.</strong> The effect is significant in one group (women, younger adults, patients) but not another, and the authors conclude that the effect is specific to that group, without testing the interaction.</li>
@@ -1113,16 +1127,16 @@ window.Quarto = {
 </ul>
 <p><span class="citation" data-cites="moran2021">Moran et al. (<a href="../references.html#ref-moran2021" role="doc-biblioref">2021</a>)</span> provides an example of the analytic choice type, from a registered replication report of a study of whether attitudes can be learned from stimulus pairings that participants are not aware of. The answer depended on how “unaware” participants were defined. Excluding participants using the original study’s awareness criterion, the pooled effect was <em>g</em> = 0.12, 95% CI [0.05, 0.20]; using an alternative criterion, it was <em>g</em> = 0.03, 95% CI [−0.06, 0.13]. Does the exclusion criterion change the result? The two intervals cannot answer this question on their own. Answering it requires an estimate of the difference between the two effects and its uncertainty, and because the two analyses share many of the same participants, that requires an analysis that accounts for the overlap rather than the simple formula used above.</p>
 </section>
-<section id="how-common-is-it-1" class="level3" data-number="5.2.4">
-<h3 data-number="5.2.4" class="anchored" data-anchor-id="how-common-is-it-1"><span class="header-section-number">5.2.4</span> How common is it?</h3>
+<section id="how-common-is-it-1" class="level3" data-number="8.2.4">
+<h3 data-number="8.2.4" class="anchored" data-anchor-id="how-common-is-it-1"><span class="header-section-number">8.2.4</span> How common is it?</h3>
 <div class="big-number">
 <p><span class="number">50%</span></p>
 <p><span class="description">of the neuroscience articles that compared two effects in a way that invited this error made it: 79 of 157, among 513 articles in five top journals <span class="citation" data-cites="nieuwenhuis2011">(<a href="../references.html#ref-nieuwenhuis2011" role="doc-biblioref">Nieuwenhuis et al., 2011</a>)</span>.</span></p>
 </div>
 <p><span class="citation" data-cites="nieuwenhuis2011">Nieuwenhuis et al. (<a href="../references.html#ref-nieuwenhuis2011" role="doc-biblioref">2011</a>)</span> reviewed 513 behavioural, systems, and cognitive neuroscience articles published in <em>Science</em>, <em>Nature</em>, <em>Nature Neuroscience</em>, <em>Neuron</em>, and <em>The Journal of Neuroscience</em>. Of the 157 articles in which the authors compared two effects in a way that could lead to the error, 78 used the correct procedure (testing the difference or interaction) and 79 used the incorrect one. An additional analysis suggested that the error was even more common in cellular and molecular neuroscience. Their article is short and has a clear illustrative figure showing the common forms of the error, making it a good companion reading to <span class="citation" data-cites="gelman2006">Gelman &amp; Stern (<a href="../references.html#ref-gelman2006" role="doc-biblioref">2006</a>)</span>.</p>
 </section>
-<section id="checking-for-this-error-in-trustworthiness-assessment-1" class="level3" data-number="5.2.5">
-<h3 data-number="5.2.5" class="anchored" data-anchor-id="checking-for-this-error-in-trustworthiness-assessment-1"><span class="header-section-number">5.2.5</span> Checking for this error in trustworthiness assessment</h3>
+<section id="checking-for-this-error-in-trustworthiness-assessment-1" class="level3" data-number="8.2.5">
+<h3 data-number="8.2.5" class="anchored" data-anchor-id="checking-for-this-error-in-trustworthiness-assessment-1"><span class="header-section-number">8.2.5</span> Checking for this error in trustworthiness assessment</h3>
 <ol type="1">
 <li><strong>Find the comparative claims.</strong> Look for phrases such as “but not”, “only in”, “specific to”, “selectively”, “moderated by”, “depended on”, “disappeared when”, “was eliminated”, “was stronger in”, and “failed to replicate”.</li>
 <li><strong>Check whether the difference was tested.</strong> Is there a test of the interaction, the moderation, or the difference between the estimates? If the claim rests only on one <em>p</em>-value being below .05 and another being above, the claim is not supported as stated.</li>
@@ -1151,8 +1165,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="implications-for-replication" class="level3" data-number="5.2.6">
-<h3 data-number="5.2.6" class="anchored" data-anchor-id="implications-for-replication"><span class="header-section-number">5.2.6</span> Implications for replication</h3>
+<section id="implications-for-replication" class="level3" data-number="8.2.6">
+<h3 data-number="8.2.6" class="anchored" data-anchor-id="implications-for-replication"><span class="header-section-number">8.2.6</span> Implications for replication</h3>
 <p>The same logic applies to replications. It is common to judge whether a replication “succeeded” by whether it was significant, and whether it “failed” by whether it was not. This compares significance levels, and has both of the problems described above. A nonsignificant replication does not show that the original and replication results differ, and a significant replication does not show that they agree.</p>
 <p>There is a further problem. The precision of any test of the difference between an original study and its replication is limited by the less precise of the two, which is usually the original. <span class="citation" data-cites="morey2016">Morey &amp; Lakens (<a href="../references.html#ref-morey2016" role="doc-biblioref">2016</a>)</span> argue that because original studies in psychology are often so small, many published results are effectively unfalsifiable by replication: even a replication with an enormous sample cannot show that its result differs from the original’s.</p>
 <p>Consider an original study with 10 participants per group that found <em>p</em> = .03, corresponding to <em>d</em> = 1.05, 95% CI [0.12, 1.99]. Suppose a replication with 5,000 participants per group finds <em>d</em> = 0.20, 95% CI [0.16, 0.24]. The replication is highly significant, so by the criterion of significance it “succeeded”. Yet its estimate is one fifth of the original, and the test of the difference between them is not significant:</p>
@@ -1166,8 +1180,8 @@ window.Quarto = {
 </div>
 <p>The replication was not the problem. Because the original’s standard error is almost 0.48, the difference between the two studies would have to be about 0.94 standard deviations before it could reach significance, however large the replication. The original study was too imprecise to tell us much about the size of the effect, and so it is also too imprecise to be contradicted. In trustworthiness assessment, this is a reason to focus on effect size estimates and their precision, and to be cautious of any conclusion, from the original authors or from replicators, that rests on whether results fell on the same side of .05.</p>
 </section>
-<section id="test-yourself-1" class="level3" data-number="5.2.7">
-<h3 data-number="5.2.7" class="anchored" data-anchor-id="test-yourself-1"><span class="header-section-number">5.2.7</span> Test yourself</h3>
+<section id="test-yourself-1" class="level3" data-number="8.2.7">
+<h3 data-number="8.2.7" class="anchored" data-anchor-id="test-yourself-1"><span class="header-section-number">8.2.7</span> Test yourself</h3>
 <div class="webex-check webex-box">
 <p>An article reports that a memory training programme improved recall in younger adults, <em>p</em> = .01, but not in older adults, <em>p</em> = .20. The abstract concludes that “the benefits of memory training are limited to younger adults”. Mark each statement as true or false.</p>
 <ol type="1">
@@ -1963,13 +1977,13 @@ window._ojs.runtime.interpretFromScriptTags();
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/understanding_p_values.html" class="pagination-link" aria-label="Understanding *p*-values [✎ Draft]{.badge .badge-draft2}">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Understanding <em>p</em>-values <span class="badge badge-draft2">✎ Draft</span></span></span>
+      <a href="../chapters/06_standardized_deviations_vs_standards_errors.html" class="pagination-link" aria-label="Standard Deviations vs. Standards Errors [✎ Outline]{.badge .badge-draft1}">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Standard Deviations vs.&nbsp;Standards Errors <span class="badge badge-draft1">✎ Outline</span></span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/effect_size_methods.html" class="pagination-link" aria-label="Effect size methods [✎ Outline]{.badge .badge-draft1}">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Effect size methods <span class="badge badge-draft1">✎ Outline</span></span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/08_effect_size_methods.html" class="pagination-link" aria-label="Effect size methods [✎ Outline]{.badge .badge-draft1}">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Effect size methods <span class="badge badge-draft1">✎ Outline</span></span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
@@ -2452,6 +2466,19 @@ window._ojs.runtime.interpretFromScriptTags();
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Text and figures © Ian Hussey, <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>. Code <a href="https://opensource.org/licenses/MIT">MIT</a>. <a href="../index.html#sec-license">License details</a>.</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
 
 
 

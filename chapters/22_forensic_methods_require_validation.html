@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>21&nbsp; Validating meta-science methods using simulated data ✎ Outline – Trustworthiness Assessment</title>
+<title>23&nbsp; Forensic meta-science methods require validation ✎ Outline – Trustworthiness Assessment</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,8 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../references.html" rel="next">
-<link href="../chapters/forensic_methods_require_validation.html" rel="prev">
+<link href="../chapters/23_validation_using_simulated_data.html" rel="next">
+<link href="../exercises/21_reflexive_critique.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -121,6 +121,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   /* Observable Inputs.button uses .btn-quarto: give it the plots' blue (the default text colour matched its background), and space between stacked buttons */
   .btn.btn-quarto { color: #fff; background-color: #2780e3; border-color: #2780e3; margin: 0.4rem 0; }
   .btn.btn-quarto:hover { background-color: #1f6ab8; border-color: #1f6ab8; }
+  /* quarto adds a copy button to every code cell, which still appears at the top right of Observable JS cells whose code is hidden (echo: false). hide it for those cells only */
+  .code-copy-outer-scaffold > .cell-code.hidden:has(> pre.js) ~ .code-copy-button { display: none; }
   /* .big-number: [89%]{.number} then [explanatory text]{.description}
      .big-quote:  [quote text]{.quote} then [source]{.citation}
      each works as a span (use a trailing \ for line breaks) or a div (for multiple paragraphs) */
@@ -326,7 +328,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/forensic_methods_require_validation.html">Part IV: Developing and validating methods</a></li><li class="breadcrumb-item"><a href="../chapters/validation_using_simulated_data.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Validating meta-science methods using simulated data <span class="badge badge-draft1">✎ Outline</span></span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/22_forensic_methods_require_validation.html">Part V: Developing and validating forensic methods</a></li><li class="breadcrumb-item"><a href="../chapters/22_forensic_methods_require_validation.html"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Forensic meta-science methods require validation <span class="badge badge-draft1">✎ Outline</span></span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -360,6 +362,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Introduction</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lesson_plan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Lesson plan</span></span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
@@ -371,26 +379,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/scope_and_need.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Scope and need <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  <a href="../chapters/01_scope_and_need.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Scope and need <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/psychological_preparation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Psychological preparation <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  <a href="../chapters/02_psychological_preparation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Psychological preparation <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/organising_principles.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Organising principles <span class="badge badge-draft1">✎ Outline</span></span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/understanding_p_values.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Understanding <em>p</em>-values <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+  <a href="../chapters/03_organising_principles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Organising principles <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
       </ul>
@@ -398,7 +400,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Part II: Methods</span></a>
+ <span class="menu-text">Part II: Understanding statistics</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -406,68 +408,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/misinterpretation_methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Misinterpretation methods <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+  <a href="../chapters/04_understanding_p_values.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Understanding <em>p</em>-values <span class="badge badge-draft2">✎ Draft</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/effect_size_methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Effect size methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  <a href="../chapters/05_standardized_mean_differences_cohens_d.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Standardized Mean Differences (Cohen’s <em>d</em>) <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/repetition_and_consistency_methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Repetition and consistency methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/recalculation_methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Recalculation methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/granularity_methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Granularity methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/bounds_methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Bounds methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/reconstruction_resampling_simulation_methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Reconstruction, resampling, and simulation methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/design_methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Design methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/measurement_methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Measurement methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/theory_specification_methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Theory specification methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/data_extraction_methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Data extraction methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  <a href="../chapters/06_standardized_deviations_vs_standards_errors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Standard Deviations vs.&nbsp;Standards Errors <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
       </ul>
@@ -475,7 +429,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Part III: Organising</span></a>
+ <span class="menu-text">Part III: Forensic meta-science methods</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -483,26 +437,68 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../exercises/critiquing_specific_types_of_articles.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Critiquing specific types of articles <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  <a href="../chapters/07_misinterpretation_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Misinterpretation methods <span class="badge badge-draft2">✎ Draft</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../exercises/inspect_sr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">INSPECT-SR <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  <a href="../chapters/08_effect_size_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Effect size methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../exercises/organising_critique.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Organising critique <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  <a href="../chapters/09_repetition_and_consistency_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Repetition and consistency methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../exercises/reflexive_critique.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Reflexive critique <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  <a href="../chapters/10_recalculation_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Recalculation methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/11_granularity_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Granularity methods <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/12_bounds_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Bounds methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/13_reconstruction_resampling_simulation_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Reconstruction, resampling, and simulation methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/14_design_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Design methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/15_measurement_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Measurement methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/16_theory_specification_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Theory specification methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/17_data_extraction_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Data extraction methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
       </ul>
@@ -510,7 +506,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Part IV: Developing and validating methods</span></a>
+ <span class="menu-text">Part IV: Organising</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -518,14 +514,49 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/forensic_methods_require_validation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Forensic meta-science methods require validation <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  <a href="../exercises/18_critiquing_specific_types_of_articles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Critiquing specific types of articles <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/validation_using_simulated_data.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Validating meta-science methods using simulated data <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  <a href="../exercises/19_inspect_sr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">INSPECT-SR <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../exercises/20_organising_critique.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Organising critique <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../exercises/21_reflexive_critique.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Reflexive critique <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part V: Developing and validating forensic methods</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/22_forensic_methods_require_validation.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Forensic meta-science methods require validation <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/23_validation_using_simulated_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Validating meta-science methods using simulated data <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
       </ul>
@@ -536,38 +567,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">References</span></a>
   </div>
 </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
- <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../appendices/lesson_plan.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Lesson plan <span class="badge badge-draft1">✎ Outline</span></span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
     </ul>
     </div>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#proposed-standard" id="toc-proposed-standard" class="nav-link active" data-scroll-target="#proposed-standard"><span class="header-section-number">23.1</span> Proposed standard</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/forensic_methods_require_validation.html">Part IV: Developing and validating methods</a></li><li class="breadcrumb-item"><a href="../chapters/validation_using_simulated_data.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Validating meta-science methods using simulated data <span class="badge badge-draft1">✎ Outline</span></span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/22_forensic_methods_require_validation.html">Part V: Developing and validating forensic methods</a></li><li class="breadcrumb-item"><a href="../chapters/22_forensic_methods_require_validation.html"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Forensic meta-science methods require validation <span class="badge badge-draft1">✎ Outline</span></span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Validating meta-science methods using simulated data <span class="badge badge-draft1">✎ Outline</span></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Forensic meta-science methods require validation <span class="badge badge-draft1">✎ Outline</span></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -584,12 +604,110 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This chapter will explain, with worked examples and R/tidyverse/purrr code, how to validate implementations of methods against simulated data. It differentiates between exhaustive grid sweeps and probabilistic Monte Carlo simulations.</p>
-<p>This form of validation is essential to understanding whether a method works as expected under idea conditions (i.e., assuming no text extraction, parsing, etc issues; just perfect inputs), in terms of false positives, false negatives, coverage, bias, etc.</p>
+<blockquote class="blockquote">
+<p>“No one’s going to care about a method that doesn’t actually work. That’s why new statistical techniques are never published without some kind of demonstration of their superiority … does it give answers that actually make sense?” (Mandl et al., 2026)</p>
+</blockquote>
+<p>Many forensic meta-science methods have been developed by non methodologists. This is probably not accidental: maybe it required some outside thinkers to develop the agonizingly simple math that GRIM is based on.</p>
+<p>But, now that these methods have been conceived of, they need to be validated. There is an asymmetric reputational risk here: if we use these methods to determine that other research is untrustworthy, and it is in fact our methods that are untrustworthy, we are going to look quite silly. This is where the (quantitative) forensic meta-science research community is currently falling behind, and which work in our research group tries to improve.</p>
+<p>At the same time, traditional methods validation in the sense of a simulation study under ideal conditions is insufficient here. Trustworthiness assessments are increasingly likely to be conducted by <em>users</em> of forensic meta-science methods rather than expert developers of these methods. As such, implementations of the methods need to be usable, they need to have UIs that guide users towards making sensible choices and away from non-sensible ones, and they need to have clearly specified interpretations of results and reporting guidelines, etc. We therefore conceptualise validation to be broader, along the following candidate dimensions.</p>
+<section id="proposed-standard" class="level2" data-number="23.1">
+<h2 data-number="23.1" class="anchored" data-anchor-id="proposed-standard"><span class="header-section-number">23.1</span> Proposed standard</h2>
+<p>This rubric defines actionable roadmaps for specification, validation, improvement, and the assessment of readiness (rather than being merely aspirational).</p>
+<p><strong>Properties</strong></p>
+<ol type="1">
+<li>Formal specification of method</li>
+</ol>
+<ul>
+<li>Logic, math, etc.</li>
+<li>Scope of inference</li>
+<li>Assumptions</li>
+<li>Limitations</li>
+<li>Use and failure cases</li>
+</ul>
+<ol start="2" type="1">
+<li>Implementation</li>
+</ol>
+<ul>
+<li>In a free and open-source software library written in an open-source programming language, such as R or Python. In R library or equivalent.</li>
+<li>Code as primary output. Treat the implementation as the artefact under review. Open code, unit tests, reproducible fixtures, ;continuous integration.</li>
+<li>This often involves additional considerations beyond the abstract method to handle real world use cases. Common considerations include data extraction, which is a whole realm of tasks in itself.</li>
+<li>Note that separation of library and tool is important for validation.</li>
+</ul>
+<ol start="3" type="1">
+<li>Validation against simulated data</li>
+</ol>
+<ul>
+<li>e.g., Monte Carlo for stochastic methods, parameter sweep for deterministic methods, etc., to assess whether the method functions as expected over a wide range of known inputs. ADEMP reporting.</li>
+<li>Using common performance metrics from research methods, such as sensitivity, specificity, empirical rejection rate (calibration under the null, ability and power to detect issues of what size), bias, coverage, etc.</li>
+<li>Robustness to nuisance parameters (e.g., rounded inputs and different rounding or truncation conventions, reporting standards, typos in inputs, number of items).</li>
+</ul>
+<ol start="4" type="1">
+<li>Validation against human-coded data</li>
+</ol>
+<ul>
+<li>To assess whether the method functions as expected over a wide range of realistic inputs. This is useful for surfacing issues to do with extraction/parsing, edge cases, etc.</li>
+<li>Consideration of gold vs.&nbsp;reference standards, reporting of inter-rater reliability between human-human, human-tool, or human-ai coders, etc.</li>
+<li>This provides information on generalisability, validation within specific domains (e.g., reporting standards may differ between psychology and medicine; pdf formatting may differ between journals or publishers).</li>
+</ul>
+<ol start="5" type="1">
+<li>Large scale application</li>
+</ol>
+<ul>
+<li>Substantive conclusions (e.g., re prevalence, severity etc) from applying the method to a large amount of real world data. Often (initially) using the same data used for validation against human coding, as part of the same process.</li>
+</ul>
+<ol start="6" type="1">
+<li>Adversarial robustness / gameability.</li>
+</ol>
+<ul>
+<li>Once a method is known, can it be evaded (e.g., reporting choices that defeat GRIM)? What vectors of gamability might exist?</li>
+</ul>
+<p><strong>Usage</strong></p>
+<ol start="7" type="1">
+<li>Tool</li>
+</ol>
+<ul>
+<li>Implementation of the library in a UI tool (eg Shiny app), AI skill, etc. to increase usability/scalability.</li>
+<li>Audit trail: does the tool produce an auditable trail of inputs, outputs, versions of method/tool applied, etc.</li>
+</ul>
+<ol start="8" type="1">
+<li>Reporting standards</li>
+</ol>
+<ul>
+<li>Instructions on how to interpret and report results from the method/tool.</li>
+</ul>
+<ol start="9" type="1">
+<li>Training materials</li>
+</ol>
+<ul>
+<li>Materials that train and ideally assess whether users can correctly use and report the method/tool, including its assumptions, limitations, use- and failure-cases etc.</li>
+</ul>
+<ol start="10" type="1">
+<li>Usability</li>
+</ol>
+<ul>
+<li>Evidence that users find the library/tool to be adequately usable; and that misuse cases are assessed, detected and mitigated via human factors research.</li>
+</ul>
+<p><strong>Ecosystem</strong></p>
+<ol start="11" type="1">
+<li>Comparison</li>
+</ol>
+<ul>
+<li>When multiple implementations of a given or related method are available, head-to-head comparisons are informative. This can be along many of the above dimensions, from validation to usability to training materials, to a general assessment of use-cases.</li>
+<li>Versioning, maintenance &amp; deprecation.</li>
+<li>Versioning of methods/tools.</li>
+<li>Last time of validation. Tools rot (PDF formats change, R deps break). Need for ongoing validation, not one-shot.</li>
+</ul>
+<ol start="12" type="1">
+<li>Readiness</li>
+</ol>
+<ul>
+<li>TBD: Some sort of maturity-level or evidence-readiness scheme that integrates the above.</li>
+</ul>
 
 
 <!-- -->
 
+</section>
 
 </main> <!-- /main -->
 <script>
@@ -1264,17 +1382,17 @@ window.onload = function() {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/forensic_methods_require_validation.html" class="pagination-link" aria-label="Forensic meta-science methods require validation [✎ Outline]{.badge .badge-draft1}">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Forensic meta-science methods require validation <span class="badge badge-draft1">✎ Outline</span></span></span>
+      <a href="../exercises/21_reflexive_critique.html" class="pagination-link" aria-label="Reflexive critique [✎ Outline]{.badge .badge-draft1}">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Reflexive critique <span class="badge badge-draft1">✎ Outline</span></span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../references.html" class="pagination-link" aria-label="References">
-        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/23_validation_using_simulated_data.html" class="pagination-link" aria-label="Validating meta-science methods using simulated data [✎ Outline]{.badge .badge-draft1}">
+        <span class="nav-page-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Validating meta-science methods using simulated data <span class="badge badge-draft1">✎ Outline</span></span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Validating meta-science methods using simulated data [✎ Outline]{.badge .badge-draft1}</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Forensic meta-science methods require validation [✎ Outline]{.badge .badge-draft1}</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
@@ -1282,13 +1400,82 @@ window.onload = function() {
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>This chapter will explain, with worked examples and R/tidyverse/purrr code, how to validate implementations of methods against simulated data. It differentiates between exhaustive grid sweeps and probabilistic Monte Carlo simulations.</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; "No one’s going to care about a method that doesn’t actually work. That’s why new statistical techniques are never published without some kind of demonstration of their superiority … does it give answers that actually make sense?” (Mandl et al., 2026)</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>This form of validation is essential to understanding whether a method works as expected under idea conditions (i.e., assuming no text extraction, parsing, etc issues; just perfect inputs), in terms of false positives, false negatives, coverage, bias, etc. </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>Many forensic meta-science methods have been developed by non methodologists. This is probably not accidental: maybe it required some outside thinkers to develop the agonizingly simple math that GRIM is based on.</span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>But, now that these methods have been conceived of, they need to be validated. There is an asymmetric reputational risk here: if we use these methods to determine that other research is untrustworthy, and it is in fact our methods that are untrustworthy, we are going to look quite silly. This is where the (quantitative) forensic meta-science research community is currently falling behind, and which work in our research group tries to improve. </span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>At the same time, traditional methods validation in the sense of a simulation study under ideal conditions is insufficient here. Trustworthiness assessments are increasingly likely to be conducted by *users* of forensic meta-science methods rather than expert developers of these methods. As such, implementations of the methods need to be usable, they need to have UIs that guide users towards making sensible choices and away from non-sensible ones, and they need to have clearly specified interpretations of results and reporting guidelines, etc. We therefore conceptualise validation to be broader, along the following candidate dimensions.</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">## Proposed standard</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>This rubric defines actionable roadmaps for specification, validation, improvement, and the assessment of readiness (rather than being merely aspirational). </span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>**Properties**</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Formal specification of method</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Logic, math, etc.</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Scope of inference</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Assumptions</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Limitations</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Use and failure cases</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Implementation</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>In a free and open-source software library written in an open-source programming language, such as R or Python. In R library or equivalent.</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Code as primary output. Treat the implementation as the artefact under review. Open code, unit tests, reproducible fixtures, ;continuous integration. </span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>This often involves additional considerations beyond the abstract method to handle real world use cases. Common considerations include data extraction, which is a whole realm of tasks in itself.</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Note that separation of library and tool is important for validation.</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Validation against simulated data</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>e.g., Monte Carlo for stochastic methods, parameter sweep for deterministic methods, etc., to assess whether the method functions as expected over a wide range of known inputs. ADEMP reporting.</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Using common performance metrics from research methods, such as sensitivity, specificity, empirical rejection rate (calibration under the null, ability and power to detect issues of what size), bias, coverage, etc.</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Robustness to nuisance parameters (e.g., rounded inputs and different rounding or truncation conventions, reporting standards, typos in inputs, number of items).</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Validation against human-coded data</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>To assess whether the method functions as expected over a wide range of realistic inputs. This is useful for surfacing issues to do with extraction/parsing, edge cases, etc.</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Consideration of gold vs. reference standards, reporting of inter-rater reliability between human-human, human-tool, or human-ai coders, etc.</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>This provides information on generalisability, validation within specific domains (e.g., reporting standards may differ between psychology and medicine; pdf formatting may differ between journals or publishers).</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Large scale application</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Substantive conclusions (e.g., re prevalence, severity etc) from applying the method to a large amount of real world data. Often (initially) using the same data used for validation against human coding, as part of the same process.</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Adversarial robustness / gameability.</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Once a method is known, can it be evaded (e.g., reporting choices that defeat GRIM)? What vectors of gamability might exist?</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>**Usage**</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span>Tool</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Implementation of the library in a UI tool (eg Shiny app), AI skill, etc. to increase usability/scalability.</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Audit trail: does the tool produce an auditable trail of inputs, outputs, versions of method/tool applied, etc.</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="ss">8. </span>Reporting standards</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Instructions on how to interpret and report results from the method/tool.</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="ss">9. </span>Training materials</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Materials that train and ideally assess whether users can correctly use and report the method/tool, including its assumptions, limitations, use- and failure-cases etc.</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="ss">10. </span>Usability</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Evidence that users find the library/tool to be adequately usable; and that misuse cases are assessed, detected and mitigated via human factors research.</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>**Ecosystem**</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="ss">11. </span>Comparison</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>When multiple implementations of a given or related method are available, head-to-head comparisons are informative. This can be along many of the above dimensions, from validation to usability to training materials, to a general assessment of use-cases.</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Versioning, maintenance &amp; deprecation.</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Versioning of methods/tools.</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Last time of validation. Tools rot (PDF formats change, R deps break). Need for ongoing validation, not one-shot.</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="ss">12. </span>Readiness</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>TBD: Some sort of maturity-level or evidence-readiness scheme that integrates the above.</span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a></span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Text and figures © Ian Hussey, <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>. Code <a href="https://opensource.org/licenses/MIT">MIT</a>. <a href="../index.html#sec-license">License details</a>.</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
 
 
 

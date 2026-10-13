@@ -1,4 +1,4 @@
-# Effect size methods [✎ Outline]{.badge .badge-draft1}
+# Effect size methods [✎ Draft]{.badge .badge-draft2}
 
 ```{r}
 #| include: false

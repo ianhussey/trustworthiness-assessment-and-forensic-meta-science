@@ -1,4 +1,4 @@
-# Standardized Mean Differences (Cohen's *d*) [✎ Outline]{.badge .badge-draft1}
+# Standardized Mean Differences (Cohen's *d*) [✎ Draft]{.badge .badge-draft2}
 
 ```{r}
 #| include: false
@@ -7,220 +7,99 @@ if(file.exists("../_setup.R")){source("../_setup.R")}
 
 ## Means and standard deviations on bounded scales {#sec-mean-sd-builder}
 
-Standardised effect sizes are built from means and standard deviations, so it helps to have a feel for which combinations of the two a given scale can produce. Most scales in psychology are bounded and produce integer responses: a 1–7 Likert item cannot produce a response of 0 or of 4.5. The app below lets you build a sample on such a scale. Set the logical minimum and maximum of the scale, and then set the number of observations at each response option in either of two ways. First, you can draw the distribution: click anywhere in a column to set its bar to that height, or hold the mouse button down and drag across the plot to draw the whole histogram in one movement. The vertical axis rescales when you release, so dragging a bar to the top of the plot makes room for larger counts. Second, you can type the exact number of observations for each response option into the boxes under the axis.
-
-The mean and the standard deviation are plotted below the frequencies, each with its 95% confidence interval, and update as you go. An interval for a standard deviation is rarely reported, but it can be calculated, from the chi-squared distribution. Both intervals assume normally distributed data, so they do not respect the bounds of the scale.
+Standardised effect sizes are built from means and standard deviations, so it helps to have a feel for what each of them describes. The plot below shows a single sample as a normal distribution. Use the sliders to change its mean and its *SD*. The mean sets where the distribution sits, and is marked by the dashed line. The *SD* sets how spread out the distribution is: the bar marks the scores within one *SD* of the mean.
 
 ```{ojs}
 //| echo: false
-// the plot below attaches the button's action
-oneButtons = html`<div class="sb-buttons">
-  <button class="btn btn-quarto sb-clear">Clear</button>
-</div>`
-```
-
-```{ojs}
-//| echo: false
-viewof oneMin = Inputs.number({value: 1, step: 1, label: "Scale minimum"})
-viewof oneMax = Inputs.number({value: 7, step: 1, label: "Scale maximum"})
-```
-
-```{ojs}
-//| echo: false
-onePlot = {
-  const scores = scaleScores(oneMin, oneMax)
-  if (!scores) return scaleMessage()
-  const colour = "#2780e3"
-  const estimatesPlot = html`<div></div>`
-  // the estimates are plotted in separate subplots, so that each has its own horizontal axis
-  const subplots = [
-    {title: "Mean", names: ["Mean"], unit: "Scale units", include: [0, 1]},
-    {title: "Standard deviation", names: ["SD"], unit: "Scale units", include: [0, 1]}
-  ]
-  const update = () => {
-    const stats = panel.stats()
-    const rows = []
-    const [lower, upper] = meanCi(stats) ?? [stats.mean, stats.mean]
-    if (stats.n > 0) rows.push({name: "Mean", est: stats.mean, lower, upper, colour})
-    const [sdLower, sdUpper] = sdCi(stats) ?? [stats.sd, stats.sd]
-    if (stats.n > 1) rows.push({name: "SD", est: stats.sd, lower: sdLower, upper: sdUpper, colour})
-    estimatesPlot.replaceChildren(...estimateSubplots(subplots, rows, width))
-  }
-  const panel = frequencyPanel(scores, oneStore, {onChange: update})
-  panel.style.setProperty("--sb", colour)
-  oneButtons.querySelector(".sb-clear").onclick = () => { oneStore.clear(); panel.refresh(); update() }
-  update()
-  return html`<div>
-    ${panel}
-    <div class="sb-title">Estimates with 95% CIs</div>
-    ${estimatesPlot}
-  </div>`
-}
-```
-
-```{ojs}
-//| echo: false
-// starting sample; observations outside the current scale bounds are kept but not shown or counted
-oneStore = new Map([[3, 2], [4, 4], [5, 3], [6, 1]])
-```
-
-Try to build a sample with a mean near the top of the scale and a large standard deviation, and notice that you cannot: the closer the mean is to either bound, the smaller the largest possible *SD* becomes. The largest *SD* of all comes from putting half of the observations at each end of the scale.
-
-## Standardisation {#sec-standardisation}
-
-The same construct is often measured with different scales, and different scales have different units. Depression, for example, is commonly measured with the BDI-II, which ranges from 0 to 63, the PHQ-9, which ranges from 0 to 27, and the HAM-D, which ranges from 0 to 52. A difference of 5 points between two groups means something different on each of them, so results from studies that used different scales cannot be compared or combined in their original units.
-
-The plot below shows these three scales, each with its logical range and the mean ± 1 *SD* of a hypothetical sample of depressed patients. The values are illustrative, not taken from a particular study. The buttons re-express the same three samples in different units:
-
-- **Scale units** are the original units of each scale.
-- **SD units** divide every score by that sample's standard deviation. This is the standardisation used by Cohen's *d* and other standardised mean differences.
-- **POMP** (percent of maximum possible) re-expresses every score as a percentage of the distance from the scale's minimum to its maximum.
-
-Switch between them and pay attention to what lines up and what does not.
-
-```{ojs}
-//| echo: false
-standardisationPlot = unitsPlot({
-  // illustrative values for a hypothetical sample of depressed patients on each scale
-  scales: [
-    {name: "BDI-II", min: 0, max: 63, sd: 10, means: [28]},
-    {name: "PHQ-9", min: 0, max: 27, sd: 5, means: [15]},
-    {name: "HAM-D", min: 0, max: 52, sd: 6, means: [20]}
-  ],
-  groups: [{name: "Sample", colour: "#2780e3"}],
-  captions: [
-    "In scale units, nothing lines up: each scale has its own range, mean, and SD.",
-    "In SD units, one SD is the same length on every scale, so a difference between two means can be expressed as a number of SDs on any of them. Only the SDs line up: the means still differ, and so do the ranges.",
-    "In POMP units, every scale runs from 0 to 100. Only the ranges line up: the means and the SDs still differ."
-  ],
-  width
-})
-```
-
-Standardising by the *SD* makes one thing comparable across scales: the unit. One *SD* is the same length on every scale, which is what allows a mean difference of 5 points on the BDI-II to be compared with a mean difference of 2.5 points on the PHQ-9. It does not make anything else comparable. The three samples still have different means in *SD* units, and the scales still have different ranges. Note also that the unit is a property of the sample, not of the scale: a study that recruited a more homogeneous sample would have a smaller *SD*, and the same difference in scale points would become a larger standardised difference (see @sec-range-restriction).
-
-The second plot shows why this matters for effect sizes. It adds a second group to each scale: a control condition and an intervention condition from a hypothetical trial of a treatment for depression, again with illustrative values, and with the same *SD* in both conditions. The panel underneath shows the difference between the two means on each scale, in whichever units are selected. Lower scores mean less severe depression, so a negative difference favours the intervention.
-
-```{ojs}
-//| echo: false
-standardisedDifferencePlot = unitsPlot({
-  // illustrative values for a hypothetical trial: means are [control, intervention], with a common SD
-  scales: [
-    {name: "BDI-II", min: 0, max: 63, sd: 10, means: [28, 22]},
-    {name: "PHQ-9", min: 0, max: 27, sd: 5, means: [15, 12.5]},
-    {name: "HAM-D", min: 0, max: 52, sd: 6, means: [20, 16.7]}
-  ],
-  groups: [{name: "Control", colour: "#d9622b"}, {name: "Intervention", colour: "#2780e3"}],
-  captions: [
-    "In scale units, the three differences cannot be compared, because a point on one scale is not a point on another.",
-    "In SD units, each difference is a Cohen's d, and the three can be compared. They are similar but not identical. The means themselves still do not line up, and neither do the ranges.",
-    "In POMP units, each difference is a percentage of its scale's range. This gives a different answer from Cohen's d, because it depends on the range of the scale and not on the SD of the sample."
-  ],
-  width
-})
-```
-
-In scale points, the three trials appear to have found very different effects: 6 points, 2.5 points, and 3.3 points. In *SD* units, they are *d* = −0.60, −0.50, and −0.55, which is what we might expect from three trials of the same treatment. Standardising has not made the three results identical, and it should not: it has only put them in the same units so that they can be compared.
-
-POMP makes a different thing comparable: the range. Every scale runs from 0 to 100, but the samples' means and *SD*s still differ. POMP units depend only on the scale, not on the sample, but they assume that the full range of one scale corresponds to the full range of another, which need not be true.
-
-<!-- TODO: add a citation for POMP (Cohen, Cohen, Aiken & West, 1999) to references.bib and cite it above. -->
-
-### Range restriction {#sec-range-restriction}
-
-Standardisation solves one problem and creates another. Because Cohen's *d* divides the mean difference by the *SD* of the sample, anything that changes the *SD* changes *d*, even when the effect of the intervention in scale points is exactly the same. The *SD* of a sample depends on who was recruited. A trial that accepts anyone with a diagnosis of depression will include a wide range of severity. A trial with narrow inclusion criteria, for example one that only accepts patients whose baseline scores fall within a particular band, will include a much narrower range. This is called range restriction, and it shrinks the *SD*.
-
-The plot below shows two hypothetical trials that used the same scale, the BDI-II, and found exactly the same difference between the intervention and control conditions: 5 points. Study A recruited a sample with a wide range of severity, and Study B recruited a sample with a restricted range. Use the slider to change how restricted Study B's sample is.
-
-```{ojs}
-//| echo: false
-viewof rrSd = Inputs.range([3, 10], {value: 5, step: 0.5, label: "SD in Study B"})
-```
-
-```{ojs}
-//| echo: false
-rrStudies = {
-  // two hypothetical trials on the BDI-II with the same means, and so the same mean difference, but different SDs
-  const control = 28, intervention = 23
-  return [{study: "Study A", note: "wide range of severity", sd: 10}, {study: "Study B", note: "restricted range of severity", sd: rrSd}]
-    .map(d => ({...d, control, intervention, difference: intervention - control, d: (intervention - control) / d.sd}))
-}
-
-rrPlot = {
-  const groups = [{group: "Control", key: "control"}, {group: "Intervention", key: "intervention"}]
-  const density = (x, mean, sd) => Math.exp(-(((x - mean) / sd) ** 2) / 2) / (sd * Math.sqrt(2 * Math.PI))
-  // normal curves for each condition in each study, over the range of the scale
-  const curves = rrStudies.flatMap(s => groups.flatMap(g => d3.range(0, 63.01, 0.25).map(x => ({study: s.study, group: g.group, x, y: density(x, s[g.key], s.sd)}))))
-  const means = rrStudies.flatMap(s => groups.map(g => ({study: s.study, group: g.group, x: s[g.key], y: density(0, 0, s.sd)})))
-  // a bracket between the two means, just above the curves
-  const brackets = rrStudies.map(s => ({...s, y: 1.15 * density(0, 0, s.sd)}))
-  return Plot.plot({
-    width, height: 380, marginLeft: 20, marginRight: 20, marginTop: 30, marginBottom: 45,
-    x: {label: "BDI-II score", labelAnchor: "center", labelOffset: 38, domain: [0, 63]},
-    y: {axis: null, domain: [0, 1.8 * d3.max(curves, d => d.y)]},
-    fy: {axis: null, domain: rrStudies.map(s => s.study), padding: 0.15},
-    color: {domain: groups.map(g => g.group), range: ["#d9622b", "#2780e3"], legend: true},
-    style: {fontSize: "13px"},
-    marks: [
-      Plot.frame({stroke: "currentColor", strokeOpacity: 0.2}),
-      Plot.areaY(curves, {x: "x", y1: 0, y2: "y", fy: "study", fill: "group", fillOpacity: 0.2}),
-      Plot.lineY(curves, {x: "x", y: "y", fy: "study", stroke: "group", strokeWidth: 2}),
-      Plot.link(means, {x1: "x", x2: "x", y1: 0, y2: "y", fy: "study", stroke: "group", strokeDasharray: "4,3"}),
-      Plot.link(brackets, {x1: "control", x2: "intervention", y1: "y", y2: "y", fy: "study", stroke: "currentColor", strokeWidth: 1.5}),
-      Plot.text(brackets, {x: d => (d.control + d.intervention) / 2, y: "y", fy: "study", text: d => `${Math.abs(d.difference)} points`, dy: -9, fontWeight: 600}),
-      Plot.text(rrStudies, {fy: "study", frameAnchor: "top-left", dx: 8, dy: 8, fontWeight: 600, text: d => `${d.study}: ${d.note} (SD = ${d.sd})`})
-    ]
-  })
-}
-```
-
-```{ojs}
-//| echo: false
-html`<div>${estimateSubplots([
-  {title: "Mean difference", names: rrStudies.map(s => s.study), unit: "Scale points", include: [-6, 0]},
-  {title: "Standardized Mean Difference", names: rrStudies.map(s => s.study), unit: "Standardized units", include: [-1.75, 0]}
-], rrStudies.flatMap(s => [
-  {subplot: "Mean difference", name: s.study, est: s.difference, lower: s.difference, upper: s.difference, colour: "#8a8a8a"},
-  {subplot: "Standardized Mean Difference", name: s.study, est: s.d, lower: s.d, upper: s.d, colour: "#8a8a8a"}
-]), width)}</div>`
-```
-
-```{ojs}
-//| echo: false
-md`Both studies found a mean difference of ${rrStudies[0].difference.toFixed(0).replace("-", "−")} points. In Study A, with *SD* = ${rrStudies[0].sd}, this is *d* = ${rrStudies[0].d.toFixed(2).replace("-", "−")}. In Study B, with *SD* = ${rrStudies[1].sd}, it is *d* = ${rrStudies[1].d.toFixed(2).replace("-", "−")}.`
-```
-
-The intervention did exactly the same thing in both studies: it lowered scores by 5 points. In the default setting, Study B's *d* is nevertheless twice the size of Study A's, and a reader comparing the two standardised effect sizes would conclude that the intervention worked twice as well in Study B. The difference between the two values of *d* comes entirely from who was recruited.
-
-This has several implications for trustworthiness assessment:
-
-- A standardised effect size cannot be interpreted without knowing the *SD* it was standardised by. When an effect size seems implausibly large, check whether the *SD*s are unusually small for that scale, compared with other studies of similar populations.
-- Standardised effect sizes from studies with different inclusion criteria are not directly comparable, even when the studies used the same scale. When the studies did use the same scale, the mean difference in scale points is often the more informative comparison.
-- Range restriction is only one of the things that change the *SD*. Others include the reliability of the measure, floor and ceiling effects, and which *SD* was used as the standardiser (for example, the baseline *SD*, the pooled *SD* at post-treatment, or the *SD* of change scores).
-
-## What Cohen's *d* looks like {#sec-cohens-d-visualised}
-
-Because Cohen's *d* is a difference between two means in *SD* units, it can be pictured as the distance between two distributions that each have an *SD* of 1. The plot below shows a control condition and an intervention condition as two normal distributions. Use the slider to change Cohen's *d* and see how far apart the two distributions are, and how much they overlap, for effect sizes of different magnitudes. Two other ways of expressing the same effect size are shown under the plot: the percentage of the two distributions that overlaps, and the probability of superiority, which is the probability that a randomly chosen participant from the intervention condition scores higher than a randomly chosen participant from the control condition. Both assume normal distributions with equal *SD*s. This plot is a simplified version of the interactive visualisation by Kristoffer Magnusson at [rpsychologist.com/cohend](https://rpsychologist.com/cohend/).
-
-```{ojs}
-//| echo: false
-viewof dShown = Inputs.range([0, 3], {value: 0.5, step: 0.05, label: "Cohen's d"})
+viewof oneMean = Inputs.range([1, 7], {value: 4, step: 0.05, label: "Mean"})
+viewof oneSd = Inputs.range([0.5, 2], {value: 1, step: 0.05, label: "SD"})
 ```
 
 ```{ojs}
 //| echo: false
 {
-  // two normal distributions with SD = 1, whose means are d apart
-  const groups = [{group: "Control", mean: 0}, {group: "Intervention", mean: dShown}]
-  const density = (x, mean) => Math.exp(-((x - mean) ** 2) / 2) / Math.sqrt(2 * Math.PI)
-  const peak = density(0, 0)
-  // the axis is fixed, so that the intervention distribution moves when d changes and the axis does not
-  const xMin = -3.5, xMax = 6.5
-  const curves = groups.flatMap(g => d3.range(xMin, xMax + 0.001, 0.05).map(x => ({...g, x, y: density(x, g.mean)})))
+  // one normal distribution
+  const density = x => Math.exp(-(((x - oneMean) / oneSd) ** 2) / 2) / (oneSd * Math.sqrt(2 * Math.PI))
+  // both axes are fixed, so that the distribution changes when the sliders move and the axes do not
+  const xMin = -4, xMax = 12, yMax = 1.15 / (0.5 * Math.sqrt(2 * Math.PI))
+  const peak = density(oneMean), shoulder = density(oneMean + oneSd)
+  const curve = d3.range(xMin, xMax + 0.001, 0.05).map(x => ({x, y: density(x)}))
+  const blue = "#2780e3"
   return Plot.plot({
     width, height: Math.min(360, Math.max(260, width * 0.5)), marginLeft: 20, marginRight: 20, marginTop: 10, marginBottom: 45,
-    x: {label: "Standard deviations", labelAnchor: "center", labelOffset: 38, domain: [xMin, xMax], ticks: d3.range(-3, 7)},
-    y: {axis: null, domain: [0, 1.3 * peak]},
+    x: {label: "Score", labelAnchor: "center", labelOffset: 38, domain: [xMin, xMax], ticks: d3.range(-4, 13, 2)},
+    y: {axis: null, domain: [0, yMax]},
+    style: {fontSize: "13px"},
+    marks: [
+      Plot.areaY(curve, {x: "x", y1: 0, y2: "y", fill: blue, fillOpacity: 0.2}),
+      Plot.lineY(curve, {x: "x", y: "y", stroke: blue, strokeWidth: 2}),
+      Plot.ruleY([0], {stroke: "currentColor"}),
+      // the mean
+      Plot.link([{}], {x1: oneMean, x2: oneMean, y1: 0, y2: peak, stroke: blue, strokeDasharray: "4,3"}),
+      Plot.text([{}], {x: oneMean, y: peak, text: () => `M = ${oneMean.toFixed(2)}`, dy: -10, fontWeight: 600}),
+      // one SD either side of the mean, drawn where the curve is one SD from the mean
+      Plot.link([{}], {x1: oneMean - oneSd, x2: oneMean + oneSd, y1: shoulder, y2: shoulder, stroke: "currentColor", strokeWidth: 1.5}),
+      Plot.text([{}], {x: oneMean + oneSd, y: shoulder, text: () => `SD = ${oneSd.toFixed(2)}`, textAnchor: "start", dx: 8, fontWeight: 600})
+    ]
+  })
+}
+```
+
+A normal distribution has no minimum or maximum, but most scales in psychology do: a 1–7 Likert item cannot produce a response of 0 or of 8. Set the mean to 6 and the *SD* to 2, and a large part of the distribution lies above 7. A sample on a 1–7 scale could not look like this. On a bounded scale, the closer the mean is to either end, the smaller the largest possible *SD* becomes, which is taken up in @sec-cohens-d-bounded.
+
+## What Cohen's *d* looks like {#sec-cohens-d-visualised}
+
+Cohen's *d* for two independent groups is the difference between their means divided by their pooled standard deviation:
+
+$$
+d = \frac{M_1 - M_2}{SD_{pooled}}, \qquad SD_{pooled} = \sqrt{\frac{(n_1 - 1)SD_1^2 + (n_2 - 1)SD_2^2}{n_1 + n_2 - 2}}
+$$
+
+Because Cohen's *d* is a difference between two means in *SD* units, it can be pictured as the distance between two distributions relative to how wide they are. The plot below shows a control condition and an intervention condition as two normal distributions with the same *SD*. The three sliders are linked by *d* = mean difference / *SD*. Change Cohen's *d* and the mean difference changes to match; change the mean difference or the *SD* and Cohen's *d* changes to match. See how far apart the two distributions are, and how much they overlap, for effect sizes of different magnitudes, and notice that the same *d* can come from a small difference between narrow distributions or a large difference between wide ones. Two other ways of expressing the same effect size are shown under the plot: the percentage of the two distributions that overlaps, and the probability of superiority, which is the probability that a randomly chosen participant from the intervention condition scores higher than a randomly chosen participant from the control condition. Both assume normal distributions with equal *SD*s. This plot is a simplified version of the interactive visualisation by Kristoffer Magnusson at [rpsychologist.com/cohend](https://rpsychologist.com/cohend/).
+
+```{ojs}
+//| echo: false
+viewof dLinked = {
+  // three linked sliders: Cohen's d = mean difference / SD. changing d changes the mean difference, and changing
+  // the mean difference or the SD changes d. the value, {d, difference, sd}, is stored on the wrapping div
+  const dMax = 3, sdMax = 2
+  const round = x => Math.round(x * 100) / 100
+  const dInput = Inputs.range([0, dMax], {value: 0.5, step: 0.01, label: "Cohen's d"})
+  const differenceInput = Inputs.range([0, dMax * sdMax], {value: 0.5, step: 0.01, label: "Mean difference"})
+  const sdInput = Inputs.range([0.5, sdMax], {value: 1, step: 0.01, label: "SD (both conditions)"})
+  const view = html`<div>${dInput}${differenceInput}${sdInput}</div>`
+  const store = () => { view.value = {d: dInput.value, difference: differenceInput.value, sd: sdInput.value} }
+  // each slider's own listener runs before its input event reaches the wrapping div, so the other sliders are
+  // already up to date when the plot reads the value
+  dInput.addEventListener("input", () => { differenceInput.value = round(dInput.value * sdInput.value); store() })
+  const updateD = () => {
+    // the mean difference cannot be more than the largest d on the slider allows for this SD
+    if (differenceInput.value > dMax * sdInput.value) differenceInput.value = round(dMax * sdInput.value)
+    dInput.value = round(differenceInput.value / sdInput.value)
+    store()
+  }
+  differenceInput.addEventListener("input", updateD)
+  sdInput.addEventListener("input", updateD)
+  store()
+  return view
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  // two normal distributions with the same SD, whose means are the mean difference apart
+  const {d, difference, sd} = dLinked
+  const groups = [{group: "Control", mean: 0}, {group: "Intervention", mean: difference}]
+  const density = (x, mean, sd) => Math.exp(-(((x - mean) / sd) ** 2) / 2) / (sd * Math.sqrt(2 * Math.PI))
+  // both axes are fixed, so that the distributions change when the sliders move and the axes do not
+  const xMin = -5, xMax = 11, yMax = 1.15 * density(0, 0, 0.5)
+  const peak = density(0, 0, sd)
+  const curves = groups.flatMap(g => d3.range(xMin, xMax + 0.001, 0.05).map(x => ({...g, x, y: density(x, g.mean, sd)})))
+  return Plot.plot({
+    width, height: Math.min(360, Math.max(260, width * 0.5)), marginLeft: 20, marginRight: 20, marginTop: 10, marginBottom: 45,
+    x: {label: "Score, relative to the control condition's mean", labelAnchor: "center", labelOffset: 38, domain: [xMin, xMax], ticks: d3.range(-4, 11, 2)},
+    y: {axis: null, domain: [0, yMax]},
     color: {domain: groups.map(g => g.group), range: ["#d9622b", "#2780e3"], legend: true},
     style: {fontSize: "13px"},
     marks: [
@@ -230,8 +109,8 @@ viewof dShown = Inputs.range([0, 3], {value: 0.5, step: 0.05, label: "Cohen's d"
       // each condition's mean
       Plot.link(groups, {x1: "mean", x2: "mean", y1: 0, y2: peak, stroke: "group", strokeDasharray: "4,3"}),
       // a bracket between the two means, labelled with d
-      Plot.link([{}], {x1: 0, x2: dShown, y1: 1.1 * peak, y2: 1.1 * peak, stroke: "currentColor", strokeWidth: 1.5}),
-      Plot.text([{}], {x: dShown / 2, y: 1.1 * peak, text: () => `d = ${dShown.toFixed(2)}`, dy: -10, fontWeight: 600})
+      Plot.link([{}], {x1: 0, x2: difference, y1: peak + 0.06 * yMax, y2: peak + 0.06 * yMax, stroke: "currentColor", strokeWidth: 1.5}),
+      Plot.text([{}], {x: difference / 2, y: peak + 0.06 * yMax, text: () => `d = ${d.toFixed(2)}`, dy: -10, fontWeight: 600})
     ]
   })
 }
@@ -242,8 +121,9 @@ viewof dShown = Inputs.range([0, 3], {value: 0.5, step: 0.05, label: "Cohen's d"
 {
   // overlap: the area shared by the two distributions. probability of superiority: the probability that a
   // randomly chosen intervention participant scores higher than a randomly chosen control participant
-  const overlap = 2 * normCdf(-Math.abs(dShown) / 2)
-  const superiority = normCdf(dShown / Math.SQRT2)
+  const d = dLinked.difference / dLinked.sd
+  const overlap = 2 * normCdf(-Math.abs(d) / 2)
+  const superiority = normCdf(d / Math.SQRT2)
   const pct = p => `${(100 * p).toFixed(1)}%`
   return html`<div class="sb-tiles">
     <div><div class="sb-tile-value">${pct(overlap)}</div><div class="sb-tile-label">Overlap</div><div class="sb-tile-note">of the two distributions is shared</div></div>
@@ -256,7 +136,7 @@ Even effect sizes that are conventionally described as large leave the two distr
 
 ### Cohen's *d* on a bounded scale {#sec-cohens-d-bounded}
 
-The plot above assumes normal distributions, which have no minimum or maximum. Real scales do, and this limits which effect sizes are possible. As the first app in this chapter showed, the closer a mean is to the end of a scale, the smaller its *SD* has to be. A large Cohen's *d* requires two means that are many *SD*s apart, but on a bounded scale the means can only move so far apart before one of them is too close to the end of the scale to have the *SD* that was reported.
+The plot above assumes normal distributions, which have no minimum or maximum. Real scales do, and this limits which effect sizes are possible. On a bounded scale, the closer a mean is to the end of the scale, the smaller its *SD* has to be. A large Cohen's *d* requires two means that are many *SD*s apart, but on a bounded scale the means can only move so far apart before one of them is too close to the end of the scale to have the *SD* that was reported.
 
 The plot below shows this. Set the logical minimum and maximum of the scale, the *SD* of both conditions in scale units, and Cohen's *d*. The two conditions start at the middle of the scale and move apart as *d* increases, so that their means are always *d* × *SD* scale points apart. Each of the two buttons switches between two settings, and is labelled with the setting that clicking it will change to. The first chooses how the conditions move apart: at first the control condition stays in the middle of the scale and only the intervention condition moves, and the alternative is that both conditions move away from the middle by the same amount. The second chooses the direction of the effect: at first the intervention increases scores, so that Cohen's *d* is positive, and the alternative is that it decreases them, so that *d* is negative. Each condition is drawn as a beta distribution, rescaled to the range of the scale, whose parameters are calculated from its mean and *SD* by the method of moments. The message under the plot says whether the combination you have chosen is possible.
 
@@ -404,17 +284,143 @@ The message under the plot distinguishes three situations. The combination is po
 
 The plot treats a combination as not possible once either condition's scores would have to be split between the two ends of the scale, with most at one end and a few at the other. Strictly, such data could exist. The absolute limit, which applies to any distribution and not only to beta distributions, is that a sample with a given mean on a scale from *min* to *max* cannot have a variance greater than (mean − *min*) × (*max* − mean), and this is only reached when every score is at one end of the scale or the other. The limit used by the plot is somewhat stricter than this, because data split between the two ends of a scale are not a plausible description of responses to that scale. One consequence is that the plot treats any *SD* larger than that of scores spread evenly across the whole scale, which is the range divided by √12, as not possible at all.
 
-Try increasing the *SD*: the larger the *SD* relative to the range of the scale, the smaller the largest possible *d*. The largest possible *d* is also only half as large when the control condition's mean stays in the middle of the scale, because only the intervention condition's mean can then move towards the end of the scale. When an article reports a large standardised effect on a bounded scale, it is worth checking whether the reported means and *SD*s are compatible with the scale at all (see also @sec-mean-sd-builder).
+Try increasing the *SD*: the larger the *SD* relative to the range of the scale, the smaller the largest possible *d*. The largest possible *d* is also only half as large when the control condition's mean stays in the middle of the scale, because only the intervention condition's mean can then move towards the end of the scale. When an article reports a large standardised effect on a bounded scale, it is worth checking whether the reported means and *SD*s are compatible with the scale at all.
+
+## Standardisation {#sec-standardisation}
+
+The same construct is often measured with different scales, and different scales have different units. Depression, for example, is commonly measured with the BDI-II, which ranges from 0 to 63, the PHQ-9, which ranges from 0 to 27, and the HAM-D, which ranges from 0 to 52. A difference of 5 points between two groups means something different on each of them, so results from studies that used different scales cannot be compared or combined in their original units.
+
+The plot below shows these three scales, each with its logical range and the mean ± 1 *SD* of a hypothetical sample of depressed patients. The values are illustrative, not taken from a particular study. The buttons re-express the same three samples in different units:
+
+- **Scale units** are the original units of each scale.
+- **SD units** divide every score by that sample's standard deviation. This is the standardisation used by Cohen's *d* and other standardised mean differences.
+- **POMP** (percent of maximum possible) re-expresses every score as a percentage of the distance from the scale's minimum to its maximum.
+
+Switch between them and pay attention to what lines up and what does not.
+
+```{ojs}
+//| echo: false
+standardisationPlot = unitsPlot({
+  // illustrative values for a hypothetical sample of depressed patients on each scale
+  scales: [
+    {name: "BDI-II", min: 0, max: 63, sd: 10, means: [28]},
+    {name: "PHQ-9", min: 0, max: 27, sd: 5, means: [15]},
+    {name: "HAM-D", min: 0, max: 52, sd: 6, means: [20]}
+  ],
+  groups: [{name: "Sample", colour: "#2780e3"}],
+  captions: [
+    "In scale units, nothing lines up: each scale has its own range, mean, and SD.",
+    "In SD units, one SD is the same length on every scale, so a difference between two means can be expressed as a number of SDs on any of them. Only the SDs line up: the means still differ, and so do the ranges.",
+    "In POMP units, every scale runs from 0 to 100. Only the ranges line up: the means and the SDs still differ."
+  ],
+  width
+})
+```
+
+Standardising by the *SD* makes one thing comparable across scales: the unit. One *SD* is the same length on every scale, which is what allows a mean difference of 5 points on the BDI-II to be compared with a mean difference of 2.5 points on the PHQ-9. It does not make anything else comparable. The three samples still have different means in *SD* units, and the scales still have different ranges. Note also that the unit is a property of the sample, not of the scale: a study that recruited a more homogeneous sample would have a smaller *SD*, and the same difference in scale points would become a larger standardised difference (see @sec-range-restriction).
+
+The second plot shows why this matters for effect sizes. It adds a second group to each scale: a control condition and an intervention condition from a hypothetical trial of a treatment for depression, again with illustrative values, and with the same *SD* in both conditions. The panel underneath shows the difference between the two means on each scale, in whichever units are selected. Lower scores mean less severe depression, so a negative difference favours the intervention.
+
+```{ojs}
+//| echo: false
+standardisedDifferencePlot = unitsPlot({
+  // illustrative values for a hypothetical trial: means are [control, intervention], with a common SD
+  scales: [
+    {name: "BDI-II", min: 0, max: 63, sd: 10, means: [28, 22]},
+    {name: "PHQ-9", min: 0, max: 27, sd: 5, means: [15, 12.5]},
+    {name: "HAM-D", min: 0, max: 52, sd: 6, means: [20, 16.7]}
+  ],
+  groups: [{name: "Control", colour: "#d9622b"}, {name: "Intervention", colour: "#2780e3"}],
+  captions: [
+    "In scale units, the three differences cannot be compared, because a point on one scale is not a point on another.",
+    "In SD units, each difference is a Cohen's d, and the three can be compared. They are similar but not identical. The means themselves still do not line up, and neither do the ranges.",
+    "In POMP units, each difference is a percentage of its scale's range. This gives a different answer from Cohen's d, because it depends on the range of the scale and not on the SD of the sample."
+  ],
+  width
+})
+```
+
+In scale points, the three trials appear to have found very different effects: 6 points, 2.5 points, and 3.3 points. In *SD* units, they are *d* = −0.60, −0.50, and −0.55, which is what we might expect from three trials of the same treatment. Standardising has not made the three results identical, and it should not: it has only put them in the same units so that they can be compared.
+
+POMP makes a different thing comparable: the range. Every scale runs from 0 to 100, but the samples' means and *SD*s still differ. POMP units depend only on the scale, not on the sample, but they assume that the full range of one scale corresponds to the full range of another, which need not be true.
+
+<!-- TODO: add a citation for POMP (Cohen, Cohen, Aiken & West, 1999) to references.bib and cite it above. -->
+
+### Range restriction {#sec-range-restriction}
+
+Standardisation solves one problem and creates another. Because Cohen's *d* divides the mean difference by the *SD* of the sample, anything that changes the *SD* changes *d*, even when the effect of the intervention in scale points is exactly the same. The *SD* of a sample depends on who was recruited. A trial that accepts anyone with a diagnosis of depression will include a wide range of severity. A trial with narrow inclusion criteria, for example one that only accepts patients whose baseline scores fall within a particular band, will include a much narrower range. This is called range restriction, and it shrinks the *SD*.
+
+The plot below shows two hypothetical trials that used the same scale, the BDI-II, and found exactly the same difference between the intervention and control conditions: 5 points. Study A recruited a sample with a wide range of severity, and Study B recruited a sample with a restricted range. Use the slider to change how restricted Study B's sample is.
+
+```{ojs}
+//| echo: false
+viewof rrSd = Inputs.range([3, 10], {value: 5, step: 0.5, label: "SD in Study B"})
+```
+
+```{ojs}
+//| echo: false
+rrStudies = {
+  // two hypothetical trials on the BDI-II with the same means, and so the same mean difference, but different SDs
+  const control = 28, intervention = 23
+  return [{study: "Study A", note: "wide range of severity", sd: 10}, {study: "Study B", note: "restricted range of severity", sd: rrSd}]
+    .map(d => ({...d, control, intervention, difference: intervention - control, d: (intervention - control) / d.sd}))
+}
+
+rrPlot = {
+  const groups = [{group: "Control", key: "control"}, {group: "Intervention", key: "intervention"}]
+  const density = (x, mean, sd) => Math.exp(-(((x - mean) / sd) ** 2) / 2) / (sd * Math.sqrt(2 * Math.PI))
+  // normal curves for each condition in each study, over the range of the scale
+  const curves = rrStudies.flatMap(s => groups.flatMap(g => d3.range(0, 63.01, 0.25).map(x => ({study: s.study, group: g.group, x, y: density(x, s[g.key], s.sd)}))))
+  const means = rrStudies.flatMap(s => groups.map(g => ({study: s.study, group: g.group, x: s[g.key], y: density(0, 0, s.sd)})))
+  // a bracket between the two means, just above the curves
+  const brackets = rrStudies.map(s => ({...s, y: 1.15 * density(0, 0, s.sd)}))
+  return Plot.plot({
+    width, height: 380, marginLeft: 20, marginRight: 20, marginTop: 30, marginBottom: 45,
+    x: {label: "BDI-II score", labelAnchor: "center", labelOffset: 38, domain: [0, 63]},
+    y: {axis: null, domain: [0, 1.8 * d3.max(curves, d => d.y)]},
+    fy: {axis: null, domain: rrStudies.map(s => s.study), padding: 0.15},
+    color: {domain: groups.map(g => g.group), range: ["#d9622b", "#2780e3"], legend: true},
+    style: {fontSize: "13px"},
+    marks: [
+      Plot.frame({stroke: "currentColor", strokeOpacity: 0.2}),
+      Plot.areaY(curves, {x: "x", y1: 0, y2: "y", fy: "study", fill: "group", fillOpacity: 0.2}),
+      Plot.lineY(curves, {x: "x", y: "y", fy: "study", stroke: "group", strokeWidth: 2}),
+      Plot.link(means, {x1: "x", x2: "x", y1: 0, y2: "y", fy: "study", stroke: "group", strokeDasharray: "4,3"}),
+      Plot.link(brackets, {x1: "control", x2: "intervention", y1: "y", y2: "y", fy: "study", stroke: "currentColor", strokeWidth: 1.5}),
+      Plot.text(brackets, {x: d => (d.control + d.intervention) / 2, y: "y", fy: "study", text: d => `${Math.abs(d.difference)} points`, dy: -9, fontWeight: 600}),
+      Plot.text(rrStudies, {fy: "study", frameAnchor: "top-left", dx: 8, dy: 8, fontWeight: 600, text: d => `${d.study}: ${d.note} (SD = ${d.sd})`})
+    ]
+  })
+}
+```
+
+```{ojs}
+//| echo: false
+html`<div>${estimateSubplots([
+  {title: "Mean difference", names: rrStudies.map(s => s.study), unit: "Scale points", include: [-6, 0]},
+  {title: "Standardized Mean Difference", names: rrStudies.map(s => s.study), unit: "Standardized units", include: [-1.75, 0]}
+], rrStudies.flatMap(s => [
+  {subplot: "Mean difference", name: s.study, est: s.difference, lower: s.difference, upper: s.difference, colour: "#8a8a8a"},
+  {subplot: "Standardized Mean Difference", name: s.study, est: s.d, lower: s.d, upper: s.d, colour: "#8a8a8a"}
+]), width)}</div>`
+```
+
+```{ojs}
+//| echo: false
+md`Both studies found a mean difference of ${rrStudies[0].difference.toFixed(0).replace("-", "−")} points. In Study A, with *SD* = ${rrStudies[0].sd}, this is *d* = ${rrStudies[0].d.toFixed(2).replace("-", "−")}. In Study B, with *SD* = ${rrStudies[1].sd}, it is *d* = ${rrStudies[1].d.toFixed(2).replace("-", "−")}.`
+```
+
+The intervention did exactly the same thing in both studies: it lowered scores by 5 points. In the default setting, Study B's *d* is nevertheless twice the size of Study A's, and a reader comparing the two standardised effect sizes would conclude that the intervention worked twice as well in Study B. The difference between the two values of *d* comes entirely from who was recruited.
+
+This has several implications for trustworthiness assessment:
+
+- A standardised effect size cannot be interpreted without knowing the *SD* it was standardised by. When an effect size seems implausibly large, check whether the *SD*s are unusually small for that scale, compared with other studies of similar populations.
+- Standardised effect sizes from studies with different inclusion criteria are not directly comparable, even when the studies used the same scale. When the studies did use the same scale, the mean difference in scale points is often the more informative comparison.
+- Range restriction is only one of the things that change the *SD*. Others include the reliability of the measure, floor and ceiling effects, and which *SD* was used as the standardiser (for example, the baseline *SD*, the pooled *SD* at post-treatment, or the *SD* of change scores).
 
 ## Cohen's *d* from two samples {#sec-cohens-d-builder}
 
-Cohen's *d* for two independent groups is the difference between their means divided by their pooled standard deviation:
-
-$$
-d = \frac{M_1 - M_2}{SD_{pooled}}, \qquad SD_{pooled} = \sqrt{\frac{(n_1 - 1)SD_1^2 + (n_2 - 1)SD_2^2}{n_1 + n_2 - 2}}
-$$
-
-The app below works in the same way as the one in @sec-mean-sd-builder, but with two samples on the same scale: an intervention condition and a control condition. Draw or type the frequencies for each condition, and the estimates below them update as you go, each with its 95% confidence interval. They are plotted in three groups, each with its own axis: the two means and the difference between them (intervention minus control), the two *SD*s and the pooled *SD*, and the standardised mean difference, Cohen's *d*. The first two groups are in the units of the scale, whereas *d* is in standard deviations. The interval for the mean difference uses the *t* distribution, the interval for the pooled *SD* uses the chi-squared distribution, and the interval for *d* uses the noncentral *t* distribution, as in the worked example in @sec-absence-of-evidence. Try changing only the spread of the two samples while keeping their means the same, to see how much *d* depends on the standard deviation, and try to find the largest *d* that the scale allows.
+The app below lets you build two samples on the same scale: an intervention condition and a control condition. Set the logical minimum and maximum of the scale, and then set the number of observations at each response option in either of two ways. First, you can draw each distribution: click anywhere in a column to set its bar to that height, or hold the mouse button down and drag across the plot to draw the whole histogram in one movement. The vertical axis rescales when you release, so dragging a bar to the top of the plot makes room for larger counts. Second, you can type the exact number of observations for each response option into the boxes under the axis. The estimates below the two conditions update as you go, each with its 95% confidence interval. They are plotted in three groups, each with its own axis: the two means and the difference between them (intervention minus control), the two *SD*s and the pooled *SD*, and the standardised mean difference, Cohen's *d*. The first two groups are in the units of the scale, whereas *d* is in standard deviations. The interval for the mean difference uses the *t* distribution, the interval for the pooled *SD* uses the chi-squared distribution, and the interval for *d* uses the noncentral *t* distribution, as in the worked example in @sec-absence-of-evidence. Try changing only the spread of the two samples while keeping their means the same, to see how much *d* depends on the standard deviation, and try to find the largest *d* that the scale allows.
 
 ```{ojs}
 //| echo: false

@@ -73,7 +73,7 @@ format:
     toc_float: true
     code-fold: false
     code-overflow: wrap
-    code-tools: true
+    code-tools: false
     warning: false
     df-print: kable
     theme:

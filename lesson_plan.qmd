@@ -1,4 +1,4 @@
-# Lesson plan {.unnumbered} [✎ Outline]{.badge .badge-draft1}
+# Lesson plan [✎ Outline]{.badge .badge-draft1} {.unnumbered}
 
 ```{r}
 #| include: false

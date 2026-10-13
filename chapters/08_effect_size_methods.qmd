@@ -101,6 +101,109 @@ Several things are worth trying:
 
 An observed effect size that falls outside the 99% interval for its sample size, under generous assumptions about the true effect and its heterogeneity, is unlikely to have arisen from a correctly calculated result. It is then worth checking for the common errors described below.
 
+## How much do sample *SD*s vary? {#sec-sd-sampling}
+
+Cohen's *d* depends on the *SD* of the sample, and the *SD* of a sample is itself an estimate that varies from sample to sample. Even when every study samples from the same population, some samples will have a smaller *SD* than the population and some a larger one, and the smaller the sample, the more the *SD* varies.
+
+The plot below shows how much. Set the *SD* of the population and the sample size, and the curve shows the percentile at which each possible sample *SD* falls: that is, the percentage of samples of that size whose *SD* would be that small or smaller. The dashed line marks the population *SD*. For each of the percentiles marked on the vertical axis, a dotted line runs across to the curve and down to the sample *SD* at that percentile, which is written beside it. The vertical axis is stretched at both ends, so that the most extreme percentiles can be told apart. The calculation assumes normally distributed scores.
+
+```{ojs}
+//| echo: false
+viewof sdPop = Inputs.number({value: 10, step: 0.1, label: "Population SD"})
+viewof sdN = Inputs.range([2, 500], {value: 30, step: 1, label: "Sample size (N)"})
+```
+
+```{ojs}
+//| echo: false
+{
+  if (!(sdPop > 0)) return html`<div style="color: var(--bs-secondary-color);">Set the population SD to a number above zero.</div>`
+  // for normally distributed scores, (N - 1) * sample variance / population variance follows a chi-squared
+  // distribution with N - 1 degrees of freedom
+  const df = sdN - 1
+  const quantile = p => sdPop * Math.sqrt(chisqQuantile(p, df) / df)
+  // the vertical axis is on a normal quantile (probit) scale, which stretches both ends, so that percentiles
+  // as extreme as 0.1 and 99.9 can be told apart. z is the position on that scale
+  const zOf = p => bisect(normCdf, p, -6, 6)
+  const zMin = zOf(0.0002), zMax = zOf(0.9998)
+  const curve = d3.range(201).map(i => { const z = zMin + (zMax - zMin) * i / 200; return {z, sd: quantile(normCdf(z))} })
+  const from = curve[0].sd, to = curve[curve.length - 1].sd
+  const points = [0.1, 1, 2.5, 25, 50, 75, 97.5, 99, 99.9].map(p => ({p, z: zOf(p / 100), sd: quantile(p / 100)}))
+  return Plot.plot({
+    width, height: Math.min(460, Math.max(340, width * 0.65)), marginLeft: 50, marginRight: 20, marginTop: 25, marginBottom: 45,
+    x: {label: "Sample SD", labelAnchor: "center", labelOffset: 38, domain: [from, to]},
+    y: {label: "Percentile of samples", labelAnchor: "center", domain: [zMin, zMax], ticks: points.map(d => d.z), tickFormat: z => String(points.find(d => d.z === z).p)},
+    style: {fontSize: "13px"},
+    marks: [
+      Plot.frame({stroke: "currentColor", strokeOpacity: 0.2}),
+      Plot.ruleX([sdPop], {stroke: "currentColor", strokeDasharray: "4,3", strokeOpacity: 0.6}),
+      Plot.text([sdPop], {x: d => d, frameAnchor: "top", dy: -14, text: () => `Population SD = ${sdPop}`, fontWeight: 600}),
+      Plot.lineY(curve, {x: "sd", y: "z", stroke: "#2780e3", strokeWidth: 2.5}),
+      // from each percentile on the vertical axis across to the curve, and down to its sample SD,
+      // which is written along the drop line
+      Plot.link(points, {x1: from, x2: "sd", y1: "z", y2: "z", stroke: "#2780e3", strokeOpacity: 0.5, strokeDasharray: "2,3"}),
+      Plot.link(points, {x1: "sd", x2: "sd", y1: zMin, y2: "z", stroke: "#2780e3", strokeOpacity: 0.5, strokeDasharray: "2,3"}),
+      Plot.dot(points, {x: "sd", y: "z", fill: "#2780e3", r: 5, symbol: "square"}),
+      Plot.text(points, {x: "sd", y: zMin, text: d => d.sd.toFixed(2), rotate: -90, textAnchor: "start", dx: -7, dy: -5, fontWeight: 600})
+    ]
+  })
+}
+```
+
+```{ojs}
+//| echo: false
+// statistical functions used by the plot above
+// quantiles of the chi-squared distribution, found by bisection on its cumulative distribution function
+function chisqQuantile(p, df) {
+  return bisect(x => gammaP(df / 2, x / 2), p, 0, df + 20 * Math.sqrt(2 * df) + 50)
+}
+function bisect(cdf, p, lower, upper) {
+  for (let i = 0; i < 100; i++) {
+    const mid = (lower + upper) / 2
+    if (cdf(mid) < p) lower = mid; else upper = mid
+  }
+  return (lower + upper) / 2
+}
+function normCdf(x) {
+  // Abramowitz & Stegun 7.1.26
+  const t = 1 / (1 + 0.3275911 * Math.abs(x) / Math.SQRT2)
+  const erf = 1 - (((((1.061405429 * t - 1.453152027) * t) + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t * Math.exp(-x * x / 2)
+  return x >= 0 ? 0.5 * (1 + erf) : 0.5 * (1 - erf)
+}
+function logGamma(x) {
+  // Lanczos approximation
+  const c = [76.18009172947146, -86.50532032941677, 24.01409824083091, -1.231739572450155, 0.001208650973866179, -0.000005395239384953]
+  let y = x, sum = 1.000000000190015
+  for (const cj of c) sum += cj / ++y
+  return -(x + 5.5) + (x + 0.5) * Math.log(x + 5.5) + Math.log(2.5066282746310005 * sum / x)
+}
+function gammaP(a, x) {
+  // regularised lower incomplete gamma function: series for small x, continued fraction otherwise
+  if (x <= 0) return 0
+  const front = Math.exp(-x + a * Math.log(x) - logGamma(a))
+  if (x < a + 1) {
+    let term = 1 / a, sum = term
+    for (let n = 1; n < 500; n++) { term *= x / (a + n); sum += term; if (Math.abs(term) < Math.abs(sum) * 1e-14) break }
+    return sum * front
+  }
+  let b = x + 1 - a, c = 1e300, d = 1 / b, h = d
+  for (let i = 1; i < 500; i++) {
+    const an = -i * (i - a)
+    b += 2
+    d = an * d + b; if (Math.abs(d) < 1e-300) d = 1e-300
+    c = b + an / c; if (Math.abs(c) < 1e-300) c = 1e-300
+    d = 1 / d
+    const del = d * c
+    h *= del
+    if (Math.abs(del - 1) < 1e-14) break
+  }
+  return 1 - front * h
+}
+```
+
+With a population *SD* of 10 and a sample of 30, the middle 95% of samples have *SD*s between about 7.4 and 12.6. A sample *SD* of 5 would be far below the 2.5th percentile, and would be very surprising if the sample really came from that population. Reduce the sample size to 10 and the same range widens to about 5.5 to 14.5.
+
+This is useful in two ways. When the *SD* of a measure in comparable populations is known, for example from norms or from other studies, the plot shows how surprising a reported *SD* is for its sample size. An *SD* that is far too small is a common reason for an implausibly large Cohen's *d*, and one common cause is that a standard error has been reported in place of the *SD* (see @sec-range-restriction for another). The plot also shows why Cohen's *d* is so imprecise in small samples: the *SD* that the mean difference is divided by is itself uncertain.
+
 ## Maximum positive controls and intuition benchmarks
 
 - Using known effects as anchors for plausibility assessment

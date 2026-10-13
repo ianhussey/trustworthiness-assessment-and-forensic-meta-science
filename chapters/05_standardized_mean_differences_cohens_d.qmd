@@ -198,6 +198,214 @@ This has several implications for trustworthiness assessment:
 - Standardised effect sizes from studies with different inclusion criteria are not directly comparable, even when the studies used the same scale. When the studies did use the same scale, the mean difference in scale points is often the more informative comparison.
 - Range restriction is only one of the things that change the *SD*. Others include the reliability of the measure, floor and ceiling effects, and which *SD* was used as the standardiser (for example, the baseline *SD*, the pooled *SD* at post-treatment, or the *SD* of change scores).
 
+## What Cohen's *d* looks like {#sec-cohens-d-visualised}
+
+Because Cohen's *d* is a difference between two means in *SD* units, it can be pictured as the distance between two distributions that each have an *SD* of 1. The plot below shows a control condition and an intervention condition as two normal distributions. Use the slider to change Cohen's *d* and see how far apart the two distributions are, and how much they overlap, for effect sizes of different magnitudes. Two other ways of expressing the same effect size are shown under the plot: the percentage of the two distributions that overlaps, and the probability of superiority, which is the probability that a randomly chosen participant from the intervention condition scores higher than a randomly chosen participant from the control condition. Both assume normal distributions with equal *SD*s. This plot is a simplified version of the interactive visualisation by Kristoffer Magnusson at [rpsychologist.com/cohend](https://rpsychologist.com/cohend/).
+
+```{ojs}
+//| echo: false
+viewof dShown = Inputs.range([0, 3], {value: 0.5, step: 0.05, label: "Cohen's d"})
+```
+
+```{ojs}
+//| echo: false
+{
+  // two normal distributions with SD = 1, whose means are d apart
+  const groups = [{group: "Control", mean: 0}, {group: "Intervention", mean: dShown}]
+  const density = (x, mean) => Math.exp(-((x - mean) ** 2) / 2) / Math.sqrt(2 * Math.PI)
+  const peak = density(0, 0)
+  // the axis is fixed, so that the intervention distribution moves when d changes and the axis does not
+  const xMin = -3.5, xMax = 6.5
+  const curves = groups.flatMap(g => d3.range(xMin, xMax + 0.001, 0.05).map(x => ({...g, x, y: density(x, g.mean)})))
+  return Plot.plot({
+    width, height: Math.min(360, Math.max(260, width * 0.5)), marginLeft: 20, marginRight: 20, marginTop: 10, marginBottom: 45,
+    x: {label: "Standard deviations", labelAnchor: "center", labelOffset: 38, domain: [xMin, xMax], ticks: d3.range(-3, 7)},
+    y: {axis: null, domain: [0, 1.3 * peak]},
+    color: {domain: groups.map(g => g.group), range: ["#d9622b", "#2780e3"], legend: true},
+    style: {fontSize: "13px"},
+    marks: [
+      Plot.areaY(curves, {x: "x", y1: 0, y2: "y", fill: "group", fillOpacity: 0.2}),
+      Plot.lineY(curves, {x: "x", y: "y", stroke: "group", strokeWidth: 2}),
+      Plot.ruleY([0], {stroke: "currentColor"}),
+      // each condition's mean
+      Plot.link(groups, {x1: "mean", x2: "mean", y1: 0, y2: peak, stroke: "group", strokeDasharray: "4,3"}),
+      // a bracket between the two means, labelled with d
+      Plot.link([{}], {x1: 0, x2: dShown, y1: 1.1 * peak, y2: 1.1 * peak, stroke: "currentColor", strokeWidth: 1.5}),
+      Plot.text([{}], {x: dShown / 2, y: 1.1 * peak, text: () => `d = ${dShown.toFixed(2)}`, dy: -10, fontWeight: 600})
+    ]
+  })
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  // overlap: the area shared by the two distributions. probability of superiority: the probability that a
+  // randomly chosen intervention participant scores higher than a randomly chosen control participant
+  const overlap = 2 * normCdf(-Math.abs(dShown) / 2)
+  const superiority = normCdf(dShown / Math.SQRT2)
+  const pct = p => `${(100 * p).toFixed(1)}%`
+  return html`<div class="sb-tiles">
+    <div><div class="sb-tile-value">${pct(overlap)}</div><div class="sb-tile-label">Overlap</div><div class="sb-tile-note">of the two distributions is shared</div></div>
+    <div><div class="sb-tile-value">${pct(superiority)}</div><div class="sb-tile-label">Probability of superiority</div><div class="sb-tile-note">chance that a randomly chosen participant from the intervention condition scores higher than a randomly chosen participant from the control condition</div></div>
+  </div>`
+}
+```
+
+Even effect sizes that are conventionally described as large leave the two distributions overlapping substantially: at *d* = 0.8, about 21% of participants in the control condition score higher than the average participant in the intervention condition. The picture changes quickly as *d* increases. At *d* = 2, only about 2% of the control condition scores above the intervention condition's mean, and at *d* = 3 the two distributions overlap only in their tails. This is one reason why very large reported effect sizes deserve scrutiny: they describe a situation in which almost every participant in one condition scored higher than the average participant in the other.
+
+### Cohen's *d* on a bounded scale {#sec-cohens-d-bounded}
+
+The plot above assumes normal distributions, which have no minimum or maximum. Real scales do, and this limits which effect sizes are possible. As the first app in this chapter showed, the closer a mean is to the end of a scale, the smaller its *SD* has to be. A large Cohen's *d* requires two means that are many *SD*s apart, but on a bounded scale the means can only move so far apart before one of them is too close to the end of the scale to have the *SD* that was reported.
+
+The plot below shows this. Set the logical minimum and maximum of the scale, the *SD* of both conditions in scale units, and Cohen's *d*. The two conditions start at the middle of the scale and move apart as *d* increases, so that their means are always *d* × *SD* scale points apart. Each of the two buttons switches between two settings, and is labelled with the setting that clicking it will change to. The first chooses how the conditions move apart: at first the control condition stays in the middle of the scale and only the intervention condition moves, and the alternative is that both conditions move away from the middle by the same amount. The second chooses the direction of the effect: at first the intervention increases scores, so that Cohen's *d* is positive, and the alternative is that it decreases them, so that *d* is negative. Each condition is drawn as a beta distribution, rescaled to the range of the scale, whose parameters are calculated from its mean and *SD* by the method of moments. The message under the plot says whether the combination you have chosen is possible.
+
+```{ojs}
+//| echo: false
+viewof bBothMove = toggleButton([{label: "Only intervention condition moves", value: false}, {label: "Both conditions move", value: true}])
+viewof bIncrease = toggleButton([{label: "Intervention increases scores", value: true}, {label: "Intervention decreases scores", value: false}])
+```
+
+```{ojs}
+//| echo: false
+viewof bMin = Inputs.number({value: 1, step: 1, label: "Scale minimum"})
+viewof bMax = Inputs.number({value: 7, step: 1, label: "Scale maximum"})
+```
+
+```{ojs}
+//| echo: false
+// the SD slider's range follows the scale: no distribution on a bounded scale can have an SD above half its range
+bBounds = Number.isFinite(bMin) && Number.isFinite(bMax) && bMin < bMax ? [bMin, bMax] : null
+viewof bSd = Inputs.range([0.1, ((bBounds ?? [1, 7])[1] - (bBounds ?? [1, 7])[0]) / 2], {value: Math.round(((bBounds ?? [1, 7])[1] - (bBounds ?? [1, 7])[0]) / 5 * 10) / 10, step: 0.05, label: "SD (scale units)"})
+viewof bD = Inputs.range([0, 6], {value: 0.5, step: 0.05, label: "Size of Cohen's d"})
+```
+
+```{ojs}
+//| echo: false
+bState = {
+  if (!bBounds) return null
+  const [lo, hi] = bBounds, range = hi - lo, mid = (lo + hi) / 2
+  // the two conditions for a given size of d. the two means start at the middle of the scale and stay d SDs from
+  // each other. either both move away from the middle by the same amount, or the control condition stays in the
+  // middle and only the intervention moves. the intervention moves up the scale if it increases scores (a
+  // positive d) and down the scale if it decreases them (a negative d)
+  const groupsFor = d => {
+    const shift = (bIncrease ? 1 : -1) * d * bSd
+    return [{group: "Control", mean: bBothMove ? mid - shift / 2 : mid}, {group: "Intervention", mean: bBothMove ? mid + shift / 2 : mid + shift}].map(g => {
+      // method of moments for a beta distribution in its mean-precision form, as used in beta regression:
+      // rescale the mean and variance to the 0 to 1 interval, then precision = mean * (1 - mean) / variance - 1,
+      // alpha = mean * precision, and beta = (1 - mean) * precision. a valid distribution needs precision > 0
+      const m = (g.mean - lo) / range, v = (bSd / range) ** 2
+      const precision = m * (1 - m) / v - 1
+      const alpha = m * precision, beta = (1 - m) * precision
+      const valid = m > 0 && m < 1 && precision > 0
+      // shape: with alpha and beta above 1 the distribution is hump-shaped. with one of them at or below 1,
+      // scores pile up against one end of the scale (J-shaped). with both below 1, they pile up against both
+      // ends (U-shaped)
+      const shape = !valid ? null : alpha > 1 && beta > 1 ? "hump" : alpha < 1 && beta < 1 ? "U" : "J"
+      return {...g, m, alpha, beta, shape}
+    })
+  }
+  // a combination is treated as possible only if neither condition would have to be U-shaped. a U-shaped
+  // distribution is not strictly impossible, but it is not a plausible description of data from a scale, and the
+  // plot does not rely on the beta distribution that far
+  const possibleFor = d => groupsFor(d).every(g => g.shape === "hump" || g.shape === "J")
+  // the largest possible d, by bisection: the conditions only become less plausible as they move apart
+  let dMax = 0
+  if (possibleFor(0)) {
+    let lower = 0, upper = 2 * range / bSd
+    for (let i = 0; i < 60; i++) {
+      const middle = (lower + upper) / 2
+      if (possibleFor(middle)) lower = middle; else upper = middle
+    }
+    dMax = lower
+  }
+  const possible = possibleFor(bD)
+  // share of each condition's participants with the lowest and the highest possible score: on a scale with
+  // whole-number response options, these are the scores within half a point of each end of the scale
+  const edge = (range >= 2 ? 0.5 : range / 20) / range
+  const groups = groupsFor(bD).map(g => possible ? {...g, bottom: betaI(edge, g.alpha, g.beta), top: 1 - betaI(1 - edge, g.alpha, g.beta)} : g)
+  return {lo, hi, range, groups, dMax, possible, piled: possible && groups.some(g => g.shape === "J")}
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  if (!bState) return html`<div style="color: var(--bs-secondary-color);">Set the minimum and maximum to numbers, with the minimum below the maximum.</div>`
+  const {lo, hi, range, groups, possible} = bState
+  const betaDensity = (x, g) => {
+    const u = (x - lo) / range
+    return Math.exp((g.alpha - 1) * Math.log(u) + (g.beta - 1) * Math.log(1 - u) + logGamma(g.alpha + g.beta) - logGamma(g.alpha) - logGamma(g.beta)) / range
+  }
+  // the ends of the scale are left out, because the density can be infinite there
+  const xs = d3.range(1, 400).map(i => lo + range * i / 400)
+  const curves = possible ? groups.flatMap(g => xs.map(x => ({group: g.group, x, y: betaDensity(x, g)}))) : []
+  // the vertical axis is capped, so that a spike against the end of the scale does not flatten everything else
+  const yMax = Math.min(1.3 * (d3.max(curves, d => d.y) ?? 1), 1.6 / bSd)
+  // a pile of scores against the end of the scale is a spike that runs off the top of the plot, so it is easy
+  // to miss how much of the distribution is in it. label each pile with the share of participants in it
+  const pct = p => p > 0.99 ? "more than 99%" : p < 0.01 ? "less than 1%" : `${Math.round(100 * p)}%`
+  const piles = !possible ? [] : groups.flatMap(g => [
+    g.alpha <= 1 ? {group: g.group, end: "bottom", x: lo, share: g.bottom} : null,
+    g.beta <= 1 ? {group: g.group, end: "top", x: hi, share: g.top} : null
+  ]).filter(d => d && d.share >= 0.01)
+  const pileLabel = (end, anchor, dx, dy) => Plot.text(piles.filter(d => d.end === end), {
+    x: "x", y: yMax, text: d => `${pct(d.share)} of ${d.group.toLowerCase()}\nparticipants have ${d.end === "top" ? "highest" : "lowest"}\npossible score`, fill: "group", fontWeight: 600,
+    textAnchor: anchor, lineAnchor: "top", dx, dy, lineHeight: 1.15
+  })
+  return Plot.plot({
+    width, height: Math.min(360, Math.max(260, width * 0.5)), marginLeft: 20, marginRight: 20, marginTop: 10, marginBottom: 45,
+    x: {label: "Scale units", labelAnchor: "center", labelOffset: 38, domain: [lo, hi], ticks: range <= 20 ? d3.range(Math.ceil(lo), Math.floor(hi) + 1) : undefined, tickFormat: range <= 20 ? "d" : undefined},
+    y: {axis: null, domain: [0, yMax]},
+    color: {domain: groups.map(g => g.group), range: ["#d9622b", "#2780e3"], legend: true},
+    style: {fontSize: "13px"},
+    marks: [
+      Plot.areaY(curves, {x: "x", y1: 0, y2: "y", fill: "group", fillOpacity: 0.2, clip: true}),
+      Plot.lineY(curves, {x: "x", y: "y", stroke: "group", strokeWidth: 2, clip: true}),
+      Plot.ruleY([0], {stroke: "currentColor"}),
+      // each condition's mean, where it falls on the scale
+      Plot.ruleX(groups.filter(g => g.mean >= lo && g.mean <= hi), {x: "mean", stroke: "group", strokeDasharray: "4,3"}),
+      // when there is a pile at each end, the second label sits below the first, so that they cannot overlap
+      pileLabel("bottom", "start", 6, 4),
+      pileLabel("top", "end", -6, piles.some(d => d.end === "bottom") ? 54 : 4),
+      possible ? null : Plot.text(["Not possible on this scale"], {frameAnchor: "middle", fontSize: 16, fontWeight: 600, fillOpacity: 0.6})
+    ]
+  })
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  if (!bState) return html``
+  const {lo, hi, range, groups, dMax, possible, piled} = bState
+  const means = `The means would be ${groups[0].mean.toFixed(2)} (control) and ${groups[1].mean.toFixed(2)} (intervention), ${(bD * bSd).toFixed(2)} scale points apart.`
+  const centred = bBothMove ? "" : " while the control condition stays in the middle of the scale"
+  // round the largest possible d down, so that the value shown is itself possible
+  const signed = x => (bIncrease || x === 0 ? "" : "−") + x.toFixed(2)
+  const limit = `${bIncrease ? "at most" : "no lower than"} ${signed(Math.floor(dMax * 100) / 100)}${centred}`
+  const pct = p => p > 0.99 ? "more than 99%" : p < 0.01 ? "less than 1%" : `about ${Math.round(100 * p)}%`
+  // what each condition whose scores pile up against an end of the scale would have to look like
+  const piles = groups.filter(g => g.shape === "J").map(g => g.beta <= 1
+    ? `${pct(g.top)} of ${g.group.toLowerCase()} participants would have to have the highest possible score`
+    : `${pct(g.bottom)} of ${g.group.toLowerCase()} participants would have to have the lowest possible score`).join(", and ")
+  const sentence = s => s.charAt(0).toUpperCase() + s.slice(1) + "."
+  const [kind, title, detail] =
+    possible && !piled ? ["ok", "Possible.", `${means} With an SD of ${bSd.toFixed(2)} on a ${lo} to ${hi} scale, Cohen's d can be ${limit}.`]
+    : possible ? ["warn", "Possible, but only with scores piled up against the end of the scale.", `${means} ${sentence(piles)} With an SD of ${bSd.toFixed(2)} on a ${lo} to ${hi} scale, Cohen's d can be ${limit}.`]
+    : dMax === 0 ? ["bad", `Not possible: an SD of ${bSd.toFixed(2)} is too large for a ${lo} to ${hi} scale.`, `Even with no difference between the conditions, scores would have to be split between the two ends of the scale. Scores spread evenly across the whole scale have an SD of ${(range / Math.sqrt(12)).toFixed(2)}, and any larger SD requires this.`]
+    : ["bad", `Not possible: Cohen's d = ${signed(bD)} cannot occur with an SD of ${bSd.toFixed(2)} on a ${lo} to ${hi} scale${centred}.`, `${means} ${groups.some(g => g.mean <= lo || g.mean >= hi) ? "A mean cannot be at or beyond the end of the scale." : "A mean that close to the end of the scale can only have an SD that large if scores are split between the two ends of the scale."} With this SD, Cohen's d can be ${limit}.`]
+  return html`<div class="sb-feedback sb-feedback-${kind}"><strong>${title}</strong> ${detail}</div>`
+}
+```
+
+The message under the plot distinguishes three situations. The combination is possible with ordinary hump-shaped distributions. Or it is possible only if at least one condition's scores are piled up against one end of the scale, as happens with floor and ceiling effects; because such a pile is a spike that runs off the top of the plot, it is labelled with the share of that condition's participants who would have the highest or lowest possible score. Or it is not possible.
+
+The plot treats a combination as not possible once either condition's scores would have to be split between the two ends of the scale, with most at one end and a few at the other. Strictly, such data could exist. The absolute limit, which applies to any distribution and not only to beta distributions, is that a sample with a given mean on a scale from *min* to *max* cannot have a variance greater than (mean − *min*) × (*max* − mean), and this is only reached when every score is at one end of the scale or the other. The limit used by the plot is somewhat stricter than this, because data split between the two ends of a scale are not a plausible description of responses to that scale. One consequence is that the plot treats any *SD* larger than that of scores spread evenly across the whole scale, which is the range divided by √12, as not possible at all.
+
+Try increasing the *SD*: the larger the *SD* relative to the range of the scale, the smaller the largest possible *d*. The largest possible *d* is also only half as large when the control condition's mean stays in the middle of the scale, because only the intervention condition's mean can then move towards the end of the scale. When an article reports a large standardised effect on a bounded scale, it is worth checking whether the reported means and *SD*s are compatible with the scale at all (see also @sec-mean-sd-builder).
+
 ## Cohen's *d* from two samples {#sec-cohens-d-builder}
 
 Cohen's *d* for two independent groups is the difference between their means divided by their pooled standard deviation:
@@ -206,7 +414,7 @@ $$
 d = \frac{M_1 - M_2}{SD_{pooled}}, \qquad SD_{pooled} = \sqrt{\frac{(n_1 - 1)SD_1^2 + (n_2 - 1)SD_2^2}{n_1 + n_2 - 2}}
 $$
 
-The app below works in the same way as the one above, but with two samples on the same scale: an intervention condition and a control condition. Draw or type the frequencies for each condition, and the estimates below them update as you go, each with its 95% confidence interval. They are plotted in three groups, each with its own axis: the two means and the difference between them (intervention minus control), the two *SD*s and the pooled *SD*, and the standardised mean difference, Cohen's *d*. The first two groups are in the units of the scale, whereas *d* is in standard deviations. The interval for the mean difference uses the *t* distribution, the interval for the pooled *SD* uses the chi-squared distribution, and the interval for *d* uses the noncentral *t* distribution, as in the worked example in @sec-absence-of-evidence. Try changing only the spread of the two samples while keeping their means the same, to see how much *d* depends on the standard deviation, and try to find the largest *d* that the scale allows.
+The app below works in the same way as the one in @sec-mean-sd-builder, but with two samples on the same scale: an intervention condition and a control condition. Draw or type the frequencies for each condition, and the estimates below them update as you go, each with its 95% confidence interval. They are plotted in three groups, each with its own axis: the two means and the difference between them (intervention minus control), the two *SD*s and the pooled *SD*, and the standardised mean difference, Cohen's *d*. The first two groups are in the units of the scale, whereas *d* is in standard deviations. The interval for the mean difference uses the *t* distribution, the interval for the pooled *SD* uses the chi-squared distribution, and the interval for *d* uses the noncentral *t* distribution, as in the worked example in @sec-absence-of-evidence. Try changing only the spread of the two samples while keeping their means the same, to see how much *d* depends on the standard deviation, and try to find the largest *d* that the scale allows.
 
 ```{ojs}
 //| echo: false
@@ -502,6 +710,24 @@ function unitsPlot({scales, groups, captions, width}) {
   </div>`
 }
 
+function toggleButton(options) {
+  // a button that switches between two options ({label, value}) each time it is clicked. it is labelled with what
+  // clicking it will change to, which is the option that is not currently in effect. the value is stored on the
+  // wrapping div, so that it can be used with viewof. starts on the first option
+  let current = 0
+  const label = () => { const next = options[(current + 1) % options.length].label; return `Change to ${next.charAt(0).toLowerCase()}${next.slice(1)}` }
+  const button = html`<button class="btn btn-quarto">${label()}</button>`
+  const view = html`<div class="sb-buttons">${button}</div>`
+  view.value = options[0].value
+  button.onclick = () => {
+    current = (current + 1) % options.length
+    button.textContent = label()
+    view.value = options[current].value
+    view.dispatchEvent(new Event("input", {bubbles: true}))
+  }
+  return view
+}
+
 function scaleScores(min, max) {
   // the response options of a scale, or null if the bounds are not usable
   return Number.isInteger(min) && Number.isInteger(max) && min < max && max - min <= 30 ? d3.range(min, max + 1) : null
@@ -570,6 +796,15 @@ sampleBuilderStyle = html`<style>
   .sb-title { font-weight: 600; margin-top: 1.5rem; }
   .sb-subtitle { font-size: 0.9rem; font-weight: 600; margin: 0.75rem 0 0.25rem; color: var(--bs-secondary-color); }
   .sb-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .sb-feedback { margin: 0.5rem 0 1.5rem; padding: 0.6rem 0.9rem; border-left: 4px solid; background: rgba(128, 128, 128, 0.08); }
+  .sb-feedback-ok { border-color: #3b9c6e; }
+  .sb-feedback-warn { border-color: #d9a02b; }
+  .sb-feedback-bad { border-color: #c0392b; }
+  .sb-tiles { display: flex; gap: 2rem; flex-wrap: wrap; margin: 0.5rem 0 1.5rem; }
+  .sb-tiles > div { flex: 1 1 12rem; }
+  .sb-tile-value { font-size: 2rem; font-weight: 700; line-height: 1.1; color: #2780e3; }
+  .sb-tile-label { font-weight: 600; }
+  .sb-tile-note { font-size: 0.9rem; color: var(--bs-secondary-color); }
   /* standardisation plot: the buttons other than the current view are outlined */
   .btn.btn-quarto.sb-off { background: transparent; color: #2780e3; }
   .btn.btn-quarto.sb-off:hover { background: #1f6ab8; color: #fff; }

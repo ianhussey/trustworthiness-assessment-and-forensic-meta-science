@@ -2,7 +2,7 @@
 
 This is the skeleton of a book we are slowly writing. For the moment, you should not expect any meaningful content here.
 
-This [Open Source](#sec-license) eBook provides materials for the semester-long Master's seminar course "Estimating the Credibility of Past Research" that Ian delivers at the University of Bern's Institute of Psychology.
+This [freely available](#sec-license) eBook provides materials for the semester-long Master's seminar course "Estimating the Credibility of Past Research" that Ian delivers at the University of Bern's Institute of Psychology.
 
 This book is split into four parts:
 
@@ -24,11 +24,25 @@ There are many excellent Open Source resources to learn simulation studies in R 
 
 © Ian Hussey (2026)
 
-Text and figures are licensed under a [Creative Commons Attribution 4.0 (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/) license.
+Text and figures are licensed under a [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)](https://creativecommons.org/licenses/by-nc-nd/4.0/) license.
 
 Code is licensed under the [MIT License](https://opensource.org/licenses/MIT).
 
-You are free to copy, share, adapt, and reuse the contents of this book — text, figures, and code — for any purpose, including commercial use, provided you cite its source. See suggested citation below.
+### What this means for the text and figures
+
+You are free to **share** the text and figures — copy and redistribute them in any medium or format — under the following terms:
+
+- **Attribution (BY):** You must give appropriate credit (see the suggested citation below), provide a link to the license, and indicate if changes were made.
+- **NonCommercial (NC):** You may not use the material for commercial purposes.
+- **NoDerivatives (ND):** If you remix, transform, or build upon the material, you may not distribute the modified material.
+
+For example, you can share a chapter with students or link to the book from a course page, but you cannot sell it, include it in a commercial product, or distribute an edited or translated version without permission. If you would like to use the material in ways these terms do not cover (e.g., translations, adaptations, or commercial reuse), please get in touch.
+
+### What this means for the code
+
+You are free to use, copy, modify, and redistribute the code for any purpose, including commercial use, provided you include the copyright notice and the MIT License text with any substantial portions of it.
+
+Material reproduced from other sources remains under its original license.
 
 ## Citation
 

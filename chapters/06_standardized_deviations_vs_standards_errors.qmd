@@ -195,9 +195,9 @@ Meta-analyses of standardised mean differences are calculated from the means, st
 - @kanellopoulou2025 identify the confusion of standard errors with standard deviations as one of the most common statistical errors in systematic reviews.
 - @gallardogomez2024 provide a tutorial on calculating standardised mean differences for meta-analysis, including guidance on distinguishing standard errors from standard deviations during data extraction.
 
-Two features of the error make it particularly damaging in a meta-analysis. First, an affected study is not given much less weight. The sampling variance of a standardised mean difference is calculated mainly from the sample sizes, with only a small contribution from the effect size itself, so a study whose effect size has been inflated four- or tenfold still receives close to the weight it would have had anyway. Second, because the inflation depends on each study's sample size, a few affected studies among many unaffected ones look like genuine differences between studies. The error therefore inflates not only the pooled effect size but also the estimates of heterogeneity, which an analyst may then try to explain with moderators.
+One feature of the error makes it particularly damaging in a meta-analysis: an affected study is not given much less weight. The sampling variance of a standardised mean difference is calculated mainly from the sample sizes, with only a small contribution from the effect size itself, so a study whose effect size has been inflated four- or tenfold still receives close to the weight it would have had anyway.
 
-The plot below simulates a single random-effects meta-analysis of two-group studies. Set the number of studies, the sample size of each group, the true effect, and the proportion of studies in which the standard error was mistaken for the standard deviation. Every study has the same true effect, so there is no true heterogeneity: any heterogeneity that the meta-analysis finds is produced by sampling error or by the extraction error. The forest plot shows each study's effect size and 95% confidence interval as a meta-analyst would have extracted them, followed by two pooled estimates: one from the studies as extracted, and one from the same studies with the errors corrected. Click the button to simulate another meta-analysis with the same settings.
+The plot below simulates a single random-effects meta-analysis of two-group studies. Set the number of studies, the sample size of each group, the true effect, and the proportion of studies in which the standard error was mistaken for the standard deviation. Every study has the same true effect. The forest plot shows each study's effect size and 95% confidence interval as a meta-analyst would have extracted them, followed by two pooled estimates: one from the studies as extracted, and one from the same studies with the errors corrected. Click the button to simulate another meta-analysis with the same settings.
 
 ```{ojs}
 //| echo: false
@@ -211,7 +211,7 @@ viewof maProp = Inputs.range([0, 0.5], {value: 0.15, step: 0.05, label: "Proport
 ```{ojs}
 //| echo: false
 maResult = {
-  // one simulated meta-analysis. every study has the same true SMD, mu, so there is no true heterogeneity, and
+  // one simulated meta-analysis. every study has the same true SMD, mu, and
   // each study's observed d is drawn from the noncentral t distribution, as in simulateConfusedD. the first studies are the ones with the error; because the
   // studies are exchangeable, which ones are affected makes no difference
   const rng = randomNumbers(maSeed + 1)
@@ -266,11 +266,11 @@ maResult = {
 //| echo: false
 {
   const {studies, extracted, corrected} = maResult
-  const line = r => `pooled SMD = ${r.estimate.toFixed(2)}, 95% CI [${r.lower.toFixed(2)}, ${r.upper.toFixed(2)}], τ = ${Math.sqrt(r.tau2).toFixed(2)}, I² = ${(100 * r.i2).toFixed(0)}%`
+  const line = r => `pooled SMD = ${r.estimate.toFixed(2)}, 95% CI [${r.lower.toFixed(2)}, ${r.upper.toFixed(2)}]`
   return html`<div class="sb-feedback">
     <div><strong>As extracted</strong> (${studies.filter(d => d.confused).length} of ${studies.length} studies with the error): ${line(extracted)}</div>
     <div><strong>Errors corrected:</strong> ${line(corrected)}</div>
-    <div><strong>Truth:</strong> SMD = ${maMu.toFixed(2)}, τ = 0.00</div>
+    <div><strong>Truth:</strong> SMD = ${maMu.toFixed(2)}</div>
   </div>`
 }
 ```
@@ -281,7 +281,7 @@ Studies in which the *SE* was mistaken for the *SD* are shown in orange, and the
 //| echo: false
 function randomEffects(estimates, variances) {
   // random-effects meta-analysis with the DerSimonian-Laird estimator of the between-study variance.
-  // returns the pooled estimate, its 95% CI, tau squared, and I squared (as a proportion)
+  // returns the pooled estimate and its 95% CI
   const k = estimates.length
   const weights = variances.map(v => 1 / v)
   const sumW = d3.sum(weights)
@@ -292,7 +292,7 @@ function randomEffects(estimates, variances) {
   const reWeights = variances.map(v => 1 / (v + tau2))
   const estimate = d3.sum(estimates, (y, i) => reWeights[i] * y) / d3.sum(reWeights)
   const se = Math.sqrt(1 / d3.sum(reWeights))
-  return {estimate, lower: estimate - 1.96 * se, upper: estimate + 1.96 * se, tau2, i2: Q > 0 ? Math.max(0, (Q - (k - 1)) / Q) : 0}
+  return {estimate, lower: estimate - 1.96 * se, upper: estimate + 1.96 * se}
 }
 
 function simulateConfusedD(mu, tau, draws = 20000) {
@@ -355,14 +355,13 @@ sdSeStyle = html`<style>
 Simulate several meta-analyses and notice the following:
 
 - With the default settings, only 3 of the 20 studies have the error. Across many simulated meta-analyses, this is enough to make the pooled estimate about 60% too large on average (0.81 instead of 0.50).
-- The error manufactures heterogeneity. Every study has the same true effect, so the true τ is zero, but the meta-analysis as extracted estimates τ at about 0.66 on average, with an *I*² of about 86%. With the errors corrected, the average *I*² is about 9%.
-- The inflated heterogeneity makes the confidence interval of the pooled estimate nearly three times as wide, but not wide enough: it contains the true effect in only about half of the simulated meta-analyses.
+- The confidence interval of the pooled estimate is nearly three times as wide as it would be with the errors corrected, but not wide enough: it contains the true effect in only about half of the simulated meta-analyses.
 - Increasing the sample size per group makes things worse, not better, because the inflation of each affected study grows with its sample size. With 100 participants per group, the same three studies make the pooled estimate more than twice the true effect on average.
 - Increase the proportion of studies with the error to 25%, and the pooled estimate is on average more than twice the true effect; at 50%, as @sandercock2024 found in one published meta-analysis, it is more than three times the true effect.
 - The affected studies have confidence intervals that are only somewhat wider than those of the other studies. Nothing about their precision marks them out as unreliable.
 - With the proportion set to zero, the two pooled estimates are identical. The difference between them is entirely due to the error.
 
-These consequences are examined further in a simulation study by Hussey (2026, in prep), which varies the proportion of affected studies, the sample sizes, the number of studies, the true effect, and the true heterogeneity, and evaluates rules for excluding implausibly large effect sizes before pooling. Its code and results are available at [github.com/ianhussey/smd-sd-se-confusion](https://github.com/ianhussey/smd-sd-se-confusion).
+These consequences are examined further in a simulation study by Hussey (2026, in prep), which varies the proportion of affected studies, the sample sizes, the number of studies, and the true effect, and evaluates rules for excluding implausibly large effect sizes before pooling. Its code and results are available at [github.com/ianhussey/smd-sd-se-confusion](https://github.com/ianhussey/smd-sd-se-confusion).
 
 ## Checking for SE/SD confusion in trustworthiness assessment {#sec-se-sd-checks}
 

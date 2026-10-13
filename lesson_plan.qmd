@@ -1,0 +1,163 @@
+# Lesson plan {.unnumbered} [✎ Outline]{.badge .badge-draft1}
+
+```{r}
+#| include: false
+if(file.exists("_setup.R")){source("_setup.R")}
+```
+
+If delivered as a semester-long course, we suggest the following lesson plan.
+
+### Week 1
+
+<!-- Before class: -->
+
+<!-- XXX -->
+
+<!-- In class: -->
+
+<!-- XXX -->
+
+### Week 2
+
+<!-- Before class: -->
+
+<!-- XXX -->
+
+In class:
+
+- [Chapter 4: Understanding *p* values](chapters/04_understanding_p_values.qmd)
+
+### Week 3
+
+Before class:
+
+- Altman and Bland (1995) Absence of evidence is not evidence of absence. doi:[10.1136/bmj.311.7003.485](https://doi.org/10.1136/bmj.311.7003.485)
+- Gelman and Stern (2006) The Difference Between “Significant” and “Not Significant” is not Itself Statistically Significant. doi:[10.1198/000313006X152649](https://doi.org/10.1198/000313006X152649) 
+
+In class:
+
+- [Chapter 7: Misinterpretation methods](chapters/07_misinterpretation_methods.qmd)
+
+### Week 4
+
+Before class:
+
+- Hussey (2025) If researchers find Cohen's d = 8, no they didn't [mmmdata.io/posts/2025/07/if-researchers-find-cohens-d-8-no-they-didnt](https://mmmdata.io/posts/2025/07/if-researchers-find-cohens-d-8-no-they-didnt/)
+- Hilgard (2021) Maximal positive controls: A method for estimating the largest plausible effect size. doi:[10.1016/j.jesp.2020.104082](https://doi.org/10.1016/j.jesp.2020.104082)
+- [Chapter 5: Standardized Mean Differences (Cohen's *d*)](chapters/05_standardized_mean_differences_cohens_d.qmd)
+
+In class:
+
+- [Chapter 8: Effect size methods](chapters/08_effect_size_methods.qmd)
+
+### Week 5
+
+<!-- Before class: -->
+
+<!-- XXX -->
+
+<!-- In class: -->
+
+<!-- Repetition and recalculation methods  -->
+
+### Week 6
+
+<!-- Before class: -->
+
+<!-- XXX -->
+
+<!-- In class: -->
+
+<!-- Granularity methods -->
+
+### Week 7
+
+<!-- Before class: -->
+
+<!-- XXX -->
+
+<!-- In class: -->
+
+<!-- Bounds methods -->
+
+### Week 8
+
+<!-- Before class: -->
+
+<!-- XXX -->
+
+<!-- In class: -->
+
+<!-- Organizing and communicating critique -->
+
+### Week 9
+
+<!-- Before class: -->
+
+<!-- XXX -->
+
+<!-- In class: -->
+
+<!-- Design methods -->
+
+### Week 10
+
+<!-- Before class: -->
+
+<!-- XXX -->
+
+<!-- In class: -->
+
+<!-- Feedback and discussion -->
+
+### Week 11
+
+<!-- Before class: -->
+
+<!-- XXX -->
+
+<!-- In class: -->
+
+<!-- Measurement methods I -->
+
+### Week 12
+
+<!-- Before class: -->
+
+<!-- XXX -->
+
+<!-- In class: -->
+
+<!-- Measurement methods II -->
+
+### Week 13
+
+<!-- Before class: -->
+
+<!-- XXX -->
+
+<!-- In class: -->
+
+<!-- Theory specification methods -->
+
+### Week 14
+
+<!-- Before class: -->
+
+<!-- XXX -->
+
+<!-- In class: -->
+
+<!-- XXX -->
+
+
+
+
+
+
+
+
+
+
+
+

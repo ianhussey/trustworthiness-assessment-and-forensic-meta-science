@@ -19,45 +19,50 @@ book:
   
   chapters:
   - index.qmd
+  - lesson_plan.qmd
   
   - part: 'Part I: Conceptual foundations'
     chapters:
-    - chapters/scope_and_need.qmd
-    - chapters/psychological_preparation.qmd
-    - chapters/organising_principles.qmd
-    - chapters/understanding_p_values.qmd
+    - chapters/01_scope_and_need.qmd
+    - chapters/02_psychological_preparation.qmd
+    - chapters/03_organising_principles.qmd
     
-  - part: 'Part II: Methods'
+  - part: 'Part II: Understanding statistics'
     chapters:
-    - chapters/misinterpretation_methods.qmd
-    - chapters/effect_size_methods.qmd
-    - chapters/repetition_and_consistency_methods.qmd
-    - chapters/recalculation_methods.qmd
-    - chapters/granularity_methods.qmd
-    - chapters/bounds_methods.qmd
-    - chapters/reconstruction_resampling_simulation_methods.qmd
-    - chapters/design_methods.qmd
-    - chapters/measurement_methods.qmd
-    - chapters/theory_specification_methods.qmd
-    - chapters/data_extraction_methods.qmd
+    - chapters/04_understanding_p_values.qmd
+    - chapters/05_standardized_mean_differences_cohens_d.qmd
+    - chapters/06_standardized_deviations_vs_standards_errors.qmd
     
-  - part: 'Part III: Organising'
+  - part: 'Part III: Forensic meta-science methods'
     chapters:
-    - exercises/critiquing_specific_types_of_articles.qmd
-    - exercises/inspect_sr.qmd
-    - exercises/organising_critique.qmd
-    - exercises/reflexive_critique.qmd
+    - chapters/07_misinterpretation_methods.qmd
+    - chapters/08_effect_size_methods.qmd
+    - chapters/09_repetition_and_consistency_methods.qmd
+    - chapters/10_recalculation_methods.qmd
+    - chapters/11_granularity_methods.qmd
+    - chapters/12_bounds_methods.qmd
+    - chapters/13_reconstruction_resampling_simulation_methods.qmd
+    - chapters/14_design_methods.qmd
+    - chapters/15_measurement_methods.qmd
+    - chapters/16_theory_specification_methods.qmd
+    - chapters/17_data_extraction_methods.qmd
     
-  - part: 'Part IV: Developing and validating methods'
+  - part: 'Part IV: Organising'
     chapters:
-    - chapters/forensic_methods_require_validation.qmd
-    - chapters/validation_using_simulated_data.qmd
+    - exercises/18_critiquing_specific_types_of_articles.qmd
+    - exercises/19_inspect_sr.qmd
+    - exercises/20_organising_critique.qmd
+    - exercises/21_reflexive_critique.qmd
+    
+  - part: 'Part V: Developing and validating forensic methods'
+    chapters:
+    - chapters/22_forensic_methods_require_validation.qmd
+    - chapters/23_validation_using_simulated_data.qmd
     
   - references.qmd
     
-  - part: 'Appendices'
-    chapters: 
-    - appendices/lesson_plan.qmd
+  # - part: 'Appendices'
+  #   chapters: 
     
 bibliography: references.bib
 csl: apa.csl

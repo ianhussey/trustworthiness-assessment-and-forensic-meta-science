@@ -1,15 +1,11 @@
-# Effect size methods [✎ Outline]{.badge .badge-draft1}
+# Standardized Mean Differences (Cohen's *d*) [✎ Outline]{.badge .badge-draft1}
 
 ```{r}
 #| include: false
 if(file.exists("../_setup.R")){source("../_setup.R")}
 ```
 
-## Refresher on effect size calculation
-
-- Calculation of Cohen's *d*, *r*, etc.
-
-### Means and standard deviations on bounded scales {#sec-mean-sd-builder}
+## Means and standard deviations on bounded scales {#sec-mean-sd-builder}
 
 Standardised effect sizes are built from means and standard deviations, so it helps to have a feel for which combinations of the two a given scale can produce. Most scales in psychology are bounded and produce integer responses: a 1–7 Likert item cannot produce a response of 0 or of 4.5. The app below lets you build a sample on such a scale. Set the logical minimum and maximum of the scale, and then set the number of observations at each response option in either of two ways. First, you can draw the distribution: click anywhere in a column to set its bar to that height, or hold the mouse button down and drag across the plot to draw the whole histogram in one movement. The vertical axis rescales when you release, so dragging a bar to the top of the plot makes room for larger counts. Second, you can type the exact number of observations for each response option into the boxes under the axis.
 
@@ -70,7 +66,7 @@ oneStore = new Map([[3, 2], [4, 4], [5, 3], [6, 1]])
 
 Try to build a sample with a mean near the top of the scale and a large standard deviation, and notice that you cannot: the closer the mean is to either bound, the smaller the largest possible *SD* becomes. The largest *SD* of all comes from putting half of the observations at each end of the scale.
 
-### Standardisation {#sec-standardisation}
+## Standardisation {#sec-standardisation}
 
 The same construct is often measured with different scales, and different scales have different units. Depression, for example, is commonly measured with the BDI-II, which ranges from 0 to 63, the PHQ-9, which ranges from 0 to 27, and the HAM-D, which ranges from 0 to 52. A difference of 5 points between two groups means something different on each of them, so results from studies that used different scales cannot be compared or combined in their original units.
 
@@ -202,7 +198,7 @@ This has several implications for trustworthiness assessment:
 - Standardised effect sizes from studies with different inclusion criteria are not directly comparable, even when the studies used the same scale. When the studies did use the same scale, the mean difference in scale points is often the more informative comparison.
 - Range restriction is only one of the things that change the *SD*. Others include the reliability of the measure, floor and ceiling effects, and which *SD* was used as the standardiser (for example, the baseline *SD*, the pooled *SD* at post-treatment, or the *SD* of change scores).
 
-### Cohen's *d* from two samples {#sec-cohens-d-builder}
+## Cohen's *d* from two samples {#sec-cohens-d-builder}
 
 Cohen's *d* for two independent groups is the difference between their means divided by their pooled standard deviation:
 
@@ -680,17 +676,4 @@ function betaI(x, a, b) {
 }
 ```
 
-## Distributions of effect sizes
 
-- Distributions of *d*, *r*, partial eta-squared, etc.
-  - For different types of phenomena/tests (e.g., interventions vs manipulation checks)
-  - For different fields
-  - Avoiding ever saying "domain knowledge"
-
-## Maximum positive controls and intuition benchmarks
-
-- Using known effects as anchors for plausibility assessment
-
-## Common errors
-
-- The Standard Error error (reporting SE instead of SD, or vice versa)

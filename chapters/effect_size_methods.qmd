@@ -84,83 +84,123 @@ Switch between them and pay attention to what lines up and what does not.
 
 ```{ojs}
 //| echo: false
-standardisationPlot = {
+standardisationPlot = unitsPlot({
   // illustrative values for a hypothetical sample of depressed patients on each scale
-  const scales = [
-    {name: "BDI-II", min: 0, max: 63, mean: 28, sd: 10},
-    {name: "PHQ-9", min: 0, max: 27, mean: 15, sd: 5},
-    {name: "HAM-D", min: 0, max: 52, mean: 20, sd: 6}
-  ]
-  // each view re-expresses a score v on scale s in different units. aligned names the one quantity that the
-  // view makes the same on every scale, which is highlighted in the labels
-  const views = [
-    {button: "Scale units", axis: "Scale points", digits: 0, aligned: null, f: (s, v) => v,
-     caption: "In scale units, nothing lines up: each scale has its own range, mean, and SD."},
-    {button: "SD units", axis: "Standard deviations", digits: 2, aligned: "sd", f: (s, v) => v / s.sd,
-     caption: "In SD units, one SD is the same length on every scale, so a difference between two means can be expressed as a number of SDs on any of them. Only the SDs line up: the means still differ, and so do the ranges."},
-    {button: "POMP", axis: "Percent of maximum possible (POMP)", digits: 1, aligned: "range", f: (s, v) => (v - s.min) / (s.max - s.min) * 100,
-     caption: "In POMP units, every scale runs from 0 to 100. Only the ranges line up: the means and the SDs still differ."}
-  ]
-  const blue = "#2780e3"
-  const margin = {top: 10, right: 20, bottom: 45, left: 70}, rowHeight = 64
-  const height = margin.top + rowHeight * scales.length + margin.bottom
-  const rowY = i => margin.top + rowHeight * i + 42
-
-  const svg = d3.create("svg").attr("class", "sb-std").attr("width", width).attr("height", height).attr("viewBox", [0, 0, width, height])
-  const axisG = svg.append("g").attr("transform", `translate(0, ${height - margin.bottom})`)
-  const axisLabel = svg.append("text").attr("x", (margin.left + width - margin.right) / 2).attr("y", height - 8).attr("text-anchor", "middle").attr("font-size", 13).attr("fill", "currentColor")
-  const rows = svg.selectAll("g.sb-row").data(scales).join("g").attr("class", "sb-row").attr("transform", (s, i) => `translate(0, ${rowY(i)})`)
-  rows.append("text").attr("x", margin.left - 12).attr("dy", "0.35em").attr("text-anchor", "end").attr("font-size", 13).attr("font-weight", 600).attr("fill", "currentColor").text(s => s.name)
-  const labels = rows.append("text").attr("x", margin.left).attr("y", -20).attr("font-size", 12).attr("fill", "currentColor")
-  // logical range of the scale, with a cap at each end
-  const range = rows.append("line").attr("stroke", "currentColor").attr("stroke-opacity", 0.4).attr("stroke-width", 2)
-  const capLo = rows.append("line").attr("y1", -7).attr("y2", 7).attr("stroke", "currentColor").attr("stroke-opacity", 0.4).attr("stroke-width", 2)
-  const capHi = rows.append("line").attr("y1", -7).attr("y2", 7).attr("stroke", "currentColor").attr("stroke-opacity", 0.4).attr("stroke-width", 2)
-  // mean ± 1 SD
-  const sdBar = rows.append("line").attr("stroke", blue).attr("stroke-width", 5)
-  const meanDot = rows.append("rect").attr("y", -7).attr("width", 14).attr("height", 14).attr("fill", blue)
-
-  const buttons = views.map(v => Object.assign(html`<button class="btn btn-quarto">${v.button}</button>`, {onclick: () => show(v, true)}))
-  const caption = html`<div class="sb-caption"></div>`
-  const show = (view, animate) => {
-    views.forEach((v, i) => buttons[i].classList.toggle("sb-off", v !== view))
-    caption.textContent = view.caption
-    axisLabel.text(view.axis)
-    const x = d3.scaleLinear()
-      .domain([Math.min(0, d3.min(scales, s => view.f(s, s.min))), d3.max(scales, s => view.f(s, s.max))]).nice()
-      .range([margin.left, width - margin.right])
-    const at = (s, v) => x(view.f(s, v))
-    const fmt = v => v.toFixed(view.digits)
-    const highlight = (text, on) => on ? `<tspan font-weight="700" fill="${blue}">${text}</tspan>` : text
-    labels.html(s => [
-      highlight(`range ${+fmt(view.f(s, s.min))} to ${+fmt(view.f(s, s.max))}`, view.aligned === "range"),
-      `M = ${fmt(view.f(s, s.mean))}`,
-      highlight(`SD = ${fmt(view.f(s, s.mean + s.sd) - view.f(s, s.mean))}`, view.aligned === "sd")
-    ].join(" · "))
-    // the elements slide to their new positions, unless the reader has asked for reduced motion
-    const duration = animate && !matchMedia("(prefers-reduced-motion: reduce)").matches ? 800 : 0
-    const move = selection => selection.transition().duration(duration)
-    move(axisG).call(d3.axisBottom(x).ticks(6).tickSizeInner(-(height - margin.top - margin.bottom)).tickPadding(8))
-    move(range).attr("x1", s => at(s, s.min)).attr("x2", s => at(s, s.max))
-    move(capLo).attr("x1", s => at(s, s.min)).attr("x2", s => at(s, s.min))
-    move(capHi).attr("x1", s => at(s, s.max)).attr("x2", s => at(s, s.max))
-    move(sdBar).attr("x1", s => at(s, s.mean - s.sd)).attr("x2", s => at(s, s.mean + s.sd))
-    move(meanDot).attr("x", s => at(s, s.mean) - 7)
-  }
-  show(views[0], false)
-  return html`<div>
-    <div class="sb-buttons">${buttons}</div>
-    ${svg.node()}
-    ${caption}
-  </div>`
-}
+  scales: [
+    {name: "BDI-II", min: 0, max: 63, sd: 10, means: [28]},
+    {name: "PHQ-9", min: 0, max: 27, sd: 5, means: [15]},
+    {name: "HAM-D", min: 0, max: 52, sd: 6, means: [20]}
+  ],
+  groups: [{name: "Sample", colour: "#2780e3"}],
+  captions: [
+    "In scale units, nothing lines up: each scale has its own range, mean, and SD.",
+    "In SD units, one SD is the same length on every scale, so a difference between two means can be expressed as a number of SDs on any of them. Only the SDs line up: the means still differ, and so do the ranges.",
+    "In POMP units, every scale runs from 0 to 100. Only the ranges line up: the means and the SDs still differ."
+  ],
+  width
+})
 ```
 
-Standardising by the *SD* makes one thing comparable across scales: the unit. One *SD* is the same length on every scale, which is what allows a mean difference of 5 points on the BDI-II to be compared with a mean difference of 2.5 points on the PHQ-9. It does not make anything else comparable. The three samples still have different means in *SD* units, and the scales still have different ranges. Note also that the unit is a property of the sample, not of the scale: a study that recruited a more homogeneous sample would have a smaller *SD*, and the same difference in scale points would become a larger standardised difference.
+Standardising by the *SD* makes one thing comparable across scales: the unit. One *SD* is the same length on every scale, which is what allows a mean difference of 5 points on the BDI-II to be compared with a mean difference of 2.5 points on the PHQ-9. It does not make anything else comparable. The three samples still have different means in *SD* units, and the scales still have different ranges. Note also that the unit is a property of the sample, not of the scale: a study that recruited a more homogeneous sample would have a smaller *SD*, and the same difference in scale points would become a larger standardised difference (see @sec-range-restriction).
+
+The second plot shows why this matters for effect sizes. It adds a second group to each scale: a control condition and an intervention condition from a hypothetical trial of a treatment for depression, again with illustrative values, and with the same *SD* in both conditions. The panel underneath shows the difference between the two means on each scale, in whichever units are selected. Lower scores mean less severe depression, so a negative difference favours the intervention.
+
+```{ojs}
+//| echo: false
+standardisedDifferencePlot = unitsPlot({
+  // illustrative values for a hypothetical trial: means are [control, intervention], with a common SD
+  scales: [
+    {name: "BDI-II", min: 0, max: 63, sd: 10, means: [28, 22]},
+    {name: "PHQ-9", min: 0, max: 27, sd: 5, means: [15, 12.5]},
+    {name: "HAM-D", min: 0, max: 52, sd: 6, means: [20, 16.7]}
+  ],
+  groups: [{name: "Control", colour: "#d9622b"}, {name: "Intervention", colour: "#2780e3"}],
+  captions: [
+    "In scale units, the three differences cannot be compared, because a point on one scale is not a point on another.",
+    "In SD units, each difference is a Cohen's d, and the three can be compared. They are similar but not identical. The means themselves still do not line up, and neither do the ranges.",
+    "In POMP units, each difference is a percentage of its scale's range. This gives a different answer from Cohen's d, because it depends on the range of the scale and not on the SD of the sample."
+  ],
+  width
+})
+```
+
+In scale points, the three trials appear to have found very different effects: 6 points, 2.5 points, and 3.3 points. In *SD* units, they are *d* = −0.60, −0.50, and −0.55, which is what we might expect from three trials of the same treatment. Standardising has not made the three results identical, and it should not: it has only put them in the same units so that they can be compared.
 
 POMP makes a different thing comparable: the range. Every scale runs from 0 to 100, but the samples' means and *SD*s still differ. POMP units depend only on the scale, not on the sample, but they assume that the full range of one scale corresponds to the full range of another, which need not be true.
 
 <!-- TODO: add a citation for POMP (Cohen, Cohen, Aiken & West, 1999) to references.bib and cite it above. -->
+
+### Range restriction {#sec-range-restriction}
+
+Standardisation solves one problem and creates another. Because Cohen's *d* divides the mean difference by the *SD* of the sample, anything that changes the *SD* changes *d*, even when the effect of the intervention in scale points is exactly the same. The *SD* of a sample depends on who was recruited. A trial that accepts anyone with a diagnosis of depression will include a wide range of severity. A trial with narrow inclusion criteria, for example one that only accepts patients whose baseline scores fall within a particular band, will include a much narrower range. This is called range restriction, and it shrinks the *SD*.
+
+The plot below shows two hypothetical trials that used the same scale, the BDI-II, and found exactly the same difference between the intervention and control conditions: 5 points. Study A recruited a sample with a wide range of severity, and Study B recruited a sample with a restricted range. Use the slider to change how restricted Study B's sample is.
+
+```{ojs}
+//| echo: false
+viewof rrSd = Inputs.range([3, 10], {value: 5, step: 0.5, label: "SD in Study B"})
+```
+
+```{ojs}
+//| echo: false
+rrStudies = {
+  // two hypothetical trials on the BDI-II with the same means, and so the same mean difference, but different SDs
+  const control = 28, intervention = 23
+  return [{study: "Study A", note: "wide range of severity", sd: 10}, {study: "Study B", note: "restricted range of severity", sd: rrSd}]
+    .map(d => ({...d, control, intervention, difference: intervention - control, d: (intervention - control) / d.sd}))
+}
+
+rrPlot = {
+  const groups = [{group: "Control", key: "control"}, {group: "Intervention", key: "intervention"}]
+  const density = (x, mean, sd) => Math.exp(-(((x - mean) / sd) ** 2) / 2) / (sd * Math.sqrt(2 * Math.PI))
+  // normal curves for each condition in each study, over the range of the scale
+  const curves = rrStudies.flatMap(s => groups.flatMap(g => d3.range(0, 63.01, 0.25).map(x => ({study: s.study, group: g.group, x, y: density(x, s[g.key], s.sd)}))))
+  const means = rrStudies.flatMap(s => groups.map(g => ({study: s.study, group: g.group, x: s[g.key], y: density(0, 0, s.sd)})))
+  // a bracket between the two means, just above the curves
+  const brackets = rrStudies.map(s => ({...s, y: 1.15 * density(0, 0, s.sd)}))
+  return Plot.plot({
+    width, height: 380, marginLeft: 20, marginRight: 20, marginTop: 30, marginBottom: 45,
+    x: {label: "BDI-II score", labelAnchor: "center", labelOffset: 38, domain: [0, 63]},
+    y: {axis: null, domain: [0, 1.8 * d3.max(curves, d => d.y)]},
+    fy: {axis: null, domain: rrStudies.map(s => s.study), padding: 0.15},
+    color: {domain: groups.map(g => g.group), range: ["#d9622b", "#2780e3"], legend: true},
+    style: {fontSize: "13px"},
+    marks: [
+      Plot.frame({stroke: "currentColor", strokeOpacity: 0.2}),
+      Plot.areaY(curves, {x: "x", y1: 0, y2: "y", fy: "study", fill: "group", fillOpacity: 0.2}),
+      Plot.lineY(curves, {x: "x", y: "y", fy: "study", stroke: "group", strokeWidth: 2}),
+      Plot.link(means, {x1: "x", x2: "x", y1: 0, y2: "y", fy: "study", stroke: "group", strokeDasharray: "4,3"}),
+      Plot.link(brackets, {x1: "control", x2: "intervention", y1: "y", y2: "y", fy: "study", stroke: "currentColor", strokeWidth: 1.5}),
+      Plot.text(brackets, {x: d => (d.control + d.intervention) / 2, y: "y", fy: "study", text: d => `${Math.abs(d.difference)} points`, dy: -9, fontWeight: 600}),
+      Plot.text(rrStudies, {fy: "study", frameAnchor: "top-left", dx: 8, dy: 8, fontWeight: 600, text: d => `${d.study}: ${d.note} (SD = ${d.sd})`})
+    ]
+  })
+}
+```
+
+```{ojs}
+//| echo: false
+html`<div>${estimateSubplots([
+  {title: "Mean difference", names: rrStudies.map(s => s.study), unit: "Scale points", include: [-6, 0]},
+  {title: "Standardized Mean Difference", names: rrStudies.map(s => s.study), unit: "Standardized units", include: [-1.75, 0]}
+], rrStudies.flatMap(s => [
+  {subplot: "Mean difference", name: s.study, est: s.difference, lower: s.difference, upper: s.difference, colour: "#8a8a8a"},
+  {subplot: "Standardized Mean Difference", name: s.study, est: s.d, lower: s.d, upper: s.d, colour: "#8a8a8a"}
+]), width)}</div>`
+```
+
+```{ojs}
+//| echo: false
+md`Both studies found a mean difference of ${rrStudies[0].difference.toFixed(0).replace("-", "−")} points. In Study A, with *SD* = ${rrStudies[0].sd}, this is *d* = ${rrStudies[0].d.toFixed(2).replace("-", "−")}. In Study B, with *SD* = ${rrStudies[1].sd}, it is *d* = ${rrStudies[1].d.toFixed(2).replace("-", "−")}.`
+```
+
+The intervention did exactly the same thing in both studies: it lowered scores by 5 points. In the default setting, Study B's *d* is nevertheless twice the size of Study A's, and a reader comparing the two standardised effect sizes would conclude that the intervention worked twice as well in Study B. The difference between the two values of *d* comes entirely from who was recruited.
+
+This has several implications for trustworthiness assessment:
+
+- A standardised effect size cannot be interpreted without knowing the *SD* it was standardised by. When an effect size seems implausibly large, check whether the *SD*s are unusually small for that scale, compared with other studies of similar populations.
+- Standardised effect sizes from studies with different inclusion criteria are not directly comparable, even when the studies used the same scale. When the studies did use the same scale, the mean difference in scale points is often the more informative comparison.
+- Range restriction is only one of the things that change the *SD*. Others include the reliability of the measure, floor and ceiling effects, and which *SD* was used as the standardiser (for example, the baseline *SD*, the pooled *SD* at post-treatment, or the *SD* of change scores).
 
 ### Cohen's *d* from two samples {#sec-cohens-d-builder}
 
@@ -210,6 +250,7 @@ dPlot = {
     const rows = []
     for (const g of groups) {
       const stats = g.panel.stats()
+      g.title.textContent = `${g.label} (n = ${stats.n})`
       const [lower, upper] = meanCi(stats) ?? [stats.mean, stats.mean]
       if (stats.n > 0) rows.push({name: `${g.short} mean`, est: stats.mean, lower, upper, colour: g.colour})
       const [sdLower, sdUpper] = sdCi(stats) ?? [stats.sd, stats.sd]
@@ -237,6 +278,7 @@ dPlot = {
     estimatesPlot.replaceChildren(...estimateSubplots(subplots, rows, width))
   }
   for (const g of groups) {
+    g.title = html`<div class="sb-title" style="color: ${g.colour};"></div>`
     g.panel = frequencyPanel(scores, g.store, {tallest, onChange: ({rescaled}) => {
       if (rescaled) groups.forEach(other => { if (other !== g) other.panel.refresh() })
       update()
@@ -250,7 +292,7 @@ dPlot = {
   }
   update()
   return html`<div>
-    ${groups.map(g => html`<div><div class="sb-title" style="color: ${g.colour};">${g.label}</div>${g.panel}</div>`)}
+    ${groups.map(g => html`<div>${g.title}${g.panel}</div>`)}
     <div class="sb-title">Estimates with 95% CIs</div>
     ${estimatesPlot}
   </div>`
@@ -366,6 +408,104 @@ function frequencyPanel(scores, store, {onChange = () => {}, tallest} = {}) {
   return node
 }
 
+function unitsPlot({scales, groups, captions, width}) {
+  // each scale's logical range and each group's mean ± 1 SD, with buttons that re-express everything in scale
+  // units, SD units, or POMP units. scales: [{name, min, max, sd, means}], with one mean per group.
+  // groups: [{name, colour}]. captions: one sentence per view. with two groups, a second panel shows the
+  // difference between their means (second minus first) in the current units
+  // each view re-expresses a score v on scale s. aligned names the one quantity that the view makes the same
+  // on every scale, which is highlighted in the labels
+  const views = [
+    {button: "Scale units", axis: "Scale points", digits: 0, aligned: null, f: (s, v) => v,
+     difference: "Difference between means, in scale points"},
+    {button: "SD units", axis: "Standard deviations", digits: 2, aligned: "sd", f: (s, v) => v / s.sd,
+     difference: "Difference between means, in SD units (Cohen's d)"},
+    {button: "POMP", axis: "Percent of maximum possible (POMP)", digits: 1, aligned: "range", f: (s, v) => (v - s.min) / (s.max - s.min) * 100,
+     difference: "Difference between means, in POMP units"}
+  ]
+  const two = groups.length === 2
+  const blue = "#2780e3", grey = "#8a8a8a"
+  const margin = {top: 10, right: 20, bottom: 45, left: 70}
+
+  // main panel
+  const rowHeight = 64, height = margin.top + rowHeight * scales.length + margin.bottom
+  const svg = d3.create("svg").attr("class", "sb-std").attr("width", width).attr("height", height).attr("viewBox", [0, 0, width, height])
+  const axisG = svg.append("g").attr("transform", `translate(0, ${height - margin.bottom})`)
+  const axisLabel = svg.append("text").attr("x", (margin.left + width - margin.right) / 2).attr("y", height - 8).attr("text-anchor", "middle").attr("font-size", 13).attr("fill", "currentColor")
+  const rows = svg.selectAll("g.sb-row").data(scales).join("g").attr("class", "sb-row").attr("transform", (s, i) => `translate(0, ${margin.top + rowHeight * i + 42})`)
+  rows.append("text").attr("x", margin.left - 12).attr("dy", "0.35em").attr("text-anchor", "end").attr("font-size", 13).attr("font-weight", 600).attr("fill", "currentColor").text(s => s.name)
+  const labels = rows.append("text").attr("x", margin.left).attr("y", -22).attr("font-size", 12).attr("fill", "currentColor")
+  // logical range of the scale, with a cap at each end
+  const range = rows.append("line").attr("stroke", "currentColor").attr("stroke-opacity", 0.4).attr("stroke-width", 2)
+  const capLo = rows.append("line").attr("y1", -10).attr("y2", 10).attr("stroke", "currentColor").attr("stroke-opacity", 0.4).attr("stroke-width", 2)
+  const capHi = rows.append("line").attr("y1", -10).attr("y2", 10).attr("stroke", "currentColor").attr("stroke-opacity", 0.4).attr("stroke-width", 2)
+  // each group's mean ± 1 SD, offset vertically when there are two groups
+  const marks = rows.selectAll("g.sb-group").data(s => s.means.map((mean, j) => ({s, mean, colour: groups[j].colour}))).join("g")
+    .attr("class", "sb-group").attr("transform", (d, j) => `translate(0, ${(j - (groups.length - 1) / 2) * 13})`)
+  const sdBar = marks.append("line").attr("stroke", d => d.colour).attr("stroke-width", two ? 4 : 5)
+  const size = two ? 10 : 14
+  const meanDot = marks.append("rect").attr("y", -size / 2).attr("width", size).attr("height", size).attr("fill", d => d.colour)
+
+  // difference panel
+  const dRowHeight = 40, dHeight = 18 + dRowHeight * scales.length + 30
+  const dSvg = d3.create("svg").attr("class", "sb-std").attr("width", width).attr("height", dHeight).attr("viewBox", [0, 0, width, dHeight])
+  const dAxisG = dSvg.append("g").attr("transform", `translate(0, ${dHeight - 30})`)
+  const dRows = dSvg.selectAll("g.sb-row").data(scales).join("g").attr("class", "sb-row").attr("transform", (s, i) => `translate(0, ${18 + dRowHeight * i + 22})`)
+  dRows.append("text").attr("x", margin.left - 12).attr("dy", "0.35em").attr("text-anchor", "end").attr("font-size", 13).attr("font-weight", 600).attr("fill", "currentColor").text(s => s.name)
+  const dBar = dRows.append("line").attr("stroke", grey).attr("stroke-width", 4)
+  const dDot = dRows.append("rect").attr("y", -6).attr("width", 12).attr("height", 12).attr("fill", grey)
+  const dValue = dRows.append("text").attr("y", -12).attr("text-anchor", "middle").attr("font-size", 12).attr("font-weight", 600).attr("fill", "currentColor")
+  const dZero = dSvg.append("line").attr("y1", 10).attr("y2", dHeight - 30).attr("stroke", "currentColor").attr("stroke-dasharray", "4,3").attr("stroke-opacity", 0.6)
+  const dTitle = html`<div class="sb-subtitle"></div>`
+
+  const buttons = views.map(v => Object.assign(html`<button class="btn btn-quarto">${v.button}</button>`, {onclick: () => show(v, true)}))
+  const caption = html`<div class="sb-caption"></div>`
+  const show = (view, animate) => {
+    views.forEach((v, i) => buttons[i].classList.toggle("sb-off", v !== view))
+    caption.textContent = captions[views.indexOf(view)]
+    axisLabel.text(view.axis)
+    const x = d3.scaleLinear()
+      .domain([Math.min(0, d3.min(scales, s => view.f(s, s.min))), d3.max(scales, s => view.f(s, s.max))]).nice()
+      .range([margin.left, width - margin.right])
+    const at = (s, v) => x(view.f(s, v))
+    // scale points are shown without trailing zeros (28, 12.5)
+    const fmt = v => view.digits === 0 ? String(+v.toFixed(1)) : v.toFixed(view.digits)
+    const highlight = (text, on) => on ? `<tspan font-weight="700" fill="${blue}">${text}</tspan>` : text
+    labels.html(s => [
+      highlight(`range ${+fmt(view.f(s, s.min))} to ${+fmt(view.f(s, s.max))}`, view.aligned === "range"),
+      `M = ${s.means.map((mean, j) => two ? `<tspan font-weight="700" fill="${groups[j].colour}">${fmt(view.f(s, mean))}</tspan>` : fmt(view.f(s, mean))).join(" vs ")}`,
+      highlight(`SD = ${fmt(view.f(s, s.min + s.sd) - view.f(s, s.min))}`, view.aligned === "sd")
+    ].join(" · "))
+    // the elements slide to their new positions, unless the reader has asked for reduced motion
+    const duration = animate && !matchMedia("(prefers-reduced-motion: reduce)").matches ? 800 : 0
+    const move = selection => selection.transition().duration(duration)
+    move(axisG).call(d3.axisBottom(x).ticks(6).tickSizeInner(-(height - margin.top - margin.bottom)).tickPadding(8))
+    move(range).attr("x1", s => at(s, s.min)).attr("x2", s => at(s, s.max))
+    move(capLo).attr("x1", s => at(s, s.min)).attr("x2", s => at(s, s.min))
+    move(capHi).attr("x1", s => at(s, s.max)).attr("x2", s => at(s, s.max))
+    move(sdBar).attr("x1", d => at(d.s, d.mean - d.s.sd)).attr("x2", d => at(d.s, d.mean + d.s.sd))
+    move(meanDot).attr("x", d => at(d.s, d.mean) - size / 2)
+    if (!two) return
+    // difference between the two groups' means, in the current units
+    const diff = s => view.f(s, s.means[1]) - view.f(s, s.means[0])
+    const dx = d3.scaleLinear().domain(d3.extent([0, ...scales.map(s => diff(s) * 1.15)])).nice().range([margin.left, width - margin.right])
+    dTitle.textContent = view.difference
+    move(dAxisG).call(d3.axisBottom(dx).ticks(6).tickSizeInner(-(dHeight - 40)).tickPadding(8))
+    move(dZero).attr("x1", dx(0)).attr("x2", dx(0))
+    move(dBar).attr("x1", dx(0)).attr("x2", s => dx(diff(s)))
+    move(dDot).attr("x", s => dx(diff(s)) - 6)
+    move(dValue).attr("x", s => dx(diff(s))).text(s => diff(s).toFixed(Math.max(1, view.digits)).replace("-", "−"))
+  }
+  show(views[0], false)
+  return html`<div>
+    <div class="sb-buttons">${buttons}</div>
+    ${two ? html`<div class="sb-legend">${groups.map(g => html`<span><i style="background: ${g.colour};"></i>${g.name}</span>`)}</div>` : ""}
+    ${svg.node()}
+    ${two ? html`<div>${dTitle}${dSvg.node()}</div>` : ""}
+    ${caption}
+  </div>`
+}
+
 function scaleScores(min, max) {
   // the response options of a scale, or null if the bounds are not usable
   return Number.isInteger(min) && Number.isInteger(max) && min < max && max - min <= 30 ? d3.range(min, max + 1) : null
@@ -375,9 +515,10 @@ function scaleMessage() {
 }
 function estimateSubplots(subplots, rows, width) {
   // one small plot of point estimates and 95% CIs per subplot ({title, names, unit, include}), drawing the rows
-  // ({name, est, lower, upper, colour}) whose names it lists. include gives values that the axis always covers
+  // ({name, est, lower, upper, colour}) whose names it lists, or those assigned to it by a subplot property that
+  // matches its title. include gives values that the axis always covers
   return subplots.map(s => {
-    const data = rows.filter(d => s.names.includes(d.name))
+    const data = rows.filter(d => d.subplot ? d.subplot === s.title : s.names.includes(d.name))
     return html`<div><div class="sb-subtitle">${s.title}</div>${Plot.plot({
       width, height: 55 + 32 * s.names.length, marginTop: 5, marginLeft: 130, marginRight: 20, marginBottom: 45,
       x: {label: s.unit, labelAnchor: "center", labelOffset: 38, grid: true, nice: true, ticks: 5,
@@ -440,6 +581,8 @@ sampleBuilderStyle = html`<style>
   .sb-std .domain { display: none; }
   .sb-std .tick line { stroke-opacity: 0.12; }
   .sb-std .tick text { font-size: 12px; }
+  .sb-legend { display: flex; gap: 1.25rem; font-size: 0.9rem; margin-top: 0.25rem; }
+  .sb-legend i { display: inline-block; width: 10px; height: 10px; margin-right: 0.4rem; }
   .sb-caption { min-height: 4.5em; margin: 0.25rem 0 1rem; font-weight: 600; }
 </style>`
 

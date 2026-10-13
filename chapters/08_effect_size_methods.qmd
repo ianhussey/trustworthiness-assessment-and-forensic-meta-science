@@ -12,6 +12,95 @@ if(file.exists("../_setup.R")){source("../_setup.R")}
   - For different fields
   - Avoiding ever saying "domain knowledge"
 
+## How large can an observed effect size be? {#sec-d-prediction-intervals}
+
+Whether a reported effect size is plausible depends on more than the size of the true effect. The effect size observed in any one study also depends on sampling error, which is larger in small studies, and on how much the true effect varies between studies. Taken together, these determine the range within which the observed effect size of a single study can be expected to fall.
+
+The plot below shows this range for Cohen's *d* from a two-group design, as a function of the total sample size. For each sample size, it simulates 40,000 studies. Each study's true standardised mean difference is drawn from a normal distribution with mean μ and standard deviation τ (the between-study heterogeneity). The study's observed *d* is then drawn from its sampling distribution, with the total sample split equally between the two groups, with the usual correction for small-sample bias applied. The dashed line shows the mean true effect μ, and the bands show the 95%, 99%, and 99.9% prediction intervals: the ranges within which 95%, 99%, and 99.9% of studies' observed effect sizes fall.
+
+```{ojs}
+//| echo: false
+viewof piMu = Inputs.range([0, 2.5], {value: 0.5, step: 0.1, label: "True (population) SMD"})
+viewof piTau = Inputs.range([0, 1], {value: 0.05, step: 0.05, label: "Between-study heterogeneity τ"})
+```
+
+```{ojs}
+//| echo: false
+piData = simulatePiD(piMu, piTau)
+
+Plot.plot({
+  width, height: Math.min(480, Math.max(320, width * 0.75)), marginLeft: 55, marginRight: 20, marginBottom: 45,
+  x: {label: "Total N (both arms)", labelAnchor: "center", labelOffset: 38, ticks: [20, 50, 100, 250, 500]},
+  y: {label: "Observed Cohen's d", labelAnchor: "center", grid: true,
+      domain: [Math.min(-0.5, d3.min(piData, d => d.lo999)), Math.max(3.2, d3.max(piData, d => d.hi999))]},
+  style: {fontSize: "13px"},
+  marks: [
+    Plot.frame({stroke: "currentColor"}),
+    Plot.ruleY([0], {stroke: "currentColor", strokeOpacity: 0.5}),
+    Plot.areaY(piData, {x: "n", y1: "lo999", y2: "hi999", fill: "currentColor", fillOpacity: 0.1}),
+    Plot.areaY(piData, {x: "n", y1: "lo99", y2: "hi99", fill: "currentColor", fillOpacity: 0.15}),
+    Plot.areaY(piData, {x: "n", y1: "lo95", y2: "hi95", fill: "currentColor", fillOpacity: 0.2}),
+    // the mean true SMD, drawn over the bands
+    Plot.ruleY([piMu], {stroke: "#2780e3", strokeDasharray: "6,4", strokeWidth: 2.5})
+  ]
+})
+```
+
+95%, 99%, and 99.9% prediction intervals (darkest to lightest bands) of an observed *d*.
+
+```{ojs}
+//| echo: false
+function simulatePiD(mu, tau, draws = 40000) {
+  // quantiles of the observed, bias-corrected Cohen's d of a two-group study, at each of a log-spaced grid of total sample sizes.
+  // each simulated study's true SMD, delta, is drawn from N(mu, tau). its observed d is
+  // t * 2 / sqrt(N), where t follows a noncentral t distribution with df = N - 2 and ncp = delta * sqrt(N) / 2,
+  // multiplied by the small-sample bias correction J = 1 - 3 / (4 * df - 1). a noncentral t is drawn as (Z + ncp) / sqrt(chi-squared / df).
+  // the random numbers are seeded and reused at every sample size, so that the result does not change
+  // between redraws and the curves are smooth
+  const nSeq = [...new Set(d3.range(16).map(i => Math.round(Math.exp(Math.log(20) + i * (Math.log(500) - Math.log(20)) / 15))))]
+  return nSeq.map(N => {
+    // mulberry32 pseudo-random number generator
+    let state = 1
+    const uniform = () => {
+      state = (state + 0x6D2B79F5) | 0
+      let x = Math.imul(state ^ (state >>> 15), 1 | state)
+      x = (x + Math.imul(x ^ (x >>> 7), 61 | x)) ^ x
+      return ((x ^ (x >>> 14)) >>> 0) / 4294967296
+    }
+    // standard normal, by the Box-Muller method
+    const normal = () => Math.sqrt(-2 * Math.log(1 - uniform())) * Math.cos(2 * Math.PI * uniform())
+    // gamma(shape, 1) for shape >= 1, by the Marsaglia-Tsang method. chi-squared(df) is 2 * gamma(df / 2)
+    const gamma = shape => {
+      const a = shape - 1 / 3, c = 1 / Math.sqrt(9 * a)
+      for (;;) {
+        const x = normal(), v = (1 + c * x) ** 3
+        if (v <= 0) continue
+        const u = 1 - uniform()
+        if (u < 1 - 0.0331 * x ** 4 || Math.log(u) < 0.5 * x * x + a * (1 - v + Math.log(v))) return a * v
+      }
+    }
+    const df = N - 2, J = 1 - 3 / (4 * df - 1)
+    const d = new Float64Array(draws)
+    for (let i = 0; i < draws; i++) {
+      const delta = mu + tau * normal()
+      const t = (normal() + delta * Math.sqrt(N) / 2) / Math.sqrt(2 * gamma(df / 2) / df)
+      d[i] = J * t * 2 / Math.sqrt(N)
+    }
+    d.sort()
+    const q = p => d3.quantileSorted(d, p)
+    return {n: N, lo999: q(0.0005), lo99: q(0.005), lo95: q(0.025), hi95: q(0.975), hi99: q(0.995), hi999: q(0.9995)}
+  })
+}
+```
+
+Several things are worth trying:
+
+- At small sample sizes, the intervals are wide: a study with a total *N* of 20 can easily observe an effect twice the size of the true effect, or an effect in the opposite direction. Large observed effects in small studies are therefore not surprising on their own.
+- The intervals narrow quickly as the sample size increases. An observed *d* of 2 or more in a study with several hundred participants falls far outside the 99% interval unless the true effect is itself very large. Increase μ to find out how large the true effect would have to be before such a result became plausible, and consider whether an effect of that size is credible for the phenomenon in question.
+- Increasing the heterogeneity τ widens the intervals at every sample size, including large ones, because it represents real differences between studies' true effects and not sampling error.
+
+An observed effect size that falls outside the 99% interval for its sample size, under generous assumptions about the true effect and its heterogeneity, is unlikely to have arisen from a correctly calculated result. It is then worth checking for the common errors described below.
+
 ## Maximum positive controls and intuition benchmarks
 
 - Using known effects as anchors for plausibility assessment

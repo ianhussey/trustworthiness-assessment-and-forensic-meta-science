@@ -45,6 +45,7 @@ Before class:
 - Hussey (2025) If researchers find Cohen's d = 8, no they didn't [mmmdata.io/posts/2025/07/if-researchers-find-cohens-d-8-no-they-didnt](https://mmmdata.io/posts/2025/07/if-researchers-find-cohens-d-8-no-they-didnt/)
 - Hilgard (2021) Maximal positive controls: A method for estimating the largest plausible effect size. doi:[10.1016/j.jesp.2020.104082](https://doi.org/10.1016/j.jesp.2020.104082)
 - [Chapter 5: Standardized Mean Differences (Cohen's *d*)](chapters/05_standardized_mean_differences_cohens_d.qmd)
+- [Chapter 6: Standardized Deviations vs. Standard Errors](chapters/06_standardized_deviations_vs_standards_errors.qmd)
 
 In class:
 
@@ -149,15 +150,6 @@ In class:
 <!-- In class: -->
 
 <!-- XXX -->
-
-
-
-
-
-
-
-
-
 
 
 

@@ -1,8 +1,391 @@
-# Standard Deviations vs. Standards Errors [✎ Outline]{.badge .badge-draft1}
+# Standard Deviations vs. Standards Errors [✎ Draft]{.badge .badge-draft2} {#sec-sd-vs-se}
 
 ```{r}
 #| include: false
 if(file.exists("../_setup.R")){source("../_setup.R")}
 ```
 
+The standard deviation (*SD*) and the standard error (*SE*) are both reported after a "±" or in parentheses after a mean, they have similar names, and they are calculated from the same data. They nevertheless answer different questions, and they can differ from each other by an order of magnitude. Mistaking one for the other is one of the most common errors in the reporting of research and in the extraction of results for meta-analysis, and it is one of the main reasons that implausibly large standardised effect sizes appear in the literature.
 
+This chapter explains the difference between the two, shows what happens to Cohen's *d* (@sec-cohens-d-visualised) when a standard error is mistaken for a standard deviation, summarises how often this happens, and describes how to check for it.
+
+## What each one describes {#sec-sd-se-difference}
+
+The **standard deviation** describes the participants. It says how much individual scores vary around the mean of the sample, in the units of the scale. If one study recruits 20 people from a population and another recruits 2,000 people from the same population, the two studies should find roughly the same *SD*, because the *SD* is a property of how much people differ from one another, not of how many of them were measured.
+
+The **standard error** describes the estimate. Every sample gives a slightly different mean (see the dance of the *p*-values, @sec-dance), and the standard error of the mean says how much the means of samples of a given size vary from sample to sample. It is the standard deviation of the sampling distribution of the mean, and it is calculated from the *SD* and the sample size:
+
+$$
+SE = \frac{SD}{\sqrt{N}}
+$$
+
+Unlike the *SD*, the *SE* depends strongly on the sample size: quadrupling the sample halves the standard error. The study with 2,000 participants has the same *SD* as the study with 20, but a standard error that is ten times smaller.
+
+The plot below shows both. The top panel shows the distribution of individual scores, whose spread is the *SD*. The bottom panel shows the distribution of the means of samples of size *N* drawn from that population, whose spread is the *SE*. Change the sample size and notice that the top panel does not change at all, while the bottom panel narrows as *N* increases. Then change the *SD* and notice that both change.
+
+```{ojs}
+//| echo: false
+viewof seSd = Inputs.range([1, 15], {value: 10, step: 0.5, label: "SD of scores"})
+viewof seN = Inputs.range([2, 500], {value: 25, step: 1, label: "Sample size (N)"})
+```
+
+```{ojs}
+//| echo: false
+{
+  // two normal distributions on the same axis: individual scores (spread = SD), and the means of samples of
+  // size N (spread = SE = SD / sqrt(N))
+  const mean = 50, se = seSd / Math.sqrt(seN)
+  const panel = (title, spread, label, colour) => {
+    const density = x => Math.exp(-(((x - mean) / spread) ** 2) / 2) / (spread * Math.sqrt(2 * Math.PI))
+    // the curve is drawn finely near the mean, where a narrow sampling distribution needs the detail
+    const xs = d3.range(0, 100.001, 0.1)
+    const curve = xs.map(x => ({x, y: density(x)}))
+    const peak = density(mean), shoulder = density(mean + spread)
+    return html`<div><div class="sb-subtitle">${title}</div>${Plot.plot({
+      width, height: Math.min(230, Math.max(180, width * 0.3)), marginLeft: 20, marginRight: 20, marginTop: 22, marginBottom: 40,
+      x: {label: "Score", labelAnchor: "center", labelOffset: 34, domain: [0, 100]},
+      y: {axis: null, domain: [0, 1.05 * peak]},
+      style: {fontSize: "13px"},
+      marks: [
+        Plot.areaY(curve, {x: "x", y1: 0, y2: "y", fill: colour, fillOpacity: 0.2}),
+        Plot.lineY(curve, {x: "x", y: "y", stroke: colour, strokeWidth: 2}),
+        Plot.ruleY([0], {stroke: "currentColor"}),
+        Plot.link([{}], {x1: mean, x2: mean, y1: 0, y2: peak, stroke: colour, strokeDasharray: "4,3"}),
+        // one SD or SE either side of the mean, drawn where the curve is that far from the mean
+        Plot.link([{}], {x1: mean - spread, x2: mean + spread, y1: shoulder, y2: shoulder, stroke: "currentColor", strokeWidth: 1.5}),
+        Plot.text([{}], {x: mean + spread, y: shoulder, text: () => label, textAnchor: "start", dx: 8, fontWeight: 600})
+      ]
+    })}</div>`
+  }
+  return html`<div>
+    ${panel("Individual scores: their spread is the standard deviation", seSd, `SD = ${seSd.toFixed(2)}`, "#2780e3")}
+    ${panel(`Means of samples of ${seN}: their spread is the standard error`, se, `SE = ${se.toFixed(2)}`, "#d9622b")}
+  </div>`
+}
+```
+
+```{ojs}
+//| echo: false
+html`<div class="sb-tiles">
+  <div><div class="sb-tile-value">${seSd.toFixed(2)}</div><div class="sb-tile-label">Standard deviation</div><div class="sb-tile-note">how much individual scores vary; does not depend on the sample size</div></div>
+  <div><div class="sb-tile-value" style="color: #d9622b;">${(seSd / Math.sqrt(seN)).toFixed(2)}</div><div class="sb-tile-label">Standard error</div><div class="sb-tile-note">how much the sample mean varies; the SD divided by √N</div></div>
+  <div><div class="sb-tile-value" style="color: inherit;">${Math.sqrt(seN).toFixed(1)}×</div><div class="sb-tile-label">SD ÷ SE</div><div class="sb-tile-note">the SD is √N times larger than the SE</div></div>
+</div>`
+```
+
+Two things follow from this. First, the two statistics are used for different purposes. The *SD* is a descriptive statistic: it is what a reader needs in order to know how variable the sample was, and it is what Cohen's *d* divides by. The *SE* is an inferential statistic: it is what confidence intervals and significance tests are built from. Reporting a standard error where a description of the sample is called for is an error of reporting, even when the number is labelled correctly [@altman2005].
+
+Second, the two are never close in size except in very small samples. With 25 participants the *SD* is 5 times the *SE*; with 100 participants it is 10 times; with 400 it is 20 times. This is what makes confusing them so consequential.
+
+### Converting between them
+
+Because the two differ only by a factor of $\sqrt{N}$, each can be recovered from the other when the sample size is known. A 95% confidence interval for a mean can also be converted, because its half-width is the standard error multiplied by a critical value from the *t* distribution.
+
+```{r}
+# standard error from standard deviation
+se_from_sd <- function(sd, n) sd / sqrt(n)
+
+# standard deviation from standard error
+sd_from_se <- function(se, n) se * sqrt(n)
+
+# standard deviation from the 95% confidence interval of a mean
+sd_from_ci <- function(lower, upper, n) {
+  se <- (upper - lower) / (2 * qt(.975, df = n - 1))
+  se * sqrt(n)
+}
+
+se_from_sd(sd = 10, n = 25)
+sd_from_se(se = 2, n = 25)
+sd_from_ci(lower = 45.87, upper = 54.13, n = 25)
+```
+
+In trustworthiness assessment these conversions are most useful in reverse: when it is unclear which statistic an article has reported, calculate what the *SD* would be under each interpretation and ask which of the two is plausible for that scale and that population.
+
+## What happens when they are confused {#sec-se-sd-confusion}
+
+Cohen's *d* is the difference between two means divided by the standard deviation. If the number that is divided by is in fact a standard error, the denominator is too small by a factor of $\sqrt{n}$, where *n* is the sample size of each group, and the effect size is too large by the same factor:
+
+$$
+d_{confused} = \frac{M_1 - M_2}{SD / \sqrt{n}} = d \times \sqrt{n}
+$$
+
+The error is therefore worse in larger studies. A true effect of *d* = 0.3 becomes 1.34 with 20 participants per group, 2.12 with 50 per group, and 3.00 with 100 per group. This is the opposite of what we usually expect from large studies, which are normally the ones whose estimates we trust most.
+
+The plot below shows this. As in @sec-d-prediction-intervals, it simulates 20,000 two-group studies at each sample size, each with a true standardised mean difference drawn from a normal distribution with mean μ and standard deviation τ. For each study it then calculates the effect size twice: once correctly, and once with the standard error of each group mistaken for its standard deviation. The lines show the median, and the bands show the 95% prediction intervals: the ranges within which 95% of studies' observed effect sizes fall.
+
+```{ojs}
+//| echo: false
+viewof cfMu = Inputs.range([0, 1.5], {value: 0.3, step: 0.05, label: "True (population) SMD μ"})
+viewof cfTau = Inputs.range([0, 0.5], {value: 0.05, step: 0.05, label: "Between-study heterogeneity τ (SMD scale)"})
+```
+
+```{ojs}
+//| echo: false
+{
+  const series = [{name: "Correctly calculated", colour: "#8a8a8a"}, {name: "SE mistaken for SD", colour: "#d9622b"}]
+  const data = simulateConfusedD(cfMu, cfTau)
+  const rows = data.flatMap(d => [
+    {n: d.n, series: series[0].name, lower: d.lower, median: d.median, upper: d.upper},
+    // mistaking the SE of each group for its SD multiplies the effect size by the square root of the group size
+    {n: d.n, series: series[1].name, lower: d.lower * Math.sqrt(d.n / 2), median: d.median * Math.sqrt(d.n / 2), upper: d.upper * Math.sqrt(d.n / 2)}
+  ])
+  return Plot.plot({
+    width, height: Math.min(480, Math.max(320, width * 0.75)), marginLeft: 55, marginRight: 20, marginBottom: 45,
+    x: {label: "Total N (both groups)", labelAnchor: "center", labelOffset: 38, ticks: [20, 50, 100, 250, 500]},
+    y: {label: "Observed Cohen's d", labelAnchor: "center", grid: true, domain: [Math.min(-0.5, d3.min(rows, d => d.lower)), Math.max(3.2, d3.max(rows, d => d.upper))]},
+    color: {domain: series.map(d => d.name), range: series.map(d => d.colour), legend: true},
+    style: {fontSize: "13px"},
+    marks: [
+      Plot.frame({stroke: "currentColor"}),
+      Plot.ruleY([0], {stroke: "currentColor", strokeOpacity: 0.5}),
+      Plot.areaY(rows, {x: "n", y1: "lower", y2: "upper", fill: "series", fillOpacity: 0.25}),
+      Plot.lineY(rows, {x: "n", y: "median", stroke: "series", strokeWidth: 2}),
+      // the mean true SMD
+      Plot.ruleY([cfMu], {stroke: "#2780e3", strokeDasharray: "6,4", strokeWidth: 2.5})
+    ]
+  })
+}
+```
+
+Median (line) and 95% prediction interval (band) of an observed *d*, when it is calculated correctly and when the *SE* is mistaken for the *SD*. The dashed blue line shows the mean true effect μ.
+
+Several things are worth noticing:
+
+- The correctly calculated effect sizes converge on the true effect as the sample size increases. The confused ones move further away from it.
+- The confused effect sizes are not slightly inflated versions of the correct ones. With the default settings, the median confused effect size is about 2 at a total sample size of 90 and nearly 5 at a total sample size of 500, when the true effect is 0.3.
+- Even a true effect of zero is affected. Set μ to 0: the confused effect sizes are still centred on zero, but they are spread over a range many times wider than the correct ones, so that large effects in both directions become common.
+- Small true effects are turned into effects that would be among the largest ever observed in most fields. An observed *d* of 2 or 3 is exactly what this error produces from an unremarkable true effect in a study of ordinary size.
+
+The opposite error also occurs: a standard deviation is mistaken for a standard error, and is multiplied by $\sqrt{n}$ on the assumption that it needs to be converted. This shrinks the effect size by a factor of $\sqrt{n}$. It is harder to notice, because implausibly small effects attract less attention than implausibly large ones.
+
+## Prevalence of SE/SD misuse in primary research {#sec-se-sd-prevalence}
+
+The error starts in primary research articles. Many articles report the standard error of the mean where a standard deviation is called for, that is, to describe the variability of the sample, and some do not say which of the two they are reporting. Either creates the conditions for the number to be misread later, by readers and by meta-analysts.
+
+::: big-number
+[64%]{.number}
+
+[of articles in three leading cardiovascular journals contained at least one instance of incorrect use of the standard error of the mean [@wullschleger2014].]{.description}
+:::
+
+Audits of the published literature in several fields of medicine have found the following:
+
+- @altman2005 set out the distinction between the two statistics in a short and widely cited tutorial. They note that in one sample of articles, 14% failed even to identify which of the two was being reported.
+- @nagele2003 found that 23% of articles in four anaesthesia journals inappropriately used the standard error of the mean to describe the variability of the sample.
+- @ko2014 found that 13.6% of articles in four obstetrics and gynaecology journals did so.
+- @wullschleger2014 found that 64% of articles in three leading cardiovascular journals contained at least one instance of incorrect use of the standard error of the mean.
+- @barde2012 note one reason for the practice: authors sometimes prefer the standard error because it is smaller, which makes the data appear less variable.
+
+Taken together, these audits suggest that somewhere between about 14% and 64% of primary research articles, depending on the field and on how the error is defined, report standard errors where standard deviations are appropriate or do not make clear which they are reporting.
+
+<!-- TODO: these audits are all from medical journals. Add estimates for psychology if any exist. -->
+
+## Downstream consequences for meta-analysis {#sec-se-sd-meta-analysis}
+
+Meta-analyses of standardised mean differences are calculated from the means, standard deviations, and sample sizes extracted from each primary study. When a value that is extracted as a standard deviation is in fact a standard error, that study's effect size is inflated by $\sqrt{n}$, and the error is carried into the pooled estimate. Because meta-analyses are highly cited and inform guidelines and practice, the consequences are larger than those of the same error in any single study.
+
+::: big-number
+[60%]{.number}
+
+[of all effect sizes greater than 3.0 in highly cited strength and conditioning meta-analyses were attributable to a standard error being mistaken for a standard deviation [@kadlec2023].]{.description}
+:::
+
+- @kadlec2023 audited highly cited meta-analyses in strength and conditioning research. 85% contained at least one statistical error, and 45% contained effect sizes that had been inflated by a standard error being treated as a standard deviation. 60% of all effect sizes above 3.0 were attributable to this specific error.
+- @sandercock2024 re-analysed a highly cited meta-analysis in sports medicine and found standard error/standard deviation mix-ups in 9 of its 16 effect sizes. After correction, the pooled standardised mean difference dropped from 1.46 to 0.54, and one comparison was no longer statistically significant.
+- @kanellopoulou2025 identify the confusion of standard errors with standard deviations as one of the most common statistical errors in systematic reviews.
+- @gallardogomez2024 provide a tutorial on calculating standardised mean differences for meta-analysis, including guidance on distinguishing standard errors from standard deviations during data extraction.
+
+Two features of the error make it particularly damaging in a meta-analysis. First, an affected study is not given much less weight. The sampling variance of a standardised mean difference is calculated mainly from the sample sizes, with only a small contribution from the effect size itself, so a study whose effect size has been inflated four- or tenfold still receives close to the weight it would have had anyway. Second, because the inflation depends on each study's sample size, a few affected studies among many unaffected ones look like genuine differences between studies. The error therefore inflates not only the pooled effect size but also the estimates of heterogeneity, which an analyst may then try to explain with moderators.
+
+The plot below simulates a single random-effects meta-analysis of two-group studies. Set the number of studies, the sample size of each group, the mean true effect, the true heterogeneity, and the proportion of studies in which the standard error was mistaken for the standard deviation. The forest plot shows each study's effect size and 95% confidence interval as a meta-analyst would have extracted them, followed by two pooled estimates: one from the studies as extracted, and one from the same studies with the errors corrected. Click the button to simulate another meta-analysis with the same settings.
+
+```{ojs}
+//| echo: false
+viewof maSeed = Inputs.button("Simulate another meta-analysis")
+viewof maK = Inputs.range([5, 40], {value: 20, step: 1, label: "Number of studies"})
+viewof maN = Inputs.range([10, 100], {value: 25, step: 5, label: "Sample size per group"})
+viewof maMu = Inputs.range([0, 1], {value: 0.2, step: 0.05, label: "Mean true SMD μ"})
+viewof maTau = Inputs.range([0, 0.4], {value: 0.2, step: 0.05, label: "True heterogeneity τ"})
+viewof maProp = Inputs.range([0, 0.5], {value: 0.1, step: 0.05, label: "Proportion of studies with the error"})
+```
+
+```{ojs}
+//| echo: false
+maResult = {
+  // one simulated meta-analysis. each study's true SMD is drawn from N(mu, tau), and its observed d from the
+  // noncentral t distribution, as in simulateConfusedD. the first studies are the ones with the error; because the
+  // studies are exchangeable, which ones are affected makes no difference
+  const rng = randomNumbers(maSeed + 1)
+  const n = maN, df = 2 * n - 2, J = 1 - 3 / (4 * df - 1)
+  const affected = Math.floor(maProp * maK + 0.5)
+  const studies = d3.range(maK).map(i => {
+    const delta = maMu + maTau * rng.normal()
+    const t = (rng.normal() + delta * Math.sqrt(n / 2)) / Math.sqrt(2 * rng.gamma(df / 2) / df)
+    const correct = J * t * Math.sqrt(2 / n)
+    const confused = i < affected
+    // the sampling variance is calculated from the sample sizes and the effect size as extracted, as a
+    // meta-analyst who is unaware of the error would calculate it
+    const variance = g => 2 / n + g * g / (4 * n)
+    const extracted = confused ? correct * Math.sqrt(n) : correct
+    return {study: `Study ${i + 1}`, confused, correct, correctVariance: variance(correct), extracted, extractedVariance: variance(extracted)}
+  })
+  return {
+    studies,
+    extracted: randomEffects(studies.map(d => d.extracted), studies.map(d => d.extractedVariance)),
+    corrected: randomEffects(studies.map(d => d.correct), studies.map(d => d.correctVariance))
+  }
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  const orange = "#d9622b", grey = "#8a8a8a"
+  const {studies, extracted, corrected} = maResult
+  const rows = [
+    ...studies.map(d => ({name: d.study, est: d.extracted, lower: d.extracted - 1.96 * Math.sqrt(d.extractedVariance), upper: d.extracted + 1.96 * Math.sqrt(d.extractedVariance), colour: d.confused ? orange : grey, pooled: false})),
+    {name: "Pooled: as extracted", est: extracted.estimate, lower: extracted.lower, upper: extracted.upper, colour: orange, pooled: true},
+    {name: "Pooled: errors corrected", est: corrected.estimate, lower: corrected.lower, upper: corrected.upper, colour: "currentColor", pooled: true}
+  ]
+  return Plot.plot({
+    width, height: 70 + 17 * rows.length, marginLeft: 160, marginRight: 20, marginTop: 10, marginBottom: 45,
+    x: {label: "Standardized Mean Difference", labelAnchor: "center", labelOffset: 38, grid: true, nice: true, domain: d3.extent([-0.5, 1, ...rows.flatMap(d => [d.lower, d.upper])])},
+    y: {label: null, type: "point", domain: rows.map(d => d.name), padding: 0.5, tickSize: 0},
+    style: {fontSize: "12px"},
+    marks: [
+      Plot.ruleX([0], {stroke: "currentColor", strokeOpacity: 0.5}),
+      // the mean true SMD
+      Plot.ruleX([maMu], {stroke: "#2780e3", strokeDasharray: "6,4", strokeWidth: 2}),
+      Plot.link(rows, {x1: "lower", x2: "upper", y1: "name", y2: "name", stroke: "colour", strokeWidth: d => d.pooled ? 3 : 1.5}),
+      Plot.dot(rows.filter(d => !d.pooled), {x: "est", y: "name", fill: "colour", r: 4, symbol: "square"}),
+      Plot.dot(rows.filter(d => d.pooled), {x: "est", y: "name", fill: "colour", r: 7, symbol: "diamond"})
+    ]
+  })
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  const {studies, extracted, corrected} = maResult
+  const line = r => `pooled SMD = ${r.estimate.toFixed(2)}, 95% CI [${r.lower.toFixed(2)}, ${r.upper.toFixed(2)}], τ = ${Math.sqrt(r.tau2).toFixed(2)}, I² = ${(100 * r.i2).toFixed(0)}%`
+  return html`<div class="sb-feedback">
+    <div><strong>As extracted</strong> (${studies.filter(d => d.confused).length} of ${studies.length} studies with the error): ${line(extracted)}</div>
+    <div><strong>Errors corrected:</strong> ${line(corrected)}</div>
+    <div><strong>Truth:</strong> mean SMD = ${maMu.toFixed(2)}, τ = ${maTau.toFixed(2)}</div>
+  </div>`
+}
+```
+
+Studies in which the *SE* was mistaken for the *SD* are shown in orange, and the others in grey. The dashed blue line shows the mean true effect. The pooled estimates are from a random-effects model using the DerSimonian–Laird estimator.
+
+```{ojs}
+//| echo: false
+function randomEffects(estimates, variances) {
+  // random-effects meta-analysis with the DerSimonian-Laird estimator of the between-study variance.
+  // returns the pooled estimate, its 95% CI, tau squared, and I squared (as a proportion)
+  const k = estimates.length
+  const weights = variances.map(v => 1 / v)
+  const sumW = d3.sum(weights)
+  const fixed = d3.sum(estimates, (y, i) => weights[i] * y) / sumW
+  const Q = d3.sum(estimates, (y, i) => weights[i] * (y - fixed) ** 2)
+  const C = sumW - d3.sum(weights, w => w * w) / sumW
+  const tau2 = Math.max(0, (Q - (k - 1)) / C)
+  const reWeights = variances.map(v => 1 / (v + tau2))
+  const estimate = d3.sum(estimates, (y, i) => reWeights[i] * y) / d3.sum(reWeights)
+  const se = Math.sqrt(1 / d3.sum(reWeights))
+  return {estimate, lower: estimate - 1.96 * se, upper: estimate + 1.96 * se, tau2, i2: Q > 0 ? Math.max(0, (Q - (k - 1)) / Q) : 0}
+}
+
+function simulateConfusedD(mu, tau, draws = 20000) {
+  // the median and 95% prediction interval of the observed, bias-corrected Cohen's d of a two-group study, at
+  // each of a log-spaced grid of total sample sizes. each simulated study's true SMD, delta, is drawn from
+  // N(mu, tau). its observed d is t * 2 / sqrt(N), where t follows a noncentral t distribution with df = N - 2 and
+  // ncp = delta * sqrt(N) / 2, multiplied by the small-sample bias correction J = 1 - 3 / (4 * df - 1).
+  // the same random numbers are used at every sample size, so that the curves are smooth
+  const nSeq = [...new Set(d3.range(16).map(i => Math.round(Math.exp(Math.log(20) + i * (Math.log(500) - Math.log(20)) / 15))))]
+  return nSeq.map(N => {
+    const rng = randomNumbers(1)
+    const df = N - 2, J = 1 - 3 / (4 * df - 1)
+    const d = new Float64Array(draws)
+    for (let i = 0; i < draws; i++) {
+      const delta = mu + tau * rng.normal()
+      const t = (rng.normal() + delta * Math.sqrt(N) / 2) / Math.sqrt(2 * rng.gamma(df / 2) / df)
+      d[i] = J * t * 2 / Math.sqrt(N)
+    }
+    d.sort()
+    return {n: N, lower: d3.quantileSorted(d, 0.025), median: d3.quantileSorted(d, 0.5), upper: d3.quantileSorted(d, 0.975)}
+  })
+}
+
+function randomNumbers(seed) {
+  // a seeded source of random numbers, so that results do not change between redraws
+  // uniform: the mulberry32 pseudo-random number generator
+  let state = seed
+  const uniform = () => {
+    state = (state + 0x6D2B79F5) | 0
+    let x = Math.imul(state ^ (state >>> 15), 1 | state)
+    x = (x + Math.imul(x ^ (x >>> 7), 61 | x)) ^ x
+    return ((x ^ (x >>> 14)) >>> 0) / 4294967296
+  }
+  // standard normal, by the Box-Muller method
+  const normal = () => Math.sqrt(-2 * Math.log(1 - uniform())) * Math.cos(2 * Math.PI * uniform())
+  // gamma(shape, 1) for shape >= 1, by the Marsaglia-Tsang method. chi-squared(df) is 2 * gamma(df / 2)
+  const gamma = shape => {
+    const a = shape - 1 / 3, c = 1 / Math.sqrt(9 * a)
+    for (;;) {
+      const x = normal(), v = (1 + c * x) ** 3
+      if (v <= 0) continue
+      const u = 1 - uniform()
+      if (u < 1 - 0.0331 * x ** 4 || Math.log(u) < 0.5 * x * x + a * (1 - v + Math.log(v))) return a * v
+    }
+  }
+  return {uniform, normal, gamma}
+}
+
+sdSeStyle = html`<style>
+  .sb-subtitle { font-size: 0.9rem; font-weight: 600; margin: 0.75rem 0 0.25rem; color: var(--bs-secondary-color); }
+  .sb-tiles { display: flex; gap: 2rem; flex-wrap: wrap; margin: 0.5rem 0 1.5rem; }
+  .sb-tiles > div { flex: 1 1 10rem; }
+  .sb-tile-value { font-size: 2rem; font-weight: 700; line-height: 1.1; color: #2780e3; }
+  .sb-tile-label { font-weight: 600; }
+  .sb-tile-note { font-size: 0.9rem; color: var(--bs-secondary-color); }
+  .sb-feedback { margin: 0.5rem 0 1rem; padding: 0.6rem 0.9rem; border-left: 4px solid #8a8a8a; background: rgba(128, 128, 128, 0.08); }
+</style>`
+```
+
+Simulate several meta-analyses and notice the following:
+
+- With the default settings, only 2 of the 20 studies have the error. Across many simulated meta-analyses, this is enough to make the pooled estimate about 30% too large on average (0.26 instead of 0.20), and to make the estimate of τ more than twice as large as it should be (about 0.44 instead of about 0.17).
+- Increasing the sample size per group makes things worse, not better, because the inflation of each affected study grows with its sample size. With 100 participants per group, the same two studies make the pooled estimate about 80% too large on average.
+- The inflated heterogeneity also makes the confidence interval of the pooled estimate wider. The error can therefore turn a significant pooled effect into a nonsignificant one as well as the reverse.
+- Increase the proportion of studies with the error to 25% or 50%, as @sandercock2024 found in one published meta-analysis, and the pooled estimate bears little relation to the true effect.
+- The affected studies have confidence intervals that are barely wider than those of the other studies. Nothing about their precision marks them out as unusual.
+- With the proportion set to zero, the two pooled estimates are identical. The difference between them is entirely due to the error.
+
+## Checking for SE/SD confusion in trustworthiness assessment {#sec-se-sd-checks}
+
+The error is detectable more often than it is detected, because it leaves numbers that are implausible in several ways at once. When assessing an article or a meta-analysis:
+
+1. **Check what is labelled.** Does every table and figure say whether the values after "±", in parentheses, or shown as error bars are standard deviations, standard errors, or confidence intervals? Unlabelled values should not be assumed to be standard deviations.
+2. **Ask whether the reported *SD*s are plausible for the scale.** Compare them with the range of the scale, with the *SD*s reported for the same measure in other studies of similar populations, and with each other across the tables of the same article. An *SD* that is a small fraction of what other studies report is more likely to be a standard error than a sign of an unusually homogeneous sample (see also @sec-range-restriction).
+3. **Try the conversion.** Multiply the suspicious value by $\sqrt{n}$. If the result is a typical *SD* for that measure, the reported value was probably a standard error.
+4. **Look for *SD*s that shrink as groups get larger.** Standard deviations should be similar across groups and subgroups of different sizes. Values that are systematically smaller in larger groups behave like standard errors.
+5. **Check whether the effect size is plausible.** Standardised mean differences above about 2 or 3 are rare when calculated correctly (@sec-d-prediction-intervals) and may not even be possible on a bounded scale (@sec-cohens-d-bounded). @kadlec2023 traced most effect sizes above 3 in the meta-analyses they audited to this error.
+6. **Recalculate.** Check that the reported means and *SD*s are consistent with the reported test statistics, *p*-values, and confidence intervals (see @sec-recalculation). A *t*-test calculated by the original authors from the raw data will not agree with an effect size calculated from standard errors that have been mistaken for standard deviations.
+7. **In a meta-analysis, inspect the forest plot.** Look for studies whose effect sizes are far larger than the rest without having wider confidence intervals, particularly among the larger studies, and trace their extracted values back to the primary articles.
+
+One consequence of the fact that the inflation grows with sample size is that this error does not look like the small-study effects that meta-analysts are trained to look for. Funnel plots and related methods are designed to detect the pattern in which small studies show the largest effects. Here it is the larger studies that are the most distorted.
+
+## Test yourself
+
+::: {.webex-check .webex-box}
+An article reports that anxiety scores on a 0–40 scale were lower in the intervention group (*M* = 14.2 ± 0.9, *n* = 64) than in the control group (*M* = 17.1 ± 1.0, *n* = 64), and does not say what the values after ± are. A meta-analysis that includes the study reports its effect size as *d* = −3.05. Mark each statement as true or false.
+
+1.  If the values after ± are standard deviations, the meta-analysis has calculated *d* correctly. `r webexercises::torf(TRUE)`
+2.  If the values after ± are standard errors, the *SD*s are about 7 to 8, and *d* is about −0.38. `r webexercises::torf(TRUE)`
+3.  Standard deviations of about 1 on a 0–40 scale would mean that nearly everyone in each group scored within a few points of each other. `r webexercises::torf(TRUE)`
+4.  The standard error would be the appropriate statistic for describing how variable the participants' scores were. `r webexercises::torf(FALSE)`
+5.  If this study had recruited 256 participants per group and the same error had been made, the effect size in the meta-analysis would be less inflated. `r webexercises::torf(FALSE)`
+6.  Because the study is one of the larger ones in the meta-analysis, the error will have little influence on the pooled estimate. `r webexercises::torf(FALSE)`
+:::

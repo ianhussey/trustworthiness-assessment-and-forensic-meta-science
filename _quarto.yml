@@ -14,6 +14,8 @@ book:
   #   orcid: 0000-0001-7806-9583
   #   email: malte.elson@unibe.ch
   date: today
+  page-footer:
+    center: "Text and figures © Ian Hussey, [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/). Code [MIT](https://opensource.org/licenses/MIT). [License details](/index.qmd#sec-license)."
   
   chapters:
   - index.qmd
@@ -89,6 +91,8 @@ format:
           /* Observable Inputs.button uses .btn-quarto: give it the plots' blue (the default text colour matched its background), and space between stacked buttons */
           .btn.btn-quarto { color: #fff; background-color: #2780e3; border-color: #2780e3; margin: 0.4rem 0; }
           .btn.btn-quarto:hover { background-color: #1f6ab8; border-color: #1f6ab8; }
+          /* quarto adds a copy button to every code cell, which still appears at the top right of Observable JS cells whose code is hidden (echo: false). hide it for those cells only */
+          .code-copy-outer-scaffold > .cell-code.hidden:has(> pre.js) ~ .code-copy-button { display: none; }
           /* .big-number: [89%]{.number} then [explanatory text]{.description}
              .big-quote:  [quote text]{.quote} then [source]{.citation}
              each works as a span (use a trailing \ for line breaks) or a div (for multiple paragraphs) */

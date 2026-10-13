@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>7&nbsp; Standard Deviations vs.&nbsp;Standards Errors ✎ Outline – Trustworthiness Assessment</title>
+<title>6&nbsp; Standard Deviations vs.&nbsp;Standards Errors ✎ Draft – Trustworthiness Assessment</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -55,7 +55,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -109,6 +129,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 <style>
   /* more breathing room before section headings.
      scoped to main.content so the sidebar/TOC headings are left alone.
@@ -153,6 +175,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   .quarto-color-scheme-toggle::after { content: " Dark mode"; font-family: sans-serif; font-size: 0.85em; }
 </style>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../include/webex.css">
 </head>
@@ -328,7 +379,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/04_understanding_p_values.html">Part II: Understanding statistics</a></li><li class="breadcrumb-item"><a href="../chapters/06_standardized_deviations_vs_standards_errors.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Standard Deviations vs.&nbsp;Standards Errors <span class="badge badge-draft1">✎ Outline</span></span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/04_understanding_p_values.html">Part II: Understanding statistics</a></li><li class="breadcrumb-item"><a href="../chapters/06_standardized_deviations_vs_standards_errors.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Standard Deviations vs.&nbsp;Standards Errors <span class="badge badge-draft2">✎ Draft</span></span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -365,7 +416,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lesson_plan.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Lesson plan</span></span></a>
+ <span class="menu-text">Lesson plan <span class="badge badge-draft1">✎ Outline</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -380,19 +431,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/01_scope_and_need.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Scope and need <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Scope and need <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/02_psychological_preparation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Psychological preparation <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Psychological preparation <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/03_organising_principles.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Organising principles <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Organising principles <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
       </ul>
@@ -409,19 +460,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/04_understanding_p_values.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Understanding <em>p</em>-values <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Understanding <em>p</em>-values <span class="badge badge-draft2">✎ Draft</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/05_standardized_mean_differences_cohens_d.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Standardized Mean Differences (Cohen’s <em>d</em>) <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Standardized Mean Differences (Cohen’s <em>d</em>) <span class="badge badge-draft2">✎ Draft</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/06_standardized_deviations_vs_standards_errors.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Standard Deviations vs.&nbsp;Standards Errors <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Standard Deviations vs.&nbsp;Standards Errors <span class="badge badge-draft2">✎ Draft</span></span></span></a>
   </div>
 </li>
       </ul>
@@ -438,67 +489,67 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/07_misinterpretation_methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Misinterpretation methods <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Misinterpretation methods <span class="badge badge-draft2">✎ Draft</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/08_effect_size_methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Effect size methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Effect size methods <span class="badge badge-draft2">✎ Draft</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/09_repetition_and_consistency_methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Repetition and consistency methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Repetition and consistency methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/10_recalculation_methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Recalculation methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Recalculation methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/11_granularity_methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Granularity methods <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Granularity methods <span class="badge badge-draft2">✎ Draft</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/12_bounds_methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Bounds methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Bounds methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/13_reconstruction_resampling_simulation_methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Reconstruction, resampling, and simulation methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Reconstruction, resampling, and simulation methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/14_design_methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Design methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Design methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/15_measurement_methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Measurement methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Measurement methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/16_theory_specification_methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Theory specification methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Theory specification methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/17_data_extraction_methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Data extraction methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Data extraction methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
       </ul>
@@ -515,25 +566,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/18_critiquing_specific_types_of_articles.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Critiquing specific types of articles <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Critiquing specific types of articles <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/19_inspect_sr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">INSPECT-SR <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">INSPECT-SR <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/20_organising_critique.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Organising critique <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Organising critique <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/21_reflexive_critique.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Reflexive critique <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Reflexive critique <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
       </ul>
@@ -550,13 +601,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/22_forensic_methods_require_validation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Forensic meta-science methods require validation <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Forensic meta-science methods require validation <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/23_validation_using_simulated_data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Validating meta-science methods using simulated data <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Validating meta-science methods using simulated data <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
       </ul>
@@ -572,16 +623,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-sd-se-difference" id="toc-sec-sd-se-difference" class="nav-link active" data-scroll-target="#sec-sd-se-difference"><span class="header-section-number">6.1</span> What each one describes</a>
+  <ul class="collapse">
+  <li><a href="#converting-between-them" id="toc-converting-between-them" class="nav-link" data-scroll-target="#converting-between-them"><span class="header-section-number">6.1.1</span> Converting between them</a></li>
+  </ul></li>
+  <li><a href="#sec-se-sd-confusion" id="toc-sec-se-sd-confusion" class="nav-link" data-scroll-target="#sec-se-sd-confusion"><span class="header-section-number">6.2</span> What happens when they are confused</a></li>
+  <li><a href="#sec-se-sd-prevalence" id="toc-sec-se-sd-prevalence" class="nav-link" data-scroll-target="#sec-se-sd-prevalence"><span class="header-section-number">6.3</span> Prevalence of SE/SD misuse in primary research</a></li>
+  <li><a href="#sec-se-sd-meta-analysis" id="toc-sec-se-sd-meta-analysis" class="nav-link" data-scroll-target="#sec-se-sd-meta-analysis"><span class="header-section-number">6.4</span> Downstream consequences for meta-analysis</a></li>
+  <li><a href="#sec-se-sd-checks" id="toc-sec-se-sd-checks" class="nav-link" data-scroll-target="#sec-se-sd-checks"><span class="header-section-number">6.5</span> Checking for SE/SD confusion in trustworthiness assessment</a></li>
+  <li><a href="#test-yourself" id="toc-test-yourself" class="nav-link" data-scroll-target="#test-yourself"><span class="header-section-number">6.6</span> Test yourself</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/04_understanding_p_values.html">Part II: Understanding statistics</a></li><li class="breadcrumb-item"><a href="../chapters/06_standardized_deviations_vs_standards_errors.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Standard Deviations vs.&nbsp;Standards Errors <span class="badge badge-draft1">✎ Outline</span></span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/04_understanding_p_values.html">Part II: Understanding statistics</a></li><li class="breadcrumb-item"><a href="../chapters/06_standardized_deviations_vs_standards_errors.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Standard Deviations vs.&nbsp;Standards Errors <span class="badge badge-draft2">✎ Draft</span></span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Standard Deviations vs.&nbsp;Standards Errors <span class="badge badge-draft1">✎ Outline</span></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<h1 class="title"><span id="sec-sd-vs-se" class="quarto-section-identifier"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Standard Deviations vs.&nbsp;Standards Errors <span class="badge badge-draft2">✎ Draft</span></span></span></h1>
 </div>
 
 
@@ -598,10 +663,517 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<p>The standard deviation (<em>SD</em>) and the standard error (<em>SE</em>) are both reported after a “±” or in parentheses after a mean, they have similar names, and they are calculated from the same data. They nevertheless answer different questions, and they can differ from each other by an order of magnitude. Mistaking one for the other is one of the most common errors in the reporting of research and in the extraction of results for meta-analysis, and it is one of the main reasons that implausibly large standardised effect sizes appear in the literature.</p>
+<p>This chapter explains the difference between the two, shows what happens to Cohen’s <em>d</em> (<a href="05_standardized_mean_differences_cohens_d.html#sec-cohens-d-visualised" class="quarto-xref"><span>Section 5.2</span></a>) when a standard error is mistaken for a standard deviation, summarises how often this happens, and describes how to check for it.</p>
+<section id="sec-sd-se-difference" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="sec-sd-se-difference"><span class="header-section-number">6.1</span> What each one describes</h2>
+<p>The <strong>standard deviation</strong> describes the participants. It says how much individual scores vary around the mean of the sample, in the units of the scale. If one study recruits 20 people from a population and another recruits 2,000 people from the same population, the two studies should find roughly the same <em>SD</em>, because the <em>SD</em> is a property of how much people differ from one another, not of how many of them were measured.</p>
+<p>The <strong>standard error</strong> describes the estimate. Every sample gives a slightly different mean (see the dance of the <em>p</em>-values, <a href="04_understanding_p_values.html#sec-dance" class="quarto-xref"><span>Section 4.4.0.1</span></a>), and the standard error of the mean says how much the means of samples of a given size vary from sample to sample. It is the standard deviation of the sampling distribution of the mean, and it is calculated from the <em>SD</em> and the sample size:</p>
+<p><span class="math display">\[
+SE = \frac{SD}{\sqrt{N}}
+\]</span></p>
+<p>Unlike the <em>SD</em>, the <em>SE</em> depends strongly on the sample size: quadrupling the sample halves the standard error. The study with 2,000 participants has the same <em>SD</em> as the study with 20, but a standard error that is ten times smaller.</p>
+<p>The plot below shows both. The top panel shows the distribution of individual scores, whose spread is the <em>SD</em>. The bottom panel shows the distribution of the means of samples of size <em>N</em> drawn from that population, whose spread is the <em>SE</em>. Change the sample size and notice that the top panel does not change at all, while the bottom panel narrows as <em>N</em> increases. Then change the <em>SD</em> and notice that both change.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="28" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 27;"><span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>viewof seSd <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">15</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">10</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"SD of scores"</span>})</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>viewof seN <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">2</span><span class="op">,</span> <span class="dv">500</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">25</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Sample size (N)"</span>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="33" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 32;"><span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>  <span class="co">// two normal distributions on the same axis: individual scores (spread = SD), and the means of samples of</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>  <span class="co">// size N (spread = SE = SD / sqrt(N))</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> mean <span class="op">=</span> <span class="dv">50</span><span class="op">,</span> se <span class="op">=</span> seSd <span class="op">/</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(seN)</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> panel <span class="op">=</span> (title<span class="op">,</span> spread<span class="op">,</span> label<span class="op">,</span> colour) <span class="kw">=&gt;</span> {</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> density <span class="op">=</span> x <span class="kw">=&gt;</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">exp</span>(<span class="op">-</span>(((x <span class="op">-</span> mean) <span class="op">/</span> spread) <span class="op">**</span> <span class="dv">2</span>) <span class="op">/</span> <span class="dv">2</span>) <span class="op">/</span> (spread <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span>))</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>    <span class="co">// the curve is drawn finely near the mean, where a narrow sampling distribution needs the detail</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> xs <span class="op">=</span> d3<span class="op">.</span><span class="fu">range</span>(<span class="dv">0</span><span class="op">,</span> <span class="fl">100.001</span><span class="op">,</span> <span class="fl">0.1</span>)</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> curve <span class="op">=</span> xs<span class="op">.</span><span class="fu">map</span>(x <span class="kw">=&gt;</span> ({x<span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="fu">density</span>(x)}))</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> peak <span class="op">=</span> <span class="fu">density</span>(mean)<span class="op">,</span> shoulder <span class="op">=</span> <span class="fu">density</span>(mean <span class="op">+</span> spread)</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">html</span><span class="vs">`&lt;div&gt;&lt;div class="sb-subtitle"&gt;</span><span class="sc">${</span>title<span class="sc">}</span><span class="vs">&lt;/div&gt;</span><span class="sc">${</span>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>      width<span class="op">,</span> <span class="dt">height</span><span class="op">:</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(<span class="dv">230</span><span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">180</span><span class="op">,</span> width <span class="op">*</span> <span class="fl">0.3</span>))<span class="op">,</span> <span class="dt">marginLeft</span><span class="op">:</span> <span class="dv">20</span><span class="op">,</span> <span class="dt">marginRight</span><span class="op">:</span> <span class="dv">20</span><span class="op">,</span> <span class="dt">marginTop</span><span class="op">:</span> <span class="dv">22</span><span class="op">,</span> <span class="dt">marginBottom</span><span class="op">:</span> <span class="dv">40</span><span class="op">,</span></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Score"</span><span class="op">,</span> <span class="dt">labelAnchor</span><span class="op">:</span> <span class="st">"center"</span><span class="op">,</span> <span class="dt">labelOffset</span><span class="op">:</span> <span class="dv">34</span><span class="op">,</span> <span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="dv">100</span>]}<span class="op">,</span></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>      <span class="dt">y</span><span class="op">:</span> {<span class="dt">axis</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span> <span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="fl">1.05</span> <span class="op">*</span> peak]}<span class="op">,</span></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>      <span class="dt">style</span><span class="op">:</span> {<span class="dt">fontSize</span><span class="op">:</span> <span class="st">"13px"</span>}<span class="op">,</span></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>      <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">areaY</span>(curve<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span> <span class="dt">y1</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">y2</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> colour<span class="op">,</span> <span class="dt">fillOpacity</span><span class="op">:</span> <span class="fl">0.2</span>})<span class="op">,</span></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">lineY</span>(curve<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> colour<span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="dv">2</span>})<span class="op">,</span></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> <span class="st">"currentColor"</span>})<span class="op">,</span></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">link</span>([{}]<span class="op">,</span> {<span class="dt">x1</span><span class="op">:</span> mean<span class="op">,</span> <span class="dt">x2</span><span class="op">:</span> mean<span class="op">,</span> <span class="dt">y1</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">y2</span><span class="op">:</span> peak<span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> colour<span class="op">,</span> <span class="dt">strokeDasharray</span><span class="op">:</span> <span class="st">"4,3"</span>})<span class="op">,</span></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>        <span class="co">// one SD or SE either side of the mean, drawn where the curve is that far from the mean</span></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">link</span>([{}]<span class="op">,</span> {<span class="dt">x1</span><span class="op">:</span> mean <span class="op">-</span> spread<span class="op">,</span> <span class="dt">x2</span><span class="op">:</span> mean <span class="op">+</span> spread<span class="op">,</span> <span class="dt">y1</span><span class="op">:</span> shoulder<span class="op">,</span> <span class="dt">y2</span><span class="op">:</span> shoulder<span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span>})<span class="op">,</span></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">text</span>([{}]<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> mean <span class="op">+</span> spread<span class="op">,</span> <span class="dt">y</span><span class="op">:</span> shoulder<span class="op">,</span> <span class="dt">text</span><span class="op">:</span> () <span class="kw">=&gt;</span> label<span class="op">,</span> <span class="dt">textAnchor</span><span class="op">:</span> <span class="st">"start"</span><span class="op">,</span> <span class="dt">dx</span><span class="op">:</span> <span class="dv">8</span><span class="op">,</span> <span class="dt">fontWeight</span><span class="op">:</span> <span class="dv">600</span>})</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>      ]</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>    })<span class="sc">}</span><span class="vs">&lt;/div&gt;`</span></span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">html</span><span class="vs">`&lt;div&gt;</span></span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span><span class="fu">panel</span>(<span class="st">"Individual scores: their spread is the standard deviation"</span><span class="op">,</span> seSd<span class="op">,</span> <span class="vs">`SD = </span><span class="sc">${</span>seSd<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="vs">`</span><span class="op">,</span> <span class="st">"#2780e3"</span>)<span class="sc">}</span></span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span><span class="fu">panel</span>(<span class="vs">`Means of samples of </span><span class="sc">${</span>seN<span class="sc">}</span><span class="vs">: their spread is the standard error`</span><span class="op">,</span> se<span class="op">,</span> <span class="vs">`SE = </span><span class="sc">${</span>se<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="vs">`</span><span class="op">,</span> <span class="st">"#d9622b"</span>)<span class="sc">}</span></span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;`</span></span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-2" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="68" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 67;"><span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a><span class="fu">html</span><span class="vs">`&lt;div class="sb-tiles"&gt;</span></span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;div&gt;&lt;div class="sb-tile-value"&gt;</span><span class="sc">${</span>seSd<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="vs">&lt;/div&gt;&lt;div class="sb-tile-label"&gt;Standard deviation&lt;/div&gt;&lt;div class="sb-tile-note"&gt;how much individual scores vary; does not depend on the sample size&lt;/div&gt;&lt;/div&gt;</span></span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;div&gt;&lt;div class="sb-tile-value" style="color: #d9622b;"&gt;</span><span class="sc">${</span>(seSd <span class="op">/</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(seN))<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="vs">&lt;/div&gt;&lt;div class="sb-tile-label"&gt;Standard error&lt;/div&gt;&lt;div class="sb-tile-note"&gt;how much the sample mean varies; the SD divided by √N&lt;/div&gt;&lt;/div&gt;</span></span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;div&gt;&lt;div class="sb-tile-value" style="color: inherit;"&gt;</span><span class="sc">${</span><span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(seN)<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)<span class="sc">}</span><span class="vs">×&lt;/div&gt;&lt;div class="sb-tile-label"&gt;SD ÷ SE&lt;/div&gt;&lt;div class="sb-tile-note"&gt;the SD is √N times larger than the SE&lt;/div&gt;&lt;/div&gt;</span></span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a><span class="vs">&lt;/div&gt;`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-3" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<p>Two things follow from this. First, the two statistics are used for different purposes. The <em>SD</em> is a descriptive statistic: it is what a reader needs in order to know how variable the sample was, and it is what Cohen’s <em>d</em> divides by. The <em>SE</em> is an inferential statistic: it is what confidence intervals and significance tests are built from. Reporting a standard error where a description of the sample is called for is an error of reporting, even when the number is labelled correctly <span class="citation" data-cites="altman2005">(<a href="../references.html#ref-altman2005" role="doc-biblioref">Altman &amp; Bland, 2005</a>)</span>.</p>
+<p>Second, the two are never close in size except in very small samples. With 25 participants the <em>SD</em> is 5 times the <em>SE</em>; with 100 participants it is 10 times; with 400 it is 20 times. This is what makes confusing them so consequential.</p>
+<section id="converting-between-them" class="level3" data-number="6.1.1">
+<h3 data-number="6.1.1" class="anchored" data-anchor-id="converting-between-them"><span class="header-section-number">6.1.1</span> Converting between them</h3>
+<p>Because the two differ only by a factor of <span class="math inline">\(\sqrt{N}\)</span>, each can be recovered from the other when the sample size is known. A 95% confidence interval for a mean can also be converted, because its half-width is the standard error multiplied by a critical value from the <em>t</em> distribution.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># standard error from standard deviation</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>se_from_sd <span class="ot">&lt;-</span> <span class="cf">function</span>(sd, n) sd <span class="sc">/</span> <span class="fu">sqrt</span>(n)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># standard deviation from standard error</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>sd_from_se <span class="ot">&lt;-</span> <span class="cf">function</span>(se, n) se <span class="sc">*</span> <span class="fu">sqrt</span>(n)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># standard deviation from the 95% confidence interval of a mean</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>sd_from_ci <span class="ot">&lt;-</span> <span class="cf">function</span>(lower, upper, n) {</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  se <span class="ot">&lt;-</span> (upper <span class="sc">-</span> lower) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> <span class="fu">qt</span>(.<span class="dv">975</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>))</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  se <span class="sc">*</span> <span class="fu">sqrt</span>(n)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="fu">se_from_sd</span>(<span class="at">sd =</span> <span class="dv">10</span>, <span class="at">n =</span> <span class="dv">25</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd_from_se</span>(<span class="at">se =</span> <span class="dv">2</span>, <span class="at">n =</span> <span class="dv">25</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd_from_ci</span>(<span class="at">lower =</span> <span class="fl">45.87</span>, <span class="at">upper =</span> <span class="fl">54.13</span>, <span class="at">n =</span> <span class="dv">25</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10.00534</code></pre>
+</div>
+</div>
+<p>In trustworthiness assessment these conversions are most useful in reverse: when it is unclear which statistic an article has reported, calculate what the <em>SD</em> would be under each interpretation and ask which of the two is plausible for that scale and that population.</p>
+</section>
+</section>
+<section id="sec-se-sd-confusion" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="sec-se-sd-confusion"><span class="header-section-number">6.2</span> What happens when they are confused</h2>
+<p>Cohen’s <em>d</em> is the difference between two means divided by the standard deviation. If the number that is divided by is in fact a standard error, the denominator is too small by a factor of <span class="math inline">\(\sqrt{n}\)</span>, where <em>n</em> is the sample size of each group, and the effect size is too large by the same factor:</p>
+<p><span class="math display">\[
+d_{confused} = \frac{M_1 - M_2}{SD / \sqrt{n}} = d \times \sqrt{n}
+\]</span></p>
+<p>The error is therefore worse in larger studies. A true effect of <em>d</em> = 0.3 becomes 1.34 with 20 participants per group, 2.12 with 50 per group, and 3.00 with 100 per group. This is the opposite of what we usually expect from large studies, which are normally the ones whose estimates we trust most.</p>
+<p>The plot below shows this. As in <a href="08_effect_size_methods.html#sec-d-prediction-intervals" class="quarto-xref"><span>Section 8.2</span></a>, it simulates 20,000 two-group studies at each sample size, each with a true standardised mean difference drawn from a normal distribution with mean μ and standard deviation τ. For each study it then calculates the effect size twice: once correctly, and once with the standard error of each group mistaken for its standard deviation. The lines show the median, and the bands show the 95% prediction intervals: the ranges within which 95% of studies’ observed effect sizes fall.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb10" data-startfrom="118" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 117;"><span id="cb10-118"><a href="#cb10-118" aria-hidden="true" tabindex="-1"></a>viewof cfMu <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">0</span><span class="op">,</span> <span class="fl">1.5</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="fl">0.3</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.05</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"True (population) SMD μ"</span>})</span>
+<span id="cb10-119"><a href="#cb10-119" aria-hidden="true" tabindex="-1"></a>viewof cfTau <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">0</span><span class="op">,</span> <span class="fl">0.5</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="fl">0.05</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.05</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Between-study heterogeneity τ (SMD scale)"</span>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb11" data-startfrom="123" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 122;"><span id="cb11-123"><a href="#cb11-123" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb11-124"><a href="#cb11-124" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> series <span class="op">=</span> [{<span class="dt">name</span><span class="op">:</span> <span class="st">"Correctly calculated"</span><span class="op">,</span> <span class="dt">colour</span><span class="op">:</span> <span class="st">"#8a8a8a"</span>}<span class="op">,</span> {<span class="dt">name</span><span class="op">:</span> <span class="st">"SE mistaken for SD"</span><span class="op">,</span> <span class="dt">colour</span><span class="op">:</span> <span class="st">"#d9622b"</span>}]</span>
+<span id="cb11-125"><a href="#cb11-125" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> data <span class="op">=</span> <span class="fu">simulateConfusedD</span>(cfMu<span class="op">,</span> cfTau)</span>
+<span id="cb11-126"><a href="#cb11-126" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> rows <span class="op">=</span> data<span class="op">.</span><span class="fu">flatMap</span>(d <span class="kw">=&gt;</span> [</span>
+<span id="cb11-127"><a href="#cb11-127" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">n</span><span class="op">:</span> d<span class="op">.</span><span class="at">n</span><span class="op">,</span> <span class="dt">series</span><span class="op">:</span> series[<span class="dv">0</span>]<span class="op">.</span><span class="at">name</span><span class="op">,</span> <span class="dt">lower</span><span class="op">:</span> d<span class="op">.</span><span class="at">lower</span><span class="op">,</span> <span class="dt">median</span><span class="op">:</span> d<span class="op">.</span><span class="at">median</span><span class="op">,</span> <span class="dt">upper</span><span class="op">:</span> d<span class="op">.</span><span class="at">upper</span>}<span class="op">,</span></span>
+<span id="cb11-128"><a href="#cb11-128" aria-hidden="true" tabindex="-1"></a>    <span class="co">// mistaking the SE of each group for its SD multiplies the effect size by the square root of the group size</span></span>
+<span id="cb11-129"><a href="#cb11-129" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">n</span><span class="op">:</span> d<span class="op">.</span><span class="at">n</span><span class="op">,</span> <span class="dt">series</span><span class="op">:</span> series[<span class="dv">1</span>]<span class="op">.</span><span class="at">name</span><span class="op">,</span> <span class="dt">lower</span><span class="op">:</span> d<span class="op">.</span><span class="at">lower</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(d<span class="op">.</span><span class="at">n</span> <span class="op">/</span> <span class="dv">2</span>)<span class="op">,</span> <span class="dt">median</span><span class="op">:</span> d<span class="op">.</span><span class="at">median</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(d<span class="op">.</span><span class="at">n</span> <span class="op">/</span> <span class="dv">2</span>)<span class="op">,</span> <span class="dt">upper</span><span class="op">:</span> d<span class="op">.</span><span class="at">upper</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(d<span class="op">.</span><span class="at">n</span> <span class="op">/</span> <span class="dv">2</span>)}</span>
+<span id="cb11-130"><a href="#cb11-130" aria-hidden="true" tabindex="-1"></a>  ])</span>
+<span id="cb11-131"><a href="#cb11-131" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb11-132"><a href="#cb11-132" aria-hidden="true" tabindex="-1"></a>    width<span class="op">,</span> <span class="dt">height</span><span class="op">:</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(<span class="dv">480</span><span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">320</span><span class="op">,</span> width <span class="op">*</span> <span class="fl">0.75</span>))<span class="op">,</span> <span class="dt">marginLeft</span><span class="op">:</span> <span class="dv">55</span><span class="op">,</span> <span class="dt">marginRight</span><span class="op">:</span> <span class="dv">20</span><span class="op">,</span> <span class="dt">marginBottom</span><span class="op">:</span> <span class="dv">45</span><span class="op">,</span></span>
+<span id="cb11-133"><a href="#cb11-133" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Total N (both groups)"</span><span class="op">,</span> <span class="dt">labelAnchor</span><span class="op">:</span> <span class="st">"center"</span><span class="op">,</span> <span class="dt">labelOffset</span><span class="op">:</span> <span class="dv">38</span><span class="op">,</span> <span class="dt">ticks</span><span class="op">:</span> [<span class="dv">20</span><span class="op">,</span> <span class="dv">50</span><span class="op">,</span> <span class="dv">100</span><span class="op">,</span> <span class="dv">250</span><span class="op">,</span> <span class="dv">500</span>]}<span class="op">,</span></span>
+<span id="cb11-134"><a href="#cb11-134" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Observed Cohen's d"</span><span class="op">,</span> <span class="dt">labelAnchor</span><span class="op">:</span> <span class="st">"center"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span> <span class="dt">domain</span><span class="op">:</span> [<span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(<span class="op">-</span><span class="fl">0.5</span><span class="op">,</span> d3<span class="op">.</span><span class="fu">min</span>(rows<span class="op">,</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">lower</span>))<span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="fl">3.2</span><span class="op">,</span> d3<span class="op">.</span><span class="fu">max</span>(rows<span class="op">,</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">upper</span>))]}<span class="op">,</span></span>
+<span id="cb11-135"><a href="#cb11-135" aria-hidden="true" tabindex="-1"></a>    <span class="dt">color</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> series<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">name</span>)<span class="op">,</span> <span class="dt">range</span><span class="op">:</span> series<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">colour</span>)<span class="op">,</span> <span class="dt">legend</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">,</span></span>
+<span id="cb11-136"><a href="#cb11-136" aria-hidden="true" tabindex="-1"></a>    <span class="dt">style</span><span class="op">:</span> {<span class="dt">fontSize</span><span class="op">:</span> <span class="st">"13px"</span>}<span class="op">,</span></span>
+<span id="cb11-137"><a href="#cb11-137" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb11-138"><a href="#cb11-138" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">frame</span>({<span class="dt">stroke</span><span class="op">:</span> <span class="st">"currentColor"</span>})<span class="op">,</span></span>
+<span id="cb11-139"><a href="#cb11-139" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">strokeOpacity</span><span class="op">:</span> <span class="fl">0.5</span>})<span class="op">,</span></span>
+<span id="cb11-140"><a href="#cb11-140" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">areaY</span>(rows<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y1</span><span class="op">:</span> <span class="st">"lower"</span><span class="op">,</span> <span class="dt">y2</span><span class="op">:</span> <span class="st">"upper"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"series"</span><span class="op">,</span> <span class="dt">fillOpacity</span><span class="op">:</span> <span class="fl">0.25</span>})<span class="op">,</span></span>
+<span id="cb11-141"><a href="#cb11-141" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">lineY</span>(rows<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"median"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"series"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="dv">2</span>})<span class="op">,</span></span>
+<span id="cb11-142"><a href="#cb11-142" aria-hidden="true" tabindex="-1"></a>      <span class="co">// the mean true SMD</span></span>
+<span id="cb11-143"><a href="#cb11-143" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleY</span>([cfMu]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> <span class="st">"#2780e3"</span><span class="op">,</span> <span class="dt">strokeDasharray</span><span class="op">:</span> <span class="st">"6,4"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">2.5</span>})</span>
+<span id="cb11-144"><a href="#cb11-144" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb11-145"><a href="#cb11-145" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb11-146"><a href="#cb11-146" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-5" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<p>Median (line) and 95% prediction interval (band) of an observed <em>d</em>, when it is calculated correctly and when the <em>SE</em> is mistaken for the <em>SD</em>. The dashed blue line shows the mean true effect μ.</p>
+<p>Several things are worth noticing:</p>
+<ul>
+<li>The correctly calculated effect sizes converge on the true effect as the sample size increases. The confused ones move further away from it.</li>
+<li>The confused effect sizes are not slightly inflated versions of the correct ones. With the default settings, the median confused effect size is about 2 at a total sample size of 90 and nearly 5 at a total sample size of 500, when the true effect is 0.3.</li>
+<li>Even a true effect of zero is affected. Set μ to 0: the confused effect sizes are still centred on zero, but they are spread over a range many times wider than the correct ones, so that large effects in both directions become common.</li>
+<li>Small true effects are turned into effects that would be among the largest ever observed in most fields. An observed <em>d</em> of 2 or 3 is exactly what this error produces from an unremarkable true effect in a study of ordinary size.</li>
+</ul>
+<p>The opposite error also occurs: a standard deviation is mistaken for a standard error, and is multiplied by <span class="math inline">\(\sqrt{n}\)</span> on the assumption that it needs to be converted. This shrinks the effect size by a factor of <span class="math inline">\(\sqrt{n}\)</span>. It is harder to notice, because implausibly small effects attract less attention than implausibly large ones.</p>
+</section>
+<section id="sec-se-sd-prevalence" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="sec-se-sd-prevalence"><span class="header-section-number">6.3</span> Prevalence of SE/SD misuse in primary research</h2>
+<p>The error starts in primary research articles. Many articles report the standard error of the mean where a standard deviation is called for, that is, to describe the variability of the sample, and some do not say which of the two they are reporting. Either creates the conditions for the number to be misread later, by readers and by meta-analysts.</p>
+<div class="big-number">
+<p><span class="number">64%</span></p>
+<p><span class="description">of articles in three leading cardiovascular journals contained at least one instance of incorrect use of the standard error of the mean <span class="citation" data-cites="wullschleger2014">(<a href="../references.html#ref-wullschleger2014" role="doc-biblioref">Wullschleger et al., 2014</a>)</span>.</span></p>
+</div>
+<p>Audits of the published literature in several fields of medicine have found the following:</p>
+<ul>
+<li><span class="citation" data-cites="altman2005">Altman &amp; Bland (<a href="../references.html#ref-altman2005" role="doc-biblioref">2005</a>)</span> set out the distinction between the two statistics in a short and widely cited tutorial. They note that in one sample of articles, 14% failed even to identify which of the two was being reported.</li>
+<li><span class="citation" data-cites="nagele2003">Nagele (<a href="../references.html#ref-nagele2003" role="doc-biblioref">2003</a>)</span> found that 23% of articles in four anaesthesia journals inappropriately used the standard error of the mean to describe the variability of the sample.</li>
+<li><span class="citation" data-cites="ko2014">Ko et al. (<a href="../references.html#ref-ko2014" role="doc-biblioref">2014</a>)</span> found that 13.6% of articles in four obstetrics and gynaecology journals did so.</li>
+<li><span class="citation" data-cites="wullschleger2014">Wullschleger et al. (<a href="../references.html#ref-wullschleger2014" role="doc-biblioref">2014</a>)</span> found that 64% of articles in three leading cardiovascular journals contained at least one instance of incorrect use of the standard error of the mean.</li>
+<li><span class="citation" data-cites="barde2012">Barde &amp; Barde (<a href="../references.html#ref-barde2012" role="doc-biblioref">2012</a>)</span> note one reason for the practice: authors sometimes prefer the standard error because it is smaller, which makes the data appear less variable.</li>
+</ul>
+<p>Taken together, these audits suggest that somewhere between about 14% and 64% of primary research articles, depending on the field and on how the error is defined, report standard errors where standard deviations are appropriate or do not make clear which they are reporting.</p>
+<!-- TODO: these audits are all from medical journals. Add estimates for psychology if any exist. -->
+</section>
+<section id="sec-se-sd-meta-analysis" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="sec-se-sd-meta-analysis"><span class="header-section-number">6.4</span> Downstream consequences for meta-analysis</h2>
+<p>Meta-analyses of standardised mean differences are calculated from the means, standard deviations, and sample sizes extracted from each primary study. When a value that is extracted as a standard deviation is in fact a standard error, that study’s effect size is inflated by <span class="math inline">\(\sqrt{n}\)</span>, and the error is carried into the pooled estimate. Because meta-analyses are highly cited and inform guidelines and practice, the consequences are larger than those of the same error in any single study.</p>
+<div class="big-number">
+<p><span class="number">60%</span></p>
+<p><span class="description">of all effect sizes greater than 3.0 in highly cited strength and conditioning meta-analyses were attributable to a standard error being mistaken for a standard deviation <span class="citation" data-cites="kadlec2023">(<a href="../references.html#ref-kadlec2023" role="doc-biblioref">Kadlec et al., 2023</a>)</span>.</span></p>
+</div>
+<ul>
+<li><span class="citation" data-cites="kadlec2023">Kadlec et al. (<a href="../references.html#ref-kadlec2023" role="doc-biblioref">2023</a>)</span> audited highly cited meta-analyses in strength and conditioning research. 85% contained at least one statistical error, and 45% contained effect sizes that had been inflated by a standard error being treated as a standard deviation. 60% of all effect sizes above 3.0 were attributable to this specific error.</li>
+<li><span class="citation" data-cites="sandercock2024">Sandercock (<a href="../references.html#ref-sandercock2024" role="doc-biblioref">2024</a>)</span> re-analysed a highly cited meta-analysis in sports medicine and found standard error/standard deviation mix-ups in 9 of its 16 effect sizes. After correction, the pooled standardised mean difference dropped from 1.46 to 0.54, and one comparison was no longer statistically significant.</li>
+<li><span class="citation" data-cites="kanellopoulou2025">Kanellopoulou et al. (<a href="../references.html#ref-kanellopoulou2025" role="doc-biblioref">2025</a>)</span> identify the confusion of standard errors with standard deviations as one of the most common statistical errors in systematic reviews.</li>
+<li><span class="citation" data-cites="gallardogomez2024">Gallardo-Gómez et al. (<a href="../references.html#ref-gallardogomez2024" role="doc-biblioref">2024</a>)</span> provide a tutorial on calculating standardised mean differences for meta-analysis, including guidance on distinguishing standard errors from standard deviations during data extraction.</li>
+</ul>
+<p>Two features of the error make it particularly damaging in a meta-analysis. First, an affected study is not given much less weight. The sampling variance of a standardised mean difference is calculated mainly from the sample sizes, with only a small contribution from the effect size itself, so a study whose effect size has been inflated four- or tenfold still receives close to the weight it would have had anyway. Second, because the inflation depends on each study’s sample size, a few affected studies among many unaffected ones look like genuine differences between studies. The error therefore inflates not only the pooled effect size but also the estimates of heterogeneity, which an analyst may then try to explain with moderators.</p>
+<p>The plot below simulates a single random-effects meta-analysis of two-group studies. Set the number of studies, the sample size of each group, the mean true effect, the true heterogeneity, and the proportion of studies in which the standard error was mistaken for the standard deviation. The forest plot shows each study’s effect size and 95% confidence interval as a meta-analyst would have extracted them, followed by two pooled estimates: one from the studies as extracted, and one from the same studies with the errors corrected. Click the button to simulate another meta-analysis with the same settings.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb12" data-startfrom="204" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 203;"><span id="cb12-204"><a href="#cb12-204" aria-hidden="true" tabindex="-1"></a>viewof maSeed <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Simulate another meta-analysis"</span>)</span>
+<span id="cb12-205"><a href="#cb12-205" aria-hidden="true" tabindex="-1"></a>viewof maK <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">5</span><span class="op">,</span> <span class="dv">40</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">20</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Number of studies"</span>})</span>
+<span id="cb12-206"><a href="#cb12-206" aria-hidden="true" tabindex="-1"></a>viewof maN <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">10</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">25</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">5</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Sample size per group"</span>})</span>
+<span id="cb12-207"><a href="#cb12-207" aria-hidden="true" tabindex="-1"></a>viewof maMu <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="fl">0.2</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.05</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Mean true SMD μ"</span>})</span>
+<span id="cb12-208"><a href="#cb12-208" aria-hidden="true" tabindex="-1"></a>viewof maTau <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">0</span><span class="op">,</span> <span class="fl">0.4</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="fl">0.2</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.05</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"True heterogeneity τ"</span>})</span>
+<span id="cb12-209"><a href="#cb12-209" aria-hidden="true" tabindex="-1"></a>viewof maProp <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">0</span><span class="op">,</span> <span class="fl">0.5</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.05</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Proportion of studies with the error"</span>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-6-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-6-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-6-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-6-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-6-5" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-6-6" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb13" data-startfrom="213" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 212;"><span id="cb13-213"><a href="#cb13-213" aria-hidden="true" tabindex="-1"></a>maResult <span class="op">=</span> {</span>
+<span id="cb13-214"><a href="#cb13-214" aria-hidden="true" tabindex="-1"></a>  <span class="co">// one simulated meta-analysis. each study's true SMD is drawn from N(mu, tau), and its observed d from the</span></span>
+<span id="cb13-215"><a href="#cb13-215" aria-hidden="true" tabindex="-1"></a>  <span class="co">// noncentral t distribution, as in simulateConfusedD. the first studies are the ones with the error; because the</span></span>
+<span id="cb13-216"><a href="#cb13-216" aria-hidden="true" tabindex="-1"></a>  <span class="co">// studies are exchangeable, which ones are affected makes no difference</span></span>
+<span id="cb13-217"><a href="#cb13-217" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> rng <span class="op">=</span> <span class="fu">randomNumbers</span>(maSeed <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb13-218"><a href="#cb13-218" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> n <span class="op">=</span> maN<span class="op">,</span> df <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> n <span class="op">-</span> <span class="dv">2</span><span class="op">,</span> J <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> <span class="dv">3</span> <span class="op">/</span> (<span class="dv">4</span> <span class="op">*</span> df <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb13-219"><a href="#cb13-219" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> affected <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">floor</span>(maProp <span class="op">*</span> maK <span class="op">+</span> <span class="fl">0.5</span>)</span>
+<span id="cb13-220"><a href="#cb13-220" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> studies <span class="op">=</span> d3<span class="op">.</span><span class="fu">range</span>(maK)<span class="op">.</span><span class="fu">map</span>(i <span class="kw">=&gt;</span> {</span>
+<span id="cb13-221"><a href="#cb13-221" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> delta <span class="op">=</span> maMu <span class="op">+</span> maTau <span class="op">*</span> rng<span class="op">.</span><span class="fu">normal</span>()</span>
+<span id="cb13-222"><a href="#cb13-222" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> t <span class="op">=</span> (rng<span class="op">.</span><span class="fu">normal</span>() <span class="op">+</span> delta <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(n <span class="op">/</span> <span class="dv">2</span>)) <span class="op">/</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="dv">2</span> <span class="op">*</span> rng<span class="op">.</span><span class="fu">gamma</span>(df <span class="op">/</span> <span class="dv">2</span>) <span class="op">/</span> df)</span>
+<span id="cb13-223"><a href="#cb13-223" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> correct <span class="op">=</span> J <span class="op">*</span> t <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="dv">2</span> <span class="op">/</span> n)</span>
+<span id="cb13-224"><a href="#cb13-224" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> confused <span class="op">=</span> i <span class="op">&lt;</span> affected</span>
+<span id="cb13-225"><a href="#cb13-225" aria-hidden="true" tabindex="-1"></a>    <span class="co">// the sampling variance is calculated from the sample sizes and the effect size as extracted, as a</span></span>
+<span id="cb13-226"><a href="#cb13-226" aria-hidden="true" tabindex="-1"></a>    <span class="co">// meta-analyst who is unaware of the error would calculate it</span></span>
+<span id="cb13-227"><a href="#cb13-227" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> variance <span class="op">=</span> g <span class="kw">=&gt;</span> <span class="dv">2</span> <span class="op">/</span> n <span class="op">+</span> g <span class="op">*</span> g <span class="op">/</span> (<span class="dv">4</span> <span class="op">*</span> n)</span>
+<span id="cb13-228"><a href="#cb13-228" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> extracted <span class="op">=</span> confused <span class="op">?</span> correct <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(n) <span class="op">:</span> correct</span>
+<span id="cb13-229"><a href="#cb13-229" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {<span class="dt">study</span><span class="op">:</span> <span class="vs">`Study </span><span class="sc">${</span>i <span class="op">+</span> <span class="dv">1</span><span class="sc">}</span><span class="vs">`</span><span class="op">,</span> confused<span class="op">,</span> correct<span class="op">,</span> <span class="dt">correctVariance</span><span class="op">:</span> <span class="fu">variance</span>(correct)<span class="op">,</span> extracted<span class="op">,</span> <span class="dt">extractedVariance</span><span class="op">:</span> <span class="fu">variance</span>(extracted)}</span>
+<span id="cb13-230"><a href="#cb13-230" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb13-231"><a href="#cb13-231" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> {</span>
+<span id="cb13-232"><a href="#cb13-232" aria-hidden="true" tabindex="-1"></a>    studies<span class="op">,</span></span>
+<span id="cb13-233"><a href="#cb13-233" aria-hidden="true" tabindex="-1"></a>    <span class="dt">extracted</span><span class="op">:</span> <span class="fu">randomEffects</span>(studies<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">extracted</span>)<span class="op">,</span> studies<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">extractedVariance</span>))<span class="op">,</span></span>
+<span id="cb13-234"><a href="#cb13-234" aria-hidden="true" tabindex="-1"></a>    <span class="dt">corrected</span><span class="op">:</span> <span class="fu">randomEffects</span>(studies<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">correct</span>)<span class="op">,</span> studies<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">correctVariance</span>))</span>
+<span id="cb13-235"><a href="#cb13-235" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb13-236"><a href="#cb13-236" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-7" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb14" data-startfrom="241" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 240;"><span id="cb14-241"><a href="#cb14-241" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb14-242"><a href="#cb14-242" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> orange <span class="op">=</span> <span class="st">"#d9622b"</span><span class="op">,</span> grey <span class="op">=</span> <span class="st">"#8a8a8a"</span></span>
+<span id="cb14-243"><a href="#cb14-243" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> {studies<span class="op">,</span> extracted<span class="op">,</span> corrected} <span class="op">=</span> maResult</span>
+<span id="cb14-244"><a href="#cb14-244" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> rows <span class="op">=</span> [</span>
+<span id="cb14-245"><a href="#cb14-245" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span>studies<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> ({<span class="dt">name</span><span class="op">:</span> d<span class="op">.</span><span class="at">study</span><span class="op">,</span> <span class="dt">est</span><span class="op">:</span> d<span class="op">.</span><span class="at">extracted</span><span class="op">,</span> <span class="dt">lower</span><span class="op">:</span> d<span class="op">.</span><span class="at">extracted</span> <span class="op">-</span> <span class="fl">1.96</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(d<span class="op">.</span><span class="at">extractedVariance</span>)<span class="op">,</span> <span class="dt">upper</span><span class="op">:</span> d<span class="op">.</span><span class="at">extracted</span> <span class="op">+</span> <span class="fl">1.96</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(d<span class="op">.</span><span class="at">extractedVariance</span>)<span class="op">,</span> <span class="dt">colour</span><span class="op">:</span> d<span class="op">.</span><span class="at">confused</span> <span class="op">?</span> orange <span class="op">:</span> grey<span class="op">,</span> <span class="dt">pooled</span><span class="op">:</span> <span class="kw">false</span>}))<span class="op">,</span></span>
+<span id="cb14-246"><a href="#cb14-246" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">name</span><span class="op">:</span> <span class="st">"Pooled: as extracted"</span><span class="op">,</span> <span class="dt">est</span><span class="op">:</span> extracted<span class="op">.</span><span class="at">estimate</span><span class="op">,</span> <span class="dt">lower</span><span class="op">:</span> extracted<span class="op">.</span><span class="at">lower</span><span class="op">,</span> <span class="dt">upper</span><span class="op">:</span> extracted<span class="op">.</span><span class="at">upper</span><span class="op">,</span> <span class="dt">colour</span><span class="op">:</span> orange<span class="op">,</span> <span class="dt">pooled</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">,</span></span>
+<span id="cb14-247"><a href="#cb14-247" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">name</span><span class="op">:</span> <span class="st">"Pooled: errors corrected"</span><span class="op">,</span> <span class="dt">est</span><span class="op">:</span> corrected<span class="op">.</span><span class="at">estimate</span><span class="op">,</span> <span class="dt">lower</span><span class="op">:</span> corrected<span class="op">.</span><span class="at">lower</span><span class="op">,</span> <span class="dt">upper</span><span class="op">:</span> corrected<span class="op">.</span><span class="at">upper</span><span class="op">,</span> <span class="dt">colour</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">pooled</span><span class="op">:</span> <span class="kw">true</span>}</span>
+<span id="cb14-248"><a href="#cb14-248" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb14-249"><a href="#cb14-249" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb14-250"><a href="#cb14-250" aria-hidden="true" tabindex="-1"></a>    width<span class="op">,</span> <span class="dt">height</span><span class="op">:</span> <span class="dv">70</span> <span class="op">+</span> <span class="dv">17</span> <span class="op">*</span> rows<span class="op">.</span><span class="at">length</span><span class="op">,</span> <span class="dt">marginLeft</span><span class="op">:</span> <span class="dv">160</span><span class="op">,</span> <span class="dt">marginRight</span><span class="op">:</span> <span class="dv">20</span><span class="op">,</span> <span class="dt">marginTop</span><span class="op">:</span> <span class="dv">10</span><span class="op">,</span> <span class="dt">marginBottom</span><span class="op">:</span> <span class="dv">45</span><span class="op">,</span></span>
+<span id="cb14-251"><a href="#cb14-251" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Standardized Mean Difference"</span><span class="op">,</span> <span class="dt">labelAnchor</span><span class="op">:</span> <span class="st">"center"</span><span class="op">,</span> <span class="dt">labelOffset</span><span class="op">:</span> <span class="dv">38</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span> <span class="dt">nice</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span> <span class="dt">domain</span><span class="op">:</span> d3<span class="op">.</span><span class="fu">extent</span>([<span class="op">-</span><span class="fl">0.5</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="op">...</span>rows<span class="op">.</span><span class="fu">flatMap</span>(d <span class="kw">=&gt;</span> [d<span class="op">.</span><span class="at">lower</span><span class="op">,</span> d<span class="op">.</span><span class="at">upper</span>])])}<span class="op">,</span></span>
+<span id="cb14-252"><a href="#cb14-252" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span> <span class="dt">type</span><span class="op">:</span> <span class="st">"point"</span><span class="op">,</span> <span class="dt">domain</span><span class="op">:</span> rows<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">name</span>)<span class="op">,</span> <span class="dt">padding</span><span class="op">:</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dt">tickSize</span><span class="op">:</span> <span class="dv">0</span>}<span class="op">,</span></span>
+<span id="cb14-253"><a href="#cb14-253" aria-hidden="true" tabindex="-1"></a>    <span class="dt">style</span><span class="op">:</span> {<span class="dt">fontSize</span><span class="op">:</span> <span class="st">"12px"</span>}<span class="op">,</span></span>
+<span id="cb14-254"><a href="#cb14-254" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb14-255"><a href="#cb14-255" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleX</span>([<span class="dv">0</span>]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">strokeOpacity</span><span class="op">:</span> <span class="fl">0.5</span>})<span class="op">,</span></span>
+<span id="cb14-256"><a href="#cb14-256" aria-hidden="true" tabindex="-1"></a>      <span class="co">// the mean true SMD</span></span>
+<span id="cb14-257"><a href="#cb14-257" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleX</span>([maMu]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> <span class="st">"#2780e3"</span><span class="op">,</span> <span class="dt">strokeDasharray</span><span class="op">:</span> <span class="st">"6,4"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="dv">2</span>})<span class="op">,</span></span>
+<span id="cb14-258"><a href="#cb14-258" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">link</span>(rows<span class="op">,</span> {<span class="dt">x1</span><span class="op">:</span> <span class="st">"lower"</span><span class="op">,</span> <span class="dt">x2</span><span class="op">:</span> <span class="st">"upper"</span><span class="op">,</span> <span class="dt">y1</span><span class="op">:</span> <span class="st">"name"</span><span class="op">,</span> <span class="dt">y2</span><span class="op">:</span> <span class="st">"name"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"colour"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">pooled</span> <span class="op">?</span> <span class="dv">3</span> <span class="op">:</span> <span class="fl">1.5</span>})<span class="op">,</span></span>
+<span id="cb14-259"><a href="#cb14-259" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">dot</span>(rows<span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> <span class="op">!</span>d<span class="op">.</span><span class="at">pooled</span>)<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"est"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"name"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"colour"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span> <span class="dt">symbol</span><span class="op">:</span> <span class="st">"square"</span>})<span class="op">,</span></span>
+<span id="cb14-260"><a href="#cb14-260" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">dot</span>(rows<span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">pooled</span>)<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"est"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"name"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"colour"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">7</span><span class="op">,</span> <span class="dt">symbol</span><span class="op">:</span> <span class="st">"diamond"</span>})</span>
+<span id="cb14-261"><a href="#cb14-261" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb14-262"><a href="#cb14-262" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb14-263"><a href="#cb14-263" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-8" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb15" data-startfrom="268" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 267;"><span id="cb15-268"><a href="#cb15-268" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb15-269"><a href="#cb15-269" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> {studies<span class="op">,</span> extracted<span class="op">,</span> corrected} <span class="op">=</span> maResult</span>
+<span id="cb15-270"><a href="#cb15-270" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> line <span class="op">=</span> r <span class="kw">=&gt;</span> <span class="vs">`pooled SMD = </span><span class="sc">${</span>r<span class="op">.</span><span class="at">estimate</span><span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="vs">, 95% CI [</span><span class="sc">${</span>r<span class="op">.</span><span class="at">lower</span><span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="vs">, </span><span class="sc">${</span>r<span class="op">.</span><span class="at">upper</span><span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="vs">], τ = </span><span class="sc">${</span><span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(r<span class="op">.</span><span class="at">tau2</span>)<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="vs">, I² = </span><span class="sc">${</span>(<span class="dv">100</span> <span class="op">*</span> r<span class="op">.</span><span class="at">i2</span>)<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">0</span>)<span class="sc">}</span><span class="vs">%`</span></span>
+<span id="cb15-271"><a href="#cb15-271" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">html</span><span class="vs">`&lt;div class="sb-feedback"&gt;</span></span>
+<span id="cb15-272"><a href="#cb15-272" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;div&gt;&lt;strong&gt;As extracted&lt;/strong&gt; (</span><span class="sc">${</span>studies<span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">confused</span>)<span class="op">.</span><span class="at">length</span><span class="sc">}</span><span class="vs"> of </span><span class="sc">${</span>studies<span class="op">.</span><span class="at">length</span><span class="sc">}</span><span class="vs"> studies with the error): </span><span class="sc">${</span><span class="fu">line</span>(extracted)<span class="sc">}</span><span class="vs">&lt;/div&gt;</span></span>
+<span id="cb15-273"><a href="#cb15-273" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;div&gt;&lt;strong&gt;Errors corrected:&lt;/strong&gt; </span><span class="sc">${</span><span class="fu">line</span>(corrected)<span class="sc">}</span><span class="vs">&lt;/div&gt;</span></span>
+<span id="cb15-274"><a href="#cb15-274" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;div&gt;&lt;strong&gt;Truth:&lt;/strong&gt; mean SMD = </span><span class="sc">${</span>maMu<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="vs">, τ = </span><span class="sc">${</span>maTau<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="vs">&lt;/div&gt;</span></span>
+<span id="cb15-275"><a href="#cb15-275" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;`</span></span>
+<span id="cb15-276"><a href="#cb15-276" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-9" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<p>Studies in which the <em>SE</em> was mistaken for the <em>SD</em> are shown in orange, and the others in grey. The dashed blue line shows the mean true effect. The pooled estimates are from a random-effects model using the DerSimonian–Laird estimator.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb16" data-startfrom="284" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 283;"><span id="cb16-284"><a href="#cb16-284" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">randomEffects</span>(estimates<span class="op">,</span> variances) {</span>
+<span id="cb16-285"><a href="#cb16-285" aria-hidden="true" tabindex="-1"></a>  <span class="co">// random-effects meta-analysis with the DerSimonian-Laird estimator of the between-study variance.</span></span>
+<span id="cb16-286"><a href="#cb16-286" aria-hidden="true" tabindex="-1"></a>  <span class="co">// returns the pooled estimate, its 95% CI, tau squared, and I squared (as a proportion)</span></span>
+<span id="cb16-287"><a href="#cb16-287" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> k <span class="op">=</span> estimates<span class="op">.</span><span class="at">length</span></span>
+<span id="cb16-288"><a href="#cb16-288" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> weights <span class="op">=</span> variances<span class="op">.</span><span class="fu">map</span>(v <span class="kw">=&gt;</span> <span class="dv">1</span> <span class="op">/</span> v)</span>
+<span id="cb16-289"><a href="#cb16-289" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sumW <span class="op">=</span> d3<span class="op">.</span><span class="fu">sum</span>(weights)</span>
+<span id="cb16-290"><a href="#cb16-290" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> fixed <span class="op">=</span> d3<span class="op">.</span><span class="fu">sum</span>(estimates<span class="op">,</span> (y<span class="op">,</span> i) <span class="kw">=&gt;</span> weights[i] <span class="op">*</span> y) <span class="op">/</span> sumW</span>
+<span id="cb16-291"><a href="#cb16-291" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> Q <span class="op">=</span> d3<span class="op">.</span><span class="fu">sum</span>(estimates<span class="op">,</span> (y<span class="op">,</span> i) <span class="kw">=&gt;</span> weights[i] <span class="op">*</span> (y <span class="op">-</span> fixed) <span class="op">**</span> <span class="dv">2</span>)</span>
+<span id="cb16-292"><a href="#cb16-292" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> C <span class="op">=</span> sumW <span class="op">-</span> d3<span class="op">.</span><span class="fu">sum</span>(weights<span class="op">,</span> w <span class="kw">=&gt;</span> w <span class="op">*</span> w) <span class="op">/</span> sumW</span>
+<span id="cb16-293"><a href="#cb16-293" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> tau2 <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">0</span><span class="op">,</span> (Q <span class="op">-</span> (k <span class="op">-</span> <span class="dv">1</span>)) <span class="op">/</span> C)</span>
+<span id="cb16-294"><a href="#cb16-294" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> reWeights <span class="op">=</span> variances<span class="op">.</span><span class="fu">map</span>(v <span class="kw">=&gt;</span> <span class="dv">1</span> <span class="op">/</span> (v <span class="op">+</span> tau2))</span>
+<span id="cb16-295"><a href="#cb16-295" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> estimate <span class="op">=</span> d3<span class="op">.</span><span class="fu">sum</span>(estimates<span class="op">,</span> (y<span class="op">,</span> i) <span class="kw">=&gt;</span> reWeights[i] <span class="op">*</span> y) <span class="op">/</span> d3<span class="op">.</span><span class="fu">sum</span>(reWeights)</span>
+<span id="cb16-296"><a href="#cb16-296" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> se <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="dv">1</span> <span class="op">/</span> d3<span class="op">.</span><span class="fu">sum</span>(reWeights))</span>
+<span id="cb16-297"><a href="#cb16-297" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> {estimate<span class="op">,</span> <span class="dt">lower</span><span class="op">:</span> estimate <span class="op">-</span> <span class="fl">1.96</span> <span class="op">*</span> se<span class="op">,</span> <span class="dt">upper</span><span class="op">:</span> estimate <span class="op">+</span> <span class="fl">1.96</span> <span class="op">*</span> se<span class="op">,</span> tau2<span class="op">,</span> <span class="dt">i2</span><span class="op">:</span> Q <span class="op">&gt;</span> <span class="dv">0</span> <span class="op">?</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">0</span><span class="op">,</span> (Q <span class="op">-</span> (k <span class="op">-</span> <span class="dv">1</span>)) <span class="op">/</span> Q) <span class="op">:</span> <span class="dv">0</span>}</span>
+<span id="cb16-298"><a href="#cb16-298" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb16-299"><a href="#cb16-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-300"><a href="#cb16-300" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">simulateConfusedD</span>(mu<span class="op">,</span> tau<span class="op">,</span> draws <span class="op">=</span> <span class="dv">20000</span>) {</span>
+<span id="cb16-301"><a href="#cb16-301" aria-hidden="true" tabindex="-1"></a>  <span class="co">// the median and 95% prediction interval of the observed, bias-corrected Cohen's d of a two-group study, at</span></span>
+<span id="cb16-302"><a href="#cb16-302" aria-hidden="true" tabindex="-1"></a>  <span class="co">// each of a log-spaced grid of total sample sizes. each simulated study's true SMD, delta, is drawn from</span></span>
+<span id="cb16-303"><a href="#cb16-303" aria-hidden="true" tabindex="-1"></a>  <span class="co">// N(mu, tau). its observed d is t * 2 / sqrt(N), where t follows a noncentral t distribution with df = N - 2 and</span></span>
+<span id="cb16-304"><a href="#cb16-304" aria-hidden="true" tabindex="-1"></a>  <span class="co">// ncp = delta * sqrt(N) / 2, multiplied by the small-sample bias correction J = 1 - 3 / (4 * df - 1).</span></span>
+<span id="cb16-305"><a href="#cb16-305" aria-hidden="true" tabindex="-1"></a>  <span class="co">// the same random numbers are used at every sample size, so that the curves are smooth</span></span>
+<span id="cb16-306"><a href="#cb16-306" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> nSeq <span class="op">=</span> [<span class="op">...</span><span class="kw">new</span> <span class="bu">Set</span>(d3<span class="op">.</span><span class="fu">range</span>(<span class="dv">16</span>)<span class="op">.</span><span class="fu">map</span>(i <span class="kw">=&gt;</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">round</span>(<span class="bu">Math</span><span class="op">.</span><span class="fu">exp</span>(<span class="bu">Math</span><span class="op">.</span><span class="fu">log</span>(<span class="dv">20</span>) <span class="op">+</span> i <span class="op">*</span> (<span class="bu">Math</span><span class="op">.</span><span class="fu">log</span>(<span class="dv">500</span>) <span class="op">-</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">log</span>(<span class="dv">20</span>)) <span class="op">/</span> <span class="dv">15</span>))))]</span>
+<span id="cb16-307"><a href="#cb16-307" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> nSeq<span class="op">.</span><span class="fu">map</span>(N <span class="kw">=&gt;</span> {</span>
+<span id="cb16-308"><a href="#cb16-308" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> rng <span class="op">=</span> <span class="fu">randomNumbers</span>(<span class="dv">1</span>)</span>
+<span id="cb16-309"><a href="#cb16-309" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> df <span class="op">=</span> N <span class="op">-</span> <span class="dv">2</span><span class="op">,</span> J <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> <span class="dv">3</span> <span class="op">/</span> (<span class="dv">4</span> <span class="op">*</span> df <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb16-310"><a href="#cb16-310" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> d <span class="op">=</span> <span class="kw">new</span> <span class="bu">Float64Array</span>(draws)</span>
+<span id="cb16-311"><a href="#cb16-311" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> draws<span class="op">;</span> i<span class="op">++</span>) {</span>
+<span id="cb16-312"><a href="#cb16-312" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> delta <span class="op">=</span> mu <span class="op">+</span> tau <span class="op">*</span> rng<span class="op">.</span><span class="fu">normal</span>()</span>
+<span id="cb16-313"><a href="#cb16-313" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> t <span class="op">=</span> (rng<span class="op">.</span><span class="fu">normal</span>() <span class="op">+</span> delta <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(N) <span class="op">/</span> <span class="dv">2</span>) <span class="op">/</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="dv">2</span> <span class="op">*</span> rng<span class="op">.</span><span class="fu">gamma</span>(df <span class="op">/</span> <span class="dv">2</span>) <span class="op">/</span> df)</span>
+<span id="cb16-314"><a href="#cb16-314" aria-hidden="true" tabindex="-1"></a>      d[i] <span class="op">=</span> J <span class="op">*</span> t <span class="op">*</span> <span class="dv">2</span> <span class="op">/</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(N)</span>
+<span id="cb16-315"><a href="#cb16-315" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb16-316"><a href="#cb16-316" aria-hidden="true" tabindex="-1"></a>    d<span class="op">.</span><span class="fu">sort</span>()</span>
+<span id="cb16-317"><a href="#cb16-317" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {<span class="dt">n</span><span class="op">:</span> N<span class="op">,</span> <span class="dt">lower</span><span class="op">:</span> d3<span class="op">.</span><span class="fu">quantileSorted</span>(d<span class="op">,</span> <span class="fl">0.025</span>)<span class="op">,</span> <span class="dt">median</span><span class="op">:</span> d3<span class="op">.</span><span class="fu">quantileSorted</span>(d<span class="op">,</span> <span class="fl">0.5</span>)<span class="op">,</span> <span class="dt">upper</span><span class="op">:</span> d3<span class="op">.</span><span class="fu">quantileSorted</span>(d<span class="op">,</span> <span class="fl">0.975</span>)}</span>
+<span id="cb16-318"><a href="#cb16-318" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb16-319"><a href="#cb16-319" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb16-320"><a href="#cb16-320" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-321"><a href="#cb16-321" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">randomNumbers</span>(seed) {</span>
+<span id="cb16-322"><a href="#cb16-322" aria-hidden="true" tabindex="-1"></a>  <span class="co">// a seeded source of random numbers, so that results do not change between redraws</span></span>
+<span id="cb16-323"><a href="#cb16-323" aria-hidden="true" tabindex="-1"></a>  <span class="co">// uniform: the mulberry32 pseudo-random number generator</span></span>
+<span id="cb16-324"><a href="#cb16-324" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> state <span class="op">=</span> seed</span>
+<span id="cb16-325"><a href="#cb16-325" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> uniform <span class="op">=</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb16-326"><a href="#cb16-326" aria-hidden="true" tabindex="-1"></a>    state <span class="op">=</span> (state <span class="op">+</span> <span class="bn">0x6D2B79F5</span>) <span class="op">|</span> <span class="dv">0</span></span>
+<span id="cb16-327"><a href="#cb16-327" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> x <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">imul</span>(state <span class="op">^</span> (state <span class="op">&gt;&gt;&gt;</span> <span class="dv">15</span>)<span class="op">,</span> <span class="dv">1</span> <span class="op">|</span> state)</span>
+<span id="cb16-328"><a href="#cb16-328" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> (x <span class="op">+</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">imul</span>(x <span class="op">^</span> (x <span class="op">&gt;&gt;&gt;</span> <span class="dv">7</span>)<span class="op">,</span> <span class="dv">61</span> <span class="op">|</span> x)) <span class="op">^</span> x</span>
+<span id="cb16-329"><a href="#cb16-329" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ((x <span class="op">^</span> (x <span class="op">&gt;&gt;&gt;</span> <span class="dv">14</span>)) <span class="op">&gt;&gt;&gt;</span> <span class="dv">0</span>) <span class="op">/</span> <span class="dv">4294967296</span></span>
+<span id="cb16-330"><a href="#cb16-330" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb16-331"><a href="#cb16-331" aria-hidden="true" tabindex="-1"></a>  <span class="co">// standard normal, by the Box-Muller method</span></span>
+<span id="cb16-332"><a href="#cb16-332" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> normal <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="op">-</span><span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">log</span>(<span class="dv">1</span> <span class="op">-</span> <span class="fu">uniform</span>())) <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">cos</span>(<span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">*</span> <span class="fu">uniform</span>())</span>
+<span id="cb16-333"><a href="#cb16-333" aria-hidden="true" tabindex="-1"></a>  <span class="co">// gamma(shape, 1) for shape &gt;= 1, by the Marsaglia-Tsang method. chi-squared(df) is 2 * gamma(df / 2)</span></span>
+<span id="cb16-334"><a href="#cb16-334" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> gamma <span class="op">=</span> shape <span class="kw">=&gt;</span> {</span>
+<span id="cb16-335"><a href="#cb16-335" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> a <span class="op">=</span> shape <span class="op">-</span> <span class="dv">1</span> <span class="op">/</span> <span class="dv">3</span><span class="op">,</span> c <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="dv">9</span> <span class="op">*</span> a)</span>
+<span id="cb16-336"><a href="#cb16-336" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="op">;;</span>) {</span>
+<span id="cb16-337"><a href="#cb16-337" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> x <span class="op">=</span> <span class="fu">normal</span>()<span class="op">,</span> v <span class="op">=</span> (<span class="dv">1</span> <span class="op">+</span> c <span class="op">*</span> x) <span class="op">**</span> <span class="dv">3</span></span>
+<span id="cb16-338"><a href="#cb16-338" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (v <span class="op">&lt;=</span> <span class="dv">0</span>) <span class="cf">continue</span></span>
+<span id="cb16-339"><a href="#cb16-339" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> u <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> <span class="fu">uniform</span>()</span>
+<span id="cb16-340"><a href="#cb16-340" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (u <span class="op">&lt;</span> <span class="dv">1</span> <span class="op">-</span> <span class="fl">0.0331</span> <span class="op">*</span> x <span class="op">**</span> <span class="dv">4</span> <span class="op">||</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">log</span>(u) <span class="op">&lt;</span> <span class="fl">0.5</span> <span class="op">*</span> x <span class="op">*</span> x <span class="op">+</span> a <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> v <span class="op">+</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">log</span>(v))) <span class="cf">return</span> a <span class="op">*</span> v</span>
+<span id="cb16-341"><a href="#cb16-341" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb16-342"><a href="#cb16-342" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb16-343"><a href="#cb16-343" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> {uniform<span class="op">,</span> normal<span class="op">,</span> gamma}</span>
+<span id="cb16-344"><a href="#cb16-344" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb16-345"><a href="#cb16-345" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-346"><a href="#cb16-346" aria-hidden="true" tabindex="-1"></a>sdSeStyle <span class="op">=</span> <span class="fu">html</span><span class="vs">`&lt;style&gt;</span></span>
+<span id="cb16-347"><a href="#cb16-347" aria-hidden="true" tabindex="-1"></a><span class="vs">  .sb-subtitle { font-size: 0.9rem; font-weight: 600; margin: 0.75rem 0 0.25rem; color: var(--bs-secondary-color); }</span></span>
+<span id="cb16-348"><a href="#cb16-348" aria-hidden="true" tabindex="-1"></a><span class="vs">  .sb-tiles { display: flex; gap: 2rem; flex-wrap: wrap; margin: 0.5rem 0 1.5rem; }</span></span>
+<span id="cb16-349"><a href="#cb16-349" aria-hidden="true" tabindex="-1"></a><span class="vs">  .sb-tiles &gt; div { flex: 1 1 10rem; }</span></span>
+<span id="cb16-350"><a href="#cb16-350" aria-hidden="true" tabindex="-1"></a><span class="vs">  .sb-tile-value { font-size: 2rem; font-weight: 700; line-height: 1.1; color: #2780e3; }</span></span>
+<span id="cb16-351"><a href="#cb16-351" aria-hidden="true" tabindex="-1"></a><span class="vs">  .sb-tile-label { font-weight: 600; }</span></span>
+<span id="cb16-352"><a href="#cb16-352" aria-hidden="true" tabindex="-1"></a><span class="vs">  .sb-tile-note { font-size: 0.9rem; color: var(--bs-secondary-color); }</span></span>
+<span id="cb16-353"><a href="#cb16-353" aria-hidden="true" tabindex="-1"></a><span class="vs">  .sb-feedback { margin: 0.5rem 0 1rem; padding: 0.6rem 0.9rem; border-left: 4px solid #8a8a8a; background: rgba(128, 128, 128, 0.08); }</span></span>
+<span id="cb16-354"><a href="#cb16-354" aria-hidden="true" tabindex="-1"></a><span class="vs">&lt;/style&gt;`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-10-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-10-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-10-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-10-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<p>Simulate several meta-analyses and notice the following:</p>
+<ul>
+<li>With the default settings, only 2 of the 20 studies have the error. Across many simulated meta-analyses, this is enough to make the pooled estimate about 30% too large on average (0.26 instead of 0.20), and to make the estimate of τ more than twice as large as it should be (about 0.44 instead of about 0.17).</li>
+<li>Increasing the sample size per group makes things worse, not better, because the inflation of each affected study grows with its sample size. With 100 participants per group, the same two studies make the pooled estimate about 80% too large on average.</li>
+<li>The inflated heterogeneity also makes the confidence interval of the pooled estimate wider. The error can therefore turn a significant pooled effect into a nonsignificant one as well as the reverse.</li>
+<li>Increase the proportion of studies with the error to 25% or 50%, as <span class="citation" data-cites="sandercock2024">Sandercock (<a href="../references.html#ref-sandercock2024" role="doc-biblioref">2024</a>)</span> found in one published meta-analysis, and the pooled estimate bears little relation to the true effect.</li>
+<li>The affected studies have confidence intervals that are barely wider than those of the other studies. Nothing about their precision marks them out as unusual.</li>
+<li>With the proportion set to zero, the two pooled estimates are identical. The difference between them is entirely due to the error.</li>
+</ul>
+</section>
+<section id="sec-se-sd-checks" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="sec-se-sd-checks"><span class="header-section-number">6.5</span> Checking for SE/SD confusion in trustworthiness assessment</h2>
+<p>The error is detectable more often than it is detected, because it leaves numbers that are implausible in several ways at once. When assessing an article or a meta-analysis:</p>
+<ol type="1">
+<li><strong>Check what is labelled.</strong> Does every table and figure say whether the values after “±”, in parentheses, or shown as error bars are standard deviations, standard errors, or confidence intervals? Unlabelled values should not be assumed to be standard deviations.</li>
+<li><strong>Ask whether the reported <em>SD</em>s are plausible for the scale.</strong> Compare them with the range of the scale, with the <em>SD</em>s reported for the same measure in other studies of similar populations, and with each other across the tables of the same article. An <em>SD</em> that is a small fraction of what other studies report is more likely to be a standard error than a sign of an unusually homogeneous sample (see also <a href="05_standardized_mean_differences_cohens_d.html#sec-range-restriction" class="quarto-xref"><span>Section 5.4</span></a>).</li>
+<li><strong>Try the conversion.</strong> Multiply the suspicious value by <span class="math inline">\(\sqrt{n}\)</span>. If the result is a typical <em>SD</em> for that measure, the reported value was probably a standard error.</li>
+<li><strong>Look for <em>SD</em>s that shrink as groups get larger.</strong> Standard deviations should be similar across groups and subgroups of different sizes. Values that are systematically smaller in larger groups behave like standard errors.</li>
+<li><strong>Check whether the effect size is plausible.</strong> Standardised mean differences above about 2 or 3 are rare when calculated correctly (<a href="08_effect_size_methods.html#sec-d-prediction-intervals" class="quarto-xref"><span>Section 8.2</span></a>) and may not even be possible on a bounded scale (<a href="08_effect_size_methods.html#sec-cohens-d-bounded" class="quarto-xref"><span>Section 8.1</span></a>). <span class="citation" data-cites="kadlec2023">Kadlec et al. (<a href="../references.html#ref-kadlec2023" role="doc-biblioref">2023</a>)</span> traced most effect sizes above 3 in the meta-analyses they audited to this error.</li>
+<li><strong>Recalculate.</strong> Check that the reported means and <em>SD</em>s are consistent with the reported test statistics, <em>p</em>-values, and confidence intervals (see <a href="10_recalculation_methods.html" class="quarto-xref"><span>Chapter 10</span></a>). A <em>t</em>-test calculated by the original authors from the raw data will not agree with an effect size calculated from standard errors that have been mistaken for standard deviations.</li>
+<li><strong>In a meta-analysis, inspect the forest plot.</strong> Look for studies whose effect sizes are far larger than the rest without having wider confidence intervals, particularly among the larger studies, and trace their extracted values back to the primary articles.</li>
+</ol>
+<p>One consequence of the fact that the inflation grows with sample size is that this error does not look like the small-study effects that meta-analysts are trained to look for. Funnel plots and related methods are designed to detect the pattern in which small studies show the largest effects. Here it is the larger studies that are the most distorted.</p>
+</section>
+<section id="test-yourself" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="test-yourself"><span class="header-section-number">6.6</span> Test yourself</h2>
+<div class="webex-check webex-box">
+<p>An article reports that anxiety scores on a 0–40 scale were lower in the intervention group (<em>M</em> = 14.2 ± 0.9, <em>n</em> = 64) than in the control group (<em>M</em> = 17.1 ± 1.0, <em>n</em> = 64), and does not say what the values after ± are. A meta-analysis that includes the study reports its effect size as <em>d</em> = −3.05. Mark each statement as true or false.</p>
+<ol type="1">
+<li>If the values after ± are standard deviations, the meta-analysis has calculated <em>d</em> correctly. <select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="NA">FALSE</option></select></li>
+<li>If the values after ± are standard errors, the <em>SD</em>s are about 7 to 8, and <em>d</em> is about −0.38. <select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="NA">FALSE</option></select></li>
+<li>Standard deviations of about 1 on a 0–40 scale would mean that nearly everyone in each group scored within a few points of each other. <select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="NA">FALSE</option></select></li>
+<li>The standard error would be the appropriate statistic for describing how variable the participants’ scores were. <select class="webex-select"><option value="blank"></option><option value="NA">TRUE</option><option value="answer">FALSE</option></select></li>
+<li>If this study had recruited 256 participants per group and the same error had been made, the effect size in the meta-analysis would be less inflated. <select class="webex-select"><option value="blank"></option><option value="NA">TRUE</option><option value="answer">FALSE</option></select></li>
+<li>Because the study is one of the larger ones in the meta-analysis, the error will have little influence on the pooled estimate. <select class="webex-select"><option value="blank"></option><option value="NA">TRUE</option><option value="answer">FALSE</option></select></li>
+</ol>
+</div>
 
 
-<!-- -->
-
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-altman2005" class="csl-entry" role="listitem">
+Altman, D. G., &amp; Bland, J. M. (2005). Standard deviations and standard errors. <em>BMJ</em>, <em>331</em>(7521), 903. <a href="https://doi.org/10.1136/bmj.331.7521.903">https://doi.org/10.1136/bmj.331.7521.903</a>
+</div>
+<div id="ref-barde2012" class="csl-entry" role="listitem">
+Barde, M. P., &amp; Barde, P. J. (2012). What to use to express the variability of data: Standard deviation or standard error of mean? <em>Perspectives in Clinical Research</em>, <em>3</em>(3), 113–116. <a href="https://doi.org/10.4103/2229-3485.100662">https://doi.org/10.4103/2229-3485.100662</a>
+</div>
+<div id="ref-gallardogomez2024" class="csl-entry" role="listitem">
+Gallardo-Gómez, D., Richardson, R., &amp; Dwan, K. (2024). Standardized mean differences in meta-analysis: A tutorial. <em>Cochrane Evidence Synthesis and Methods</em>, <em>2</em>(3), e12047. <a href="https://doi.org/10.1002/cesm.12047">https://doi.org/10.1002/cesm.12047</a>
+</div>
+<div id="ref-kadlec2023" class="csl-entry" role="listitem">
+Kadlec, D., Sainani, K. L., &amp; Nimphius, S. (2023). With great power comes great responsibility: Common errors in meta-analyses and meta-regressions in strength &amp; conditioning research. <em>Sports Medicine</em>, <em>53</em>(2), 313–325. <a href="https://doi.org/10.1007/s40279-022-01766-0">https://doi.org/10.1007/s40279-022-01766-0</a>
+</div>
+<div id="ref-kanellopoulou2025" class="csl-entry" role="listitem">
+Kanellopoulou, A., Evrenoglou, T., Metelli, S., &amp; Chaimani, A. (2025). Common statistical errors in systematic reviews: A tutorial. <em>Cochrane Evidence Synthesis and Methods</em>, <em>3</em>(5), e70013. <a href="https://doi.org/10.1002/cesm.70013">https://doi.org/10.1002/cesm.70013</a>
+</div>
+<div id="ref-ko2014" class="csl-entry" role="listitem">
+Ko, W.-R., Hung, W.-T., Chang, H.-C., &amp; Lin, L.-Y. (2014). Inappropriate use of standard error of the mean when reporting variability of study samples: A critical evaluation of four selected journals of obstetrics and gynecology. <em>Taiwanese Journal of Obstetrics and Gynecology</em>, <em>53</em>(1), 26–29. <a href="https://doi.org/10.1016/j.tjog.2013.04.035">https://doi.org/10.1016/j.tjog.2013.04.035</a>
+</div>
+<div id="ref-nagele2003" class="csl-entry" role="listitem">
+Nagele, P. (2003). Misuse of standard error of the mean (<span>SEM</span>) when reporting variability of a sample: A critical evaluation of four anaesthesia journals. <em>British Journal of Anaesthesia</em>, <em>90</em>(4), 514–516. <a href="https://doi.org/10.1093/bja/aeg087">https://doi.org/10.1093/bja/aeg087</a>
+</div>
+<div id="ref-sandercock2024" class="csl-entry" role="listitem">
+Sandercock, G. R. H. (2024). The standard error/standard deviation mix-up: Potential impacts on meta-analyses in sports medicine. <em>Sports Medicine</em>, <em>54</em>(6), 1723–1732. <a href="https://doi.org/10.1007/s40279-023-01989-9">https://doi.org/10.1007/s40279-023-01989-9</a>
+</div>
+<div id="ref-wullschleger2014" class="csl-entry" role="listitem">
+Wullschleger, M., Aghlmandi, S., Egger, M., &amp; Zwahlen, M. (2014). High incorrect use of the standard error of the mean (<span>SEM</span>) in original articles in three cardiovascular journals evaluated for 2012. <em>PLOS ONE</em>, <em>9</em>(10), e110364. <a href="https://doi.org/10.1371/journal.pone.0110364">https://doi.org/10.1371/journal.pone.0110364</a>
+</div>
+</div>
+</section>
 
 </main> <!-- /main -->
 <script>
@@ -810,6 +1382,17 @@ window.onload = function() {
 }
 
 </script>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBzZVNkID0gSW5wdXRzLnJhbmdlKFsxLCAxNV0sIHt2YWx1ZTogMTAsIHN0ZXA6IDAuNSwgbGFiZWw6IFwiU0Qgb2Ygc2NvcmVzXCJ9KVxudmlld29mIHNlTiA9IElucHV0cy5yYW5nZShbMiwgNTAwXSwge3ZhbHVlOiAyNSwgc3RlcDogMSwgbGFiZWw6IFwiU2FtcGxlIHNpemUgKE4pXCJ9KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0yIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoie1xuICAvLyB0d28gbm9ybWFsIGRpc3RyaWJ1dGlvbnMgb24gdGhlIHNhbWUgYXhpczogaW5kaXZpZHVhbCBzY29yZXMgKHNwcmVhZCA9IFNEKSwgYW5kIHRoZSBtZWFucyBvZiBzYW1wbGVzIG9mXG4gIC8vIHNpemUgTiAoc3ByZWFkID0gU0UgPSBTRCAvIHNxcnQoTikpXG4gIGNvbnN0IG1lYW4gPSA1MCwgc2UgPSBzZVNkIC8gTWF0aC5zcXJ0KHNlTilcbiAgY29uc3QgcGFuZWwgPSAodGl0bGUsIHNwcmVhZCwgbGFiZWwsIGNvbG91cikgPT4ge1xuICAgIGNvbnN0IGRlbnNpdHkgPSB4ID0+IE1hdGguZXhwKC0oKCh4IC0gbWVhbikgLyBzcHJlYWQpICoqIDIpIC8gMikgLyAoc3ByZWFkICogTWF0aC5zcXJ0KDIgKiBNYXRoLlBJKSlcbiAgICAvLyB0aGUgY3VydmUgaXMgZHJhd24gZmluZWx5IG5lYXIgdGhlIG1lYW4sIHdoZXJlIGEgbmFycm93IHNhbXBsaW5nIGRpc3RyaWJ1dGlvbiBuZWVkcyB0aGUgZGV0YWlsXG4gICAgY29uc3QgeHMgPSBkMy5yYW5nZSgwLCAxMDAuMDAxLCAwLjEpXG4gICAgY29uc3QgY3VydmUgPSB4cy5tYXAoeCA9PiAoe3gsIHk6IGRlbnNpdHkoeCl9KSlcbiAgICBjb25zdCBwZWFrID0gZGVuc2l0eShtZWFuKSwgc2hvdWxkZXIgPSBkZW5zaXR5KG1lYW4gKyBzcHJlYWQpXG4gICAgcmV0dXJuIGh0bWxgPGRpdj48ZGl2IGNsYXNzPVwic2Itc3VidGl0bGVcIj4ke3RpdGxlfTwvZGl2PiR7UGxvdC5wbG90KHtcbiAgICAgIHdpZHRoLCBoZWlnaHQ6IE1hdGgubWluKDIzMCwgTWF0aC5tYXgoMTgwLCB3aWR0aCAqIDAuMykpLCBtYXJnaW5MZWZ0OiAyMCwgbWFyZ2luUmlnaHQ6IDIwLCBtYXJnaW5Ub3A6IDIyLCBtYXJnaW5Cb3R0b206IDQwLFxuICAgICAgeDoge2xhYmVsOiBcIlNjb3JlXCIsIGxhYmVsQW5jaG9yOiBcImNlbnRlclwiLCBsYWJlbE9mZnNldDogMzQsIGRvbWFpbjogWzAsIDEwMF19LFxuICAgICAgeToge2F4aXM6IG51bGwsIGRvbWFpbjogWzAsIDEuMDUgKiBwZWFrXX0sXG4gICAgICBzdHlsZToge2ZvbnRTaXplOiBcIjEzcHhcIn0sXG4gICAgICBtYXJrczogW1xuICAgICAgICBQbG90LmFyZWFZKGN1cnZlLCB7eDogXCJ4XCIsIHkxOiAwLCB5MjogXCJ5XCIsIGZpbGw6IGNvbG91ciwgZmlsbE9wYWNpdHk6IDAuMn0pLFxuICAgICAgICBQbG90LmxpbmVZKGN1cnZlLCB7eDogXCJ4XCIsIHk6IFwieVwiLCBzdHJva2U6IGNvbG91ciwgc3Ryb2tlV2lkdGg6IDJ9KSxcbiAgICAgICAgUGxvdC5ydWxlWShbMF0sIHtzdHJva2U6IFwiY3VycmVudENvbG9yXCJ9KSxcbiAgICAgICAgUGxvdC5saW5rKFt7fV0sIHt4MTogbWVhbiwgeDI6IG1lYW4sIHkxOiAwLCB5MjogcGVhaywgc3Ryb2tlOiBjb2xvdXIsIHN0cm9rZURhc2hhcnJheTogXCI0LDNcIn0pLFxuICAgICAgICAvLyBvbmUgU0Qgb3IgU0UgZWl0aGVyIHNpZGUgb2YgdGhlIG1lYW4sIGRyYXduIHdoZXJlIHRoZSBjdXJ2ZSBpcyB0aGF0IGZhciBmcm9tIHRoZSBtZWFuXG4gICAgICAgIFBsb3QubGluayhbe31dLCB7eDE6IG1lYW4gLSBzcHJlYWQsIHgyOiBtZWFuICsgc3ByZWFkLCB5MTogc2hvdWxkZXIsIHkyOiBzaG91bGRlciwgc3Ryb2tlOiBcImN1cnJlbnRDb2xvclwiLCBzdHJva2VXaWR0aDogMS41fSksXG4gICAgICAgIFBsb3QudGV4dChbe31dLCB7eDogbWVhbiArIHNwcmVhZCwgeTogc2hvdWxkZXIsIHRleHQ6ICgpID0+IGxhYmVsLCB0ZXh0QW5jaG9yOiBcInN0YXJ0XCIsIGR4OiA4LCBmb250V2VpZ2h0OiA2MDB9KVxuICAgICAgXVxuICAgIH0pfTwvZGl2PmBcbiAgfVxuICByZXR1cm4gaHRtbGA8ZGl2PlxuICAgICR7cGFuZWwoXCJJbmRpdmlkdWFsIHNjb3JlczogdGhlaXIgc3ByZWFkIGlzIHRoZSBzdGFuZGFyZCBkZXZpYXRpb25cIiwgc2VTZCwgYFNEID0gJHtzZVNkLnRvRml4ZWQoMil9YCwgXCIjMjc4MGUzXCIpfVxuICAgICR7cGFuZWwoYE1lYW5zIG9mIHNhbXBsZXMgb2YgJHtzZU59OiB0aGVpciBzcHJlYWQgaXMgdGhlIHN0YW5kYXJkIGVycm9yYCwgc2UsIGBTRSA9ICR7c2UudG9GaXhlZCgyKX1gLCBcIiNkOTYyMmJcIil9XG4gIDwvZGl2PmBcbn1cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Imh0bWxgPGRpdiBjbGFzcz1cInNiLXRpbGVzXCI+XG4gIDxkaXY+PGRpdiBjbGFzcz1cInNiLXRpbGUtdmFsdWVcIj4ke3NlU2QudG9GaXhlZCgyKX08L2Rpdj48ZGl2IGNsYXNzPVwic2ItdGlsZS1sYWJlbFwiPlN0YW5kYXJkIGRldmlhdGlvbjwvZGl2PjxkaXYgY2xhc3M9XCJzYi10aWxlLW5vdGVcIj5ob3cgbXVjaCBpbmRpdmlkdWFsIHNjb3JlcyB2YXJ5OyBkb2VzIG5vdCBkZXBlbmQgb24gdGhlIHNhbXBsZSBzaXplPC9kaXY+PC9kaXY+XG4gIDxkaXY+PGRpdiBjbGFzcz1cInNiLXRpbGUtdmFsdWVcIiBzdHlsZT1cImNvbG9yOiAjZDk2MjJiO1wiPiR7KHNlU2QgLyBNYXRoLnNxcnQoc2VOKSkudG9GaXhlZCgyKX08L2Rpdj48ZGl2IGNsYXNzPVwic2ItdGlsZS1sYWJlbFwiPlN0YW5kYXJkIGVycm9yPC9kaXY+PGRpdiBjbGFzcz1cInNiLXRpbGUtbm90ZVwiPmhvdyBtdWNoIHRoZSBzYW1wbGUgbWVhbiB2YXJpZXM7IHRoZSBTRCBkaXZpZGVkIGJ5IOKImk48L2Rpdj48L2Rpdj5cbiAgPGRpdj48ZGl2IGNsYXNzPVwic2ItdGlsZS12YWx1ZVwiIHN0eWxlPVwiY29sb3I6IGluaGVyaXQ7XCI+JHtNYXRoLnNxcnQoc2VOKS50b0ZpeGVkKDEpfcOXPC9kaXY+PGRpdiBjbGFzcz1cInNiLXRpbGUtbGFiZWxcIj5TRCDDtyBTRTwvZGl2PjxkaXYgY2xhc3M9XCJzYi10aWxlLW5vdGVcIj50aGUgU0QgaXMg4oiaTiB0aW1lcyBsYXJnZXIgdGhhbiB0aGUgU0U8L2Rpdj48L2Rpdj5cbjwvZGl2PmBcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBjZk11ID0gSW5wdXRzLnJhbmdlKFswLCAxLjVdLCB7dmFsdWU6IDAuMywgc3RlcDogMC4wNSwgbGFiZWw6IFwiVHJ1ZSAocG9wdWxhdGlvbikgU01EIM68XCJ9KVxudmlld29mIGNmVGF1ID0gSW5wdXRzLnJhbmdlKFswLCAwLjVdLCB7dmFsdWU6IDAuMDUsIHN0ZXA6IDAuMDUsIGxhYmVsOiBcIkJldHdlZW4tc3R1ZHkgaGV0ZXJvZ2VuZWl0eSDPhCAoU01EIHNjYWxlKVwifSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IntcbiAgY29uc3Qgc2VyaWVzID0gW3tuYW1lOiBcIkNvcnJlY3RseSBjYWxjdWxhdGVkXCIsIGNvbG91cjogXCIjOGE4YThhXCJ9LCB7bmFtZTogXCJTRSBtaXN0YWtlbiBmb3IgU0RcIiwgY29sb3VyOiBcIiNkOTYyMmJcIn1dXG4gIGNvbnN0IGRhdGEgPSBzaW11bGF0ZUNvbmZ1c2VkRChjZk11LCBjZlRhdSlcbiAgY29uc3Qgcm93cyA9IGRhdGEuZmxhdE1hcChkID0+IFtcbiAgICB7bjogZC5uLCBzZXJpZXM6IHNlcmllc1swXS5uYW1lLCBsb3dlcjogZC5sb3dlciwgbWVkaWFuOiBkLm1lZGlhbiwgdXBwZXI6IGQudXBwZXJ9LFxuICAgIC8vIG1pc3Rha2luZyB0aGUgU0Ugb2YgZWFjaCBncm91cCBmb3IgaXRzIFNEIG11bHRpcGxpZXMgdGhlIGVmZmVjdCBzaXplIGJ5IHRoZSBzcXVhcmUgcm9vdCBvZiB0aGUgZ3JvdXAgc2l6ZVxuICAgIHtuOiBkLm4sIHNlcmllczogc2VyaWVzWzFdLm5hbWUsIGxvd2VyOiBkLmxvd2VyICogTWF0aC5zcXJ0KGQubiAvIDIpLCBtZWRpYW46IGQubWVkaWFuICogTWF0aC5zcXJ0KGQubiAvIDIpLCB1cHBlcjogZC51cHBlciAqIE1hdGguc3FydChkLm4gLyAyKX1cbiAgXSlcbiAgcmV0dXJuIFBsb3QucGxvdCh7XG4gICAgd2lkdGgsIGhlaWdodDogTWF0aC5taW4oNDgwLCBNYXRoLm1heCgzMjAsIHdpZHRoICogMC43NSkpLCBtYXJnaW5MZWZ0OiA1NSwgbWFyZ2luUmlnaHQ6IDIwLCBtYXJnaW5Cb3R0b206IDQ1LFxuICAgIHg6IHtsYWJlbDogXCJUb3RhbCBOIChib3RoIGdyb3VwcylcIiwgbGFiZWxBbmNob3I6IFwiY2VudGVyXCIsIGxhYmVsT2Zmc2V0OiAzOCwgdGlja3M6IFsyMCwgNTAsIDEwMCwgMjUwLCA1MDBdfSxcbiAgICB5OiB7bGFiZWw6IFwiT2JzZXJ2ZWQgQ29oZW4ncyBkXCIsIGxhYmVsQW5jaG9yOiBcImNlbnRlclwiLCBncmlkOiB0cnVlLCBkb21haW46IFtNYXRoLm1pbigtMC41LCBkMy5taW4ocm93cywgZCA9PiBkLmxvd2VyKSksIE1hdGgubWF4KDMuMiwgZDMubWF4KHJvd3MsIGQgPT4gZC51cHBlcikpXX0sXG4gICAgY29sb3I6IHtkb21haW46IHNlcmllcy5tYXAoZCA9PiBkLm5hbWUpLCByYW5nZTogc2VyaWVzLm1hcChkID0+IGQuY29sb3VyKSwgbGVnZW5kOiB0cnVlfSxcbiAgICBzdHlsZToge2ZvbnRTaXplOiBcIjEzcHhcIn0sXG4gICAgbWFya3M6IFtcbiAgICAgIFBsb3QuZnJhbWUoe3N0cm9rZTogXCJjdXJyZW50Q29sb3JcIn0pLFxuICAgICAgUGxvdC5ydWxlWShbMF0sIHtzdHJva2U6IFwiY3VycmVudENvbG9yXCIsIHN0cm9rZU9wYWNpdHk6IDAuNX0pLFxuICAgICAgUGxvdC5hcmVhWShyb3dzLCB7eDogXCJuXCIsIHkxOiBcImxvd2VyXCIsIHkyOiBcInVwcGVyXCIsIGZpbGw6IFwic2VyaWVzXCIsIGZpbGxPcGFjaXR5OiAwLjI1fSksXG4gICAgICBQbG90LmxpbmVZKHJvd3MsIHt4OiBcIm5cIiwgeTogXCJtZWRpYW5cIiwgc3Ryb2tlOiBcInNlcmllc1wiLCBzdHJva2VXaWR0aDogMn0pLFxuICAgICAgLy8gdGhlIG1lYW4gdHJ1ZSBTTURcbiAgICAgIFBsb3QucnVsZVkoW2NmTXVdLCB7c3Ryb2tlOiBcIiMyNzgwZTNcIiwgc3Ryb2tlRGFzaGFycmF5OiBcIjYsNFwiLCBzdHJva2VXaWR0aDogMi41fSlcbiAgICBdXG4gIH0pXG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTYiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJ2aWV3b2YgbWFTZWVkID0gSW5wdXRzLmJ1dHRvbihcIlNpbXVsYXRlIGFub3RoZXIgbWV0YS1hbmFseXNpc1wiKVxudmlld29mIG1hSyA9IElucHV0cy5yYW5nZShbNSwgNDBdLCB7dmFsdWU6IDIwLCBzdGVwOiAxLCBsYWJlbDogXCJOdW1iZXIgb2Ygc3R1ZGllc1wifSlcbnZpZXdvZiBtYU4gPSBJbnB1dHMucmFuZ2UoWzEwLCAxMDBdLCB7dmFsdWU6IDI1LCBzdGVwOiA1LCBsYWJlbDogXCJTYW1wbGUgc2l6ZSBwZXIgZ3JvdXBcIn0pXG52aWV3b2YgbWFNdSA9IElucHV0cy5yYW5nZShbMCwgMV0sIHt2YWx1ZTogMC4yLCBzdGVwOiAwLjA1LCBsYWJlbDogXCJNZWFuIHRydWUgU01EIM68XCJ9KVxudmlld29mIG1hVGF1ID0gSW5wdXRzLnJhbmdlKFswLCAwLjRdLCB7dmFsdWU6IDAuMiwgc3RlcDogMC4wNSwgbGFiZWw6IFwiVHJ1ZSBoZXRlcm9nZW5laXR5IM+EXCJ9KVxudmlld29mIG1hUHJvcCA9IElucHV0cy5yYW5nZShbMCwgMC41XSwge3ZhbHVlOiAwLjEsIHN0ZXA6IDAuMDUsIGxhYmVsOiBcIlByb3BvcnRpb24gb2Ygc3R1ZGllcyB3aXRoIHRoZSBlcnJvclwifSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Im1hUmVzdWx0ID0ge1xuICAvLyBvbmUgc2ltdWxhdGVkIG1ldGEtYW5hbHlzaXMuIGVhY2ggc3R1ZHkncyB0cnVlIFNNRCBpcyBkcmF3biBmcm9tIE4obXUsIHRhdSksIGFuZCBpdHMgb2JzZXJ2ZWQgZCBmcm9tIHRoZVxuICAvLyBub25jZW50cmFsIHQgZGlzdHJpYnV0aW9uLCBhcyBpbiBzaW11bGF0ZUNvbmZ1c2VkRC4gdGhlIGZpcnN0IHN0dWRpZXMgYXJlIHRoZSBvbmVzIHdpdGggdGhlIGVycm9yOyBiZWNhdXNlIHRoZVxuICAvLyBzdHVkaWVzIGFyZSBleGNoYW5nZWFibGUsIHdoaWNoIG9uZXMgYXJlIGFmZmVjdGVkIG1ha2VzIG5vIGRpZmZlcmVuY2VcbiAgY29uc3Qgcm5nID0gcmFuZG9tTnVtYmVycyhtYVNlZWQgKyAxKVxuICBjb25zdCBuID0gbWFOLCBkZiA9IDIgKiBuIC0gMiwgSiA9IDEgLSAzIC8gKDQgKiBkZiAtIDEpXG4gIGNvbnN0IGFmZmVjdGVkID0gTWF0aC5mbG9vcihtYVByb3AgKiBtYUsgKyAwLjUpXG4gIGNvbnN0IHN0dWRpZXMgPSBkMy5yYW5nZShtYUspLm1hcChpID0+IHtcbiAgICBjb25zdCBkZWx0YSA9IG1hTXUgKyBtYVRhdSAqIHJuZy5ub3JtYWwoKVxuICAgIGNvbnN0IHQgPSAocm5nLm5vcm1hbCgpICsgZGVsdGEgKiBNYXRoLnNxcnQobiAvIDIpKSAvIE1hdGguc3FydCgyICogcm5nLmdhbW1hKGRmIC8gMikgLyBkZilcbiAgICBjb25zdCBjb3JyZWN0ID0gSiAqIHQgKiBNYXRoLnNxcnQoMiAvIG4pXG4gICAgY29uc3QgY29uZnVzZWQgPSBpIDwgYWZmZWN0ZWRcbiAgICAvLyB0aGUgc2FtcGxpbmcgdmFyaWFuY2UgaXMgY2FsY3VsYXRlZCBmcm9tIHRoZSBzYW1wbGUgc2l6ZXMgYW5kIHRoZSBlZmZlY3Qgc2l6ZSBhcyBleHRyYWN0ZWQsIGFzIGFcbiAgICAvLyBtZXRhLWFuYWx5c3Qgd2hvIGlzIHVuYXdhcmUgb2YgdGhlIGVycm9yIHdvdWxkIGNhbGN1bGF0ZSBpdFxuICAgIGNvbnN0IHZhcmlhbmNlID0gZyA9PiAyIC8gbiArIGcgKiBnIC8gKDQgKiBuKVxuICAgIGNvbnN0IGV4dHJhY3RlZCA9IGNvbmZ1c2VkID8gY29ycmVjdCAqIE1hdGguc3FydChuKSA6IGNvcnJlY3RcbiAgICByZXR1cm4ge3N0dWR5OiBgU3R1ZHkgJHtpICsgMX1gLCBjb25mdXNlZCwgY29ycmVjdCwgY29ycmVjdFZhcmlhbmNlOiB2YXJpYW5jZShjb3JyZWN0KSwgZXh0cmFjdGVkLCBleHRyYWN0ZWRWYXJpYW5jZTogdmFyaWFuY2UoZXh0cmFjdGVkKX1cbiAgfSlcbiAgcmV0dXJuIHtcbiAgICBzdHVkaWVzLFxuICAgIGV4dHJhY3RlZDogcmFuZG9tRWZmZWN0cyhzdHVkaWVzLm1hcChkID0+IGQuZXh0cmFjdGVkKSwgc3R1ZGllcy5tYXAoZCA9PiBkLmV4dHJhY3RlZFZhcmlhbmNlKSksXG4gICAgY29ycmVjdGVkOiByYW5kb21FZmZlY3RzKHN0dWRpZXMubWFwKGQgPT4gZC5jb3JyZWN0KSwgc3R1ZGllcy5tYXAoZCA9PiBkLmNvcnJlY3RWYXJpYW5jZSkpXG4gIH1cbn1cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtOCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IntcbiAgY29uc3Qgb3JhbmdlID0gXCIjZDk2MjJiXCIsIGdyZXkgPSBcIiM4YThhOGFcIlxuICBjb25zdCB7c3R1ZGllcywgZXh0cmFjdGVkLCBjb3JyZWN0ZWR9ID0gbWFSZXN1bHRcbiAgY29uc3Qgcm93cyA9IFtcbiAgICAuLi5zdHVkaWVzLm1hcChkID0+ICh7bmFtZTogZC5zdHVkeSwgZXN0OiBkLmV4dHJhY3RlZCwgbG93ZXI6IGQuZXh0cmFjdGVkIC0gMS45NiAqIE1hdGguc3FydChkLmV4dHJhY3RlZFZhcmlhbmNlKSwgdXBwZXI6IGQuZXh0cmFjdGVkICsgMS45NiAqIE1hdGguc3FydChkLmV4dHJhY3RlZFZhcmlhbmNlKSwgY29sb3VyOiBkLmNvbmZ1c2VkID8gb3JhbmdlIDogZ3JleSwgcG9vbGVkOiBmYWxzZX0pKSxcbiAgICB7bmFtZTogXCJQb29sZWQ6IGFzIGV4dHJhY3RlZFwiLCBlc3Q6IGV4dHJhY3RlZC5lc3RpbWF0ZSwgbG93ZXI6IGV4dHJhY3RlZC5sb3dlciwgdXBwZXI6IGV4dHJhY3RlZC51cHBlciwgY29sb3VyOiBvcmFuZ2UsIHBvb2xlZDogdHJ1ZX0sXG4gICAge25hbWU6IFwiUG9vbGVkOiBlcnJvcnMgY29ycmVjdGVkXCIsIGVzdDogY29ycmVjdGVkLmVzdGltYXRlLCBsb3dlcjogY29ycmVjdGVkLmxvd2VyLCB1cHBlcjogY29ycmVjdGVkLnVwcGVyLCBjb2xvdXI6IFwiY3VycmVudENvbG9yXCIsIHBvb2xlZDogdHJ1ZX1cbiAgXVxuICByZXR1cm4gUGxvdC5wbG90KHtcbiAgICB3aWR0aCwgaGVpZ2h0OiA3MCArIDE3ICogcm93cy5sZW5ndGgsIG1hcmdpbkxlZnQ6IDE2MCwgbWFyZ2luUmlnaHQ6IDIwLCBtYXJnaW5Ub3A6IDEwLCBtYXJnaW5Cb3R0b206IDQ1LFxuICAgIHg6IHtsYWJlbDogXCJTdGFuZGFyZGl6ZWQgTWVhbiBEaWZmZXJlbmNlXCIsIGxhYmVsQW5jaG9yOiBcImNlbnRlclwiLCBsYWJlbE9mZnNldDogMzgsIGdyaWQ6IHRydWUsIG5pY2U6IHRydWUsIGRvbWFpbjogZDMuZXh0ZW50KFstMC41LCAxLCAuLi5yb3dzLmZsYXRNYXAoZCA9PiBbZC5sb3dlciwgZC51cHBlcl0pXSl9LFxuICAgIHk6IHtsYWJlbDogbnVsbCwgdHlwZTogXCJwb2ludFwiLCBkb21haW46IHJvd3MubWFwKGQgPT4gZC5uYW1lKSwgcGFkZGluZzogMC41LCB0aWNrU2l6ZTogMH0sXG4gICAgc3R5bGU6IHtmb250U2l6ZTogXCIxMnB4XCJ9LFxuICAgIG1hcmtzOiBbXG4gICAgICBQbG90LnJ1bGVYKFswXSwge3N0cm9rZTogXCJjdXJyZW50Q29sb3JcIiwgc3Ryb2tlT3BhY2l0eTogMC41fSksXG4gICAgICAvLyB0aGUgbWVhbiB0cnVlIFNNRFxuICAgICAgUGxvdC5ydWxlWChbbWFNdV0sIHtzdHJva2U6IFwiIzI3ODBlM1wiLCBzdHJva2VEYXNoYXJyYXk6IFwiNiw0XCIsIHN0cm9rZVdpZHRoOiAyfSksXG4gICAgICBQbG90Lmxpbmsocm93cywge3gxOiBcImxvd2VyXCIsIHgyOiBcInVwcGVyXCIsIHkxOiBcIm5hbWVcIiwgeTI6IFwibmFtZVwiLCBzdHJva2U6IFwiY29sb3VyXCIsIHN0cm9rZVdpZHRoOiBkID0+IGQucG9vbGVkID8gMyA6IDEuNX0pLFxuICAgICAgUGxvdC5kb3Qocm93cy5maWx0ZXIoZCA9PiAhZC5wb29sZWQpLCB7eDogXCJlc3RcIiwgeTogXCJuYW1lXCIsIGZpbGw6IFwiY29sb3VyXCIsIHI6IDQsIHN5bWJvbDogXCJzcXVhcmVcIn0pLFxuICAgICAgUGxvdC5kb3Qocm93cy5maWx0ZXIoZCA9PiBkLnBvb2xlZCksIHt4OiBcImVzdFwiLCB5OiBcIm5hbWVcIiwgZmlsbDogXCJjb2xvdXJcIiwgcjogNywgc3ltYm9sOiBcImRpYW1vbmRcIn0pXG4gICAgXVxuICB9KVxufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC05IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoie1xuICBjb25zdCB7c3R1ZGllcywgZXh0cmFjdGVkLCBjb3JyZWN0ZWR9ID0gbWFSZXN1bHRcbiAgY29uc3QgbGluZSA9IHIgPT4gYHBvb2xlZCBTTUQgPSAke3IuZXN0aW1hdGUudG9GaXhlZCgyKX0sIDk1JSBDSSBbJHtyLmxvd2VyLnRvRml4ZWQoMil9LCAke3IudXBwZXIudG9GaXhlZCgyKX1dLCDPhCA9ICR7TWF0aC5zcXJ0KHIudGF1MikudG9GaXhlZCgyKX0sIEnCsiA9ICR7KDEwMCAqIHIuaTIpLnRvRml4ZWQoMCl9JWBcbiAgcmV0dXJuIGh0bWxgPGRpdiBjbGFzcz1cInNiLWZlZWRiYWNrXCI+XG4gICAgPGRpdj48c3Ryb25nPkFzIGV4dHJhY3RlZDwvc3Ryb25nPiAoJHtzdHVkaWVzLmZpbHRlcihkID0+IGQuY29uZnVzZWQpLmxlbmd0aH0gb2YgJHtzdHVkaWVzLmxlbmd0aH0gc3R1ZGllcyB3aXRoIHRoZSBlcnJvcik6ICR7bGluZShleHRyYWN0ZWQpfTwvZGl2PlxuICAgIDxkaXY+PHN0cm9uZz5FcnJvcnMgY29ycmVjdGVkOjwvc3Ryb25nPiAke2xpbmUoY29ycmVjdGVkKX08L2Rpdj5cbiAgICA8ZGl2PjxzdHJvbmc+VHJ1dGg6PC9zdHJvbmc+IG1lYW4gU01EID0gJHttYU11LnRvRml4ZWQoMil9LCDPhCA9ICR7bWFUYXUudG9GaXhlZCgyKX08L2Rpdj5cbiAgPC9kaXY+YFxufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0xMCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6ImZ1bmN0aW9uIHJhbmRvbUVmZmVjdHMoZXN0aW1hdGVzLCB2YXJpYW5jZXMpIHtcbiAgLy8gcmFuZG9tLWVmZmVjdHMgbWV0YS1hbmFseXNpcyB3aXRoIHRoZSBEZXJTaW1vbmlhbi1MYWlyZCBlc3RpbWF0b3Igb2YgdGhlIGJldHdlZW4tc3R1ZHkgdmFyaWFuY2UuXG4gIC8vIHJldHVybnMgdGhlIHBvb2xlZCBlc3RpbWF0ZSwgaXRzIDk1JSBDSSwgdGF1IHNxdWFyZWQsIGFuZCBJIHNxdWFyZWQgKGFzIGEgcHJvcG9ydGlvbilcbiAgY29uc3QgayA9IGVzdGltYXRlcy5sZW5ndGhcbiAgY29uc3Qgd2VpZ2h0cyA9IHZhcmlhbmNlcy5tYXAodiA9PiAxIC8gdilcbiAgY29uc3Qgc3VtVyA9IGQzLnN1bSh3ZWlnaHRzKVxuICBjb25zdCBmaXhlZCA9IGQzLnN1bShlc3RpbWF0ZXMsICh5LCBpKSA9PiB3ZWlnaHRzW2ldICogeSkgLyBzdW1XXG4gIGNvbnN0IFEgPSBkMy5zdW0oZXN0aW1hdGVzLCAoeSwgaSkgPT4gd2VpZ2h0c1tpXSAqICh5IC0gZml4ZWQpICoqIDIpXG4gIGNvbnN0IEMgPSBzdW1XIC0gZDMuc3VtKHdlaWdodHMsIHcgPT4gdyAqIHcpIC8gc3VtV1xuICBjb25zdCB0YXUyID0gTWF0aC5tYXgoMCwgKFEgLSAoayAtIDEpKSAvIEMpXG4gIGNvbnN0IHJlV2VpZ2h0cyA9IHZhcmlhbmNlcy5tYXAodiA9PiAxIC8gKHYgKyB0YXUyKSlcbiAgY29uc3QgZXN0aW1hdGUgPSBkMy5zdW0oZXN0aW1hdGVzLCAoeSwgaSkgPT4gcmVXZWlnaHRzW2ldICogeSkgLyBkMy5zdW0ocmVXZWlnaHRzKVxuICBjb25zdCBzZSA9IE1hdGguc3FydCgxIC8gZDMuc3VtKHJlV2VpZ2h0cykpXG4gIHJldHVybiB7ZXN0aW1hdGUsIGxvd2VyOiBlc3RpbWF0ZSAtIDEuOTYgKiBzZSwgdXBwZXI6IGVzdGltYXRlICsgMS45NiAqIHNlLCB0YXUyLCBpMjogUSA+IDAgPyBNYXRoLm1heCgwLCAoUSAtIChrIC0gMSkpIC8gUSkgOiAwfVxufVxuXG5mdW5jdGlvbiBzaW11bGF0ZUNvbmZ1c2VkRChtdSwgdGF1LCBkcmF3cyA9IDIwMDAwKSB7XG4gIC8vIHRoZSBtZWRpYW4gYW5kIDk1JSBwcmVkaWN0aW9uIGludGVydmFsIG9mIHRoZSBvYnNlcnZlZCwgYmlhcy1jb3JyZWN0ZWQgQ29oZW4ncyBkIG9mIGEgdHdvLWdyb3VwIHN0dWR5LCBhdFxuICAvLyBlYWNoIG9mIGEgbG9nLXNwYWNlZCBncmlkIG9mIHRvdGFsIHNhbXBsZSBzaXplcy4gZWFjaCBzaW11bGF0ZWQgc3R1ZHkncyB0cnVlIFNNRCwgZGVsdGEsIGlzIGRyYXduIGZyb21cbiAgLy8gTihtdSwgdGF1KS4gaXRzIG9ic2VydmVkIGQgaXMgdCAqIDIgLyBzcXJ0KE4pLCB3aGVyZSB0IGZvbGxvd3MgYSBub25jZW50cmFsIHQgZGlzdHJpYnV0aW9uIHdpdGggZGYgPSBOIC0gMiBhbmRcbiAgLy8gbmNwID0gZGVsdGEgKiBzcXJ0KE4pIC8gMiwgbXVsdGlwbGllZCBieSB0aGUgc21hbGwtc2FtcGxlIGJpYXMgY29ycmVjdGlvbiBKID0gMSAtIDMgLyAoNCAqIGRmIC0gMSkuXG4gIC8vIHRoZSBzYW1lIHJhbmRvbSBudW1iZXJzIGFyZSB1c2VkIGF0IGV2ZXJ5IHNhbXBsZSBzaXplLCBzbyB0aGF0IHRoZSBjdXJ2ZXMgYXJlIHNtb290aFxuICBjb25zdCBuU2VxID0gWy4uLm5ldyBTZXQoZDMucmFuZ2UoMTYpLm1hcChpID0+IE1hdGgucm91bmQoTWF0aC5leHAoTWF0aC5sb2coMjApICsgaSAqIChNYXRoLmxvZyg1MDApIC0gTWF0aC5sb2coMjApKSAvIDE1KSkpKV1cbiAgcmV0dXJuIG5TZXEubWFwKE4gPT4ge1xuICAgIGNvbnN0IHJuZyA9IHJhbmRvbU51bWJlcnMoMSlcbiAgICBjb25zdCBkZiA9IE4gLSAyLCBKID0gMSAtIDMgLyAoNCAqIGRmIC0gMSlcbiAgICBjb25zdCBkID0gbmV3IEZsb2F0NjRBcnJheShkcmF3cylcbiAgICBmb3IgKGxldCBpID0gMDsgaSA8IGRyYXdzOyBpKyspIHtcbiAgICAgIGNvbnN0IGRlbHRhID0gbXUgKyB0YXUgKiBybmcubm9ybWFsKClcbiAgICAgIGNvbnN0IHQgPSAocm5nLm5vcm1hbCgpICsgZGVsdGEgKiBNYXRoLnNxcnQoTikgLyAyKSAvIE1hdGguc3FydCgyICogcm5nLmdhbW1hKGRmIC8gMikgLyBkZilcbiAgICAgIGRbaV0gPSBKICogdCAqIDIgLyBNYXRoLnNxcnQoTilcbiAgICB9XG4gICAgZC5zb3J0KClcbiAgICByZXR1cm4ge246IE4sIGxvd2VyOiBkMy5xdWFudGlsZVNvcnRlZChkLCAwLjAyNSksIG1lZGlhbjogZDMucXVhbnRpbGVTb3J0ZWQoZCwgMC41KSwgdXBwZXI6IGQzLnF1YW50aWxlU29ydGVkKGQsIDAuOTc1KX1cbiAgfSlcbn1cblxuZnVuY3Rpb24gcmFuZG9tTnVtYmVycyhzZWVkKSB7XG4gIC8vIGEgc2VlZGVkIHNvdXJjZSBvZiByYW5kb20gbnVtYmVycywgc28gdGhhdCByZXN1bHRzIGRvIG5vdCBjaGFuZ2UgYmV0d2VlbiByZWRyYXdzXG4gIC8vIHVuaWZvcm06IHRoZSBtdWxiZXJyeTMyIHBzZXVkby1yYW5kb20gbnVtYmVyIGdlbmVyYXRvclxuICBsZXQgc3RhdGUgPSBzZWVkXG4gIGNvbnN0IHVuaWZvcm0gPSAoKSA9PiB7XG4gICAgc3RhdGUgPSAoc3RhdGUgKyAweDZEMkI3OUY1KSB8IDBcbiAgICBsZXQgeCA9IE1hdGguaW11bChzdGF0ZSBeIChzdGF0ZSA+Pj4gMTUpLCAxIHwgc3RhdGUpXG4gICAgeCA9ICh4ICsgTWF0aC5pbXVsKHggXiAoeCA+Pj4gNyksIDYxIHwgeCkpIF4geFxuICAgIHJldHVybiAoKHggXiAoeCA+Pj4gMTQpKSA+Pj4gMCkgLyA0Mjk0OTY3Mjk2XG4gIH1cbiAgLy8gc3RhbmRhcmQgbm9ybWFsLCBieSB0aGUgQm94LU11bGxlciBtZXRob2RcbiAgY29uc3Qgbm9ybWFsID0gKCkgPT4gTWF0aC5zcXJ0KC0yICogTWF0aC5sb2coMSAtIHVuaWZvcm0oKSkpICogTWF0aC5jb3MoMiAqIE1hdGguUEkgKiB1bmlmb3JtKCkpXG4gIC8vIGdhbW1hKHNoYXBlLCAxKSBmb3Igc2hhcGUgPj0gMSwgYnkgdGhlIE1hcnNhZ2xpYS1Uc2FuZyBtZXRob2QuIGNoaS1zcXVhcmVkKGRmKSBpcyAyICogZ2FtbWEoZGYgLyAyKVxuICBjb25zdCBnYW1tYSA9IHNoYXBlID0+IHtcbiAgICBjb25zdCBhID0gc2hhcGUgLSAxIC8gMywgYyA9IDEgLyBNYXRoLnNxcnQoOSAqIGEpXG4gICAgZm9yICg7Oykge1xuICAgICAgY29uc3QgeCA9IG5vcm1hbCgpLCB2ID0gKDEgKyBjICogeCkgKiogM1xuICAgICAgaWYgKHYgPD0gMCkgY29udGludWVcbiAgICAgIGNvbnN0IHUgPSAxIC0gdW5pZm9ybSgpXG4gICAgICBpZiAodSA8IDEgLSAwLjAzMzEgKiB4ICoqIDQgfHwgTWF0aC5sb2codSkgPCAwLjUgKiB4ICogeCArIGEgKiAoMSAtIHYgKyBNYXRoLmxvZyh2KSkpIHJldHVybiBhICogdlxuICAgIH1cbiAgfVxuICByZXR1cm4ge3VuaWZvcm0sIG5vcm1hbCwgZ2FtbWF9XG59XG5cbnNkU2VTdHlsZSA9IGh0bWxgPHN0eWxlPlxuICAuc2Itc3VidGl0bGUgeyBmb250LXNpemU6IDAuOXJlbTsgZm9udC13ZWlnaHQ6IDYwMDsgbWFyZ2luOiAwLjc1cmVtIDAgMC4yNXJlbTsgY29sb3I6IHZhcigtLWJzLXNlY29uZGFyeS1jb2xvcik7IH1cbiAgLnNiLXRpbGVzIHsgZGlzcGxheTogZmxleDsgZ2FwOiAycmVtOyBmbGV4LXdyYXA6IHdyYXA7IG1hcmdpbjogMC41cmVtIDAgMS41cmVtOyB9XG4gIC5zYi10aWxlcyA+IGRpdiB7IGZsZXg6IDEgMSAxMHJlbTsgfVxuICAuc2ItdGlsZS12YWx1ZSB7IGZvbnQtc2l6ZTogMnJlbTsgZm9udC13ZWlnaHQ6IDcwMDsgbGluZS1oZWlnaHQ6IDEuMTsgY29sb3I6ICMyNzgwZTM7IH1cbiAgLnNiLXRpbGUtbGFiZWwgeyBmb250LXdlaWdodDogNjAwOyB9XG4gIC5zYi10aWxlLW5vdGUgeyBmb250LXNpemU6IDAuOXJlbTsgY29sb3I6IHZhcigtLWJzLXNlY29uZGFyeS1jb2xvcik7IH1cbiAgLnNiLWZlZWRiYWNrIHsgbWFyZ2luOiAwLjVyZW0gMCAxcmVtOyBwYWRkaW5nOiAwLjZyZW0gMC45cmVtOyBib3JkZXItbGVmdDogNHB4IHNvbGlkICM4YThhOGE7IGJhY2tncm91bmQ6IHJnYmEoMTI4LCAxMjgsIDEyOCwgMC4wOCk7IH1cbjwvc3R5bGU+YFxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdzZVNkJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3NlTicpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdjZk11JykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ2NmVGF1JykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ21hU2VlZCcpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdtYUsnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnbWFOJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ21hTXUnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnbWFUYXUnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnbWFQcm9wJykifV19
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../chapters";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
@@ -893,57 +1476,6 @@ window.onload = function() {
         container: window.document.getElementById('quarto-embedded-source-code-modal')
       });
       clipboardModal.on('success', onCopySuccess);
-    }
-    const viewSource = window.document.getElementById('quarto-view-source') ||
-                       window.document.getElementById('quarto-code-tools-source');
-    if (viewSource) {
-      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-      viewSource.addEventListener("click", function(e) {
-        if (sourceUrl) {
-          // rstudio viewer pane
-          if (/\bcapabilities=\b/.test(window.location)) {
-            window.open(sourceUrl);
-          } else {
-            window.location.href = sourceUrl;
-          }
-        } else {
-          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-          modal.show();
-        }
-        return false;
-      });
-    }
-    function toggleCodeHandler(show) {
-      return function(e) {
-        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-        for (let i=0; i<detailsSrc.length; i++) {
-          const details = detailsSrc[i].parentElement;
-          if (show) {
-            details.open = true;
-          } else {
-            details.removeAttribute("open");
-          }
-        }
-        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-        const fromCls = show ? "hidden" : "unhidden";
-        const toCls = show ? "unhidden" : "hidden";
-        for (let i=0; i<cellCodeDivs.length; i++) {
-          const codeDiv = cellCodeDivs[i];
-          if (codeDiv.classList.contains(fromCls)) {
-            codeDiv.classList.remove(fromCls);
-            codeDiv.classList.add(toCls);
-          } 
-        }
-        return false;
-      }
-    }
-    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-    if (hideAllCode) {
-      hideAllCode.addEventListener("click", toggleCodeHandler(false));
-    }
-    const showAllCode = window.document.getElementById("quarto-show-all-code");
-    if (showAllCode) {
-      showAllCode.addEventListener("click", toggleCodeHandler(true));
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
@@ -1276,25 +1808,16 @@ window.onload = function() {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/05_standardized_mean_differences_cohens_d.html" class="pagination-link" aria-label="Standardized Mean Differences (Cohen's *d*) [✎ Outline]{.badge .badge-draft1}">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Standardized Mean Differences (Cohen’s <em>d</em>) <span class="badge badge-draft1">✎ Outline</span></span></span>
+      <a href="../chapters/05_standardized_mean_differences_cohens_d.html" class="pagination-link" aria-label="Standardized Mean Differences (Cohen's *d*) [✎ Draft]{.badge .badge-draft2}">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Standardized Mean Differences (Cohen’s <em>d</em>) <span class="badge badge-draft2">✎ Draft</span></span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../chapters/07_misinterpretation_methods.html" class="pagination-link" aria-label="Misinterpretation methods [✎ Draft]{.badge .badge-draft2}">
-        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Misinterpretation methods <span class="badge badge-draft2">✎ Draft</span></span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Misinterpretation methods <span class="badge badge-draft2">✎ Draft</span></span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
-</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Standard Deviations vs. Standards Errors [✎ Outline]{.badge .badge-draft1}</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="fu">file.exists</span>(<span class="st">"../_setup.R"</span>)){<span class="fu">source</span>(<span class="st">"../_setup.R"</span>)}</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
-</div></div></div></div></div>
+</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">

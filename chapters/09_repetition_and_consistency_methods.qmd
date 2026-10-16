@@ -5,32 +5,32 @@
 if(file.exists("../../_setup.R")){source("../../_setup.R")}
 ```
 
-## Internal consistency of summary statistics
+## Between documents, eg Preregistration vs. paper
+
+- Does the prereg match the paper? regcheck.app
+
+## Within document
+
+### Internal consistency of summary statistics
 
 - Are M/SD/N consistent throughout the article?
-- Are M/SD/N consistent between whole sample vs subgroups?
 
-## Abstract vs. results
+### Abstract vs. results
 
 - Does the result in the abstract match the results section?
 - Does the abstract label the preregistered analysis/primary outcome?
 
-## Tables vs. text
+### Tables vs. text
 
 - Do the tables match the text?
 
-## Introduction vs. analysis
+### Introduction vs. analysis
 
 - Does the explanans/explanandum switch between intro and analysis?
 
-## Over-representation of suspicious values
+## Overly consistent
 
 - Over-representation of reported round or repeated difference scores, mean/SD/quartiles between groups, etc.
+- Carlisle method, plus extension to allocation per arm between articles.
 
-## Preregistration vs. paper
 
-- Does the prereg match the paper?
-
-## SEM consistency
-
-- SEM and consistency of degrees of freedom with parameters and indicators

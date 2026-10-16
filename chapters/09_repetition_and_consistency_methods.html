@@ -380,7 +380,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/05_standardized_mean_differences_cohens_d.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Standardized Mean Differences (Cohen’s <em>d</em>) <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Understanding Standardized Mean Differences (Cohen’s <em>d</em>) <span class="badge badge-draft2">✎ Draft</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -409,7 +409,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/08_effect_size_methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Effect size methods <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Effect size methods: SMD/Cohen’s <em>d</em> <span class="badge badge-draft2">✎ Draft</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -421,7 +421,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/10_recalculation_methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Recalculation methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">(Re)calculation methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -542,13 +542,15 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#internal-consistency-of-summary-statistics" id="toc-internal-consistency-of-summary-statistics" class="nav-link active" data-scroll-target="#internal-consistency-of-summary-statistics"><span class="header-section-number">9.1</span> Internal consistency of summary statistics</a></li>
-  <li><a href="#abstract-vs.-results" id="toc-abstract-vs.-results" class="nav-link" data-scroll-target="#abstract-vs.-results"><span class="header-section-number">9.2</span> Abstract vs.&nbsp;results</a></li>
-  <li><a href="#tables-vs.-text" id="toc-tables-vs.-text" class="nav-link" data-scroll-target="#tables-vs.-text"><span class="header-section-number">9.3</span> Tables vs.&nbsp;text</a></li>
-  <li><a href="#introduction-vs.-analysis" id="toc-introduction-vs.-analysis" class="nav-link" data-scroll-target="#introduction-vs.-analysis"><span class="header-section-number">9.4</span> Introduction vs.&nbsp;analysis</a></li>
-  <li><a href="#over-representation-of-suspicious-values" id="toc-over-representation-of-suspicious-values" class="nav-link" data-scroll-target="#over-representation-of-suspicious-values"><span class="header-section-number">9.5</span> Over-representation of suspicious values</a></li>
-  <li><a href="#preregistration-vs.-paper" id="toc-preregistration-vs.-paper" class="nav-link" data-scroll-target="#preregistration-vs.-paper"><span class="header-section-number">9.6</span> Preregistration vs.&nbsp;paper</a></li>
-  <li><a href="#sem-consistency" id="toc-sem-consistency" class="nav-link" data-scroll-target="#sem-consistency"><span class="header-section-number">9.7</span> SEM consistency</a></li>
+  <li><a href="#between-documents-eg-preregistration-vs.-paper" id="toc-between-documents-eg-preregistration-vs.-paper" class="nav-link active" data-scroll-target="#between-documents-eg-preregistration-vs.-paper"><span class="header-section-number">9.1</span> Between documents, eg Preregistration vs.&nbsp;paper</a></li>
+  <li><a href="#within-document" id="toc-within-document" class="nav-link" data-scroll-target="#within-document"><span class="header-section-number">9.2</span> Within document</a>
+  <ul class="collapse">
+  <li><a href="#internal-consistency-of-summary-statistics" id="toc-internal-consistency-of-summary-statistics" class="nav-link" data-scroll-target="#internal-consistency-of-summary-statistics"><span class="header-section-number">9.2.1</span> Internal consistency of summary statistics</a></li>
+  <li><a href="#abstract-vs.-results" id="toc-abstract-vs.-results" class="nav-link" data-scroll-target="#abstract-vs.-results"><span class="header-section-number">9.2.2</span> Abstract vs.&nbsp;results</a></li>
+  <li><a href="#tables-vs.-text" id="toc-tables-vs.-text" class="nav-link" data-scroll-target="#tables-vs.-text"><span class="header-section-number">9.2.3</span> Tables vs.&nbsp;text</a></li>
+  <li><a href="#introduction-vs.-analysis" id="toc-introduction-vs.-analysis" class="nav-link" data-scroll-target="#introduction-vs.-analysis"><span class="header-section-number">9.2.4</span> Introduction vs.&nbsp;analysis</a></li>
+  </ul></li>
+  <li><a href="#overly-consistent" id="toc-overly-consistent" class="nav-link" data-scroll-target="#overly-consistent"><span class="header-section-number">9.3</span> Overly consistent</a></li>
   </ul>
 </nav>
     </div>
@@ -575,48 +577,45 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="internal-consistency-of-summary-statistics" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="internal-consistency-of-summary-statistics"><span class="header-section-number">9.1</span> Internal consistency of summary statistics</h2>
+<section id="between-documents-eg-preregistration-vs.-paper" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="between-documents-eg-preregistration-vs.-paper"><span class="header-section-number">9.1</span> Between documents, eg Preregistration vs.&nbsp;paper</h2>
 <ul>
-<li>Are M/SD/N consistent throughout the article?</li>
-<li>Are M/SD/N consistent between whole sample vs subgroups?</li>
+<li>Does the prereg match the paper? regcheck.app</li>
 </ul>
 </section>
-<section id="abstract-vs.-results" class="level2" data-number="9.2">
-<h2 data-number="9.2" class="anchored" data-anchor-id="abstract-vs.-results"><span class="header-section-number">9.2</span> Abstract vs.&nbsp;results</h2>
+<section id="within-document" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="within-document"><span class="header-section-number">9.2</span> Within document</h2>
+<section id="internal-consistency-of-summary-statistics" class="level3" data-number="9.2.1">
+<h3 data-number="9.2.1" class="anchored" data-anchor-id="internal-consistency-of-summary-statistics"><span class="header-section-number">9.2.1</span> Internal consistency of summary statistics</h3>
+<ul>
+<li>Are M/SD/N consistent throughout the article?</li>
+</ul>
+</section>
+<section id="abstract-vs.-results" class="level3" data-number="9.2.2">
+<h3 data-number="9.2.2" class="anchored" data-anchor-id="abstract-vs.-results"><span class="header-section-number">9.2.2</span> Abstract vs.&nbsp;results</h3>
 <ul>
 <li>Does the result in the abstract match the results section?</li>
 <li>Does the abstract label the preregistered analysis/primary outcome?</li>
 </ul>
 </section>
-<section id="tables-vs.-text" class="level2" data-number="9.3">
-<h2 data-number="9.3" class="anchored" data-anchor-id="tables-vs.-text"><span class="header-section-number">9.3</span> Tables vs.&nbsp;text</h2>
+<section id="tables-vs.-text" class="level3" data-number="9.2.3">
+<h3 data-number="9.2.3" class="anchored" data-anchor-id="tables-vs.-text"><span class="header-section-number">9.2.3</span> Tables vs.&nbsp;text</h3>
 <ul>
 <li>Do the tables match the text?</li>
 </ul>
 </section>
-<section id="introduction-vs.-analysis" class="level2" data-number="9.4">
-<h2 data-number="9.4" class="anchored" data-anchor-id="introduction-vs.-analysis"><span class="header-section-number">9.4</span> Introduction vs.&nbsp;analysis</h2>
+<section id="introduction-vs.-analysis" class="level3" data-number="9.2.4">
+<h3 data-number="9.2.4" class="anchored" data-anchor-id="introduction-vs.-analysis"><span class="header-section-number">9.2.4</span> Introduction vs.&nbsp;analysis</h3>
 <ul>
 <li>Does the explanans/explanandum switch between intro and analysis?</li>
 </ul>
 </section>
-<section id="over-representation-of-suspicious-values" class="level2" data-number="9.5">
-<h2 data-number="9.5" class="anchored" data-anchor-id="over-representation-of-suspicious-values"><span class="header-section-number">9.5</span> Over-representation of suspicious values</h2>
+</section>
+<section id="overly-consistent" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="overly-consistent"><span class="header-section-number">9.3</span> Overly consistent</h2>
 <ul>
 <li>Over-representation of reported round or repeated difference scores, mean/SD/quartiles between groups, etc.</li>
-</ul>
-</section>
-<section id="preregistration-vs.-paper" class="level2" data-number="9.6">
-<h2 data-number="9.6" class="anchored" data-anchor-id="preregistration-vs.-paper"><span class="header-section-number">9.6</span> Preregistration vs.&nbsp;paper</h2>
-<ul>
-<li>Does the prereg match the paper?</li>
-</ul>
-</section>
-<section id="sem-consistency" class="level2" data-number="9.7">
-<h2 data-number="9.7" class="anchored" data-anchor-id="sem-consistency"><span class="header-section-number">9.7</span> SEM consistency</h2>
-<ul>
-<li>SEM and consistency of degrees of freedom with parameters and indicators</li>
+<li>Carlisle method, plus extension to allocation per arm between articles.</li>
 </ul>
 
 
@@ -1244,13 +1243,13 @@ window.onload = function() {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/08_effect_size_methods.html" class="pagination-link" aria-label="Effect size methods [✎ Draft]{.badge .badge-draft2}">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Effect size methods <span class="badge badge-draft2">✎ Draft</span></span></span>
+      <a href="../chapters/08_effect_size_methods.html" class="pagination-link" aria-label="Effect size methods: SMD/Cohen's *d* [✎ Draft]{.badge .badge-draft2}">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Effect size methods: SMD/Cohen’s <em>d</em> <span class="badge badge-draft2">✎ Draft</span></span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/10_recalculation_methods.html" class="pagination-link" aria-label="Recalculation methods [✎ Outline]{.badge .badge-draft1}">
-        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Recalculation methods <span class="badge badge-draft1">✎ Outline</span></span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/10_recalculation_methods.html" class="pagination-link" aria-label="(Re)calculation methods [✎ Outline]{.badge .badge-draft1}">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">(Re)calculation methods <span class="badge badge-draft1">✎ Outline</span></span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

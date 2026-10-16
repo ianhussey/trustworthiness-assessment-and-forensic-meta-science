@@ -7,48 +7,708 @@ if(file.exists("../_setup.R")){source("../_setup.R")}
 
 ## Recalculating *p*-values
 
-### From test statistics
+### From test statistics {#sec-statcheck}
 
-<!-- todo: statcheck + its false positives, importance of rounding, precision -->
+What does this result mean?
 
-What does this result mean? 
+::: {style="font-size: 1.6em; text-align: center; margin: 1.5rem 0;"}
+*t*(58) = 1.46, *p* = .03
+:::
 
-[big font] t(58) = 1.46, p = .03
+For many of us, attention goes straight to the *p*-value. It is below .05, so the result is "significant", and that is often where reading stops. Researchers, reviewers, and editors pay much more attention to *p*-values than to test statistics and degrees of freedom, not least because articles are more likely to be published when their results are statistically significant [@sterling1959; @franco2014]. The *t* and its degrees of freedom tend to be read past.
 
-Notice how, for many of us, our attention is pulled towards the p value. Generally, researchers have much more interest in p values than test statistics or degrees of freedom (e.g., t and df). Articles are, unfortunately, more likely to get published when their results are statistically significant (p < .05) than not, but editors and reviewers more rarely think about test statistics and degrees of freedom. That is, some information here tends to be overlooked.
+But the *t* and the degrees of freedom are not decoration. Together, they determine the *p*-value: given *t* = 1.46 and *df* = 58, there is only one two-sided *p*-value that can follow. The *p*-value is therefore **repeated** information, because it can be recalculated from other numbers in the same sentence. And because few readers ever do this, the test statistic and degrees of freedom are **overlooked** information. These are the two ingredients of Brown's Law:
 
-The p value can be recalculated from the t and df. That is, some information here is repeated.
+::: big-quote
+[Most forensic meta-science checks rely on information that is repeated or overlooked.]{.quote}
 
-These are the two ingredients for Brown's Law, that most forensic meta-science checks rely on "information that is repeated or overlooked".
+[Brown's Law [-@brown2026]]{.citation}
+:::
 
-The {statcheck} R package and web app (statcheck.io) collects methods to recalculate many commonly reported statistical tests' p values from their test statistics and degrees of freedom. At least for psychology papers, which tend to follow the APA's statistical reporting guidelines to some degree, this lets us recalculate p values:
+Recalculating the *p*-value from the test statistic and degrees of freedom gives:
 
-“t(58) = 1.46, p = .03”    ➔   p = .19
+::: {style="font-size: 1.6em; text-align: center; margin: 1.5rem 0;"}
+*t*(58) = 1.46, *p* = .03&emsp;➔&emsp;*p* = .15
+:::
 
-In this case, the reported p value is different from the recalculated value. And by quite a lot - it changes from significant to non-significant.
+The reported *p*-value does not match the recalculated one, and not by a little: the result changes from significant to non-significant.
 
-As with all forensic meta-science checks, it's not possible to know what research process caused this inconsistency for any one case. It could be anything from a typo to someone fabricating their results (i.e., simply changing undesired non-significant p values to significant ones in their manuscript). 
+As with all forensic meta-science checks, it is not possible to know from a single inconsistency what process caused it. It could be a typo in any of the three numbers, a value copied from the wrong line of the output, a one-sided test that was not described as one-sided, a correction to the *p*-value that was applied but not reported, or someone replacing an undesired non-significant *p*-value with a significant one. What an inconsistency does tell us is that the three numbers cannot all be correct for the test that the article appears to describe.
 
-[could the math of this for the t test be given here? perhaps in one of quarto's hide/show boxes, hiding it until clicked for people who hate math]
+::: {.callout-note collapse="true"}
+## The maths: recalculating a *p*-value from *t* and *df*
 
-The prevalence of these inconsistencies is quite high in psychology articles. And, interestingly, the bias in the direction of inconsistencies is towards creating more statistically significant results. 
+Under the null hypothesis, the *t* statistic of a *t*-test follows a *t* distribution with *df* degrees of freedom. The two-sided *p*-value is the probability of a *t* at least as far from zero as the observed one, in either direction:
 
-Nuijten et al. 2016: [check numbers against manuscript, also pull out others if relevant, and pull out number of articles examined etc.]
+$$
+p = 2 \times P(T_{df} \geq |t|)
+$$
 
-- Percent of psych papers with 1+ StatCheck error: 49.6%
-- Percent of psych papers with 1+ conclusion-changing StatCheck error: 12.9%
-- Percent of p values with StatCheck errors: 9.7%
-- Percent of p values with conclusion-changing StatCheck errors: 1.4%
-- Bias in conclusion-changing StatCheck errors: 61.6% more likely to change from reported sig but non-sig recalc than reported nonsig to sig recalc.
+where $T_{df}$ is a random variable that follows the *t* distribution with *df* degrees of freedom. This probability is the area under the two tails of the distribution, beyond −|*t*| and beyond |*t*|. There is no simple closed-form expression for it, but it is easily calculated with software. In R, `pt()` gives the area to the left of a value, so the area in the upper tail is `pt(abs(t), df, lower.tail = FALSE)`, and the two-sided *p*-value is twice that:
 
-[discuss sources of false positives in statcheck discussed by Schmidt, 2016]
+```{r}
+2 * pt(abs(1.46), df = 58, lower.tail = FALSE)
+```
 
-[discuss the importance of accommodating the test statistics and degrees of freedom being rounded, ie it is not widely understood that statcheck calculates an interval of p values and checks if the reported one is inside it. could this be visualised in an interactive OJS plot?]
+A one-sided *p*-value is the area in one tail only, which for a result in the predicted direction is half the two-sided *p*-value. The *p*-values of other tests are calculated in the same way, from their own distributions: an *F* statistic with *df*~1~ and *df*~2~ degrees of freedom from the *F* distribution (`pf()`), a χ² statistic from the χ² distribution (`pchisq()`), and a *z* statistic from the standard normal distribution (`pnorm()`). A correlation *r* with *df* = *N* − 2 is first converted to a *t* statistic, $t = r \sqrt{df / (1 - r^2)}$, and then treated as a *t*.
+:::
 
-[discuss the importance of conceptually and procedurally seperating the method (math), the implementation of the method (the statcheck R package), and the tool that lets you access the method more easily (the statcheck web app)]. Confusion arises when we think of "statcheck" as a singular monolithic thing. there are distinct failure modes between them: the math of the method is provably correct, the implementation could in principle contain errors that arise under certain conditions, users of the method might employ incorrect inputs under flawed or ambiguous assumptions (e.g., setting the test to two-sided when it was one-sided, whether through user error or under reporting in the article itself), or the automated web app might fail to extract and detect the test from the pdf in the first place (parsing pdfs is notoriously hard). for this reason, the statcheck.io tool can return different results to other tools (e.g., statcheck.steveharoz.com), even when both rely on the same underlying method and implementation (i.e., same statcheck R package).]
+#### statcheck
 
+The {statcheck} R package [@nuijten2016; @nuijten2025statcheck] and the web app at [statcheck.io](https://statcheck.io) automate this. statcheck searches the text of an article for results reported in APA style, such as "*t*(58) = 1.46, *p* = .03" or "χ²(1, *N* = 226) = 6.90, *p* < .01". It currently recognises *t*, *F*, *r*, χ², *z*, and *Q* statistics. For each result it finds, it recalculates the *p*-value from the test statistic and degrees of freedom, and compares it with the reported *p*-value. Each result is then classified as consistent, as inconsistent (which statcheck calls an "error"), or as grossly inconsistent (a "decision error"): an inconsistency where the reported and recalculated *p*-values fall on opposite sides of α = .05, so that the statistical conclusion changes.
 
- 
+statcheck can also be given text directly:
+
+```{r}
+library(statcheck)
+
+res <- statcheck(c("t(58) = 1.46, p = .03", "t(28) = 2.0, p < .05"), messages = FALSE)
+
+print(res[, c("raw", "computed_p", "computed_p_lower_bound", "computed_p_upper_bound", "error", "decision_error")])
+```
+
+The first result is flagged as a decision error. The second is not flagged at all, even though its recalculated *p*-value of .055 is above .05. The reason is in the two columns of bounds, and is explained in @sec-statcheck-rounding.
+
+#### How common are inconsistent *p*-values?
+
+@nuijten2016 used statcheck to check every article published in eight major psychology journals between 1985 and 2013: 30,717 articles in total. statcheck found APA-style results in 16,695 of them (54.4%), and these articles reported 258,105 *p*-values.
+
+::: big-number
+[49.6%]{.number}
+
+[of articles (8,273 of 16,695) contained at least one inconsistent *p*-value.]{.description}
+:::
+
+::: big-number
+[12.9%]{.number}
+
+[of articles (2,150) contained at least one grossly inconsistent *p*-value.]{.description}
+:::
+
+::: big-number
+[9.7%]{.number}
+
+[of all *p*-values (24,961) were inconsistent.]{.description}
+:::
+
+::: big-number
+[1.4%]{.number}
+
+[of all *p*-values (3,581) were grossly inconsistent.]{.description}
+:::
+
+That is, around half of psychology articles that report significance tests contain at least one *p*-value that does not match its test statistic, and around one in eight contain one where the mismatch changes whether the result is significant.
+
+The inconsistencies were also not symmetric. Of all *p*-values reported as significant, 1.56% were grossly inconsistent, compared with 0.97% of those reported as non-significant. That is, a *p*-value reported as significant was about 1.6 times as likely as one reported as non-significant to be grossly inconsistent, which is what we would expect if errors that produce significant results are more likely to be made, less likely to be caught, or more likely to be published. @nuijten2016 discuss all three possibilities, and their data cannot distinguish between them.
+
+These figures are estimates, and depend on what statcheck can read. statcheck only reads results reported in full APA style in the text. When @nuijten2016 compared statcheck with a manual check of 49 articles, statcheck found 67.5% of the results that had been extracted by hand. Most of the results it missed were in tables, or had an effect size or other statistic between the test statistic and the *p*-value (e.g., "*F*(2, 70) = 4.48, *MSE* = 6.61, *p* < .02"). How common inconsistencies are among the results that statcheck does not read is unknown.
+
+#### Rounding: statcheck checks an interval, not a value {#sec-statcheck-rounding}
+
+A reported test statistic is a rounded number. When an article reports *t*(28) = 2.0, the *t* that was calculated from the data could have been anything from 1.95 to 2.05, all of which round to 2.0. These values of *t* give two-sided *p*-values from .0613 down to .0498. A reported *p* < .05 is therefore consistent with *t*(28) = 2.0, even though the *p*-value recalculated from exactly 2.0, .055, is not below .05. If rounding were ignored, perfectly correct results would be flagged as errors whenever the test statistic was reported with few decimals.
+
+It is not widely understood that statcheck accounts for this. For each result, it does not calculate a single *p*-value, but the range of *p*-values that could have produced the reported result after rounding. It takes the test statistic as reported, adds and subtracts half a unit of its last reported decimal (± 0.05 for *t* = 2.0, ± 0.005 for *t* = 1.46), and calculates the *p*-value at each end of this range. These are the bounds shown in the `computed_p_lower_bound` and `computed_p_upper_bound` columns above. Then, if the reported *p*-value is exact (e.g., *p* = .03), statcheck rounds the two bounds to the same number of decimals as the reported *p*-value and checks whether the reported value lies between them. If the reported *p*-value is an inequality (e.g., *p* < .05), it checks whether any *p*-value in the range satisfies it. Only if the reported *p*-value is incompatible with the whole range is the result flagged.
+
+The plot below shows how this works. Type a result in APA style into the box, or choose one of the examples. The upper panel shows the *p*-value as a function of the test statistic, on a logarithmic scale so that very small *p*-values can be seen. The blue dot is the recalculated *p*-value, and the orange line is the reported one; for a reported inequality, the shaded region shows the *p*-values it allows. The orange dot shows the test statistic that the reported *p*-value would require. The lower panel zooms in on the reported test statistic. Its vertical blue band shows the values of the test statistic that round to the reported value, and its horizontal blue band shows the range of *p*-values that these produce. The first button switches between two-sided and one-sided tests, and the second turns the accommodation of rounding on and off, so that you can see which results would be flagged without it. The classification follows statcheck's rules, with α = .05.
+
+```{ojs}
+//| echo: false
+viewof scText = resultInput([
+  "t(58) = 1.46, p = .03",
+  "t(28) = 2.0, p < .05",
+  "r(40) = .3, p = .03",
+  "t(40) = 1.80, p = .040",
+  "F(2, 40) = 3.50, p = .067",
+  "χ2(1, N = 226) = 6.90, p < .01"
+], "t(28) = 2.0, p < .05")
+```
+
+```{ojs}
+//| echo: false
+viewof scTwoTailed = toggleButton([{label: "Two-sided test", value: true}, {label: "One-sided test", value: false}])
+viewof scRounding = toggleButton([{label: "Rounding accounted for", value: true}, {label: "Rounding ignored", value: false}])
+```
+
+```{ojs}
+//| echo: false
+scState = {
+  const parsed = parseResult(scText)
+  if (parsed.message) return parsed
+  const {type, stat, df1, df2, statDec, pComp, pRep, pDec} = parsed
+  // t, r, and z tests can be one-sided. F and chi-squared tests are one-sided by construction
+  const sidedApplies = type === "t" || type === "r" || type === "z"
+  const twoTailed = sidedApplies ? scTwoTailed : true
+  const pOf = x => pFrom(type, x, df1, df2, twoTailed)
+  // the p-values of t, r, and z tests depend only on the size of the statistic, not its sign
+  const mag = sidedApplies ? Math.abs(stat) : stat
+  // the range of values that round to the reported test statistic, as in statcheck: plus and minus half a unit of
+  // its last reported decimal. a larger statistic gives a smaller p-value, so the upper bound of the statistic gives
+  // the lower bound of the p-value
+  const step = 1 / 10 ** statDec
+  const half = scRounding ? step / 2 : 0
+  const lowStat = Math.max(0, mag - half), upStat = type === "r" ? Math.min(1 - 1e-12, mag + half) : mag + half
+  const computed = pOf(mag), upP = pOf(lowStat), lowP = pOf(upStat)
+  // statcheck's decision rules, for a test statistic reported with "=" and alpha = .05. an exact reported p-value is
+  // compared with the bounds rounded to its own number of decimals. a p-value of exactly zero is always an error
+  const round = (x, d) => Math.round(x * 10 ** d) / 10 ** d
+  const error = pRep <= 0 ? true
+    : pComp === "=" ? pRep > round(upP, pDec) || pRep < round(lowP, pDec)
+    : pComp === "<" ? pRep < lowP
+    : pRep > upP
+  // a gross inconsistency (decision error) is an inconsistency where the reported and recalculated p-values fall on
+  // opposite sides of alpha. as in statcheck's default, a reported p = .05 counts as significant
+  const alpha = 0.05
+  const gross = error && (pComp === "=" ? (pRep <= alpha && computed > alpha) || (pRep > alpha && computed <= alpha)
+    : pComp === "<" ? pRep <= alpha && computed > alpha
+    : pRep >= alpha && computed <= alpha)
+  // the test statistic that the reported p-value would require
+  const implied = pRep > 0 && pRep < 1 ? invertP(pOf, pRep, type === "r" ? 1 - 1e-12 : null) : null
+  return {...parsed, sidedApplies, twoTailed, pOf, mag, step, half, lowStat, upStat, computed, lowP, upP, error, gross, implied}
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  if (scState.message) return html`<div style="color: var(--bs-secondary-color);">${scState.message}</div>`
+  const s = scState
+  const symbol = statSymbol(s)
+  // the horizontal axis runs from zero to beyond both the recalculated and the implied test statistic
+  const xMax = s.type === "r" ? 1 : 1.3 * Math.max(s.upStat, s.implied ?? 0, 0.5)
+  const shown = [s.lowP, s.pRep, alphaLevel].filter(p => p > 0)
+  const yMin = Math.max(1e-15, d3.min(shown) / 5)
+  const curve = d3.range(0, 301).map(i => xMax * i / 300).map(x => ({x, p: s.pOf(x)})).filter(d => d.p >= yMin)
+  return Plot.plot({
+    width, height: Math.min(340, Math.max(260, width * 0.45)), marginLeft: 60, marginRight: 20, marginBottom: 45,
+    x: {label: symbol, labelAnchor: "center", labelOffset: 38, domain: [0, xMax]},
+    y: {label: `${s.twoTailed && s.sidedApplies ? "Two-sided " : s.sidedApplies ? "One-sided " : ""}p-value`, labelAnchor: "center", type: "log", domain: [yMin, 1], grid: true, ticks: logTicks(yMin), tickFormat: formatTick},
+    style: {fontSize: "13px"},
+    marks: [
+      Plot.frame({stroke: "currentColor"}),
+      // the p-values allowed by a reported inequality
+      s.pComp === "<" && s.pRep > yMin ? Plot.rect([{}], {x1: 0, x2: xMax, y1: yMin, y2: s.pRep, fill: "#d9622b", fillOpacity: 0.1}) : null,
+      s.pComp === ">" && s.pRep < 1 ? Plot.rect([{}], {x1: 0, x2: xMax, y1: Math.max(s.pRep, yMin), y2: 1, fill: "#d9622b", fillOpacity: 0.1}) : null,
+      Plot.ruleY([alphaLevel], {stroke: "currentColor", strokeOpacity: 0.6, strokeDasharray: "2,3"}),
+      Plot.text([alphaLevel], {x: xMax, y: d => d, text: () => "α = .05", textAnchor: "end", dx: -4, dy: -7, fillOpacity: 0.7}),
+      Plot.line(curve, {x: "x", y: "p", stroke: "currentColor", strokeWidth: 1.5}),
+      s.pRep > yMin ? Plot.ruleY([s.pRep], {stroke: "#d9622b", strokeWidth: 2}) : null,
+      s.implied !== null ? Plot.dot([{x: s.implied, y: s.pRep}], {x: "x", y: "y", fill: "#d9622b", r: 5}) : null,
+      s.pRep > yMin ? Plot.text([s.pRep], {x: 0, y: d => d, text: () => `Reported p ${s.pComp} ${s.pText}`, fill: "#d9622b", fontWeight: 600, textAnchor: "start", dx: 6, dy: s.pComp === ">" ? -8 : 9}) : null,
+      Plot.ruleX([s.mag], {stroke: "#2780e3", strokeDasharray: "4,3"}),
+      s.computed >= yMin ? Plot.dot([{x: s.mag, y: s.computed}], {x: "x", y: "y", fill: "#2780e3", r: 5}) : null,
+      s.computed >= yMin ? Plot.text([{x: s.mag, y: s.computed}], {x: "x", y: "y", text: () => `Recalculated p = ${formatP(s.computed)}`, fill: "#2780e3", fontWeight: 600, textAnchor: "end", dx: -8, dy: 12}) : null
+    ]
+  })
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  if (scState.message) return html``
+  const s = scState
+  const symbol = statSymbol(s)
+  // zoomed in on the reported test statistic: one and a half units of its last reported decimal on either side
+  const xLo = Math.max(0, s.mag - 1.5 * s.step), xHi = s.type === "r" ? Math.min(1, s.mag + 1.5 * s.step) : s.mag + 1.5 * s.step
+  const curve = d3.range(0, 201).map(i => xLo + (xHi - xLo) * i / 200).map(x => ({x, p: s.pOf(x)}))
+  const [yLo, yHi] = d3.extent(curve, d => d.p)
+  const pad = (yHi - yLo) * 0.08
+  const domain = [Math.max(0, yLo - pad), yHi + pad]
+  const repInside = s.pRep >= domain[0] && s.pRep <= domain[1]
+  const where = s.pRep < domain[0] ? "below" : "above"
+  return Plot.plot({
+    width, height: Math.min(300, Math.max(240, width * 0.4)), marginLeft: 60, marginRight: 20, marginBottom: 45,
+    x: {label: `${symbol} (zoomed in on the reported value)`, labelAnchor: "center", labelOffset: 38, domain: [xLo, xHi]},
+    y: {label: "p-value", labelAnchor: "center", domain, grid: true, tickFormat: formatTick},
+    style: {fontSize: "13px"},
+    marks: [
+      Plot.frame({stroke: "currentColor"}),
+      // values of the test statistic that round to the reported value, and the p-values they produce
+      s.half > 0 ? Plot.rect([{}], {x1: s.lowStat, x2: s.upStat, y1: domain[0], y2: domain[1], fill: "#2780e3", fillOpacity: 0.12}) : null,
+      s.half > 0 ? Plot.rect([{}], {x1: xLo, x2: xHi, y1: s.lowP, y2: s.upP, fill: "#2780e3", fillOpacity: 0.12}) : null,
+      // the p-values allowed by a reported inequality, where they fall within the plot
+      s.pComp === "<" && s.pRep > domain[0] ? Plot.rect([{}], {x1: xLo, x2: xHi, y1: domain[0], y2: Math.min(s.pRep, domain[1]), fill: "#d9622b", fillOpacity: 0.1}) : null,
+      s.pComp === ">" && s.pRep < domain[1] ? Plot.rect([{}], {x1: xLo, x2: xHi, y1: Math.max(s.pRep, domain[0]), y2: domain[1], fill: "#d9622b", fillOpacity: 0.1}) : null,
+      Plot.line(curve, {x: "x", y: "p", stroke: "currentColor", strokeWidth: 1.5}),
+      Plot.ruleX([s.mag], {stroke: "#2780e3", strokeDasharray: "4,3"}),
+      Plot.dot([{x: s.mag, y: s.computed}], {x: "x", y: "y", fill: "#2780e3", r: 5}),
+      repInside ? Plot.ruleY([s.pRep], {stroke: "#d9622b", strokeWidth: 2}) : null,
+      repInside ? Plot.text([s.pRep], {x: xHi, y: d => d, text: () => `Reported p ${s.pComp} ${s.pText}`, fill: "#d9622b", fontWeight: 600, textAnchor: "end", dx: -6, dy: -8}) : null,
+      repInside ? null : Plot.text([`Reported p ${s.pComp} ${s.pText} is ${where} this range`], {frameAnchor: where === "below" ? "bottom-right" : "top-right", dx: -8, dy: where === "below" ? -8 : 8, fill: "#d9622b", fontWeight: 600})
+    ]
+  })
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  if (scState.message) return html``
+  const s = scState
+  const symbol = statSymbol(s)
+  const sided = s.sidedApplies ? (s.twoTailed ? "two-sided " : "one-sided ") : ""
+  const reported = `The reported p ${s.pComp} ${s.pText}`
+  // bounds of the test statistic, with one more decimal than reported. a correlation has no leading zero, as in APA style
+  const bound = x => s.type === "r" ? x.toFixed(s.statDec + 1).replace(/^0/, "") : x.toFixed(s.statDec + 1)
+  const range = s.half > 0
+    ? `Before rounding, ${symbol} = ${s.statText} could have been anything from ${bound(s.lowStat)} to ${bound(s.upStat)}, which gives a ${sided}p-value between ${formatP(s.lowP)} and ${formatP(s.upP)}.`
+    : `Taking ${symbol} = ${s.statText} as exact, the ${sided}p-value is ${formatP(s.computed)}.`
+  const implied = s.implied === null ? "" : ` To give ${s.pComp === "=" ? "the reported p-value" : `a p-value of ${s.pText}`}, ${symbol} would have to be about ${s.implied.toFixed(Math.max(2, s.statDec))}.`
+  const sidedNote = s.sidedApplies ? "" : ` ${s.type === "F" ? "F" : "χ²"} tests are one-sided by construction, so the first button has no effect on them.`
+  const [kind, title, detail] =
+    s.pRep <= 0 ? ["bad", "Inconsistent: a p-value cannot be exactly zero.", `statcheck counts a reported p = .000 as an error by default. It would normally be reported as p < .001. ${range}`]
+    : !s.error ? ["ok", "Consistent.", `${range} ${reported} is compatible with this.`]
+    : !s.gross ? ["warn", "Inconsistent, but the conclusion does not change.", `${range} ${reported} is not compatible with this, but both are on the same side of α = .05.${implied}`]
+    : ["bad", "Grossly inconsistent: the conclusion changes.", `${range} ${reported} is not compatible with this, and the reported and recalculated p-values are on opposite sides of α = .05.${implied}`]
+  return html`<div class="sb-feedback sb-feedback-${kind}"><strong>${title}</strong> ${detail}${sidedNote}</div>`
+}
+```
+
+```{ojs}
+//| echo: false
+// functions and styles used by the statcheck plot
+alphaLevel = 0.05
+
+function parseResult(text) {
+  // reads a result reported in APA style, e.g. "t(28) = 2.0, p < .05" or "χ2(1, N = 226) = 6.90, p < .01", and keeps
+  // the number of decimals of the test statistic and the p-value, which statcheck needs to account for rounding.
+  // returns {message} if the text cannot be read
+  const s = String(text).replace(/[−–—]/g, "-").replace(/\s+/g, " ").trim()
+  const m = s.match(/^(t|f|r|z|χ2|χ²|chi2|chi²|x2)\s*(?:\(([^)]*)\))?\s*=\s*(-?\d*\.?\d+)\s*[,;]\s*p\s*([=<>])\s*(\d*\.?\d+)$/i)
+  if (!m) return {message: "Type a result in APA style, such as t(28) = 2.0, p < .05. The test can be t, F, r, χ2, or z, and the p-value can be reported with =, <, or >."}
+  const type = {t: "t", f: "F", r: "r", z: "z"}[m[1].toLowerCase()] ?? "chi2"
+  // degrees of freedom are the plain numbers in the brackets, so that the N in "χ2(1, N = 226)" is left out
+  const dfs = (m[2] ?? "").split(",").map(x => x.trim()).filter(x => /^\d*\.?\d+$/.test(x)).map(Number)
+  const decimals = x => (x.split(".")[1] ?? "").length
+  const stat = Number(m[3]), pRep = Number(m[5])
+  const result = {type, stat, statText: m[3], statDec: decimals(m[3]), pComp: m[4], pRep, pText: m[5], pDec: decimals(m[5]), df1: NaN, df2: NaN}
+  if (type === "t" || type === "r") result.df2 = dfs[0]
+  if (type === "F") { result.df1 = dfs[0]; result.df2 = dfs[1] }
+  if (type === "chi2") result.df1 = dfs[0]
+  const needs = {t: ["df2"], r: ["df2"], F: ["df1", "df2"], chi2: ["df1"], z: []}[type]
+  if (needs.some(k => !(result[k] > 0))) return {message: type === "F" ? "An F test needs two degrees of freedom, e.g. F(2, 40) = 3.50, p = .040." : `This test needs its degrees of freedom in brackets, e.g. ${type === "chi2" ? "χ2(1)" : type + "(28)"}.`}
+  if (type === "r" && Math.abs(stat) >= 1) return {message: "A correlation has to be between −1 and 1."}
+  if ((type === "F" || type === "chi2") && stat < 0) return {message: "An F or χ2 statistic cannot be negative."}
+  if (pRep > 1) return {message: "A p-value cannot be larger than 1."}
+  return result
+}
+
+function pFrom(type, stat, df1, df2, twoTailed) {
+  // the p-value of a test statistic, by the same distributions as statcheck. t and F through the regularised
+  // incomplete beta function, chi-squared and z through the regularised upper incomplete gamma function. a z
+  // statistic squared is chi-squared with one degree of freedom. a correlation is converted to t first
+  let p
+  if (type === "t" || type === "r") {
+    const t = type === "r" ? stat * Math.sqrt(df2 / (1 - stat * stat)) : stat
+    p = betaI(df2 / (df2 + t * t), df2 / 2, 0.5)
+  }
+  else if (type === "z") p = gammaQ(0.5, stat * stat / 2)
+  else if (type === "F") p = stat <= 0 ? 1 : betaI(df2 / (df2 + df1 * stat), df2 / 2, df1 / 2)
+  else p = stat <= 0 ? 1 : gammaQ(df1 / 2, stat / 2)
+  return (type === "t" || type === "r" || type === "z") && !twoTailed ? p / 2 : p
+}
+
+function invertP(pOf, target, upper) {
+  // the test statistic whose p-value is target, by bisection: the p-value only decreases as the statistic increases
+  let lower = 0
+  if (upper === null) { upper = 1; while (pOf(upper) > target && upper < 1e6) upper *= 2 }
+  if (pOf(upper) > target) return null
+  for (let i = 0; i < 100; i++) {
+    const middle = (lower + upper) / 2
+    if (pOf(middle) > target) lower = middle; else upper = middle
+  }
+  return (lower + upper) / 2
+}
+
+function statSymbol(s) {
+  const symbol = s.type === "chi2" ? "χ²" : s.type
+  return s.stat < 0 ? `|${symbol}|` : symbol
+}
+
+function formatP(p) {
+  // four decimals, without the leading zero, as in APA style; very small values in scientific notation
+  if (p === 0) return "0"
+  return p < 0.0001 ? p.toExponential(1) : p.toFixed(4).replace(/^0/, "")
+}
+
+function logTicks(yMin) {
+  // ticks for the logarithmic p-value axis: the conventional thresholds, then every power of ten, or every second one
+  // when the axis spans many of them
+  const powers = d3.range(3, 16).map(k => 10 ** -k).filter(p => p >= yMin)
+  return [1, 0.1, 0.05, 0.01, ...(powers.length > 5 ? powers.filter((p, i) => i % 2 === 1) : powers)].filter(p => p >= yMin)
+}
+
+function formatTick(p) {
+  return p >= 0.001 ? d3.format("~g")(p).replace(/^0/, "") : d3.format(".0e")(p)
+}
+
+function resultInput(examples, initial) {
+  // a text box for a reported result, with buttons that fill it with examples. the value is stored on the wrapping
+  // div, so that it can be used with viewof
+  const input = html`<input type="text" class="form-control sc-input" spellcheck="false" aria-label="Result as reported">`
+  input.value = initial
+  const view = html`<div class="sc-result">
+    <label class="sc-label">Result as reported</label>
+    ${input}
+    <div class="sb-buttons sc-examples"><span>Examples:</span>${examples.map(e => {
+      const button = html`<button class="btn btn-quarto btn-sm">${e}</button>`
+      button.onclick = () => {
+        input.value = e
+        view.value = e
+        view.dispatchEvent(new Event("input", {bubbles: true}))
+      }
+      return button
+    })}</div>
+  </div>`
+  view.value = initial
+  // the input event bubbles up to the wrapping div after this, when the value has already been updated
+  input.oninput = () => { view.value = input.value }
+  return view
+}
+
+function toggleButton(options) {
+  // a button that switches between two options ({label, value}) each time it is clicked. it is labelled with what
+  // clicking it will change to, which is the option that is not currently in effect. the value is stored on the
+  // wrapping div, so that it can be used with viewof. starts on the first option
+  let current = 0
+  const label = () => { const next = options[(current + 1) % options.length].label; return `Change to ${next.charAt(0).toLowerCase()}${next.slice(1)}` }
+  const button = html`<button class="btn btn-quarto">${label()}</button>`
+  const view = html`<div class="sb-buttons">${button}</div>`
+  view.value = options[0].value
+  button.onclick = () => {
+    current = (current + 1) % options.length
+    button.textContent = label()
+    view.value = options[current].value
+    view.dispatchEvent(new Event("input", {bubbles: true}))
+  }
+  return view
+}
+
+function betaI(x, a, b) {
+  // regularised incomplete beta function, by continued fraction
+  if (x <= 0) return 0
+  if (x >= 1) return 1
+  const front = Math.exp(logGamma(a + b) - logGamma(a) - logGamma(b) + a * Math.log(x) + b * Math.log(1 - x))
+  const cf = (x, a, b) => {
+    let c = 1, d = 1 - (a + b) * x / (a + 1)
+    if (Math.abs(d) < 1e-300) d = 1e-300
+    d = 1 / d
+    let h = d
+    for (let m = 1; m < 500; m++) {
+      let aa = m * (b - m) * x / ((a + 2 * m - 1) * (a + 2 * m))
+      d = 1 + aa * d; if (Math.abs(d) < 1e-300) d = 1e-300
+      c = 1 + aa / c; if (Math.abs(c) < 1e-300) c = 1e-300
+      d = 1 / d
+      h *= d * c
+      aa = -(a + m) * (a + b + m) * x / ((a + 2 * m) * (a + 2 * m + 1))
+      d = 1 + aa * d; if (Math.abs(d) < 1e-300) d = 1e-300
+      c = 1 + aa / c; if (Math.abs(c) < 1e-300) c = 1e-300
+      d = 1 / d
+      const del = d * c
+      h *= del
+      if (Math.abs(del - 1) < 1e-14) break
+    }
+    return h
+  }
+  return x < (a + 1) / (a + b + 2) ? front * cf(x, a, b) / a : 1 - front * cf(1 - x, b, a) / b
+}
+
+function gammaQ(a, x) {
+  // regularised upper incomplete gamma function: series for small x, continued fraction otherwise. the upper tail is
+  // calculated directly in the continued fraction, so that very small p-values keep their precision
+  if (x <= 0) return 1
+  const front = Math.exp(-x + a * Math.log(x) - logGamma(a))
+  if (x < a + 1) {
+    let term = 1 / a, sum = term
+    for (let n = 1; n < 500; n++) { term *= x / (a + n); sum += term; if (Math.abs(term) < Math.abs(sum) * 1e-14) break }
+    return 1 - sum * front
+  }
+  let b = x + 1 - a, c = 1e300, d = 1 / b, h = d
+  for (let i = 1; i < 500; i++) {
+    const an = -i * (i - a)
+    b += 2
+    d = an * d + b; if (Math.abs(d) < 1e-300) d = 1e-300
+    c = b + an / c; if (Math.abs(c) < 1e-300) c = 1e-300
+    d = 1 / d
+    const del = d * c
+    h *= del
+    if (Math.abs(del - 1) < 1e-14) break
+  }
+  return front * h
+}
+
+function logGamma(x) {
+  // Lanczos approximation
+  const c = [76.18009172947146, -86.50532032941677, 24.01409824083091, -1.231739572450155, 0.001208650973866179, -0.000005395239384953]
+  let y = x, sum = 1.000000000190015
+  for (const cj of c) sum += cj / ++y
+  return -(x + 5.5) + (x + 0.5) * Math.log(x + 5.5) + Math.log(2.5066282746310005 * sum / x)
+}
+
+statcheckPlotStyle = html`<style>
+  .sb-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+  .sb-feedback { margin: 0.5rem 0 1.5rem; padding: 0.6rem 0.9rem; border-left: 4px solid; background: rgba(128, 128, 128, 0.08); }
+  .sb-feedback-ok { border-color: #3b9c6e; }
+  .sb-feedback-warn { border-color: #d9a02b; }
+  .sb-feedback-bad { border-color: #c0392b; }
+  .sc-label { font-weight: 600; display: block; margin-bottom: 0.25rem; }
+  .sc-input { font-size: 1.15rem; max-width: 28rem; }
+  .sc-examples { margin: 0.5rem 0 0.75rem; font-size: 0.9rem; }
+  .sc-examples .btn { font-family: var(--bs-font-monospace); }
+</style>`
+```
+
+Several things are worth trying:
+
+- The default example, *t*(28) = 2.0, *p* < .05, is consistent only because of rounding. Turn the accommodation of rounding off, and it becomes a gross inconsistency.
+- *r*(40) = .3, *p* = .03 is consistent, even though the *p*-value recalculated from exactly .3 is .054. A correlation reported to one decimal could be anything from .25 to .35, and the *p*-values of these span .11 to .02. The fewer decimals a test statistic is reported with, the wider the range of *p*-values it is consistent with, and the less the check can detect.
+- *t*(40) = 1.80, *p* = .040 is grossly inconsistent as a two-sided test, and consistent as a one-sided test. Whether it is an error depends on information that may be elsewhere in the article, or missing from it.
+- *F*(2, 40) = 3.50, *p* = .067 is grossly inconsistent, because the *p*-value of *F*(2, 40) = 3.50 is .040. But this is what a correctly reported repeated-measures ANOVA would look like if a Greenhouse-Geisser correction of ε = .60 had been applied to the *p*-value and the uncorrected degrees of freedom were reported, as was common practice. Nothing in the numbers can tell these apart. See @sec-statcheck-false-positives.
+
+statcheck only accommodates the rounding of the test statistic. The degrees of freedom are taken as reported. This rarely matters, because degrees of freedom are usually whole numbers that need no rounding. But some tests have fractional degrees of freedom, such as Welch's *t*-test and corrected repeated-measures ANOVAs. If an article reports *t*(28.53) as *t*(29), the recalculated *p*-value will be slightly off, and a result near the boundary of the check can be flagged because of it. Recent versions of statcheck also offer `robust_rounding = TRUE`, which widens the range to a whole unit of the last reported decimal either side of the test statistic, for when the rounding of the reported values is uncertain.
+
+#### Sources of false positives and false negatives {#sec-statcheck-false-positives}
+
+An inconsistency means that the reported *p*-value cannot be recalculated from the reported test statistic and degrees of freedom *under the assumptions of the check*. When those assumptions do not hold, correctly reported results can be flagged (false positives), and incorrect ones can pass (false negatives). @schmidt2017 described several of these, using statcheck's reports on two of his own articles as examples.
+
+The most important is that statcheck cannot know about corrections to the *p*-value. Many analyses correctly adjust the *p*-value after it has been calculated from the test statistic: corrections for multiple comparisons (e.g., Bonferroni or Holm), post-hoc tests (e.g., Tukey or Scheffé), and corrections for violations of sphericity in repeated-measures ANOVA (Greenhouse-Geisser or Huynh-Feldt), which multiply the degrees of freedom by a correction factor ε. In each case, the reported *p*-value is larger than the one implied by the reported test statistic and degrees of freedom, and statcheck flags it. One of Schmidt's articles reported all *F* tests with Huynh-Feldt corrected *p*-values and the uncorrected degrees of freedom. statcheck detected 86 of its 98 tests and flagged 18 of them. On checking, 4 of the 18 were real errors, and the other 14 were correctly corrected *p*-values.
+
+@nuijten2016 acknowledged this, but argued that it would rarely matter, because only 0.3% of the articles they checked contained the string "Bonferroni" and only 0.03% contained "Huynh-Feldt". Schmidt found that "Bonferroni" appeared in 7.6% of the roughly 800 articles in his own collection and "post-hoc" in 13.7%, and pointed out that the 49 articles in Nuijten et al.'s own validity check included two with Huynh-Feldt corrections, which would be very unlikely if the true rate were 0.03%. How often corrections cause false positives therefore depends heavily on the field and the type of design.
+
+The same logic produces false negatives. A result that needed a correction but was reported without one is internally consistent, and passes. So does a *p*-value that was calculated from the wrong test, from data with errors in it, or from a fabricated test statistic that was chosen to match it. statcheck checks whether three reported numbers are consistent with one another. It does not check whether the analysis was appropriate, or whether the numbers are correct. A result that passes has not been shown to be correct.
+
+Other sources of false positives include:
+
+- **One-sided tests.** A one-sided *p*-value is half the two-sided one. statcheck assumes two-sided tests unless told otherwise. The version used by @nuijten2016 searched the article for the words "one-tailed", "one-sided", and "directional", and treated a flagged result as consistent if it would have been consistent as a one-sided test. In version 1.6.2 of the package, this search is off by default (`OneTailedTxt = FALSE`). Articles also do not always say that a test was one-sided.
+- **Reported zero *p*-values.** By default, statcheck counts *p* = .000 as an error, because a *p*-value cannot be exactly zero (`pZeroError = TRUE`). This is correct, but it is a reporting convention error rather than a miscalculation, and some manual checks do not count it. In Nuijten et al.'s validity check, 11 of the 56 inconsistencies that statcheck found were reports of *p* = .000.
+- **Misread text.** statcheck reads text, and the text of an article does not always say what it looks like it says. Extracting text from PDFs can drop or alter symbols: in one of the reports that @schmidt2017 received, statcheck read a χ² statistic as a statistic named "2", and recalculated its *p*-value accordingly. Minus signs, ligatures, line breaks, and footnote markers can all cause similar problems.
+
+The lesson is that a statcheck flag is a reason to read the article more closely, not a finding in itself. Before treating an inconsistency as an error, check the original text to confirm that the numbers were extracted correctly, read the methods and the table notes for corrections and one-sided tests, and consider whether the reported *p*-value could be a correctly adjusted one.
+
+#### Method, implementation, and tool
+
+Much of the confusion about statcheck comes from treating it as one thing. "statcheck" can refer to at least three different things, and each can fail in its own way:
+
+| | What it is | How it can fail |
+|---|---|---|
+| **The method** | The maths: recalculating a *p*-value from a test statistic and its degrees of freedom, and the interval that accounts for rounding. | It cannot fail, in the sense that it is provably correct given its inputs and assumptions. But the assumptions may not hold: the test may be one-sided, the *p*-value may have been corrected, or the degrees of freedom may have been rounded. This can come from the user choosing the wrong settings, or from the article not reporting what was done. |
+| **The implementation** | The {statcheck} R package: code that applies the method, with particular defaults and decision rules. | Code can contain errors that only arise under particular conditions. Defaults and rules differ between versions, such as whether one-sided tests are searched for, whether *p* = .000 counts as an error, and whether *p* = .05 counts as significant. Results from different versions are not always comparable. |
+| **The tool** | A way of accessing the implementation more easily, such as the web app at [statcheck.io](https://statcheck.io), which extracts text from an uploaded file and passes it to the R package. | It may fail to extract the results from the file, or extract them incorrectly. Parsing PDFs is notoriously hard. Different tools that use the same R package can return different results for the same article, because they extract the text differently, such as statcheck.io and [statcheck.steveharoz.com](https://statcheck.steveharoz.com). |
+
+Keeping these apart makes it clearer what a result means and what to do next. A disagreement between two tools about the same article is usually a disagreement about extraction, not about the maths. A flag that disappears once the right assumption is applied (e.g., one-sided) is a question about the article's reporting, not about the implementation. And a flag that survives every reasonable assumption, after the numbers have been checked against the original text by hand, is a genuine inconsistency in the method's own terms. In a trustworthiness assessment, report the version of the package and the settings used, and check every flagged result by hand before drawing conclusions from it.
+
+#### Try statcheck {#sec-statcheck-app}
+
+The box below runs the {statcheck} R package itself, inside your browser, using [webR](https://docs.r-wasm.org/webr/latest/), a version of R that runs in web pages. Paste results copied from an article, one per line, and click the button. The text you paste is not sent anywhere: R runs on your own computer. The first run takes several seconds, because R and statcheck have to be downloaded, and later runs are almost instant. Lines that statcheck does not recognise as an APA-style result are listed as not recognised, which is a quick way to see the limits of its extraction for yourself.
+
+The version of statcheck that is available for webR is older than the one used by the R code earlier in this chapter, and the version that is used is shown under the table. This is itself an example of the implementation layer described above: the two versions do not offer exactly the same options (for example, the older one has no `robust_rounding` argument), and the same text could in principle get different results from them.
+
+```{ojs}
+//| echo: false
+viewof scBatch = {
+  const examples = [
+    "t(58) = 1.46, p = .03",
+    "t(28) = 2.0, p < .05",
+    "F(1, 7) = 12.19, p < .001",
+    "χ2(1, N = 226) = 6.90, p < .01",
+    "r(40) = −.30, p = .03",
+    "t(30) = 2.10, p = .000",
+    "F(2, 70) = 4.48, MSE = 6.61, p < .02"
+  ]
+  const text = html`<textarea class="form-control sc-batch" rows="8" spellcheck="false" aria-label="Results to check, one per line"></textarea>`
+  text.value = examples.join("\n")
+  const oneTailed = html`<input type="checkbox" class="form-check-input" id="sc-one-tailed">`
+  const run = html`<button class="btn btn-quarto">Run statcheck</button>`
+  const clear = html`<button class="btn btn-quarto">Clear</button>`
+  const view = html`<div>
+    <label class="sc-label">Results to check, one per line</label>
+    ${text}
+    <div class="form-check sc-option">${oneTailed}<label class="form-check-label" for="sc-one-tailed">Treat all tests as one-sided (<code>OneTailedTests = TRUE</code>)</label></div>
+    <div class="sb-buttons">${run}${clear}</div>
+  </div>`
+  // the value only changes when the button is clicked, so that statcheck is not run on every keystroke
+  view.value = {runs: 0}
+  run.onclick = () => {
+    view.value = {runs: view.value.runs + 1, text: text.value, oneTailed: oneTailed.checked}
+    view.dispatchEvent(new Event("input", {bubbles: true}))
+  }
+  clear.onclick = () => { text.value = ""; text.focus() }
+  return view
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  if (scBatch.runs === 0) {
+    yield html`<div class="sc-status">Click <strong>Run statcheck</strong> to check the results above.</div>`
+    return
+  }
+  // blank lines are left out, and each remaining line keeps its number, so that results can be matched to lines
+  const lines = scBatch.text.split(/\r?\n/).map(l => l.trim()).filter(l => l.length > 0)
+  if (lines.length === 0) {
+    yield html`<div class="sc-status">Paste at least one result into the box.</div>`
+    return
+  }
+  yield html`<div class="sc-status"><span class="spinner-border spinner-border-sm" role="status"></span> ${statcheckR.started() ? "Running statcheck…" : "Starting R in your browser and installing statcheck. This takes several seconds the first time…"}</div>`
+  yield runStatcheck(lines, scBatch.oneTailed).then(statcheckTable, e => html`<div class="sb-feedback sb-feedback-bad"><strong>Something went wrong.</strong> ${e.message}</div>`)
+}
+```
+
+```{ojs}
+//| echo: false
+// functions and styles used by the statcheck app
+
+// webR, a version of R compiled to WebAssembly, is only downloaded and started the first time it is needed, and is
+// then shared by the statcheck app and the SMD calculator. each R package is installed the first time it is needed.
+// the webR version is pinned, so that the versions of R and of the packages do not change unnoticed
+webrVersion = "0.6.0"
+
+webRSession = {
+  let session = null
+  const packages = new Map()
+  const startR = async () => {
+    const {WebR} = await import(`https://webr.r-wasm.org/v${webrVersion}/webr.mjs`)
+    const webR = new WebR()
+    await webR.init()
+    return {webR, rVersion: await webR.evalRString("R.version.string")}
+  }
+  // if starting R or installing a package fails, the next click tries again
+  const getR = () => session ??= startR().catch(e => { session = null; throw e })
+  const install = async pkg => {
+    const {webR, rVersion} = await getR()
+    await webR.installPackages([pkg], {quiet: true})
+    await webR.evalRVoid(`suppressPackageStartupMessages(library(${pkg}))`)
+    return {webR, rVersion, version: await webR.evalRString(`as.character(packageVersion("${pkg}"))`)}
+  }
+  return {
+    // whether a package has been requested, so that the first, slower run can say what it is doing
+    started: pkg => packages.has(pkg),
+    load: pkg => {
+      if (!packages.has(pkg)) packages.set(pkg, install(pkg).catch(e => { packages.delete(pkg); throw e }))
+      return packages.get(pkg)
+    }
+  }
+}
+
+statcheckR = ({
+  started: () => webRSession.started("statcheck"),
+  get: () => webRSession.load("statcheck").then(({webR, rVersion, version}) =>
+    ({webR, rVersion, statcheckVersion: version, version: `statcheck ${version}, ${rVersion}, running in webR ${webrVersion}`}))
+})
+
+async function runStatcheck(lines, oneTailed) {
+  const {webR, ...versions} = await statcheckR.get()
+  const shelter = await new webR.Shelter()
+  try {
+    // the lines are passed to R as a character vector, never pasted into the code, and named by their line number
+    // so that each result statcheck returns can be matched to the line it came from
+    const res = await shelter.evalR(`
+      names(lines) <- seq_along(lines)
+      res <- statcheck(lines, OneTailedTests = one_tailed, messages = FALSE)
+      if (is.null(res)) data.frame() else as.data.frame(res)
+    `, {env: {lines, one_tailed: oneTailed}})
+    const rows = await res.toD3()
+    return {lines, rows, oneTailed, runAt: new Date(), ...versions}
+  } finally {
+    shelter.purge()
+  }
+}
+
+function statcheckTable(run) {
+  const {lines, rows, version, oneTailed} = run
+  // one row per result found, and one per line in which statcheck found no result
+  const verdict = r => r.error === null ? ["Could not check", "na"]
+    : r.decision_error ? ["Grossly inconsistent", "bad"]
+    : r.error ? ["Inconsistent", "warn"]
+    : ["Consistent", "ok"]
+  const comparison = r => r.p_comp === "ns" ? "ns" : `p ${r.p_comp} ${formatReported(r)}`
+  const body = lines.flatMap((line, i) => {
+    const found = rows.filter(r => r.source === String(i + 1))
+    if (found.length === 0) return [html`<tr class="sc-row-none"><td>${i + 1}</td><td>${line}</td><td></td><td></td><td>Not recognised</td></tr>`]
+    return found.map(r => {
+      const [label, kind] = verdict(r)
+      return html`<tr><td>${i + 1}</td><td>${r.raw}</td><td>${comparison(r)}</td><td>${r.computed_p === null ? "" : formatP(r.computed_p)}</td><td><span class="sc-verdict sc-verdict-${kind}">${label}</span></td></tr>`
+    })
+  })
+  const counts = d3.rollup(rows, v => v.length, r => verdict(r)[0])
+  const summary = ["Consistent", "Inconsistent", "Grossly inconsistent"].map(k => `${counts.get(k) ?? 0} ${k.toLowerCase()}`).join(", ")
+  const unread = lines.filter((l, i) => !rows.some(r => r.source === String(i + 1))).length
+  return html`<div>
+    <div class="table-responsive"><table class="table table-sm sc-table">
+      <thead><tr><th>Line</th><th>Result as read by statcheck</th><th>Reported</th><th>Recalculated <em>p</em></th><th>Verdict</th></tr></thead>
+      <tbody>${body}</tbody>
+    </table></div>
+    <div class="sc-status">${rows.length} result${rows.length === 1 ? "" : "s"} found: ${summary}.${unread > 0 ? ` ${unread} line${unread === 1 ? " was" : "s were"} not recognised.` : ""} Tests treated as ${oneTailed ? "one-sided" : "two-sided"}, with α = .05. ${version}.</div>
+    <div class="sb-buttons sc-download">${downloadButton(run, verdict)}</div>
+  </div>`
+}
+
+function downloadButton(run, verdict) {
+  // a button that saves the inputs, statcheck's output, and the versions used as a CSV file. one row per result found,
+  // and one per line in which statcheck found no result, in the same order as the table
+  const {lines, rows, oneTailed, runAt, statcheckVersion, rVersion} = run
+  const columns = ["line", "input", "raw", "test_type", "df1", "df2", "test_comp", "test_value", "p_comp", "reported_p", "computed_p", "error", "decision_error", "verdict",
+    "one_tailed_tests", "alpha", "statcheck_version", "r_version", "webr_version", "run_at"]
+  const settings = {one_tailed_tests: oneTailed, alpha: 0.05, statcheck_version: statcheckVersion, r_version: rVersion, webr_version: webrVersion, run_at: runAt.toISOString()}
+  const records = lines.flatMap((line, i) => {
+    const found = rows.filter(r => r.source === String(i + 1))
+    if (found.length === 0) return [{line: i + 1, input: line, verdict: "Not recognised", ...settings}]
+    // the reported p-value is kept as it was written, so that its decimals are not lost
+    return found.map(r => ({...r, line: i + 1, input: line, reported_p: r.p_comp === "ns" ? "" : formatReported(r), verdict: verdict(r)[0], ...settings}))
+  })
+  return csvDownloadButton(columns, records, "statcheck_results", runAt)
+}
+
+function csvDownloadButton(columns, records, prefix, runAt) {
+  // a button that saves records (objects with the given columns) as a CSV file, named after the prefix and the local
+  // date and time of the run, e.g. statcheck_results_2026-10-16_14-05-09.csv
+  const cell = x => {
+    if (x === null || x === undefined) return ""
+    const text = typeof x === "boolean" ? (x ? "TRUE" : "FALSE") : String(x)
+    return /[",\n\r]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text
+  }
+  const csv = [columns.join(","), ...records.map(r => columns.map(c => cell(r[c])).join(","))].join("\r\n")
+  const pad = n => String(n).padStart(2, "0")
+  const d = runAt
+  const name = `${prefix}_${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}_${pad(d.getHours())}-${pad(d.getMinutes())}-${pad(d.getSeconds())}.csv`
+  const button = html`<button class="btn btn-quarto">Download results as CSV</button>`
+  button.onclick = () => {
+    // the byte order mark lets spreadsheet programs read symbols such as χ and − correctly
+    const url = URL.createObjectURL(new Blob(["\ufeff" + csv], {type: "text/csv;charset=utf-8"}))
+    const link = html`<a href="${url}" download="${name}"></a>`
+    document.body.append(link)
+    link.click()
+    link.remove()
+    setTimeout(() => URL.revokeObjectURL(url), 1000)
+  }
+  return button
+}
+
+function formatReported(r) {
+  // the reported p-value as it was written, so that its decimals are kept (statcheck returns it as a number, in which
+  // .000 becomes 0 and .040 becomes 0.04). falls back to the number, without its leading zero
+  const written = r.raw.match(/p\s*[=<>]\s*(0?\.\d+|\d+(?:\.\d+)?)\s*$/i)
+  return written ? written[1] : String(r.reported_p).replace(/^0\./, ".")
+}
+
+statcheckAppStyle = html`<style>
+  .sc-batch { font-family: var(--bs-font-monospace); font-size: 0.9rem; }
+  .sc-option { margin: 0.5rem 0; }
+  .sc-download { margin-bottom: 1.5rem; }
+  .sc-status { margin: 0.75rem 0 1.5rem; color: var(--bs-secondary-color); font-size: 0.9rem; }
+  .sc-table { font-size: 0.9rem; margin-top: 0.75rem; }
+  .sc-table td:nth-child(2) { font-family: var(--bs-font-monospace); font-size: 0.85rem; }
+  .sc-row-none td { color: var(--bs-secondary-color); }
+  .sc-verdict { display: inline-block; padding: 0.1rem 0.5rem; border-left: 4px solid; background: rgba(128, 128, 128, 0.08); white-space: nowrap; }
+  .sc-verdict-ok { border-color: #3b9c6e; }
+  .sc-verdict-warn { border-color: #d9a02b; }
+  .sc-verdict-bad { border-color: #c0392b; }
+  .sc-verdict-na { border-color: #8a8a8a; }
+</style>`
+```
+
+Several of the default examples are worth a closer look. *F*(1, 7) = 12.19, *p* < .001 is one of the results that @schmidt2017 reported was flagged in his own article. It is inconsistent, because its *p*-value is .010, but it does not change the conclusion. *r*(40) = −.30, *p* = .03 is grossly inconsistent, whereas *r*(40) = .3, *p* = .03 in the plot above was consistent: the second decimal narrows the range of possible *p*-values enough to exclude .03. And the last example, which has an *MSE* between the test statistic and the *p*-value, is not recognised at all.
 
 ### From summary statistics
 
@@ -58,11 +718,263 @@ recalc, importance of rounding, precision
 
 ### SMD
 
-- Cohen's *d* and its CIs from summary stats: recalc, importance of rounding, analytic choices, (adding) CIs, precision, SE/SD confusion checks
-  - Simple versions without analytic choices, rounding, etc as a meta-analysis would do it, to check feasibility rather than recalc against reported value
-- Cohen's *d* and its CIs from t and df
+#### From summary statistics {#sec-recalc-smd-escalc}
+
+Many articles report each group's mean, *SD*, and sample size, but either report no standardised effect size or report one whose calculation cannot be traced. In either case, we can calculate the standardised mean difference ourselves. The aim here is modest. It is not to reproduce the reported effect size to the second decimal, but to find out roughly how large an effect the reported summary statistics imply, so that its plausibility can be assessed (@sec-d-prediction-intervals, @sec-cohens-d-bounded). This is exactly the calculation that a meta-analyst does for every study they include, and the same tool can be used for it.
+
+The `escalc()` function from the {metafor} R package [@viechtbauer2010] calculates effect sizes and their sampling variances from the kinds of summary statistics that articles report. Take the anxiety example from @sec-se-sd-checks: on a 0–40 scale, the intervention group had *M* = 14.2 ± 0.9 (*n* = 64) and the control group *M* = 17.1 ± 1.0 (*n* = 64), and the article did not say what the values after ± were. Treating them as *SD*s:
+
+```{r}
+#| message: false
+library(metafor)
+
+res <- escalc(measure = "SMD",
+              m1i = 14.2, sd1i = 0.9, n1i = 64,  # intervention
+              m2i = 17.1, sd2i = 1.0, n2i = 64)  # control
+
+print(summary(res))
+```
+
+`yi` is the standardised mean difference and `vi` is its sampling variance. `summary()` adds its standard error (`sei`), a *z*-test against zero (`zi` and `pval`), and a 95% confidence interval (`ci.lb` and `ci.ub`). A few details of what `escalc()` calculates are worth knowing:
+
+- **The difference is group 1 minus group 2.** Here, the intervention group's mean is lower, so the effect is negative.
+- **`measure = "SMD"` gives Hedges' *g*, not Cohen's *d*.** That is, the mean difference divided by the pooled *SD*, multiplied by a correction for the small-sample bias of Cohen's *d* [@hedges1981]. With 64 participants per group the correction is small (Cohen's *d* is −3.05, which is the value the meta-analysis in @sec-se-sd-checks reported). With `correct = FALSE`, `escalc()` returns Cohen's *d* instead.
+- **The confidence interval is a large-sample approximation**, the estimate ± 1.96 standard errors. It is slightly different from the exact interval based on the noncentral *t* distribution, which is used in the Cohen's *d* explorer (@sec-cohens-d-builder), particularly in small samples.
+
+::: callout-important
+## `escalc()` takes the numbers as exact
+
+`escalc()` treats the means and *SD*s it is given as exact values. It does not know that they were rounded before they were reported. Unlike statcheck (@sec-statcheck-rounding), it makes no allowance for rounding, and it should not be used to decide whether a reported effect size is consistent with the reported summary statistics.
+
+Rounding can matter more than might be expected. *M* = 14.2 could have been anything from 14.15 to 14.25, and *SD* = 0.9 anything from 0.85 to 0.95. Across all the values that round to the four reported statistics in the example, Hedges' *g* ranges from about −2.78 to −3.31. A reported effect size that differs from the `escalc()` result by more than a rounding error might still be correct, too, because the authors may have made different analytic choices: standardising by the control group's *SD* instead of the pooled *SD* (Glass's Δ), reporting *d* instead of *g*, using change scores or covariate-adjusted means, or accounting for clustering.
+
+So use `escalc()` as a simple calculator, in the way that a meta-analysis does: to get an approximate effect size from the summary statistics, which is then checked for plausibility. A small discrepancy between its result and a reported effect size is not evidence of an error.
+:::
+
+Approximate as it is, this is enough to see that something is wrong in the example. A Hedges' *g* of −3.03, with a confidence interval that excludes anything smaller than −2.5, in a study with 64 participants per group, is far outside the range that sampling error can produce unless the true effect is itself enormous (@sec-d-prediction-intervals). The *SD*s are also implausibly small: *SD*s of about 1 on a 0–40 scale would mean that nearly everyone in each group scored within a few points of their group's mean. Both point to the values after ± being standard errors rather than *SD*s. Multiplying them by $\sqrt{64} = 8$ converts them to *SD*s (@sec-se-sd-checks), and recalculating with these gives a much more ordinary result:
+
+```{r}
+res_se <- escalc(measure = "SMD",
+                 m1i = 14.2, sd1i = 0.9 * sqrt(64), n1i = 64,
+                 m2i = 17.1, sd2i = 1.0 * sqrt(64), n2i = 64)
+
+print(summary(res_se))
+```
+
+`escalc()` can also calculate effect sizes for many studies at once, from a data frame with one row per study. This is how it is normally used in a meta-analysis, and it is a quick way to screen a set of studies, such as those included in a published meta-analysis, for effect sizes that deserve a closer look. The four studies below are hypothetical, and the third is the anxiety example:
+
+```{r}
+studies <- data.frame(
+  study = c("A", "B", "C", "D"),
+  m1  = c(22.1, 3.8, 14.2, 3.6),  sd1 = c(5.2, 1.1, 0.9, 1.2),  n1 = c(40, 25, 64, 10),
+  m2  = c(24.3, 4.4, 17.1, 4.9),  sd2 = c(5.5, 1.2, 1.0, 1.3),  n2 = c(41, 25, 64, 10)
+)
+
+studies <- escalc(measure = "SMD",
+                  m1i = m1, sd1i = sd1, n1i = n1,
+                  m2i = m2, sd2i = sd2, n2i = n2,
+                  data = studies, slab = study)
+
+print(summary(studies)[, c("study", "yi", "ci.lb", "ci.ub")])
+```
+
+Study D has the second-largest effect, but it also has only 10 participants per group and a confidence interval that runs from about −1.9 to −0.1. An effect of this size in a study this small is unremarkable (@sec-d-prediction-intervals). Study C is the one that stands out: it is one of the larger studies, and yet its effect is several times larger than the others', with a confidence interval that does not overlap theirs. This is the signature of standard errors mistaken for standard deviations, which inflates effect sizes most in the largest studies (@sec-se-sd-confusion).
+
+#### SMD calculator {#sec-smd-calculator}
+
+The calculator below runs `escalc()` from {metafor} in your browser, using webR in the same way as the statcheck app (@sec-statcheck-app). Enter each study's means, *SD*s, and sample sizes, one study per row, and click the button. You can also paste a block of cells copied from a spreadsheet or a table into any cell, and it fills the grid from that cell onwards, adding rows as needed. The difference is group 1 minus group 2, so put the intervention or experimental group first. The results are shown as a table and as a plot of each study's effect size and its 95% confidence interval, and can be downloaded as a CSV file. The starting values are the four studies above.
+
+As in the R code above, the calculator takes the values it is given as exact, and makes no allowance for rounding. Use it to estimate effect sizes for assessing their plausibility, not to decide whether a reported effect size is consistent with the reported summary statistics. The version of {metafor} that is available for webR, which is shown under the table, is not necessarily the same as the one used by the R code above.
+
+```{ojs}
+//| echo: false
+viewof smdInput = {
+  const fields = [["study", "Study"], ["m1", "Group 1 mean"], ["sd1", "Group 1 SD"], ["n1", "Group 1 n"], ["m2", "Group 2 mean"], ["sd2", "Group 2 SD"], ["n2", "Group 2 n"]]
+  const starting = [["A", 22.1, 5.2, 40, 24.3, 5.5, 41], ["B", 3.8, 1.1, 25, 4.4, 1.2, 25], ["C", 14.2, 0.9, 64, 17.1, 1.0, 64], ["D", 3.6, 1.2, 10, 4.9, 1.3, 10]]
+  const body = html`<tbody></tbody>`
+  const addRow = (values = []) => {
+    const tr = html`<tr></tr>`
+    tr.inputs = fields.map(([key, label], j) => {
+      const input = html`<input type="text" class="form-control form-control-sm" inputmode="${j === 0 ? "text" : "decimal"}" aria-label="${label}">`
+      input.value = values[j] ?? ""
+      input.onpaste = e => paste(e, tr, j)
+      return input
+    })
+    const remove = html`<button class="btn btn-sm smd-remove" title="Remove this row" aria-label="Remove this row">×</button>`
+    remove.onclick = () => { tr.remove(); if (body.children.length === 0) addRow() }
+    tr.append(...tr.inputs.map(input => html`<td>${input}</td>`), html`<td>${remove}</td>`)
+    body.append(tr)
+    return tr
+  }
+  // a block of cells copied from a spreadsheet (tab-separated) or typed as comma-separated values fills the grid
+  // from the cell it was pasted into, adding rows as needed. a single value is pasted as normal
+  const paste = (e, tr, j) => {
+    const text = e.clipboardData.getData("text").replace(/\r/g, "").replace(/\n+$/, "")
+    if (!/[\t\n,]/.test(text)) return
+    e.preventDefault()
+    let row = tr
+    for (const line of text.split("\n")) {
+      const cells = line.split(line.includes("\t") ? "\t" : ",")
+      cells.forEach((cell, k) => { if (j + k < fields.length) row.inputs[j + k].value = cell.trim() })
+      row = row.nextElementSibling ?? addRow()
+    }
+    // a trailing empty row that was only added for the next line is removed again
+    if (row !== tr && row.inputs.every(input => input.value === "") && row.previousElementSibling) row.remove()
+  }
+  starting.forEach(values => addRow(values))
+  const measure = html`<select class="form-select form-select-sm smd-measure" aria-label="Effect size">
+    <option value="g">Cohen's d with Hedges' correction</option>
+    <option value="d">Cohen's d without Hedges' correction</option>
+  </select>`
+  const add = html`<button class="btn btn-quarto">Add row</button>`
+  const clear = html`<button class="btn btn-quarto">Clear all</button>`
+  const run = html`<button class="btn btn-quarto">Calculate SMDs</button>`
+  add.onclick = () => addRow().inputs[0].focus()
+  clear.onclick = () => { body.replaceChildren(); addRow().inputs[0].focus() }
+  const view = html`<div>
+    <div class="table-responsive"><table class="table table-sm smd-grid">
+      <thead>
+        <tr><th rowspan="2">Study</th><th colspan="3">Group 1 (e.g., intervention)</th><th colspan="3">Group 2 (e.g., control)</th><th rowspan="2"></th></tr>
+        <tr><th><em>M</em></th><th><em>SD</em></th><th><em>n</em></th><th><em>M</em></th><th><em>SD</em></th><th><em>n</em></th></tr>
+      </thead>
+      ${body}
+    </table></div>
+    <div class="smd-controls"><label class="sc-label">Effect size</label>${measure}</div>
+    <div class="sb-buttons">${add}${clear}${run}</div>
+  </div>`
+  // the value only changes when the calculate button is clicked
+  view.value = {runs: 0}
+  run.onclick = () => {
+    const rows = [...body.children].map(tr => Object.fromEntries(fields.map(([key], j) => [key, tr.inputs[j].value.trim()])))
+    view.value = {runs: view.value.runs + 1, rows, correct: measure.value === "g"}
+    view.dispatchEvent(new Event("input", {bubbles: true}))
+  }
+  return view
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  if (smdInput.runs === 0) {
+    yield html`<div class="sc-status">Click <strong>Calculate SMDs</strong> to calculate the effect sizes for the studies above.</div>`
+    return
+  }
+  const rows = smdChecked(smdInput.rows)
+  if (!rows.some(r => r.valid)) {
+    yield html`<div class="sc-status">Enter the means, <em>SD</em>s, and sample sizes of at least one study.</div>`
+    return
+  }
+  yield html`<div class="sc-status"><span class="spinner-border spinner-border-sm" role="status"></span> ${webRSession.started("metafor") ? "Calculating…" : "Starting R in your browser and installing metafor. This takes several seconds the first time…"}</div>`
+  yield runEscalc(rows, smdInput.correct).then(smdResults, e => html`<div class="sb-feedback sb-feedback-bad"><strong>Something went wrong.</strong> ${e.message}</div>`)
+}
+```
+
+```{ojs}
+//| echo: false
+// functions and styles used by the SMD calculator
+
+function smdChecked(rows) {
+  // reads the values in each row of the grid. rows that are entirely empty are left out. a row is only sent to R if all
+  // six values are numbers, both SDs are above zero, and both sample sizes are whole numbers of at least 2
+  return rows.map((r, i) => ({...r, row: i + 1}))
+    .filter(r => Object.values(r).some(v => v !== "" && typeof v === "string"))
+    .map(r => {
+      const values = Object.fromEntries(["m1", "sd1", "n1", "m2", "sd2", "n2"].map(k => [k, r[k] === "" ? NaN : Number(r[k])]))
+      const problem = Object.values(values).some(v => !Number.isFinite(v)) ? "Missing or non-numeric values"
+        : values.sd1 <= 0 || values.sd2 <= 0 ? "SDs must be above zero"
+        : !Number.isInteger(values.n1) || !Number.isInteger(values.n2) || values.n1 < 2 || values.n2 < 2 ? "Sample sizes must be whole numbers of at least 2"
+        : null
+      return {...r, ...values, study: r.study || `Row ${r.row}`, valid: problem === null, problem}
+    })
+}
+
+async function runEscalc(rows, correct) {
+  const {webR, rVersion, version} = await webRSession.load("metafor")
+  const valid = rows.filter(r => r.valid)
+  const shelter = await new webR.Shelter()
+  try {
+    // the values are passed to R as numeric vectors, never pasted into the code
+    const col = k => valid.map(r => r[k])
+    const res = await shelter.evalR(`
+      es <- summary(escalc(measure = "SMD", m1i = m1, sd1i = sd1, n1i = n1, m2i = m2, sd2i = sd2, n2i = n2, correct = correct))
+      data.frame(yi = as.numeric(es$yi), vi = as.numeric(es$vi), sei = es$sei, ci.lb = es$ci.lb, ci.ub = es$ci.ub)
+    `, {env: {m1: col("m1"), sd1: col("sd1"), n1: col("n1"), m2: col("m2"), sd2: col("sd2"), n2: col("n2"), correct}})
+    const out = await res.toD3()
+    valid.forEach((r, i) => Object.assign(r, out[i]))
+    return {rows, correct, runAt: new Date(), metaforVersion: version, rVersion}
+  } finally {
+    shelter.purge()
+  }
+}
+
+function smdResults(run) {
+  const {rows, correct, metaforVersion, rVersion} = run
+  const name = correct ? "Cohen's d with Hedges' correction" : "Cohen's d without Hedges' correction"
+  const valid = rows.filter(r => r.valid)
+  const f2 = x => x.toFixed(2).replace("-", "−")
+  // labels for the plot: the study names, with the row number added where two rows have the same name
+  const counts = d3.rollup(valid, v => v.length, r => r.study)
+  valid.forEach(r => { r.label = counts.get(r.study) > 1 ? `${r.study} (row ${r.row})` : r.study })
+  const extent = d3.extent([0, ...valid.flatMap(r => [r["ci.lb"], r["ci.ub"]])])
+  const plot = Plot.plot({
+    width, height: 70 + 34 * valid.length, marginLeft: Math.min(200, 20 + 7 * d3.max(valid, r => r.label.length)), marginRight: 20, marginBottom: 45,
+    x: {label: `${name}, with 95% CI`, labelAnchor: "center", labelOffset: 38, grid: true, nice: true, domain: extent},
+    y: {label: null, domain: valid.map(r => r.label), padding: 0.5, tickSize: 0},
+    style: {fontSize: "13px"},
+    marks: [
+      Plot.ruleX([0], {stroke: "currentColor", strokeDasharray: "4,3", strokeOpacity: 0.6}),
+      Plot.link(valid, {x1: "ci.lb", x2: "ci.ub", y1: "label", y2: "label", stroke: "#2780e3", strokeWidth: 2.5}),
+      // marker area in proportion to the total sample size, as in a forest plot
+      Plot.dot(valid, {x: "yi", y: "label", fill: "#2780e3", symbol: "square", r: r => 3 + 5 * Math.sqrt((r.n1 + r.n2) / d3.max(valid, v => v.n1 + v.n2))})
+    ]
+  })
+  const body = rows.map(r => r.valid
+    ? html`<tr><td>${r.row}</td><td>${r.study}</td><td>${r.n1}</td><td>${r.n2}</td><td>${f2(r.yi)}</td><td>${r.sei.toFixed(3)}</td><td>[${f2(r["ci.lb"])}, ${f2(r["ci.ub"])}]</td></tr>`
+    : html`<tr class="sc-row-none"><td>${r.row}</td><td>${r.study}</td><td colspan="5">Not calculated: ${r.problem}</td></tr>`)
+  return html`<div>
+    <div class="table-responsive"><table class="table table-sm smd-table">
+      <thead><tr><th>Row</th><th>Study</th><th><em>n</em><sub>1</sub></th><th><em>n</em><sub>2</sub></th><th><em>d</em></th><th><em>SE</em></th><th>95% CI</th></tr></thead>
+      <tbody>${body}</tbody>
+    </table></div>
+    ${plot}
+    <div class="sc-status">${name} for group 1 minus group 2, calculated by <code>escalc(measure = "SMD"${correct ? "" : ", correct = FALSE"})</code> with metafor ${metaforVersion}, ${rVersion}, running in webR ${webrVersion}. The confidence intervals are the estimate ± 1.96 standard errors. The values were taken as exact, with no allowance for rounding.</div>
+    <div class="sb-buttons sc-download">${smdDownloadButton(run)}</div>
+  </div>`
+}
+
+function smdDownloadButton(run) {
+  // the inputs, escalc's output, and the versions used, one row per row of the grid that was not empty
+  const {rows, correct, runAt, metaforVersion, rVersion} = run
+  const columns = ["row", "study", "m1", "sd1", "n1", "m2", "sd2", "n2", "measure", "yi", "vi", "sei", "ci_lb", "ci_ub", "status",
+    "metafor_version", "r_version", "webr_version", "run_at"]
+  const settings = {measure: correct ? "Cohen's d with Hedges' correction (escalc measure = SMD)" : "Cohen's d without Hedges' correction (escalc measure = SMD, correct = FALSE)", metafor_version: metaforVersion, r_version: rVersion, webr_version: webrVersion, run_at: runAt.toISOString()}
+  const records = rows.map(r => r.valid
+    ? {...r, ci_lb: r["ci.lb"], ci_ub: r["ci.ub"], status: "Calculated", ...settings}
+    // rows that were not calculated keep the values as they were entered
+    : {...r, ...Object.fromEntries(["m1", "sd1", "n1", "m2", "sd2", "n2"].map(k => [k, Number.isFinite(r[k]) ? r[k] : ""])), status: `Not calculated: ${r.problem}`, ...settings})
+  return csvDownloadButton(columns, records, "smd_results", runAt)
+}
+
+smdCalculatorStyle = html`<style>
+  .smd-grid { font-size: 0.9rem; margin-bottom: 0.5rem; }
+  .smd-grid th { text-align: center; font-weight: 600; border-bottom-width: 1px; }
+  .smd-grid td { padding: 0.15rem; }
+  .smd-grid td:first-child input { min-width: 6rem; }
+  .smd-grid input { min-width: 4rem; text-align: right; background: transparent; color: inherit; }
+  .smd-grid td:first-child input { text-align: left; }
+  .smd-remove { line-height: 1; padding: 0.2rem 0.5rem; color: var(--bs-secondary-color); }
+  .smd-controls { margin: 0.5rem 0 0.75rem; max-width: 24rem; }
+  .smd-table { font-size: 0.9rem; margin-top: 0.75rem; }
+  .smd-table td:nth-child(n+3), .smd-table th:nth-child(n+3) { text-align: right; }
+  .smd-table .sc-row-none td { text-align: left; }
+</style>`
+```
+
+- Recalculating Cohen's *d* and its CIs from summary statistics while accounting for rounding, to check a reported value against the reported summary statistics
+- Cohen's *d* and its CIs from *t* and *df*
   - within subjects: bounds under partial information
-  
+
 ### ORs from cell counts
 
 for things like baseline tables, but also serious adverse events

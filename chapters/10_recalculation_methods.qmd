@@ -1,4 +1,4 @@
-# Recalculation methods [✎ Outline]{.badge .badge-draft1} {#sec-recalculation}
+# (Re)calculation methods [✎ Outline]{.badge .badge-draft1} {#sec-recalculation}
 
 ```{r}
 #| include: false
@@ -7,25 +7,127 @@ if(file.exists("../_setup.R")){source("../_setup.R")}
 
 ## Recalculating *p*-values
 
-- From test statistics: statcheck + its false positives
-- From summary statistics; accounting for rounding
+### From test statistics
+
+<!-- todo: statcheck + its false positives, importance of rounding, precision -->
+
+What does this result mean? 
+
+[big font] t(58) = 1.46, p = .03
+
+Notice how, for many of us, our attention is pulled towards the p value. Generally, researchers have much more interest in p values than test statistics or degrees of freedom (e.g., t and df). Articles are, unfortunately, more likely to get published when their results are statistically significant (p < .05) than not, but editors and reviewers more rarely think about test statistics and degrees of freedom. That is, some information here tends to be overlooked.
+
+The p value can be recalculated from the t and df. That is, some information here is repeated.
+
+These are the two ingredients for Brown's Law, that most forensic meta-science checks rely on "information that is repeated or overlooked".
+
+The {statcheck} R package and web app (statcheck.io) collects methods to recalculate many commonly reported statistical tests' p values from their test statistics and degrees of freedom. At least for psychology papers, which tend to follow the APA's statistical reporting guidelines to some degree, this lets us recalculate p values:
+
+“t(58) = 1.46, p = .03”    ➔   p = .19
+
+In this case, the reported p value is different from the recalculated value. And by quite a lot - it changes from significant to non-significant.
+
+As with all forensic meta-science checks, it's not possible to know what research process caused this inconsistency for any one case. It could be anything from a typo to someone fabricating their results (i.e., simply changing undesired non-significant p values to significant ones in their manuscript). 
+
+[could the math of this for the t test be given here? perhaps in one of quarto's hide/show boxes, hiding it until clicked for people who hate math]
+
+The prevalence of these inconsistencies is quite high in psychology articles. And, interestingly, the bias in the direction of inconsistencies is towards creating more statistically significant results. 
+
+Nuijten et al. 2016: [check numbers against manuscript, also pull out others if relevant, and pull out number of articles examined etc.]
+
+- Percent of psych papers with 1+ StatCheck error: 49.6%
+- Percent of psych papers with 1+ conclusion-changing StatCheck error: 12.9%
+- Percent of p values with StatCheck errors: 9.7%
+- Percent of p values with conclusion-changing StatCheck errors: 1.4%
+- Bias in conclusion-changing StatCheck errors: 61.6% more likely to change from reported sig but non-sig recalc than reported nonsig to sig recalc.
+
+[discuss sources of false positives in statcheck discussed by Schmidt, 2016]
+
+[discuss the importance of accommodating the test statistics and degrees of freedom being rounded, ie it is not widely understood that statcheck calculates an interval of p values and checks if the reported one is inside it. could this be visualised in an interactive OJS plot?]
+
+[discuss the importance of conceptually and procedurally seperating the method (math), the implementation of the method (the statcheck R package), and the tool that lets you access the method more easily (the statcheck web app)]. Confusion arises when we think of "statcheck" as a singular monolithic thing. there are distinct failure modes between them: the math of the method is provably correct, the implementation could in principle contain errors that arise under certain conditions, users of the method might employ incorrect inputs under flawed or ambiguous assumptions (e.g., setting the test to two-sided when it was one-sided, whether through user error or under reporting in the article itself), or the automated web app might fail to extract and detect the test from the pdf in the first place (parsing pdfs is notoriously hard). for this reason, the statcheck.io tool can return different results to other tools (e.g., statcheck.steveharoz.com), even when both rely on the same underlying method and implementation (i.e., same statcheck R package).]
+
+
+ 
+
+### From summary statistics
+
+recalc, importance of rounding, precision
 
 ## Recalculating effect sizes
 
-- Cohen's *d* and partial eta-squared
-- Not just for recalculating already reported effect sizes to check consistency, but also calculating ones not reported to check plausibility
-- Standardized + SDs to unstandardized, with plausibility of both
+### SMD
 
-## Confidence intervals and bounds
+- Cohen's *d* and its CIs from summary stats: recalc, importance of rounding, analytic choices, (adding) CIs, precision, SE/SD confusion checks
+  - Simple versions without analytic choices, rounding, etc as a meta-analysis would do it, to check feasibility rather than recalc against reported value
+- Cohen's *d* and its CIs from t and df
+  - within subjects: bounds under partial information
+  
+### ORs from cell counts
 
-- Recalculating confidence intervals for all the above
+for things like baseline tables, but also serious adverse events
 
-## Recalculation under partial information
+Examples:
 
-- Bounds etc., e.g., within-subjects *t*-test
+1. Ayahuasca safety
+
+Palhano-Fontes et al (2019) Rapid antidepressant effects of the psychedelic ayahuasca in treatment-resistant depression: a randomized placebo-controlled trial
+doi.org/10.1017/s0033291718001356 
+Reply by van Elk & Fried (2020) History repeating: guidelines to address common problems in psychedelic science doi.org/10.1089/cap.2023.0029
+"study brings new evidence supporting the safety and therapeutic value of psychedelics"
+But 4 of 15 (~27%) in intervention group hospitalized for 1 week, 0 of 15 in control group 
+
+2. SSRI safety
+
+Strawn et al. (2023) A Multicenter Double-Blind, Placebo-Controlled Trial of Escitalopram in Children and Adolescents with Generalized Anxiety Disorder doi.org/10.1089/cap.2023.0004 
+Reply by Plöderl et al. (https://doi.org/10.1089/cap.2023.0029)
+"Escitalopram reduced anxiety symptoms and was well tolerated."
+"Serious adverse events were not higher in the intervention group than the control group"
+But 13 of 136 in escitalopram arm reported suicidal ideation, 2 of 137 in the placebo arm. OR = 6.67, 95% confidence interval (CI) = 1.77–47.20, p < .01
+
+## Recalculating descriptive statistics 
+
+### Between counts and percentages
+
+eg in the PRISMA flow chart
+
+### Between whole group and subgroups
+
+- Whole group vs subgroups N/M/SD, accounting for rounding
+
+Cochrane Handbook’s formula for combining groups (Table 6.5.a in the current version). Note, not "pooled SD" since that term normally refers to the within-group-only SD used in t-tests and Cohen’s d, which ignores the mean differences.
+
+Two groups:
+
+$$
+N = n_1 + n_2
+$$
+
+$$
+M = \frac{n_1 M_1 + n_2 M_2}{N}
+$$
+
+$$
+SD = \sqrt{\frac{(n_1-1)SD_1^2 + (n_2-1)SD_2^2 + \frac{n_1 n_2}{N}(M_1 - M_2)^2}{N-1}}
+$$
+
+k groups:
+
+$$
+SD^2 = \frac{\sum_i (n_i - 1) SD_i^2 + \sum_i n_i (M_i - M)^2}{N - 1}
+$$
 
 ## Other recalculations
 
+- pre post correlations
+- Other recalc stuff from Jane's book on effect size conversions
+- Relationship between standardized betas, unstandardized betas, and SDs - convertibility, plausibility
+- SE to CIs, if Wald
+- estimates, CIs, and p-values
 - Beta and SE
-- SEM degrees of freedom
+- partial eta-squared from F tables
 - Running regressions from correlation tables
+- Structural Equation Models' consistency of degrees of freedom with parameters and indicators
+
+
+

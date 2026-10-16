@@ -34,3 +34,10 @@ if(file.exists("../_setup.R")){source("../_setup.R")}
 
 - Especially self-reported behavior
 - Does the mode of measurement match the construct being assessed?
+
+## ?? label?
+
+offline friendship scale as a sanity check
+
+
+

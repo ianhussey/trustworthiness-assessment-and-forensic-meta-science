@@ -1,4 +1,4 @@
-# Effect size methods [✎ Draft]{.badge .badge-draft2}
+# Effect size methods: SMD/Cohen's *d* [✎ Draft]{.badge .badge-draft2}
 
 ```{r}
 #| include: false

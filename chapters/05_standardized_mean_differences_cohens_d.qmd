@@ -1,4 +1,4 @@
-# Standardized Mean Differences (Cohen's *d*) [✎ Draft]{.badge .badge-draft2}
+# Understanding Standardized Mean Differences (Cohen's *d*) [✎ Draft]{.badge .badge-draft2}
 
 ```{r}
 #| include: false
@@ -451,5 +451,15 @@ This has several implications for trustworthiness assessment:
 - A standardised effect size cannot be interpreted without knowing the *SD* it was standardised by. When an effect size seems implausibly large, check whether the *SD*s are unusually small for that scale, compared with other studies of similar populations.
 - Standardised effect sizes from studies with different inclusion criteria are not directly comparable, even when the studies used the same scale. When the studies did use the same scale, the mean difference in scale points is often the more informative comparison.
 - Range restriction is only one of the things that change the *SD*. Others include the reliability of the measure, floor and ceiling effects, and which *SD* was used as the standardiser (for example, the baseline *SD*, the pooled *SD* at post-treatment, or the *SD* of change scores).
+
+
+<!-- TODO plausibility of other effect sizes -->
+<!-- - correlations -->
+<!-- - correlations given reliability -->
+<!-- - Cohen's d given reliability -->
+<!-- - pre-post correlations -->
+<!-- - eta2, OR, RR, etc -->
+<!-- native scale sanity checks, eg Wansink carrots paper -->
+
 
 

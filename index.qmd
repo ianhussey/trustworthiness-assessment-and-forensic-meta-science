@@ -6,9 +6,10 @@ This [freely available](#sec-license) eBook provides materials for the semester-
 
 This book is split into four parts:
 
-1.  Concepts.
-2.  Methods.
-3.  Organising.
+- Part I: Conceptual foundations.
+- Part II: Understanding statistics
+- Part III: Forensic meta-science methods
+- Part IV: Organising critique
 4.  Developing and validating forensic methods.
 
 ## Other learning resources

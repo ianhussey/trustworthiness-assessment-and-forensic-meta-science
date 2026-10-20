@@ -11,14 +11,14 @@ if(file.exists("../../_setup.R")){source("../../_setup.R")}
 
 ## Within document
 
-### Internal consistency of summary statistics
-
-- Are M/SD/N consistent throughout the article?
-
 ### Abstract vs. results
 
 - Does the result in the abstract match the results section?
 - Does the abstract label the preregistered analysis/primary outcome?
+
+### Within text or tables or figures
+
+E.g., whether sample sizes are consistent within a PRISMA flow chart. e.g., [this pubpeer comment](https://pubpeer.com/publications/A05AF30AAE0F98EE16AF0E6D71105E#0).
 
 ### Tables vs. text
 

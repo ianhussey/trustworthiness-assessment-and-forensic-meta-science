@@ -47,7 +47,7 @@ book:
     - chapters/16_theory_specification_methods.qmd
     - chapters/17_data_extraction_methods.qmd
     
-  - part: 'Part IV: Organising'
+  - part: 'Part IV: Organising critique'
     chapters:
     - exercises/18_critiquing_specific_types_of_articles.qmd
     - exercises/19_inspect_sr.qmd
@@ -57,7 +57,8 @@ book:
   - part: 'Part V: Developing and validating forensic methods'
     chapters:
     - chapters/22_forensic_methods_require_validation.qmd
-    - chapters/23_validation_using_simulated_data.qmd
+    - chapters/23_method_implementation_and_tool.qmd
+    - chapters/24_validation_using_simulated_data.qmd
     
   - references.qmd
     

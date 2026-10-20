@@ -1,0 +1,63 @@
+# Method, implementation, and tool [✎ Draft]{.badge .badge-draft2} {#sec-method-implementation-tool}
+
+```{r}
+#| include: false
+if(file.exists("../_setup.R")){source("../_setup.R")}
+```
+
+A forensic check is usually referred to by a single name: "statcheck flagged this result", or "this mean fails GRIM". But every result from a check involves three different things: a method, an implementation of that method, and a tool through which the implementation is used. Each of them can fail, and they fail in different ways. When a check gives an unexpected answer, the first question to ask is which of the three produced it. Treating them as one thing leads to blaming the maths for an error in reading a PDF, or trusting the output of a web page as if it were the maths.
+
+## Three layers {#sec-three-layers}
+
+statcheck (@sec-statcheck) is a good example, because "statcheck" can refer to at least three different things, and each can fail in its own way:
+
+| | What it is | How it can fail |
+|---|---|---|
+| **The method** | The maths: recalculating a *p*-value from a test statistic and its degrees of freedom, and the interval that accounts for rounding. | It cannot fail, in the sense that it is provably correct given its inputs and assumptions. But the assumptions may not hold: the test may be one-sided, the *p*-value may have been corrected, or the degrees of freedom may have been rounded. This can come from the user choosing the wrong settings, or from the article not reporting what was done. |
+| **The implementation** | The {statcheck} R package: code that applies the method, with particular defaults and decision rules. | Code can contain errors that only arise under particular conditions. Defaults and rules differ between versions, such as whether one-sided tests are searched for, whether *p* = .000 counts as an error, and whether *p* = .05 counts as significant. Results from different versions are not always comparable. |
+| **The tool** | A way of accessing the implementation more easily, such as the web app at [statcheck.io](https://statcheck.io), which extracts text from an uploaded file and passes it to the R package. | It may fail to extract the results from the file, or extract them incorrectly. Parsing PDFs is notoriously hard. Different tools that use the same R package can return different results for the same article, because they extract the text differently, such as statcheck.io and [statcheck.steveharoz.com](https://statcheck.steveharoz.com). |
+
+The same three layers are present in every check in this book. GRIM is a method, the `grim()` function in {scrutiny} is an implementation of it, and a web app that calls that function is a tool. The calculators in @sec-recalculation are tools that use the implementations in the {recalc} R package.
+
+## What failed? {#sec-what-failed}
+
+Keeping the three layers apart makes it clearer what a result means and what to do next. A disagreement between two tools about the same article is usually a disagreement about extraction, not about the maths. A flag that disappears once the right assumption is applied (e.g., one-sided) is a question about the article's reporting, not about the implementation. And a flag that survives every reasonable assumption, after the numbers have been checked against the original text by hand, is a genuine inconsistency in the method's own terms.
+
+Each of the problems with statcheck described in @sec-statcheck-false-positives belongs to one of the layers, and the layer determines what should be done about it:
+
+| What happened | Layer | What to do |
+|---|---|---|
+| statcheck.io and statcheck.steveharoz.com give different results for the same article | Tool: the text was extracted differently | Check the extracted text against the article |
+| A χ² statistic is read as a statistic named "2" [@schmidt2017] | Tool: the PDF was misread | Check the extracted text against the article |
+| *p* = .000 is counted as an error | Implementation: a default decision rule (`pZeroError = TRUE`) | Decide whether a reporting convention counts as an error, and set the option accordingly |
+| The same text gets different results from two versions of the package | Implementation: the versions have different options and defaults, such as `robust_rounding` (@sec-statcheck-app) | Report the version used, and use the same version for results that will be compared |
+| A result is flagged, but is consistent as a one-sided test | Method: an assumption does not hold | Read the article for whether the test was one-sided |
+| A Greenhouse-Geisser corrected *p*-value is flagged | Method: an assumption does not hold | Read the article for corrections to the *p*-value |
+
+Only the last two say anything about the article, and even they do not say that it contains an error. They say that the article does not report enough to know which assumption is right.
+
+## Separation within each layer {#sec-separation-within-layers}
+
+Each layer can be divided further, and the same reasoning applies within it: when something fails, it helps to know which part failed.
+
+**Within the method**, the mathematical identity is distinct from the assumptions needed to apply it and from the decision rules built on top of it. That a two-sided *p*-value follows from *t* and its degrees of freedom is an identity. That the test was two-sided, and that the *p*-value was not corrected afterwards, are assumptions. That a reported *p*-value is an "inconsistency" if it lies outside the recalculated interval, and a "gross" one if the two fall on opposite sides of α = .05, are decision rules. The identity cannot be wrong, but the assumptions can be, and the decision rules are choices that others might make differently.
+
+**Within the implementation**, the code that computes the result is distinct from its defaults, from how it handles unusual inputs, and from what it does with inputs that it does not use. Each of these can fail even when the computation is correct. Some examples from the development of {recalc}, the package behind the calculators in @sec-recalculation:
+
+- **A default that changed the answer.** The subgroup functions require the number of decimal places of every input, and sample sizes were usually given as 0 decimal places. This treats a count as if it had been rounded to the nearest whole number, which lets a reported *N* that differs from the sum of the subgroups' *n*s by a participant or two pass as consistent. Counts are exact, and are now treated as such (@sec-subgroup-calculator). The maths was right; the default was not.
+- **An edge case that broke the code.** The profile likelihood confidence interval for an odds ratio was calculated by fitting a logistic regression and profiling it. When one of the four counts is zero, the model cannot be fitted properly, and the code returned a lower limit of 0 instead of the correct value of about 2. The method, inverting the likelihood ratio test, was fine. Its implementation failed on an input it was not designed for, without any warning.
+- **An input that was accepted but ignored.** A function accepted a reported confidence interval for Cohen's *d*, but never compared it with the recalculated one. The output therefore never flagged an inconsistent interval, and a reader could easily take the absence of a flag for a pass.
+
+None of these is visible from the maths. They are only found by testing the implementation against the method directly, for example by checking its output against a slow but transparent calculation, or against other implementations, across a wide range of inputs, including unusual ones.
+
+**Within the tool**, getting the numbers in is distinct from what the tool asks for and infers, and from how it presents the results. Extraction from a PDF is one source of error. What the tool infers is another: the calculators in @sec-recalculation take the number of decimal places of each value from the value as it was typed, so a reader who types 4.7 for a reported 4.70 gets a check that allows for more rounding than the article's numbers had. Presentation is a third: a calculator that says a reported value is "consistent" across a multiverse of analytic choices means that at least one combination of choices could have produced it, not that the authors used that combination.
+
+## Separation in code {#sec-separation-in-code}
+
+The separation between the layers is worth keeping in code as well as in concepts. The method should be implemented once, in a package function with its own tests, and every tool should call that function rather than reimplementing the maths. Then a fix to the implementation reaches every tool, and the tools cannot quietly disagree with one another about anything except how they get their inputs and display their outputs.
+
+The calculators in this book are built this way. The {recalc} Shiny apps and the webR calculators in @sec-recalculation do not reimplement any of the checks. Apart from adding up sample sizes, which needs no R, they call functions in the {recalc} package, and the webR calculators load the package's code at a fixed version, which they report under their results. The statcheck app in @sec-statcheck-app does the same with {statcheck}. A tool that copied the formulas into its own code would be a second implementation, and would need testing in its own right.
+
+## Reporting {#sec-reporting-layers}
+
+In a trustworthiness assessment, report all three layers, so that a reader can tell which of them a result depends on: the method and the assumptions made in applying it, the implementation and its version and settings, and the tool, including how the numbers were entered or extracted. And check every flagged result by hand against the original text before drawing conclusions from it. A check that fails at the tool or implementation layer says nothing about the article.

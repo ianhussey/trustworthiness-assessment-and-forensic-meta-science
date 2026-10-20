@@ -7,12 +7,13 @@ if(file.exists("../_setup.R")){source("../_setup.R")}
 
 Many problems with published research are not errors in the numbers. The numbers are right, but the conclusions drawn from them do not follow. These are failures of claim–evidence alignment, and they are some of the easiest to detect, because the evidence needed to spot them is usually printed in the article itself.
 
-This chapter starts with two misinterpretations of *p*-values that are common, consequential, and checkable:
+This chapter starts with three misinterpretations of *p*-values that are common, consequential, and checkable:
 
 1. **Absence of evidence is not evidence of absence.** A nonsignificant result is read as showing that there is no effect.
 2. **The difference between "significant" and "not significant" is not itself statistically significant.** One effect is significant and another is not, and this is read as showing that the two effects differ.
+3. **Interpreting non-significant results as significant.** A nonsignificant result is described, concluded from, or later cited as if it had shown an effect.
 
-Both errors treat the significance threshold as a verdict about the world rather than a statement about the data, and both can usually be checked by calculating one additional number from what the authors report: a confidence interval for the effect in the first case, and a test of the difference in the second.
+The first two errors treat the significance threshold as a verdict about the world rather than a statement about the data, and both can usually be checked by calculating one additional number from what the authors report: a confidence interval for the effect in the first case, and a test of the difference in the second. The third ignores the threshold altogether while still borrowing its authority, and checking it usually requires going back to the original results, whether in the same article or in an article that is being cited.
 
 ## Absence of evidence is not evidence of absence {#sec-absence-of-evidence}
 
@@ -395,9 +396,88 @@ An article reports that a memory training programme improved recall in younger a
 5.  If a large replication finds a significant effect of training in younger adults, it has found the same result as the original study. `r webexercises::torf(FALSE)`
 :::
 
-<!-- - Non-significant *p*-values as evidence for the null -->
-<!-- - Difference between significant and non-significant is not itself significant -->
-<!-- - Simply claiming differences with non-significant *p*-values -->
+## Interpreting non-significant results as significant {#sec-nonsig-as-sig}
+
+### The error
+
+The first error in this chapter reads a nonsignificant result as showing that an effect is absent. This one reads it as showing that the effect is present. A result that did not meet the significance threshold, usually the authors' own, is described, interpreted, or cited as if it had.
+
+The error can enter at three points, and each is harder to detect than the one before:
+
+1. **In how the result is described.** The result is reported as nonsignificant, but in language that suggests it nearly was significant.
+2. **In what the authors conclude from it.** The result is reported as significant or as supporting the hypothesis when, by the conventional test, it was not.
+3. **In how other authors cite it.** The original article reported its results accurately, but later articles describe it as having found something it did not.
+
+### Euphemisms for non-significance
+
+The most visible form is the "marginally significant" result, covered in @sec-marginally-significant. Matthew Hankins' list of over 500 phrases taken from the published literature, [*Still not significant*](https://mchankins.wordpress.com/2013/04/21/still-not-significant-2/), is the standard catalogue: "approaching significance", "a trend towards significance", "teetering on the brink of significance", and so on. Such phrases are common: around 40% of *p*-values between .05 and .10 in APA journals were described as marginally significant [@olssoncollentine2019].
+
+From the point of view of trustworthiness assessment, the euphemisms are the least of the problems, because they are honest about the *p*-value. Their effect is to let the authors present a result as if it were support for their hypothesis while acknowledging that it is not. A reader who notices the phrase can see exactly what was found and judge it accordingly. The more serious cases are those where nothing in the wording signals that the result was nonsignificant.
+
+### Non-significant results reported as support
+
+Sometimes a nonsignificant result is reported as significant, or as supporting a hypothesis, with no qualification. This can happen in several ways:
+
+- **Undisclosed one-tailed tests.** A one-tailed test halves the *p*-value. It can be legitimate when the direction of an effect was specified in advance, but when it is not disclosed, readers assume the conventional two-tailed test and read the result as stronger evidence than it is. When it is chosen after seeing the data, it simply moves the threshold from .05 to .10.
+- **Incorrectly reported *p*-values.** The reported *p*-value is below .05, but the *p*-value recalculated from the test statistic and degrees of freedom is above it. statcheck calls these decision errors, and they are more common for *p*-values reported as significant than for those reported as nonsignificant (@sec-statcheck).
+- **Conclusions that outrun the results.** The results section reports the test correctly, but the discussion or abstract describes the hypothesis as supported, or the effect as "replicated", without mentioning that the key test was nonsignificant.
+
+#### Example: the facial feedback hypothesis
+
+@strack1988 is one of the most cited studies in social psychology, and a staple of introductory textbooks. In their Study 1, 92 participants rated the funniness of four cartoons while holding a pen either between their teeth (which forces a smile-like expression), between their lips (which prevents one), or in their nondominant hand. As predicted by the facial feedback hypothesis, the cartoons were rated as funniest in the teeth condition (*M* = 5.14), least funny in the lips condition (*M* = 4.32), and in between in the control condition (*M* = 4.77). The authors wrote that the results "clearly support the predictions", and that the predicted pattern was "confirmed by a significant linear contrast, *t*(89) = 1.85, *p* = .03".
+
+Recalculating the *p*-value from the reported test statistic gives a different answer:
+
+```{r}
+# two-tailed and one-tailed p-values for t(89) = 1.85
+c(two_tailed = 2 * pt(-1.85, df = 89),
+  one_tailed = pt(-1.85, df = 89)) |>
+  round(3)
+```
+
+The reported *p* = .03 is the one-tailed *p*-value. We could find no statement in the article that the test was one-tailed. By the conventional two-tailed test, the result is *p* = .068: not significant. (statcheck would flag this result as a decision error, unless the words "one-tailed" or similar appeared in the text.)
+
+The article's Study 2 adds a second problem. It measured the same funniness ratings, and they did not differ between conditions ("all *p*s > .20"). The authors explained this by arguing that facial feedback should affect participants' feelings of amusement, a new measure introduced in Study 2, but not their judgements of how funny the cartoons were, which was the dependent variable on which Study 1's conclusions were based. Amusement ratings did show the predicted effect. The abstract describes Study 2's results as having "replicated Study 1's findings".
+
+None of this was hidden: every number needed to see it was in the article. But the article's conclusions, its abstract, and its subsequent reputation are all based on the reading that Study 1 found a significant effect. When @wagenmakers2016rrr coordinated 17 preregistered direct replications of Study 1, involving a combined 1,894 participants, the meta-analytic difference between the teeth and lips conditions was 0.03 units on the 10-point scale (95% CI [−0.11, 0.16]), compared with 0.82 in the original. The replication effort was a response to the study's influence, but that influence had rested from the start on evidence that was weaker than it was presented as being.
+
+### Non-significant results cited as significant
+
+The final form of the error is the hardest to detect, because the article that makes it may be accurately reporting what it believes to be the literature. The original study reported a nonsignificant result accurately, but later articles cite it as if it had found an effect. Greenberg [-@greenberg2009] traced the citation network of a set of biomedical claims and documented several ways in which citation can create "unfounded authority" for a claim, including what he termed *citation diversion*: citing an article's content but changing its meaning. Once a misdescription appears in a few influential reviews, later authors can repeat it from the reviews without reading the original.
+
+#### Example: newborns' preference for face-like patterns
+
+@johnson1991 is a foundational study in developmental psychology, with over 2,000 citations on Google Scholar. Its first experiment replicated an earlier finding that newborns less than an hour old follow a moving schematic face further with their eyes and head than they follow a scrambled face or a blank head shape. Its second experiment, in 43 newborns, aimed to find out what about the face attracted them. It compared the schematic face with three other stimuli: a "config" stimulus of three dark squares in the positions of the eyes and mouth, the same three squares upside down ("inverse"), and a vertically scrambled arrangement of facial features ("linear").
+
+The results for eye movements were as follows. The schematic face was followed further than the inverse and linear stimuli (both *p* < .01), but only "almost significantly" further than config (*p* = .07). The comparisons between config and the two control stimuli, which are the comparisons that would show whether config itself was preferred, were not reported. From the figure, newborns followed the face by about 45° on average and each of the other three stimuli, config included, by roughly 38–40° [@wilkinson2025]. Head-turning did not differ significantly between any of the stimuli. The authors' own conclusion was that their results suggested "a face-like configuration of elements alone is insufficient" to explain the preference: some characteristics of the facial features also seemed to matter.
+
+That is not how the study came to be cited. In a theoretical article published the same year, two of the same authors [@morton1991] proposed that newborns have an innate face-detection mechanism, CONSPEC, and needed to specify what information it contained. They reasoned that because their experiments had not been able to distinguish the face from the config stimulus, the simplest hypothesis was that CONSPEC's representation of a face resembles config. In other words, the nonsignificant difference between face and config (*p* = .07) was treated as evidence that the two were equivalent, which is the first error in this chapter (@sec-absence-of-evidence), and this equivalence was then used to infer that config would be preferred over controls, even though that preference was not supported in the same experiment. Note that the reasoning also inverts the roles of the stimuli: config was a candidate face-like stimulus being tested, not a control against which the face was being compared.
+
+@wilkinson2025 conducted a systematic review and meta-analysis of studies comparing newborns' attention to face-like and non-face-like stimuli, and traced how @johnson1991 has been cited. Of the ten most prominent review articles from 2024–2025 that cited it, nine cited it as showing a general inborn face preference, and seven attributed to it a preference for three-blob config-like stimuli. Widely used textbooks present it as showing that three-blob stimuli are sufficient to produce the preference, and many articles explicitly cite it as showing a preference for config over its inversion: a comparison it did not report, between two stimuli whose means were almost identical. A 2025 retrospective by Valenza and colleagues, quoted by @wilkinson2025, describes the second experiment as having shown "for the first time" that the configuration of features alone is sufficient to trigger the preference within hours of birth, which is the opposite of what the original authors concluded. Because config was believed to be preferred at birth, it became the standard stimulus in later research on newborns, fetuses, adults, autistic people, and computational models, and later results using it in days-old infants were interpreted as continuous with an inborn preference.
+
+@wilkinson2025 are careful to say that their results do not show that there is no inborn face preference, and that the aim is not to fault individual authors for a misattribution that has become widespread. The point for trustworthiness assessment is that a claim's support in the literature can be much weaker than its citation count suggests. A citation is a claim about what another article found, and like any claim it can be checked.
+
+### Checking for this error in trustworthiness assessment
+
+1. **Look for euphemisms.** Phrases such as "marginally significant", "approaching significance", "a trend towards", and "did not quite reach significance" signal that a result was nonsignificant. Check whether the conclusions treat it as if it were significant.
+2. **Recalculate the key *p*-values.** For the results that the article's conclusions depend on, recalculate the *p*-value from the test statistic and degrees of freedom, for example using statcheck (@sec-statcheck). If a reported *p*-value is half the recalculated two-tailed value, the test was probably one-tailed. Check whether this was disclosed, and whether the direction of the effect was specified in advance, for example in a preregistration.
+3. **Compare the abstract and discussion with the results.** Words such as "supported", "confirmed", "demonstrated", and "replicated" should correspond to tests that met the threshold the authors set. Check in particular whether a later study's nonsignificant result on the original outcome has been replaced by a significant result on a different one.
+4. **Check the comparison that matters.** Make sure the test that was significant is the test that the claim requires. In @johnson1991, the claim that config is preferred requires comparing config with the control stimuli, not comparing the face with them.
+5. **Read the cited original.** When an important claim rests on a citation, particularly to a classic or foundational study, read the original results rather than relying on how the citing article, or a review, describes them. Check what was found, in which comparison, and what the original authors concluded.
+
+### Test yourself
+
+::: {.webex-check .webex-box}
+An article's abstract states that "consistent with our hypothesis, participants in the gratitude condition reported greater wellbeing than controls". The results section reports "*t*(78) = 1.70, *p* = .047". The article does not mention one-tailed tests or a preregistration. Mark each statement as true or false.
+
+1.  The reported *p*-value is consistent with a two-tailed test of *t*(78) = 1.70. `r webexercises::torf(FALSE)`
+2.  The reported *p*-value is consistent with a one-tailed test of *t*(78) = 1.70. `r webexercises::torf(TRUE)`
+3.  If the test was one-tailed, the authors should have said so, and readers should ask whether the direction was specified before the data were seen. `r webexercises::torf(TRUE)`
+4.  A result described as "approaching significance (*p* = .08)" provides good support for the hypothesis. `r webexercises::torf(FALSE)`
+5.  If a widely cited review states that a classic study found an effect, it is safe to assume that the classic study reported a significant test of that effect. `r webexercises::torf(FALSE)`
+:::
+
+<!-- TODO: update wilkinson2025 in references.bib once the systematic review is published. -->
 
 <!-- ## Misinterpretation of specific metrics -->
 

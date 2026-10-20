@@ -5,6 +5,582 @@
 if(file.exists("../_setup.R")){source("../_setup.R")}
 ```
 
+## Bounded scales and the beta distribution {#sec-beta-distribution}
+
+Most of the methods in this chapter rest on one fact: on a scale with a minimum and a maximum, the mean and the *SD* are not free to take any values independently of one another. This section builds an intuition for why, by contrasting the normal distribution, which has no bounds, with the beta distribution, which does.
+
+### Mean and *SD* when data are unbounded {#sec-mean-sd-unbounded}
+
+The left plot below is the one from @sec-mean-sd-builder: a single sample drawn as a normal distribution, with sliders for its mean and its *SD*. The right plot shows the same sample as a single point, with its mean on the horizontal axis and its *SD* on the vertical axis.
+
+```{ojs}
+//| echo: false
+viewof uMean = Inputs.range([1, 7], {value: 4, step: 0.05, label: "Mean"})
+viewof uSd = Inputs.range([0.5, 2], {value: 1, step: 0.05, label: "SD"})
+```
+
+```{ojs}
+//| echo: false
+{
+  // two plots side by side on wide screens, one above the other on narrow ones
+  const panelWidth = width >= 640 ? Math.floor((width - 24) / 2) : width
+  const panelHeight = 300
+  const blue = "#2780e3"
+  // left: one normal distribution, as in chapter 5, with fixed axes
+  const density = x => Math.exp(-(((x - uMean) / uSd) ** 2) / 2) / (uSd * Math.sqrt(2 * Math.PI))
+  const xMin = -4, xMax = 12, yMax = 1.15 / (0.5 * Math.sqrt(2 * Math.PI))
+  const peak = density(uMean), shoulder = density(uMean + uSd)
+  const curve = d3.range(xMin, xMax + 0.001, 0.05).map(x => ({x, y: density(x)}))
+  const left = Plot.plot({
+    width: panelWidth, height: panelHeight, marginLeft: 20, marginRight: 20, marginTop: 10, marginBottom: 45,
+    x: {label: "Score", labelAnchor: "center", labelOffset: 38, domain: [xMin, xMax], ticks: d3.range(-4, 13, 2)},
+    y: {axis: null, domain: [0, yMax]},
+    style: {fontSize: "13px"},
+    marks: [
+      Plot.areaY(curve, {x: "x", y1: 0, y2: "y", fill: blue, fillOpacity: 0.2}),
+      Plot.lineY(curve, {x: "x", y: "y", stroke: blue, strokeWidth: 2}),
+      Plot.ruleY([0], {stroke: "currentColor"}),
+      Plot.link([{}], {x1: uMean, x2: uMean, y1: 0, y2: peak, stroke: blue, strokeDasharray: "4,3"}),
+      Plot.text([{}], {x: uMean, y: peak, text: () => `M = ${uMean.toFixed(2)}`, dy: -10, fontWeight: 600}),
+      Plot.link([{}], {x1: uMean - uSd, x2: uMean + uSd, y1: shoulder, y2: shoulder, stroke: "currentColor", strokeWidth: 1.5}),
+      Plot.text([{}], {x: uMean + uSd, y: shoulder, text: () => `SD = ${uSd.toFixed(2)}`, textAnchor: "start", dx: 8, fontWeight: 600})
+    ]
+  })
+  // right: the same sample as one point in the space of means and SDs. every point in this space is a valid
+  // normal distribution, so nothing is shaded as impossible
+  const right = Plot.plot({
+    width: panelWidth, height: panelHeight, marginLeft: 50, marginRight: 20, marginTop: 10, marginBottom: 45,
+    x: {label: "Mean", labelAnchor: "center", labelOffset: 38, domain: [1, 7], ticks: d3.range(1, 8)},
+    y: {label: "SD", labelAnchor: "center", labelOffset: 40, domain: [0, 2.2]},
+    grid: true,
+    style: {fontSize: "13px"},
+    marks: [
+      Plot.ruleY([0], {stroke: "currentColor"}),
+      Plot.link([{}], {x1: uMean, x2: uMean, y1: 0, y2: uSd, stroke: blue, strokeDasharray: "4,3"}),
+      Plot.link([{}], {x1: 1, x2: uMean, y1: uSd, y2: uSd, stroke: blue, strokeDasharray: "4,3"}),
+      Plot.dot([{}], {x: uMean, y: uSd, r: 7, fill: blue, stroke: "white", strokeWidth: 1.5})
+    ]
+  })
+  // clicking anywhere in the right plot moves the sliders to that mean and SD, which redraws both plots
+  clickToSet(right, {width: panelWidth, height: panelHeight, marginLeft: 50, marginRight: 20, marginTop: 10, marginBottom: 45, xDomain: [1, 7], yDomain: [0, 2.2]}, (m, s) => {
+    setInput(viewof uMean, snapToInput(viewof uMean, m))
+    setInput(viewof uSd, snapToInput(viewof uSd, s))
+  })
+  return html`<div class="bd-panels"><div>${left}</div><div>${right}</div></div>`
+}
+```
+
+Move the two sliders and watch the point, or click anywhere in the right plot to move the point there, and drag to move it continuously. Changing the mean moves the point left and right and changing the *SD* moves it up and down, and neither slider ever restricts the other. Every point on the right plot, wherever it is, describes a valid normal distribution. Knowing the mean of a normal distribution tells you nothing about what its *SD* can be, and vice versa: the two parameters are not contingent on one another.
+
+The mean and *SD* are also a *complete* description of a normal distribution. If you know that data are normally distributed and you know their mean and *SD*, you know everything about the distribution: it is symmetric, it has no minimum or maximum, and the proportion of scores in any interval follows from the mean and *SD* alone. This is why reporting a mean and an *SD* feels like a full summary of a sample. It is, but only when the data are something like normal.
+
+### Mean and *SD* when data are bounded {#sec-mean-sd-bounded}
+
+Scales in psychology have a minimum and a maximum. A natural distribution for data that lie between two bounds is the beta distribution. It is defined on the interval from 0 to 1, and can be stretched to any other range: a score on a 1–7 scale is a beta-distributed value multiplied by 6 and shifted up by 1. The left plot below is a single-sample version of the plot in @sec-cohens-d-bounded: one beta distribution on a 1–7 scale, whose parameters are calculated from the mean and *SD* you choose with the sliders. The grey areas are outside the scale. The scale starts as 1–7, and you can change its logical minimum and maximum in the two boxes above the sliders. The right plot is the same space of means and *SD*s as above, and you can again click or drag anywhere in it to set the mean and *SD*.
+
+```{ojs}
+//| echo: false
+viewof betaMin = Inputs.number({value: 1, step: 1, label: "Scale minimum"})
+viewof betaMax = Inputs.number({value: 7, step: 1, label: "Scale maximum"})
+```
+
+```{ojs}
+//| echo: false
+// the sliders' ranges follow the scale: the mean must lie inside it, and no SD can exceed half its range
+betaBounds = scaleBounds(betaMin, betaMax)
+viewof betaMean = meanSlider(betaBounds ?? [1, 7], 0.75)
+viewof betaSd = {
+  const [lo, hi] = betaBounds ?? [1, 7], range = hi - lo, step = scaleStep(range)
+  return Inputs.range([Math.max(step, Math.round(range / 120 / step) * step), range / 2], {value: Math.round(range / 6 / step) * step, step, format: stepFormat(step), label: "SD"})
+}
+```
+
+```{ojs}
+//| echo: false
+betaState = {
+  if (!betaBounds) return null
+  const [lo, hi] = betaBounds, range = hi - lo
+  // method of moments for a beta distribution in its mean-precision form, as used in beta regression: rescale the
+  // mean and variance to the 0 to 1 interval, then precision = mean * (1 - mean) / variance - 1, alpha = mean *
+  // precision, and beta = (1 - mean) * precision. precision > 0 is exactly the condition that the SD is below the
+  // bhatia-davis bound, so the beta distribution exists everywhere under the bound and nowhere above it
+  const mu = (betaMean - lo) / range, v = (betaSd / range) ** 2
+  const phi = mu * (1 - mu) / v - 1
+  const alpha = mu * phi, beta = (1 - mu) * phi
+  const maxSd = Math.sqrt((betaMean - lo) * (hi - betaMean))
+  const valid = phi > 0
+  const skew = valid ? 2 * (beta - alpha) * Math.sqrt(alpha + beta + 1) / ((alpha + beta + 2) * Math.sqrt(alpha * beta)) : NaN
+  // with alpha and beta above 1 the distribution is hump-shaped. with one of them at or below 1, scores pile up
+  // against one end of the scale (J-shaped). with both below 1, they pile up against both ends (U-shaped)
+  const shape = !valid ? null : alpha > 1 && beta > 1 ? "hump" : alpha <= 1 && beta <= 1 ? "U" : "J"
+  return {lo, hi, range, mu, phi, alpha, beta, maxSd, valid, skew, shape}
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  if (!betaState) return boundsMessage()
+  const {lo, hi, range, mu, phi, alpha, beta, maxSd, valid, skew, shape} = betaState
+  const panelWidth = width >= 640 ? Math.floor((width - 24) / 2) : width
+  const panelHeight = 300
+  const blue = "#2780e3", red = "#c0392b"
+
+  // left: the beta distribution, rescaled to the 1 to 7 scale
+  const betaDensity = x => {
+    const u = (x - lo) / range
+    return Math.exp((alpha - 1) * Math.log(u) + (beta - 1) * Math.log(1 - u) + logGamma(alpha + beta) - logGamma(alpha) - logGamma(beta)) / range
+  }
+  // the ends of the scale are left out, because the density can be infinite there
+  const xs = d3.range(1, 400).map(i => lo + range * i / 400)
+  const curve = valid ? xs.map(x => ({x, y: betaDensity(x)})) : []
+  // the vertical axis is capped, so that a spike against the end of the scale does not flatten everything else
+  const yMax = valid ? Math.min(1.3 * d3.max(curve, d => d.y), 2.5 / betaSd) : 1
+  // the mean is a dashed line across the whole height of the plot, because the density at the mean can be close to
+  // zero when scores pile up at the ends. the one-SD bar is drawn low down, and can reach past the end of the scale
+  const barY = 0.2 * yMax
+  const xMin = lo - range / 4, xMax = hi + range / 4
+  const left = Plot.plot({
+    width: panelWidth, height: panelHeight, marginLeft: 20, marginRight: 20, marginTop: 24, marginBottom: 45,
+    x: {label: "Score", labelAnchor: "center", labelOffset: 38, domain: [xMin, xMax], ...scaleTicks(lo, hi)},
+    y: {axis: null, domain: [0, yMax]},
+    style: {fontSize: "13px"},
+    marks: [
+      // outside the scale
+      Plot.rect([{x1: xMin, x2: lo}, {x1: hi, x2: xMax}], {x1: "x1", x2: "x2", y1: 0, y2: yMax, fill: "currentColor", fillOpacity: 0.08}),
+      Plot.areaY(curve, {x: "x", y1: 0, y2: "y", fill: blue, fillOpacity: 0.2, clip: true}),
+      Plot.lineY(curve, {x: "x", y: "y", stroke: blue, strokeWidth: 2, clip: true}),
+      Plot.ruleY([0], {stroke: "currentColor"}),
+      valid ? Plot.ruleX([betaMean], {stroke: blue, strokeDasharray: "4,3"}) : null,
+      valid ? Plot.text([{}], {x: betaMean, y: yMax, text: () => `M = ${betaMean.toFixed(2)}`, textAnchor: "start", dx: 5, lineAnchor: "top", dy: 2, fontWeight: 600}) : null,
+      valid ? Plot.link([{}], {x1: betaMean - betaSd, x2: betaMean + betaSd, y1: barY, y2: barY, stroke: "currentColor", strokeWidth: 1.5, clip: true}) : null,
+      valid ? Plot.text([{}], {x: betaMean, y: barY, text: () => `SD = ${betaSd.toFixed(2)}`, textAnchor: "start", dx: 5, dy: -8, fontWeight: 600}) : null,
+      valid ? null : Plot.text([`Not possible on a ${lo} to ${hi} scale`], {frameAnchor: "middle", fontSize: 16, fontWeight: 600, fillOpacity: 0.6})
+    ]
+  })
+  const fmt = (x, digits = 2) => Number.isFinite(x) ? x.toFixed(digits).replace("-", "−") : "—"
+  const readout = html`<table class="bd-readout">
+    <tr><td>Shape</td><td><i>α</i> = ${valid ? fmt(alpha) : "—"}, <i>β</i> = ${valid ? fmt(beta) : "—"}</td></tr>
+    <tr><td>Mean–precision</td><td><i>μ</i> = ${fmt(mu)}, <i>φ</i> = ${valid ? fmt(phi) : "—"}</td></tr>
+    <tr><td>Regression intercepts</td><td>logit(<i>μ</i>) = ${fmt(Math.log(mu / (1 - mu)))}, log(<i>φ</i>) = ${valid ? fmt(Math.log(phi)) : "—"}</td></tr>
+    <tr><td>Descriptive</td><td><i>M</i> = ${fmt(betaMean)}, <i>SD</i> = ${fmt(betaSd)}, skewness = ${valid ? fmt(skew) : "—"}</td></tr>
+  </table>`
+
+  // right: the space of means and SDs on the scale. the bhatia-davis bound, sqrt((mean - min) * (max - mean)), is the
+  // largest SD any distribution with that mean can have. the dashed line is where the concentration, alpha + beta,
+  // is 2: the variance is a third of the bound at every mean, as for a uniform distribution. above it, alpha + beta
+  // is below 2, so at least one of alpha and beta is below 1 and scores pile up against at least one end of the scale
+  const ms = d3.range(0, 601).map(i => lo + range * i / 600)
+  const bound = ms.map(m => ({m, sd: Math.sqrt((m - lo) * (hi - m))}))
+  const floor = bound.map(d => ({m: d.m, sd: d.sd / Math.sqrt(3)}))
+  const ySpan = 0.57 * range, mid = (lo + hi) / 2
+  const right = Plot.plot({
+    width: panelWidth, height: panelHeight, marginLeft: 50, marginRight: 20, marginTop: 24, marginBottom: 45,
+    x: {label: "Mean", labelAnchor: "center", labelOffset: 38, domain: [lo, hi], ...scaleTicks(lo, hi)},
+    y: {label: "SD", labelAnchor: "center", labelOffset: 40, domain: [0, ySpan]},
+    grid: true,
+    style: {fontSize: "13px"},
+    marks: [
+      // above the bound: impossible for any data on this scale
+      Plot.areaY(bound, {x: "m", y1: "sd", y2: ySpan, fill: "currentColor", fillOpacity: 0.08}),
+      Plot.lineY(bound, {x: "m", y: "sd", stroke: "currentColor", strokeWidth: 2}),
+      Plot.lineY(floor, {x: "m", y: "sd", stroke: "currentColor", strokeWidth: 1, strokeDasharray: "4,3", strokeOpacity: 0.7}),
+      Plot.text(["Impossible"], {x: lo + range / 60, y: 0.55 * range, textAnchor: "start", fontWeight: 600, fillOpacity: 0.6}),
+      Plot.text(["Bhatia–Davis bound"], {x: mid, y: range / 2, dy: -10, fontSize: 12}),
+      Plot.text(["Uniform-spread bound"], {x: mid, y: range / Math.sqrt(12), dy: -8, fontSize: 11, fillOpacity: 0.8}),
+      Plot.ruleY([0], {stroke: "currentColor"}),
+      Plot.link([{}], {x1: betaMean, x2: betaMean, y1: 0, y2: betaSd, stroke: valid ? blue : red, strokeDasharray: "4,3"}),
+      Plot.link([{}], {x1: lo, x2: betaMean, y1: betaSd, y2: betaSd, stroke: valid ? blue : red, strokeDasharray: "4,3"}),
+      Plot.dot([{}], {x: betaMean, y: betaSd, r: 7, fill: valid ? blue : red, stroke: "white", strokeWidth: 1.5})
+    ]
+  })
+
+  const shapeText = shape === "hump" ? "The distribution is hump-shaped."
+    : shape === "J" ? `Scores pile up against the ${beta <= 1 ? "top" : "bottom"} of the scale, as in a ${beta <= 1 ? "ceiling" : "floor"} effect.`
+    : "Scores pile up against both ends of the scale."
+  const [kind, message] = valid
+    ? [shape === "hump" ? "ok" : "warn", `<strong>Possible.</strong> With a mean of ${betaMean.toFixed(2)} on a ${lo} to ${hi} scale, the SD can be at most ${maxSd.toFixed(2)}. ${shapeText}`]
+    : ["bad", `<strong>Not possible.</strong> With a mean of ${betaMean.toFixed(2)} on a ${lo} to ${hi} scale, no data of any kind can have an SD above ${maxSd.toFixed(2)}, and an SD equal to it requires every score to be exactly ${lo} or exactly ${hi}.`]
+  const feedback = html`<div class="sb-feedback sb-feedback-${kind}">`
+  feedback.innerHTML = message
+  // clicking anywhere in the right plot moves the sliders to that mean and SD, which redraws both plots. a point
+  // above the bhatia-davis bound can be chosen, so that the plots show why it is impossible
+  clickToSet(right, {width: panelWidth, height: panelHeight, marginLeft: 50, marginRight: 20, marginTop: 24, marginBottom: 45, xDomain: [lo, hi], yDomain: [0, ySpan]}, (m, s) => {
+    setInput(viewof betaMean, snapToInput(viewof betaMean, m))
+    setInput(viewof betaSd, snapToInput(viewof betaSd, s))
+  })
+  return html`<div class="bd-panels"><div>${left}${readout}</div><div>${right}</div></div>${feedback}`
+}
+```
+
+```{ojs}
+//| echo: false
+// functions and styles used by the plots in this section
+function empiricalPanel(rows, {width, start, labelled = []}) {
+  // two plots side by side for a set of real samples. right: each sample's mean and SD as proportions of the
+  // measure's range, with the bhatia-davis and uniform-spread bounds. left: the beta distribution with the mean and
+  // SD of the sample under the pointer, in the measure's own units. the left plot keeps showing the last sample
+  // pointed at, and clicking a point keeps its label in place
+  const blue = "#2780e3"
+  const panelWidth = width >= 640 ? Math.floor((width - 24) / 2) : width
+  const panelHeight = 320
+  const points = rows.map(d => ({...d, label: `${d.scale} (n = ${d.n})`}))
+  const left = html`<div></div>`
+  const show = d => left.replaceChildren(empiricalDistribution(d, panelWidth, panelHeight))
+  show(points.find(d => d.scale === start) ?? points[0])
+  // the bounds on proportion-of-range axes, where every measure runs from 0 to 1
+  const us = d3.range(0, 1001).map(i => i / 1000)
+  const bound = us.map(u => ({u, sd: Math.sqrt(u * (1 - u))}))
+  const uniformSpread = bound.map(d => ({u: d.u, sd: d.sd / Math.sqrt(3)}))
+  const ySpan = 0.57
+  // each sample's SD is the population SD (n in the denominator), so that it is on the same footing as the bounds,
+  // which apply to the population form. the difference from the usual (n - 1) SD is negligible at these sample sizes
+  const right = Plot.plot({
+    width: panelWidth, height: panelHeight, marginLeft: 70, marginRight: 20, marginTop: 24, marginBottom: 45,
+    x: {label: "Mean (proportion of range)", labelAnchor: "center", labelOffset: 38, domain: [0, 1]},
+    y: {label: "SD (proportion of range)", labelAnchor: "center", labelOffset: 58, domain: [0, ySpan]},
+    grid: true,
+    style: {fontSize: "13px"},
+    marks: [
+      Plot.areaY(bound, {x: "u", y1: "sd", y2: ySpan, fill: "currentColor", fillOpacity: 0.08}),
+      Plot.lineY(bound, {x: "u", y: "sd", stroke: "currentColor", strokeWidth: 2}),
+      Plot.lineY(uniformSpread, {x: "u", y: "sd", stroke: "currentColor", strokeWidth: 1, strokeDasharray: "4,3", strokeOpacity: 0.7}),
+      Plot.text(["Impossible"], {x: 0.01, y: 0.54, textAnchor: "start", fontWeight: 600, fillOpacity: 0.6}),
+      Plot.ruleY([0], {stroke: "currentColor"}),
+      Plot.dot(points, {x: "pomp_m", y: "pomp_sd", r: 3.5, fill: blue, fillOpacity: 0.5, stroke: blue, strokeOpacity: 0.8}),
+      Plot.text(points.filter(d => labelled.includes(d.scale)), {x: "pomp_m", y: "pomp_sd", text: "scale", textAnchor: "end", dx: -8, fontWeight: 600}),
+      Plot.dot(points, Plot.pointer({x: "pomp_m", y: "pomp_sd", r: 6, fill: blue, stroke: "white", strokeWidth: 1.5})),
+      Plot.tip(points, Plot.pointer({x: "pomp_m", y: "pomp_sd", title: "label"}))
+    ]
+  })
+  // the plot's value is the sample under the pointer, or null when there is none
+  right.addEventListener("input", () => { if (right.value) show(right.value) })
+  // the bounds are named in a legend under the plot, because labels inside it would sit among the points
+  const legend = html`<div class="bd-legend">
+    <span><svg width="28" height="10"><line x1="0" x2="28" y1="5" y2="5" stroke="currentColor" stroke-width="2"/></svg> Bhatia–Davis bound</span>
+    <span><svg width="28" height="10"><line x1="0" x2="28" y1="5" y2="5" stroke="currentColor" stroke-dasharray="4,3" stroke-opacity="0.7"/></svg> Uniform-spread bound</span>
+  </div>`
+  return html`<div class="bd-panels"><div>${left}</div><div>${right}${legend}</div></div>`
+}
+function empiricalDistribution(d, panelWidth, panelHeight) {
+  // the beta distribution with a sample's mean and SD, by the method of moments, in the measure's own units
+  const blue = "#2780e3"
+  const lo = d.min_response * d.n_items, hi = d.max_response * d.n_items, range = hi - lo
+  const u = d.pomp_m, s = d.pomp_sd
+  const phi = u * (1 - u) / (s * s) - 1, alpha = u * phi, beta = (1 - u) * phi
+  const density = x => {
+    const v = (x - lo) / range
+    return Math.exp((alpha - 1) * Math.log(v) + (beta - 1) * Math.log(1 - v) + logGamma(alpha + beta) - logGamma(alpha) - logGamma(beta)) / range
+  }
+  const mean = lo + u * range, sd = s * range
+  const xs = d3.range(1, 400).map(i => lo + range * i / 400)
+  const curve = phi > 0 ? xs.map(x => ({x, y: density(x)})) : []
+  const yMax = Math.min(1.3 * (d3.max(curve, p => p.y) ?? 1), 2.5 / sd)
+  const barY = 0.2 * yMax
+  const xMin = lo - range / 4, xMax = hi + range / 4
+  const plot = Plot.plot({
+    width: panelWidth, height: panelHeight - 44, marginLeft: 20, marginRight: 20, marginTop: 24, marginBottom: 45,
+    x: {label: "Score", labelAnchor: "center", labelOffset: 38, domain: [xMin, xMax], ...scaleTicks(lo, hi)},
+    y: {axis: null, domain: [0, yMax]},
+    style: {fontSize: "13px"},
+    marks: [
+      Plot.rect([{x1: xMin, x2: lo}, {x1: hi, x2: xMax}], {x1: "x1", x2: "x2", y1: 0, y2: yMax, fill: "currentColor", fillOpacity: 0.08}),
+      Plot.areaY(curve, {x: "x", y1: 0, y2: "y", fill: blue, fillOpacity: 0.2, clip: true}),
+      Plot.lineY(curve, {x: "x", y: "y", stroke: blue, strokeWidth: 2, clip: true}),
+      Plot.ruleY([0], {stroke: "currentColor"}),
+      Plot.ruleX([mean], {stroke: blue, strokeDasharray: "4,3"}),
+      Plot.text([{}], {x: mean, y: yMax, text: () => `M = ${d.m.toFixed(2)}`, textAnchor: "start", dx: 5, lineAnchor: "top", dy: 2, fontWeight: 600}),
+      Plot.link([{}], {x1: mean - sd, x2: mean + sd, y1: barY, y2: barY, stroke: "currentColor", strokeWidth: 1.5, clip: true}),
+      Plot.text([{}], {x: mean, y: barY, text: () => `SD = ${d.sd.toFixed(2)}`, textAnchor: "start", dx: 5, dy: -8, fontWeight: 600})
+    ]
+  })
+  const fmt = x => x.toFixed(2)
+  return html`<div class="bd-selected"><strong>${d.scale}</strong> (n = ${d.n})<br><span>Beta distribution with this mean and SD on a ${lo} to ${hi} scale: <i>α</i> = ${fmt(alpha)}, <i>β</i> = ${fmt(beta)}</span></div>${plot}`
+}
+function clickToSet(plot, {width, height, marginLeft, marginRight, marginTop, marginBottom, xDomain, yDomain}, onPick) {
+  // calls onPick(x, y) with the data coordinates of a click inside the plot's frame, and again as the pointer is
+  // dragged. each call redraws the plot, which replaces this element, so the drag is followed on the window rather
+  // than on the plot, using the position and size the plot had when the drag began (the redrawn plot takes the same
+  // place on the page). the plot can be drawn smaller than its nominal width on narrow screens, so positions are
+  // rescaled to the plot's own pixels
+  plot.style.cursor = "crosshair"
+  plot.style.touchAction = "none"
+  plot.addEventListener("pointerdown", down => {
+    const box = plot.getBoundingClientRect()
+    const toData = event => {
+      const px = (event.clientX - box.left) * width / box.width, py = (event.clientY - box.top) * height / box.height
+      const fx = (px - marginLeft) / (width - marginLeft - marginRight), fy = 1 - (py - marginTop) / (height - marginTop - marginBottom)
+      return {fx, fy, x: xDomain[0] + fx * (xDomain[1] - xDomain[0]), y: yDomain[0] + fy * (yDomain[1] - yDomain[0])}
+    }
+    const start = toData(down)
+    if (start.fx < 0 || start.fx > 1 || start.fy < 0 || start.fy > 1) return
+    down.preventDefault()
+    onPick(start.x, start.y)
+    // while dragging, the point follows the pointer, held to the edges of the frame. updates are limited to one
+    // per animation frame, so that the plots are not redrawn more often than they can be shown
+    let pending = null
+    const move = event => {
+      if (pending === null) requestAnimationFrame(() => {
+        const {fx, fy} = toData(pending)
+        const cx = Math.min(1, Math.max(0, fx)), cy = Math.min(1, Math.max(0, fy))
+        onPick(xDomain[0] + cx * (xDomain[1] - xDomain[0]), yDomain[0] + cy * (yDomain[1] - yDomain[0]))
+        pending = null
+      })
+      pending = event
+    }
+    const up = () => {
+      window.removeEventListener("pointermove", move)
+      window.removeEventListener("pointerup", up)
+      window.removeEventListener("pointercancel", up)
+      document.body.style.cursor = ""
+    }
+    document.body.style.cursor = "crosshair"
+    window.addEventListener("pointermove", move)
+    window.addEventListener("pointerup", up)
+    window.addEventListener("pointercancel", up)
+  })
+}
+function snapToInput(view, x) {
+  // the nearest value that a range slider can take: within its ends and on its steps
+  const input = view.querySelector("input[type=range]")
+  const min = +input.min, max = +input.max, step = +input.step
+  const snapped = Number.isFinite(step) && step > 0 ? min + Math.round((x - min) / step) * step : x
+  return +Math.min(max, Math.max(min, snapped)).toFixed(10)
+}
+function setInput(view, value) {
+  // set an input's value and tell everything that depends on it
+  view.value = value
+  view.dispatchEvent(new Event("input", {bubbles: true}))
+}
+function scaleBounds(min, max) {
+  // the scale's logical minimum and maximum, or null if they are not two numbers with the minimum below the maximum
+  return Number.isFinite(min) && Number.isFinite(max) && min < max ? [min, max] : null
+}
+function scaleStep(range) {
+  // a slider step of about a hundredth of the scale's order of magnitude: 0.01 on a 1 to 7 scale, 1 on a 0 to 100 scale
+  return 10 ** (Math.floor(Math.log10(range)) - 2)
+}
+function stepFormat(step) {
+  // show as many decimals as the slider step has
+  const decimals = Math.max(0, -Math.floor(Math.log10(step)))
+  return x => x.toFixed(decimals)
+}
+function scaleTicks(lo, hi) {
+  // a tick at every scale point on short scales, and a few round-numbered ticks within the scale on long ones
+  return hi - lo <= 20 ? {ticks: d3.range(Math.ceil(lo), Math.floor(hi) + 1), tickFormat: "d"} : {ticks: d3.ticks(lo, hi, 5)}
+}
+function meanSlider([lo, hi], position) {
+  // a mean slider that stays just inside the scale, starting at the given proportion of the way along it
+  const range = hi - lo, step = scaleStep(range)
+  // the ends of the slider are whole steps, so that every value it can take is a round number
+  const min = Math.ceil((lo + range / 100) / step) * step, max = Math.floor((hi - range / 100) / step) * step
+  return Inputs.range([min, max], {value: lo + Math.round(position * range / step) * step, step, format: stepFormat(step), label: "Mean"})
+}
+function boundsMessage() {
+  return html`<div style="color: var(--bs-secondary-color);">Set the minimum and maximum to numbers, with the minimum below the maximum.</div>`
+}
+
+function logGamma(x) {
+  // Lanczos approximation
+  const c = [76.18009172947146, -86.50532032941677, 24.01409824083091, -1.231739572450155, 0.001208650973866179, -0.000005395239384953]
+  let y = x, sum = 1.000000000190015
+  for (const cj of c) sum += cj / ++y
+  return -(x + 5.5) + (x + 0.5) * Math.log(x + 5.5) + Math.log(2.5066282746310005 * sum / x)
+}
+
+boundsPlotStyle = html`<style>
+  .bd-panels { display: flex; flex-wrap: wrap; gap: 24px; }
+  .bd-panels > div { flex: 1 1 0; min-width: min(100%, 300px); }
+  .bd-legend { display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; justify-content: center; font-size: 0.8rem; }
+  .bd-legend svg { vertical-align: middle; }
+  .bd-selected { font-size: 0.85rem; min-height: 44px; line-height: 1.3; }
+  .bd-selected span { color: var(--bs-secondary-color); }
+  .bd-readout { font-size: 0.85rem; margin: 0.25rem 0 0; border-collapse: collapse; }
+  .bd-readout td { padding: 0.1rem 0.6rem 0.1rem 0; border: none; }
+  .bd-readout td:first-child { color: var(--bs-secondary-color); white-space: nowrap; }
+  .sb-feedback { margin: 0.5rem 0 1.5rem; padding: 0.6rem 0.9rem; border-left: 4px solid; background: rgba(128, 128, 128, 0.08); }
+  .sb-feedback-ok { border-color: #3b9c6e; }
+  .sb-feedback-warn { border-color: #d9a02b; }
+  .sb-feedback-bad { border-color: #c0392b; }
+</style>`
+```
+
+Start with the mean in the middle of the scale and increase the *SD*: the point can rise until the *SD* is half the range of the scale, which is 3 on a 1–7 scale. Now move the mean towards either end of the scale. The point is no longer free to go anywhere. Above the solid line, no combination of mean and *SD* is possible, and if you push the *SD* slider into that region the left plot reports that the combination cannot occur. On a bounded scale, the largest possible *SD* is a function of the mean.
+
+The solid line is the Bhatia–Davis bound [@bhatia2000]. For any data whatsoever on a scale from *min* to *max*, not only beta-distributed data, the variance cannot exceed (*M* − *min*) × (*max* − *M*), so the *SD* cannot exceed the square root of this. The bound is only reached when every score is at one end of the scale or the other. It is largest when the mean is in the middle of the scale, and shrinks to zero as the mean approaches either end: a sample whose mean is 6.9 on a 1–7 scale must have nearly every score at 7, and so must have a very small *SD*. The region of the right plot in which a beta distribution exists is exactly the region under the bound. The dashed line marks a second, softer boundary, which we will call the *uniform-spread bound*. Along this line the data are exactly as spread out, relative to the largest *SD* their mean allows, as scores spread evenly across the whole scale would be. A uniform distribution uses a third of the largest possible variance, so the dashed line is the Bhatia–Davis bound scaled down by 1/√3, to about 58% of its height at every mean. In terms of the beta distribution, this is where its *concentration*, *α* + *β*, equals 2; the concentration is the same quantity as the precision *φ* described below. Above the line the concentration is below 2, which forces at least one of *α* and *β* below 1, so the scores pile up against at least one end of the scale: the data are less concentrated than even a flat distribution. Below the line the data are at least as concentrated as a uniform distribution, although away from the middle of the scale some of these distributions still have scores piled up against the nearer end, as with mild floor and ceiling effects; the message under the plot says when this is the case. The uniform-spread bound is therefore a fairly liberal threshold for plausibility. Points above it describe data that are possible, but unusual for most measures, and whether they are plausible for a given measure is a question worth asking.
+
+The beta distribution is not described by a mean and an *SD* but by two other parameters, which can be written in two equivalent ways, both shown under the left plot:
+
+- The **shape parameters** *α* and *β*. Roughly, *α* pulls scores towards the top of the scale and *β* pulls them towards the bottom. When they are equal the distribution is symmetric around the middle of the scale, and the larger they both are, the more tightly the scores cluster. When either of them is 1 or less, scores pile up against that end of the scale.
+- The **mean–precision parameters** *μ* and *φ*, where *μ* = *α* / (*α* + *β*) is the mean expressed as a proportion of the way along the scale, and *φ* = *α* + *β* is the precision. This is the form used in beta regression [@ferrari2004; @smithson2006]. Just as logistic regression models a probability on the logit scale, beta regression models *μ* on the logit scale and, usually, *φ* on the log scale, so the intercepts of an intercept-only beta regression are logit(*μ*) and log(*φ*). A coefficient for a predictor is then a change in the log-odds of where the mean sits between the two ends of the scale, not a change in scale points.
+
+The contrast with the normal distribution lies in the precision. The variance of a beta distribution, on the 0 to 1 scale, is *μ*(1 − *μ*) / (1 + *φ*). The numerator, *μ*(1 − *μ*), is the Bhatia–Davis bound at that mean, so 1 / (1 + *φ*) is the share of the largest possible variance that the data actually use. In a beta distribution it is *φ*, not the *SD*, that is free to vary independently of the mean. The *SD* is not free, because it depends on both. Two samples with the same precision but different means will therefore have different *SD*s, and the one whose mean is closer to an end of the scale will have the smaller *SD*. This is the mechanism behind @sec-cohens-d-bounded: an intervention that moves scores towards the end of a scale also shrinks their *SD*, which inflates Cohen's *d*.
+
+The plot below makes this concrete. Instead of setting the mean and the *SD*, you set the mean and the precision *φ*, and the *SD* follows from them. The right plot shows the same space of means and *SD*s as above, with the Bhatia–Davis bound as a solid black line and the uniform-spread bound as a dashed line. The blue curve shows every combination of mean and *SD* that has the precision you have chosen. Clicking or dragging anywhere in the right plot sets the mean and the precision whose curve passes through that point. Hold *φ* constant and move the mean: the point slides along the blue curve, and the *SD* shrinks as the mean approaches either end of the scale, even though the precision of the data, and so the share of the largest possible variance that they use, has not changed at all.
+
+```{ojs}
+//| echo: false
+viewof phiMin = Inputs.number({value: 1, step: 1, label: "Scale minimum"})
+viewof phiMax = Inputs.number({value: 7, step: 1, label: "Scale maximum"})
+```
+
+```{ojs}
+//| echo: false
+phiBounds = scaleBounds(phiMin, phiMax)
+viewof phiMean = meanSlider(phiBounds ?? [1, 7], 0.5)
+// the slider goes down to a precision of 0.01, at which the SD is within 0.5% of the bhatia-davis bound
+viewof phiPhi = Inputs.range([0.01, 100], {value: 5, transform: Math.log, format: x => x.toFixed(x < 1 ? 2 : 1), label: "Precision (φ)"})
+```
+
+```{ojs}
+//| echo: false
+{
+  if (!phiBounds) return boundsMessage()
+  const [lo, hi] = phiBounds, range = hi - lo
+  const panelWidth = width >= 640 ? Math.floor((width - 24) / 2) : width
+  const panelHeight = 300
+  const blue = "#2780e3"
+  // with the precision held constant, the SD follows from the mean: on the 0 to 1 scale the variance is
+  // mean * (1 - mean) / (1 + precision), which is the bhatia-davis bound shrunk by the same factor at every mean
+  const sdFor = (m, phi) => { const u = (m - lo) / range; return range * Math.sqrt(u * (1 - u) / (1 + phi)) }
+  const mu = (phiMean - lo) / range, phi = phiPhi
+  const sd = sdFor(phiMean, phi)
+  const alpha = mu * phi, beta = (1 - mu) * phi
+  const skew = 2 * (beta - alpha) * Math.sqrt(alpha + beta + 1) / ((alpha + beta + 2) * Math.sqrt(alpha * beta))
+  const shape = alpha > 1 && beta > 1 ? "hump" : alpha <= 1 && beta <= 1 ? "U" : "J"
+
+  // left: the beta distribution, rescaled to the 1 to 7 scale, drawn as in the plot above
+  const betaDensity = x => {
+    const u = (x - lo) / range
+    return Math.exp((alpha - 1) * Math.log(u) + (beta - 1) * Math.log(1 - u) + logGamma(alpha + beta) - logGamma(alpha) - logGamma(beta)) / range
+  }
+  const xs = d3.range(1, 400).map(i => lo + range * i / 400)
+  const curve = xs.map(x => ({x, y: betaDensity(x)}))
+  const yMax = Math.min(1.3 * d3.max(curve, d => d.y), 2.5 / sd)
+  const barY = 0.2 * yMax
+  const xMin = lo - range / 4, xMax = hi + range / 4
+  const left = Plot.plot({
+    width: panelWidth, height: panelHeight, marginLeft: 20, marginRight: 20, marginTop: 24, marginBottom: 45,
+    x: {label: "Score", labelAnchor: "center", labelOffset: 38, domain: [xMin, xMax], ...scaleTicks(lo, hi)},
+    y: {axis: null, domain: [0, yMax]},
+    style: {fontSize: "13px"},
+    marks: [
+      Plot.rect([{x1: xMin, x2: lo}, {x1: hi, x2: xMax}], {x1: "x1", x2: "x2", y1: 0, y2: yMax, fill: "currentColor", fillOpacity: 0.08}),
+      Plot.areaY(curve, {x: "x", y1: 0, y2: "y", fill: blue, fillOpacity: 0.2, clip: true}),
+      Plot.lineY(curve, {x: "x", y: "y", stroke: blue, strokeWidth: 2, clip: true}),
+      Plot.ruleY([0], {stroke: "currentColor"}),
+      Plot.ruleX([phiMean], {stroke: blue, strokeDasharray: "4,3"}),
+      Plot.text([{}], {x: phiMean, y: yMax, text: () => `M = ${phiMean.toFixed(2)}`, textAnchor: "start", dx: 5, lineAnchor: "top", dy: 2, fontWeight: 600}),
+      Plot.link([{}], {x1: phiMean - sd, x2: phiMean + sd, y1: barY, y2: barY, stroke: "currentColor", strokeWidth: 1.5, clip: true}),
+      Plot.text([{}], {x: phiMean, y: barY, text: () => `SD = ${sd.toFixed(2)}`, textAnchor: "start", dx: 5, dy: -8, fontWeight: 600})
+    ]
+  })
+  const fmt = x => x.toFixed(2).replace("-", "−")
+  const readout = html`<table class="bd-readout">
+    <tr><td>Shape</td><td><i>α</i> = ${fmt(alpha)}, <i>β</i> = ${fmt(beta)}</td></tr>
+    <tr><td>Mean–precision</td><td><i>μ</i> = ${fmt(mu)}, <i>φ</i> = ${fmt(phi)}</td></tr>
+    <tr><td>Regression intercepts</td><td>logit(<i>μ</i>) = ${fmt(Math.log(mu / (1 - mu)))}, log(<i>φ</i>) = ${fmt(Math.log(phi))}</td></tr>
+    <tr><td>Descriptive</td><td><i>M</i> = ${fmt(phiMean)}, <i>SD</i> = ${fmt(sd)}, skewness = ${fmt(skew)}</td></tr>
+  </table>`
+
+  // right: the bhatia-davis bound and the curve of constant precision for the chosen precision
+  const ms = d3.range(0, 601).map(i => lo + range * i / 600)
+  const bound = ms.map(m => ({m, sd: Math.sqrt((m - lo) * (hi - m))}))
+  const current = ms.map(m => ({m, sd: sdFor(m, phi)}))
+  // the uniform-spread bound, as in the plot above: the curve of constant precision for a precision of 2
+  const floor = bound.map(d => ({m: d.m, sd: d.sd / Math.sqrt(3)}))
+  const ySpan = 0.57 * range, mid = (lo + hi) / 2
+  const right = Plot.plot({
+    width: panelWidth, height: panelHeight, marginLeft: 50, marginRight: 20, marginTop: 24, marginBottom: 45,
+    x: {label: "Mean", labelAnchor: "center", labelOffset: 38, domain: [lo, hi], ...scaleTicks(lo, hi)},
+    y: {label: "SD", labelAnchor: "center", labelOffset: 40, domain: [0, ySpan]},
+    grid: true,
+    style: {fontSize: "13px"},
+    marks: [
+      Plot.areaY(bound, {x: "m", y1: "sd", y2: ySpan, fill: "currentColor", fillOpacity: 0.08}),
+      Plot.lineY(bound, {x: "m", y: "sd", stroke: "currentColor", strokeWidth: 2}),
+      Plot.text(["Bhatia–Davis bound"], {x: mid, y: range / 2, dy: -10, fontSize: 12}),
+      Plot.lineY(floor, {x: "m", y: "sd", stroke: "currentColor", strokeWidth: 1, strokeDasharray: "4,3", strokeOpacity: 0.7}),
+      Plot.text(["Uniform-spread bound"], {x: mid, y: range / Math.sqrt(12), dy: -8, fontSize: 11, fillOpacity: 0.8}),
+      Plot.lineY(current, {x: "m", y: "sd", stroke: blue, strokeWidth: 2.5}),
+      Plot.ruleY([0], {stroke: "currentColor"}),
+      Plot.link([{}], {x1: phiMean, x2: phiMean, y1: 0, y2: sd, stroke: blue, strokeDasharray: "4,3"}),
+      Plot.link([{}], {x1: lo, x2: phiMean, y1: sd, y2: sd, stroke: blue, strokeDasharray: "4,3"}),
+      Plot.dot([{}], {x: phiMean, y: sd, r: 7, fill: blue, stroke: "white", strokeWidth: 1.5})
+    ]
+  })
+
+  const shapeText = shape === "hump" ? "The distribution is hump-shaped."
+    : shape === "J" ? `Scores pile up against the ${beta <= 1 ? "top" : "bottom"} of the scale, as in a ${beta <= 1 ? "ceiling" : "floor"} effect.`
+    : "Scores pile up against both ends of the scale."
+  const feedback = html`<div class="sb-feedback sb-feedback-${shape === "hump" ? "ok" : "warn"}">`
+  feedback.innerHTML = `With a precision of ${phi.toFixed(phi < 1 ? 2 : 1)}, the data use ${Math.round(100 / (1 + phi))}% of the largest possible variance at every mean. At a mean of ${phiMean.toFixed(2)} the <em>SD</em> is ${sd.toFixed(2)}${Math.abs(phiMean - (lo + hi) / 2) < scaleStep(range) / 2 ? ", the largest SD this precision allows" : `, compared with ${sdFor((lo + hi) / 2, phi).toFixed(2)} at the middle of the scale`}. ${shapeText}`
+  // clicking anywhere in the right plot sets the mean, and the precision whose curve passes through the clicked SD
+  // at that mean. above the bound no precision can reach the point, so the precision goes to its smallest value
+  clickToSet(right, {width: panelWidth, height: panelHeight, marginLeft: 50, marginRight: 20, marginTop: 24, marginBottom: 45, xDomain: [lo, hi], yDomain: [0, ySpan]}, (m, s) => {
+    const mean = snapToInput(viewof phiMean, m), u = (mean - lo) / range
+    const target = s > 0 ? u * (1 - u) / (s / range) ** 2 - 1 : Infinity
+    setInput(viewof phiMean, mean)
+    setInput(viewof phiPhi, Math.min(100, Math.max(0.01, Math.round(target * 100) / 100)))
+  })
+  return html`<div class="bd-panels"><div>${left}${readout}</div><div>${right}</div></div>${feedback}`
+}
+```
+
+On a 1–7 scale, try a precision of 5 and move the mean from 4 to 6.5. The *SD* falls from 1.22 to 0.68, which is almost halved, although the precision is the same throughout. If these were the control and intervention conditions of a study, the intervention condition would look much less variable than the control condition only because its mean is closer to the top of the scale. Setting *φ* to 2 puts the blue curve exactly on the uniform-spread bound, and any smaller precision puts it above.
+
+A mean and an *SD* can still be calculated for any beta distribution: *M* = *min* + (*max* − *min*) × *μ*, and *SD* = (*max* − *min*) × √(*μ*(1 − *μ*) / (1 + *φ*)). These are the numbers that articles report, and the method of moments used above simply runs these formulas in reverse. But for bounded data the mean and *SD* are descriptive statistics rather than a complete description of the data generating process. On their own they say nothing about skew or about the bounds. A reader who sees *M* = 5.5 and *SD* = 1.0 tends to picture a symmetric bell curve, but on a 1–7 scale these data are necessarily skewed (see the skewness reported under the first beta plot), and the bar marking one *SD* above the mean can extend beyond the top of the scale: try a mean of 6 and an *SD* of 1.5. The information about the shape of the data does not come from the mean and *SD* themselves. It comes from combining them with the bounds of the scale and with an assumption about the form of the distribution. This is why the rest of this chapter keeps asking what the bounds of a measure imply about the statistics reported for it.
+
+### Where real scales fall {#sec-empirical-mean-sd}
+
+The plots above show which combinations of mean and *SD* are possible and which are plausible. The plots below show where the means and *SD*s of real data actually fall, for two quite different kinds of measure. The data come from openly available datasets [@bainbridge2022; @brysbaert2024] and the Attitudes, Identities, and Individual Differences (AIID) study, as collated in the [Granary](https://github.com/ianhussey/granary) repository of psychological datasets.
+
+In each plot, every point on the right is one sample's scores on one measure. Because the measures have different lengths and response formats, both axes of the right plot are expressed as proportions of each measure's range: the mean as the proportion of the way from the minimum to the maximum, and the *SD* as a proportion of the range. On these axes the Bhatia–Davis bound and the uniform-spread bound are the same for every measure. Hover over a point to see which measure and sample it is, and click it to keep the label in place. The left plot shows, in the measure's own units, the beta distribution that has that sample's mean and *SD*. This is the shape that the mean and *SD* imply if the data are beta-distributed, not a histogram of the observed responses.
+
+#### Multi-item scales for individual differences {#sec-empirical-scales}
+
+The first plot shows established multi-item scales that measure individual differences, such as personality traits, emotional and clinical symptoms, and beliefs. Each participant's score is the sum of their responses to all of the scale's items. There are 217 samples of 135 scales, with sample sizes from 99 to 19,509.
+
+```{ojs}
+//| echo: false
+empiricalScales = FileAttachment("../data/data_mean_sd_pomp_plot.csv").csv({typed: true})
+empiricalPanel(empiricalScales, {width, start: "EHI handedness", labelled: ["EHI handedness"]})
+```
+
+Almost every sample falls well inside the uniform-spread bound. Typical *SD*s are around 15% of the scale's range, or about a third of the largest *SD* that each sample's mean would allow, and most means fall in the middle 60% of the scale. One sample of a PTSD symptom checklist (the PCL-5), whose mean is close to the bottom of the scale, sits on the uniform-spread bound, less than 1% above it.
+
+The one clear exception is the Edinburgh Handedness Inventory [EHI, @oldfield1971], which measures whether people prefer to use their left or right hand. Its *SD* is about 28% above the uniform-spread bound, and the beta distribution with its mean and *SD*, shown on the left, has scores piled up at both ends of the scale. This is not an error, but a consequence of what the scale measures. Handedness is bimodal: most people are strongly right-handed, a minority are strongly left-handed, and few fall in between. It is the only scale in these data for which a bimodal distribution is a plausible description of the construct being measured.
+
+#### Single-item attitude ratings {#sec-empirical-attitudes}
+
+The second plot shows a different kind of measure: single-item ratings, on a 1–10 scale, of attitudes towards or preferences for 187 objects, such as social groups, public figures, political and religious positions, brands, and foods, from the AIID study. Each point is one attitude object, rated by between 835 and 2,683 participants.
+
+```{ojs}
+//| echo: false
+empiricalAttitudes = FileAttachment("../data/data_mean_sd_pomp_plot_attitudes.csv").csv({typed: true})
+empiricalPanel(empiricalAttitudes, {width, start: "Creationism", labelled: ["Creationism"]})
+```
+
+These data are much more spread out than the multi-item scales. The typical *SD* is about 23% of the range, or about half of the largest *SD* that each mean allows, and 17 of the 187 attitude objects (9%) fall above the uniform-spread bound. Most of these are topics on which people are polarised: creationism, evolution, capital punishment, abortion, gun control, religion, and a former US president. People tend to feel strongly for or against them, so ratings pile up at both ends of the scale, as the beta distribution on the left shows for creationism. A few others are matters of taste on which people are divided, such as coffee, cats, and meat.
+
+Two things make single-item attitude ratings more spread out than multi-item scales. First, summing several items averages out much of what is specific to each item, which pulls scores towards the middle of the possible range; a single item has no such averaging. Second, some attitude objects genuinely divide people into camps, whereas most individual differences, such as traits, vary smoothly across people, with most of them in the middle.
+
+The lesson for forensic work is that what counts as a plausible mean and *SD* depends on what was measured. For an established multi-item scale measuring an individual difference, a mean and *SD* above the uniform-spread bound are possible, but they need an explanation of the kind that handedness provides: a reason to expect most scores to sit at the ends of the scale. For most such scales, no such reason exists. For a single item about a polarising topic, the same mean and *SD* are unremarkable.
+
+### A family of models for bounded data {#sec-bounded-models}
+
+The beta distribution is not the only way to model bounded data, and beta regression is better thought of as one member of a family of models. Each makes different assumptions, and each can or cannot represent particular features of real data: scores exactly at the minimum or maximum of the scale, data whose *SD* is very small, and data that can only take whole-number values, such as a single Likert item or a sum score. The table below summarises some of the most common members.
+
+| Model | Designed for | Scores exactly at the minimum or maximum | Very small *SD*s | Notes |
+|:---|:---|:---|:---|:---|
+| Beta regression [@ferrari2004; @smithson2006] | Continuous data strictly between the bounds | No: the likelihood is undefined at exactly 0 or 1, so such scores are usually nudged inwards by an ad hoc transformation | Yes | The simplest member. Results can be sensitive to how scores at the bounds were nudged. |
+| Zero–one inflated beta (ZOIB) [@ospina2012] | Continuous data, including scores at the bounds | Yes, modelled as separate processes from the scores between the bounds | Yes | Has separate parts, each with its own coefficients, for whether a score is at a bound and for where it falls otherwise, which makes results harder to interpret. |
+| Ordered beta regression [@kubinec2023] | Continuous data, including scores at the bounds, such as slider scales | Yes, through cutpoints that join the bounds and the interior in a single process | Yes | Fewer parameters than ZOIB, at the cost of assuming that one process drives both the bounds and the interior. |
+| Beta-binomial regression | Whole numbers out of a known maximum, such as sum scores or the number of correct answers | Yes, as ordinary values | No: its *SD* cannot be smaller than that of a binomial distribution with the same mean | Captures data that are more spread out than a binomial distribution, but not data that are less spread out. |
+| Ordinal (cumulative) regression [@liddell2018; @burkner2019] | Ordered categories, such as a single Likert item | Yes, as ordinary categories | Yes: all responses can fall in one category | Does not assume that response options are equally spaced. Its parameters describe a latent variable rather than the response scale. |
+
+It is not necessary to understand the differences between these models in detail to follow the rest of this book. The point is that a whole universe of models exists for bounded data, and that the familiar combination of a mean and an *SD*, together with the normal distribution it implicitly invokes, is only an approximation to all of them. It is often a good enough approximation, but it is worst exactly where many forensic questions arise: when means sit close to the ends of a scale, when *SD*s are very large or very small, and when effects are large.
+
 ## Means bounds and SD bounds
 
 - TIDES + power + false positives

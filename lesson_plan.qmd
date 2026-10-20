@@ -5,6 +5,16 @@
 if(file.exists("_setup.R")){source("_setup.R")}
 ```
 
+## In-class assessments
+
+1. The "Before class" preparatory readings and chapters of this book, listed below, are the essential readings. Ensure you can correctly answer the "Test yourself" quizzes in the book.
+2. Preparatory readings are to be done before the session they're associated with, as they enable you to understand the slides. 
+3. In-class assessments occur on later weeks. 
+
+So, for example, if we discuss misinterpretations of *p*-values in week 3, you should a) read and understand the "Before class" readings before class and be able to complete the quizzes in the book; and b) this content may be assessed in an in-class assignment from week 3 onward. The timing of the in-class assignments is not disclosed ahead of time - their point is to ensure that you do the readings.
+
+## Weekly topics and readings
+
 If delivered as a semester-long course, we suggest the following lesson plan.
 
 ### Week 1

@@ -187,7 +187,7 @@ This decision rule is what $\alpha$ controls: in the long run, no more than 5% o
 
 The *p*-value, $P(D \mid H_0)$, and the quantity researchers want, $P(H_1 \mid D)$, differ in two ways, and misinterpretations usually slip across both at once:
 
-1. **The direction of the conditional is reversed.** $P(D \mid H_0)$ is the probability of the data given the null; $P(H_0 \mid D)$ is the probability of the null given the data. These can differ enormously. The probability that a person is a smoker given that they have lung cancer is high; the probability that a person has lung cancer given that they smoke is much lower. Treating one as the other is known as the *inverse probability fallacy* or the *transposed conditional*.
+1. **The direction of the conditional is reversed.** $P(D \mid H_0)$ is the probability of the data given the null; $P(H_0 \mid D)$ is the probability of the null given the data. These can differ enormously. The probability that a person is a smoker given that they have lung cancer is high; the probability that a person has lung cancer given that they smoke is much lower. Treating one as the other is known as the *inverse probability fallacy* or the *transposed conditional*. @cohen1994 made the same point with a syllogism: if a person is an American, they are probably not a member of Congress; this person is a member of Congress; therefore, they are probably not an American. The conclusion is plainly absurd, yet it has the same form as the reasoning behind rejecting $H_0$ and concluding that $H_0$ is probably false. A significance test tells us how improbable the data are if $H_0$ is true, not how improbable $H_0$ is given the data.
 2. **The complement is then taken.** Having read *p* as $P(H_0 \mid D)$, it is a short step to reading $1 - p$ as $P(H_1 \mid D)$: "*p* = .01, so there is a 99% chance the effect is real."
 
 Quiz statement 2 is the first step: reading *p* as $P(H_0 \mid D)$. Statement 4 is both steps: reading $1 - p$ as $P(H_1 \mid D)$. Statement 5 reads *p* as $P(H_0 \mid \text{significant result})$, the probability that a rejection of $H_0$ is mistaken. All three treat a probability of data as a probability of a hypothesis.
@@ -691,7 +691,7 @@ The underlying message was put memorably by Rosnow and Rosenthal [-@rosnow1989, 
 
 They meant that .05 is an arbitrary line and that *p* = .06 should not be dismissed where *p* < .05 is accepted as meaningful evidence. However, the distribution of *p*-values suggests a less comforting corollary: in a well-powered study of a true effect, neither .05 nor .06 is a very likely outcome. Perhaps God loves neither very much.
 
-### Marginally significant *p*-values
+### Marginally significant *p*-values {#sec-marginally-significant}
 
 The mirror image of the barely significant result is the *marginally* significant one: a *p*-value just above .05 that is described as if it were nearly significant, for example as "approaching significance" or "a trend towards significance". This allows authors to have it both ways, acknowledging that the result did not meet the threshold while still treating it as support for their hypothesis.
 

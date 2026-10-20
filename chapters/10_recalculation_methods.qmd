@@ -99,7 +99,15 @@ The first result is flagged as a decision error. The second is not flagged at al
 
 That is, around half of psychology articles that report significance tests contain at least one *p*-value that does not match its test statistic, and around one in eight contain one where the mismatch changes whether the result is significant.
 
-The inconsistencies were also not symmetric. Of all *p*-values reported as significant, 1.56% were grossly inconsistent, compared with 0.97% of those reported as non-significant. That is, a *p*-value reported as significant was about 1.6 times as likely as one reported as non-significant to be grossly inconsistent, which is what we would expect if errors that produce significant results are more likely to be made, less likely to be caught, or more likely to be published. @nuijten2016 discuss all three possibilities, and their data cannot distinguish between them.
+The inconsistencies were also not symmetric. Of all *p*-values reported as significant, 1.56% were grossly inconsistent, compared with 0.97% of those reported as non-significant.
+
+::: big-number
+[1.6×]{.number}
+
+[as likely to be grossly inconsistent when a *p*-value was reported as significant as when it was reported as non-significant.]{.description}
+:::
+
+This is what we would expect if errors that produce significant results are more likely to be made, less likely to be caught, or more likely to be published. @nuijten2016 discuss all three possibilities, and their data cannot distinguish between them.
 
 These figures are estimates, and depend on what statcheck can read. statcheck only reads results reported in full APA style in the text. When @nuijten2016 compared statcheck with a manual check of 49 articles, statcheck found 67.5% of the results that had been extracted by hand. Most of the results it missed were in tables, or had an effect size or other statistic between the test statistic and the *p*-value (e.g., "*F*(2, 70) = 4.48, *MSE* = 6.61, *p* < .02"). How common inconsistencies are among the results that statcheck does not read is unknown.
 

@@ -48,3 +48,18 @@ if(file.exists("../_setup.R")){source("../_setup.R")}
 ### Intended audience
 
 - The INSPECT-SR extended universe: health research synthesists, psychologists, and related fields who are doing within-article assessments
+
+## Out of scope for this book
+
+These topics are important to trustworthiness assessment and forensic meta-science, but are not covered in this book in sufficient detail to provide a guide on how to use them.
+
+- Image forensics. See [sth from Elisabeth Bik and note that University of Bern gave her an honorary PhD for her work, Rene Aquarius's SR]
+- Tortured phrases. [Guillaume Cabanac's work]
+- Paper mill detection.
+- Forensic scientiometrics, authorship pattern analysis (Lesie McIntosh's work)
+- Chemical reagents etc that don't exist (Jennifer Byrne's work)
+- Assessing governance concerns. Point to INSPECT-SR, ethical guidelines that are referred to.
+- [Others]
+
+
+

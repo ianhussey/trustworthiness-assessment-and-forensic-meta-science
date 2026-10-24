@@ -13,7 +13,7 @@ DRAFT STATUS
     Tier 3: mean + SD + N + range or scale bounds     -> bounds methods (next chapter)
   A side branch applies the same logic to test statistics rather than descriptives (GRIM-U).
 - All simulations in this chapter run at render time and are seeded.
-- The base-R helper functions grim_base() and grimmer_given_sum() were checked against {scrutiny} before use
+- pass_rate() uses {roundwork} and is checked against scrutiny::grim() at render time. the GRIMMER checks in fig-grimmer-pass-rates were checked against exact arithmetic for every rounding option
   (identical verdicts for GRIM under "up_or_down" and "up" for N = 1-130 at two decimals, and for GRIMMER on 4,000 random cases).
 - {strait} must be a version that exports grim_aggregate().
 - Open TODOs are marked inline with "TODO".
@@ -24,6 +24,7 @@ DRAFT STATUS
 #| include: false
 library(tidyverse)
 library(scrutiny)
+library(roundwork)
 library(strait)
 library(analyticgrimu)
 ```
@@ -314,24 +315,122 @@ This is the **pass rate**: the share of all printable values that the test would
 -   The fail rate is the test's power against a random wrong value. A value with a fail rate of 0.72 is one where a wrong number would be caught 72% of the time. A value with a fail rate of zero cannot be caught at all.
 -   It defines which values are **informative**. Only values with a fail rate above zero can tell us anything, whether they pass or fail.
 
-Brown and Heathers' Figure 1, reproduced in @fig-grim-grid, shows the pass rate directly. Each column is a sample size and each row is one of the 100 possible two-decimal endings of a mean. Blue cells are attainable, and grey cells are impossible. Small samples leave most endings impossible, and the impossible region shrinks to nothing as *N* approaches 100. The share of blue cells in a column is the pass rate for that sample size.
+Brown and Heathers' Figure 1, reproduced interactively in @fig-grim-grid, shows the pass rate directly. Each column is a sample size and each row is one of the possible endings of a mean at the chosen number of decimals: 100 at two decimals. Black cells are attainable, and white cells are impossible. Small samples leave most endings impossible, and the impossible region shrinks to nothing as *N* approaches 100. The share of black cells in a column is the pass rate for that sample size. Change the number of decimals, the items averaged, and the rounding rule to see how the pattern changes. Type a mean and a sample size, or click a cell, to select it. The selected cell is outlined in blue.
 
-```{r}
-#| label: fig-grim-grid
-#| fig-cap: "GRIM-consistent (blue) and GRIM-inconsistent (grey) two-decimal endings of a mean, by sample size, for a single whole-number item. Only the decimal part of a mean matters: if 2.49 is attainable for a given N, so are 0.49 and 8.49."
-#| fig-height: 5
-#| code-fold: true
-grid <- expand_grid(n = 1:100, ending = 0:99) |>
-  mutate(consistent = grim(x = ending / 100, n = n, digits_x = 2))
+::: {#fig-grim-grid}
 
-ggplot(grid, aes(n, ending / 100, fill = consistent)) +
-  geom_raster() +
-  scale_fill_manual(values = c(`TRUE` = "#2780e3", `FALSE` = "grey90"), guide = "none") +
-  scale_x_continuous(breaks = seq(0, 100, 10), expand = c(0, 0)) +
-  scale_y_continuous(breaks = seq(0, 1, 0.1), expand = c(0, 0)) +
-  labs(x = "Sample size (N)", y = "Decimal part of the reported mean") +
-  theme_minimal()
+```{ojs}
+//| echo: false
+viewof ggMean = Inputs.number({label: "Reported mean", value: 3.12, step: 0.001, width: 90})
+viewof ggN = Inputs.number({label: "Sample size (N)", value: 8, step: 1, min: 1, width: 90})
+viewof ggDigits = Inputs.select([1, 2, 3], {label: "Decimal places", value: 2})
+viewof ggItems = Inputs.number({label: "Items averaged into each participant's score", value: 1, step: 1, min: 1, width: 90})
+viewof ggRounding = Inputs.select(roundingOptions, {label: "Rounding", value: "up_or_down"})
 ```
+
+```{ojs}
+//| echo: false
+// which endings are attainable at every sample size shown. the plot reaches a little past the point where every ending
+// is attainable, and always includes the selected sample size
+ggGrid = {
+  const d = ggDigits, scale = 10 ** d, k = ggItems
+  if (!Number.isInteger(k) || k < 1) return null
+  const cols = Math.max(10, Math.ceil(1.1 * scale / k), Number.isInteger(ggN) && ggN <= 5000 ? ggN : 0)
+  // one colour per cell, in rows from the top (largest ending) down
+  const fills = new Array(cols * scale), passRate = new Float64Array(cols + 1)
+  for (let n = 1; n <= cols; n++) {
+    const reached = grimEndings(n * k, d, ggRounding)
+    let count = 0
+    for (let j = 0; j < scale; j++) {
+      fills[(scale - 1 - j) * cols + (n - 1)] = reached[j] ? "black" : "white"
+      count += reached[j]
+    }
+    passRate[n] = count / scale
+  }
+  return {d, scale, k, cols, fills, passRate}
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  if (!ggGrid) return html`<p style="font-weight: 600;">Enter a whole number of items.</p>`
+  const {d, scale, k, cols, fills, passRate} = ggGrid
+  const blue = "#2780e3", red = "#c0392b", grey = "#6c757d"
+  const valid = Number.isFinite(ggMean) && Number.isInteger(ggN) && ggN >= 1 && ggN <= cols
+  // the selected cell: the sample size, and the ending of the mean at the chosen number of decimals
+  const n = valid ? ggN : null
+  const j = valid ? ((Math.round(ggMean * scale) % scale) + scale) % scale : null
+  const margins = {marginLeft: 64, marginRight: 10, marginTop: 10, marginBottom: 45}
+  const frame = Math.min(520, width - margins.marginLeft - margins.marginRight)
+  const plotWidth = frame + margins.marginLeft + margins.marginRight
+  const plotHeight = Math.round(frame * 0.7) + margins.marginTop + margins.marginBottom
+  const xDomain = [0.5, cols + 0.5], yDomain = [-0.5 / scale, (scale - 0.5) / scale]
+  const plot = Plot.plot({
+    width: plotWidth, height: plotHeight, ...margins,
+    x: {label: "Sample size (N)", labelAnchor: "center", labelOffset: 38, domain: xDomain},
+    y: {label: "Decimal part of the reported mean", labelAnchor: "center", labelOffset: 54, domain: yDomain, ticks: 10, tickFormat: t => t.toFixed(d)},
+    color: {type: "identity"},
+    style: {fontSize: "13px", background: "transparent"},
+    marks: [
+      // drawn as one image, because there can be over a million cells at three decimals
+      Plot.raster(fills, {width: cols, height: scale, x1: xDomain[0], x2: xDomain[1], y1: yDomain[1], y2: yDomain[0], fill: f => f, imageRendering: "pixelated"}),
+      Plot.frame({stroke: "currentColor", strokeOpacity: 0.4}),
+      valid ? Plot.rect([{}], {x1: n - 0.5, x2: n + 0.5, y1: (j - 0.5) / scale, y2: (j + 0.5) / scale, inset: -2, fill: "none", stroke: "white", strokeWidth: 5}) : null,
+      valid ? Plot.rect([{}], {x1: n - 0.5, x2: n + 0.5, y1: (j - 0.5) / scale, y2: (j + 0.5) / scale, inset: -2, fill: "none", stroke: blue, strokeWidth: 2.5}) : null
+    ]
+  })
+  // clicking or dragging in the plot selects the cell under the pointer: its sample size, and its ending added to the
+  // whole-number part of the current mean
+  clickToSet(plot, {width: plotWidth, height: plotHeight, ...margins, xDomain, yDomain}, (x, y) => {
+    const whole = Number.isFinite(ggMean) ? Math.floor(ggMean) : 0
+    const ending = Math.min(scale - 1, Math.max(0, Math.round(y * scale)))
+    setInput(viewof ggN, Math.min(cols, Math.max(1, Math.round(x))))
+    setInput(viewof ggMean, +(whole + ending / scale).toFixed(d))
+  })
+  const who = `${n} participants${k > 1 ? `, each scored as the average of ${k} items,` : ""}`
+  const share = valid ? passRate[n] : null
+  const [verdict, colour] = !valid ? [null, null] : share === 1 ? ["GRIM-uninformative", grey] : fills[(scale - 1 - j) * cols + (n - 1)] === "black" ? ["GRIM-consistent", blue] : ["GRIM-inconsistent", red]
+  const message = valid
+    ? html`<p style="font-weight: 600; margin: 0.8rem 0 0.2rem 0;">A mean of ${(Math.floor(ggMean) + j / scale).toFixed(d)} from ${who} is <span style="color: ${colour};">${verdict}</span>, with ${roundingPhrases[ggRounding]}.</p>
+<p style="margin: 0 0 0.5rem 0;">At this sample size, ${Math.round(share * 1000) / 10}% of ${d}-decimal endings are attainable.</p>`
+    : html`<p style="margin: 0.8rem 0 0.5rem 0;">Enter a mean and a whole-number sample size of up to ${cols} to select a cell.</p>`
+  const legendSquare = (fill, stroke) => `<svg width="14" height="14" style="vertical-align: -2px;"><rect x="1" y="1" width="12" height="12" fill="${fill}" stroke="${stroke}"/></svg>`
+  const legend = html`<div style="display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; justify-content: center; font-size: 0.85rem; margin-top: 0.25rem; max-width: ${plotWidth}px;">`
+  legend.innerHTML = `<span>${legendSquare("black", "black")} Attainable</span>
+    <span>${legendSquare("white", "rgba(128, 128, 128, 0.8)")} Impossible</span>
+    <span>${legendSquare("none", blue)} Selected cell</span>`
+  return html`${message}${plot}${legend}`
+}
+```
+
+```{ojs}
+//| echo: false
+// shared by the plots of attainable endings and pass rates
+roundingOptions = new Map([["Up or down", "up_or_down"], ["Half up", "up"], ["Half down", "down"], ["Half to even", "even"], ["Truncation", "trunc"], ["Up or down, or truncation", "up_or_down_trunc"]])
+roundingPhrases = ({up_or_down: "halves rounded up or down", up: "halves rounded up", down: "halves rounded down", even: "halves rounded to even", trunc: "values truncated", up_or_down_trunc: "halves rounded up or down, or values truncated"})
+function grimEndings(nk, d, rounding) {
+  // which of the 10^d endings at d decimals some mean of nk whole numbers is reported as. only the decimal part of a
+  // mean matters, so the sums S = 0 to nk - 1 cover every case. the arithmetic is in whole numbers, so that exact
+  // halves stay exact: the mean S / nk is S x 10^d / nk reporting steps
+  const scale = 10 ** d, reached = new Uint8Array(scale)
+  const rules = {up_or_down: ["up", "down"], up_or_down_trunc: ["up", "down", "trunc"]}[rounding] ?? [rounding]
+  for (let S = 0; S < nk; S++) {
+    const num = S * scale, q = (num - (num % nk)) / nk, twice = 2 * (num % nk)
+    for (const rule of rules) {
+      // twice the remainder is above, below, or equal to nk when the mean is above, below, or exactly at a half
+      const v = rule === "trunc" ? q
+        : twice > nk ? q + 1 : twice < nk ? q
+        : rule === "up" ? q + 1 : rule === "down" ? q : q % 2 === 0 ? q : q + 1
+      reached[v % scale] = 1
+    }
+  }
+  return reached
+}
+```
+
+GRIM-consistent (black) and GRIM-inconsistent (white) endings of a mean, by sample size. Only the decimal part of a mean matters: if 2.49 is attainable for a given *N*, so are 0.49 and 8.49.
+:::
 
 Brown and Heathers give the approximation: with two decimals and *N* below 100, a random value is consistent in about *N*% of cases. More generally the pass rate is close to *N* × items / 10^*d*^, up to a maximum of 1. It is not exactly that under the lenient rounding rule, because sample sizes that produce exact halves have higher pass rates (@sec-grim-leniency).
 
@@ -339,36 +438,33 @@ Brown and Heathers give the approximation: with two decimals and *N* below 100, 
 
 Every rounding practice that the test accommodates widens the band of exact values that count as a match, so more wrong values pass. The trade-off is unavoidable: a lenient test raises fewer false alarms and misses more errors.
 
-To see its size, we need a GRIM function in which the rounding rules can be combined freely. The function below is a plain implementation of GRIM: it takes the whole-number sums on either side of the implied sum (the mean multiplied by *N* × items), divides each by *N* × items, and checks whether any of them rounds to the reported mean. It returns the same verdicts as {scrutiny} for the "up" and "up or down" rules. We use it for the simulations in the rest of the chapter.
+To see its size, we work out the pass rate under different combinations of rounding rules. For each sample size, we take every mean that whole numbers can produce, round it under each rule with the {roundwork} package (which {scrutiny} uses for its own rounding), and count how many of the 100 possible two-decimal endings are reached. For the "up" and "up or down" rules, these counts are the same as the share of endings that {scrutiny}'s `grim()` accepts. We use the same function for the pass rates in the rest of the chapter.
 
 ```{r}
-# round the exact values v to d decimals under one rule, returned as whole numbers of the last decimal place
-round_rule <- function(v, d, rule) {
-  z <- v * 10^d
-  switch(rule,
-         up    = floor(z + 0.5 + 1e-9),    # halves go up
-         down  = ceiling(z - 0.5 - 1e-9),  # halves go down
-         trunc = floor(z + 1e-9))          # extra decimals are cut off
-}
+#| echo: false
+# the decimal parts of every mean that n * items whole-number scores can produce. only the decimal part matters for
+# GRIM, so one unit's worth of sums is enough
+attainable_means <- function(n, items = 1) (0:(n * items - 1)) / (n * items)
 
-# is the reported mean x attainable from n * items whole numbers under any of the rules?
-grim_base <- function(x, n, d, items = 1, rules = c("up", "down")) {
-  target <- round(x * 10^d)
-  nm <- n * items
-  nearest_sum <- floor(x * nm + 1e-9)
-  consistent <- rep(FALSE, length(target))
-  for (k in -1:2) {     # the whole-number sums around the implied sum
-    for (rule in rules) {
-      consistent <- consistent | (round_rule((nearest_sum + k) / nm, d, rule) == target)
-    }
-  }
-  consistent
-}
-
-# the share of all values printable at d decimals that would pass
+# the share of all values printable at d decimals that some attainable mean is reported as, under any of the rounding
+# rules: "up" and "down" round halves up or down, and "trunc" cuts the extra decimals off. truncation cuts the stored
+# binary value, so a mean of exactly 0.58, stored as 0.57999..., would be cut to 0.57. a nudge far smaller than any
+# reporting step avoids this
 pass_rate <- function(n, d, items = 1, rules = c("up", "down")) {
-  mean(grim_base((0:(10^d - 1)) / 10^d, n, d, items, rules))
+  means <- attainable_means(n, items)
+  reported <- unlist(lapply(rules, \(rule) reround(if (rule == "trunc") means + 1e-9 else means, digits = d, rounding = rule)))
+  endings <- round(reported * 10^d) %% 10^d  # a mean rounded up to 1.00 has the same ending as 0.00
+  length(unique(endings)) / 10^d
 }
+
+# check against {scrutiny}: the share of printable endings that grim() accepts must be the same
+scrutiny_pass_rate <- function(n, d, items = 1, rounding = "up_or_down") {
+  mean(grim(x = 5 + (0:(10^d - 1)) / 10^d, n = n, digits_x = d, items = items, rounding = rounding))
+}
+pass_rate_check <- expand_grid(n = 1:110, items = c(1, 3)) |>
+  mutate(up_or_down = map2_lgl(n, items, \(n, items) isTRUE(all.equal(pass_rate(n, 2, items), scrutiny_pass_rate(n, 2, items)))),
+         up = map2_lgl(n, items, \(n, items) isTRUE(all.equal(pass_rate(n, 2, items, "up"), scrutiny_pass_rate(n, 2, items, "up")))))
+stopifnot(all(pass_rate_check$up_or_down), all(pass_rate_check$up))
 ```
 
 Here we use the pass rate to compare three versions of the test.
@@ -377,7 +473,7 @@ Here we use the pass rate to compare three versions of the test.
 #| label: fig-rounding-pass-rates
 #| fig-cap: "Share of all two-decimal values that pass GRIM for a single item, by sample size, under three sets of accommodated rounding practices."
 #| fig-height: 4
-#| code-fold: true
+#| echo: false
 rounding_rules <- list(
   "Halves up only"                    = "up",
   "Halves up or down"                 = c("up", "down"),
@@ -413,33 +509,59 @@ $$N \times \text{items} < 10^{d}$$
 where *d* is the number of reported decimals. With the usual two decimals, GRIM applies to fewer than 100 participants on a single item. At or above that, every two-decimal value is attainable and every mean passes. Brown and Heathers call variables below this limit **GRIM-testable**.
 Allowing halves to be rounded either way can end the test slightly earlier, at sample sizes that produce exact halves. At *N* = 80, for example, every two-decimal value passes (@sec-grim-leniency). The GRIM plot in @sec-grim-plot reports the test as uninformative in both cases.
 
-@fig-pass-rates shows where the limit falls for different numbers of decimals and items averaged.
+Use @fig-pass-rates to see where the limit falls for different numbers of decimals, items averaged, and rounding rules.
 
-```{r}
-#| label: fig-pass-rates
-#| fig-cap: "GRIM pass rates by sample size, number of reported decimals, and number of items in a mean score, with halves rounded either way. The dashed line is the approximation N × items / 10^d. Note the different horizontal scales."
-#| fig-height: 6.5
-#| code-fold: true
-pass_grid <- expand_grid(d = 1:3, items = c(1, 5, 10)) |>
-  mutate(n = map2(d, items, \(d, items) 1:ceiling(1.15 * 10^d / items))) |>
-  unnest(n) |>
-  mutate(pass = pmap_dbl(list(n, d, items), \(n, d, items) pass_rate(n, d, items)),
-         approximation = pmin(1, n * items / 10^d),
-         d_label = paste(d, ifelse(d == 1, "decimal", "decimals")),
-         items_label = fct_inorder(paste(items, ifelse(items == 1, "item", "items"))))
+::: {#fig-pass-rates}
 
-ggplot(pass_grid, aes(n, pass)) +
-  geom_line(aes(y = approximation), linetype = "dashed", colour = "grey50") +
-  geom_line(colour = "#2780e3", linewidth = 0.6) +
-  facet_wrap(vars(d_label, items_label), scales = "free_x", labeller = label_wrap_gen(multi_line = FALSE)) +
-  scale_x_continuous(breaks = \(limits) unique(round(pretty(limits, n = 4)))) +
-  scale_y_continuous(labels = scales::percent) +
-  labs(x = "Sample size (N)", y = "Values that pass") +
-  theme_minimal() +
-  theme(panel.spacing.x = unit(1.5, "lines"))
+```{ojs}
+//| echo: false
+viewof prDigits = Inputs.select([1, 2, 3], {label: "Decimal places", value: 2})
+viewof prItems = Inputs.number({label: "Items averaged into each participant's score", value: 1, step: 1, min: 1, width: 90})
+viewof prRounding = Inputs.select(roundingOptions, {label: "Rounding", value: "up_or_down"})
 ```
 
-Every panel has the same shape, because only the product *N* × items matters. The panels differ in where the line reaches 100%: at *N* = 10 for a single item reported to one decimal, and at *N* = 1,000 for a single item reported to three. A five-item mean score at two decimals is exhausted by *N* = 20, and a ten-item mean score at one decimal cannot be tested at any sample size.
+```{ojs}
+//| echo: false
+{
+  const d = prDigits, scale = 10 ** d, k = prItems
+  if (!Number.isInteger(k) || k < 1) return html`<p style="font-weight: 600;">Enter a whole number of items.</p>`
+  const blue = "#2780e3"
+  const maxN = Math.max(10, Math.ceil(1.15 * scale / k))
+  const rows = d3.range(1, maxN + 1).map(n => ({n, pass: grimEndings(n * k, d, prRounding).reduce((a, b) => a + b, 0) / scale, approximation: Math.min(1, n * k / scale)}))
+  // the sample size from which the test can never fail, and any smaller ones where it happens not to be able to
+  let from = maxN + 1
+  while (from > 1 && rows[from - 2].pass === 1) from--
+  const isolated = rows.filter(r => r.n < from && r.pass === 1).map(r => r.n)
+  const margins = {marginLeft: 64, marginRight: 28, marginTop: 20, marginBottom: 45}
+  const frame = Math.min(520, width - margins.marginLeft - margins.marginRight)
+  const plotWidth = frame + margins.marginLeft + margins.marginRight
+  const plot = Plot.plot({
+    width: plotWidth, height: Math.round(frame * 0.6) + margins.marginTop + margins.marginBottom, ...margins,
+    x: {label: "Sample size (N)", labelAnchor: "center", labelOffset: 38, domain: [0, maxN]},
+    y: {label: "Values that pass", labelAnchor: "center", labelOffset: 54, domain: [0, 1], tickFormat: "%", grid: true},
+    style: {fontSize: "13px", background: "transparent"},
+    marks: [
+      Plot.lineY(rows, {x: "n", y: "approximation", stroke: "currentColor", strokeOpacity: 0.5, strokeDasharray: "4,3"}),
+      Plot.lineY(rows, {x: "n", y: "pass", stroke: blue, strokeWidth: 1.5}),
+      from <= maxN ? Plot.ruleX([from], {stroke: "currentColor", strokeOpacity: 0.6}) : null,
+      from <= maxN ? Plot.text([{}], {x: from, y: 1, text: () => `N = ${from}`, dy: -8, textAnchor: from > maxN * 0.8 ? "end" : "start", dx: from > maxN * 0.8 ? -4 : 4, fontWeight: 600}) : null,
+      Plot.dot(isolated.map(n => ({n})), {x: "n", y: () => 1, r: 4, fill: blue})
+    ]
+  })
+  const what = `With ${d} ${d === 1 ? "decimal" : "decimals"}, ${k} ${k === 1 ? "item" : "items"} averaged, and ${roundingPhrases[prRounding]}`
+  const also = isolated.length ? `, and also at N = ${isolated.length > 6 ? isolated.slice(0, 6).join(", ") + ", …" : isolated.join(", ")}` : ""
+  const message = from <= 1 ? `${what}, GRIM cannot fail at any sample size.` : `${what}, GRIM cannot fail from N = ${from} onwards${also}.`
+  const legend = html`<div style="display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; justify-content: center; font-size: 0.85rem; margin-top: 0.25rem; max-width: ${plotWidth}px;">`
+  legend.innerHTML = `<span><svg width="28" height="10"><line x1="0" x2="28" y1="5" y2="5" stroke="${blue}" stroke-width="2"/></svg> Pass rate</span>
+    <span><svg width="28" height="10"><line x1="0" x2="28" y1="5" y2="5" stroke="currentColor" stroke-opacity="0.5" stroke-dasharray="4,3"/></svg> Approximation, <i>N</i> × items / 10<sup><i>d</i></sup></span>`
+  return html`<p style="font-weight: 600; margin: 0.8rem 0 0.5rem 0;">${message}</p>${plot}${legend}`
+}
+```
+
+GRIM pass rates by sample size, for the chosen number of decimals, items averaged, and rounding rule. The dashed line is the approximation *N* × items / 10^*d*^. The vertical line marks the sample size from which GRIM can no longer fail.
+:::
+
+Changing the number of decimals or the items averaged does not change the shape of the line, because only the product *N* × items matters. It only changes where the line reaches 100%: at *N* = 10 for a single item reported to one decimal, and at *N* = 1,000 for a single item reported to three. A five-item mean score at two decimals is exhausted by *N* = 20, and a ten-item mean score at one decimal cannot be tested at any sample size.
 
 Two consequences follow.
 
@@ -700,76 +822,117 @@ The default values are the Kool-Aid example above: a mean of 5.19 and an *SD* of
 
 GRIMMER catches impossible SDs when the mean is fine, which GRIM cannot do. How often it does so depends on something GRIM is indifferent to: the size of the SD. The range in step 2 gets wider as the SD gets larger, and a wider range is more likely to contain a suitable whole number. @anaya2016 noted that the test is most powerful when the SD is small.
 
-The simulation below measures this. The left panel looks at GRIMMER's own contribution: the mean is correct, so the sum is known, and we ask what share of two-decimal SD values near a given magnitude would pass. The right panel shows the two tests together: the share of random pairs of a mean and an SD that pass both.
+@fig-grimmer-pass-rates measures this. With "GRIMMER SD test only" selected, it shows GRIMMER's own contribution: the mean is correct, so the sum is known, and we ask what share of SD values near a given magnitude would pass. With "GRIMMER mean + SD tests" selected, it shows the two tests together: the share of pairs of a mean and an SD that pass both. The other settings work as in @fig-pass-rates.
 
-```{r}
-#| label: fig-grimmer-pass-rates
-#| fig-cap: "Pass rates for GRIMMER at two decimals, for a single whole-number item. Left: the SD check alone, when the mean is correct. Right: GRIM and GRIMMER together, for a random mean and a random SD. The dashed line is GRIM alone. SD magnitudes are bands of width 0.5 centred on the stated value."
-#| fig-height: 4.5
-#| code-fold: true
-# the SD check, given a known whole-number sum S (sample SD, halves rounded either way)
-grimmer_given_sum <- function(S, sd, n, d_sd = 2) {
-  half <- 0.5 * 10^-d_sd
-  lower <- (n - 1) * pmax(sd - half, 0)^2 + S^2 / n
-  upper <- (n - 1) * (sd + half)^2 + S^2 / n
-  candidate <- ceiling(lower - 1e-9)
-  candidate <- candidate + ((candidate - S) %% 2)  # move to the next whole number that is odd or even like S
-  candidate <= upper + 1e-9
-}
+::: {#fig-grimmer-pass-rates}
 
-# all whole-number sums that are consistent with a reported mean
-sums_for_mean <- function(x, n, d = 2) {
-  half <- 0.5 * 10^-d
-  lower <- ceiling((x - half) * n - 1e-9)
-  upper <- floor((x + half) * n + 1e-9)
-  if (lower > upper) integer(0) else lower:upper
-}
-
-# GRIM and GRIMMER together
-grimmer_base <- function(x, sd, n) {
-  S <- sums_for_mean(x, n)
-  length(S) > 0 && any(grimmer_given_sum(S, sd, n))
-}
-
-set.seed(42)
-sd_band <- function(mid) round(seq(mid - 0.25, mid + 0.24, by = 0.01), 2)
-sample_sizes <- c(seq(5, 100, 5), seq(120, 400, 20))
-
-sd_alone <- expand_grid(n = sample_sizes, sd_mid = c(0.5, 1, 2, 3)) |>
-  mutate(pass = map2_dbl(n, sd_mid, \(n, sd_mid) {
-    sums <- sample(n:(7 * n), 200, replace = TRUE)  # possible sums on a 1-7 scale
-    mean(outer(sums, sd_band(sd_mid), \(S, sd) grimmer_given_sum(S, sd, n)))
-  }),
-  panel = "SD check alone (mean is correct)")
-
-both <- expand_grid(n = sample_sizes, sd_mid = c(0.5, 1, 2, 3)) |>
-  mutate(pass = map2_dbl(n, sd_mid, \(n, sd_mid) {
-    pairs <- expand_grid(x = 3 + (0:99) / 100, sd = sd_band(sd_mid))
-    mean(map2_lgl(pairs$x, pairs$sd, \(x, sd) grimmer_base(x, sd, n)))
-  }),
-  panel = "GRIM and GRIMMER together (random mean and SD)")
-
-grim_alone <- tibble(n = 1:400) |>
-  mutate(pass = map_dbl(n, \(n) pass_rate(n, d = 2)),
-         panel = "GRIM and GRIMMER together (random mean and SD)")
-
-bind_rows(sd_alone, both) |>
-  mutate(panel = fct_inorder(panel)) |>
-  ggplot(aes(n, pass)) +
-  geom_line(data = grim_alone |> mutate(panel = factor(panel, levels = c("SD check alone (mean is correct)", panel[1]))),
-            linetype = "dashed", colour = "grey50") +
-  geom_line(aes(colour = factor(sd_mid)), linewidth = 0.7) +
-  facet_wrap(vars(panel)) +
-  scale_colour_manual(values = c("#2780e3", "#27b3e3", "#e39f27", "#c0392b")) +
-  scale_y_continuous(labels = scales::percent) +
-  labs(x = "Sample size (N)", y = "Values that pass", colour = "Size of the SD") +
-  theme_minimal() +
-  theme(legend.position = "bottom")
+```{ojs}
+//| echo: false
+viewof gmTest = Inputs.select(new Map([["GRIMMER mean + SD tests", "both"], ["GRIMMER SD test only", "sd"]]), {label: "Test", value: "both"})
+viewof gmDigits = Inputs.select([1, 2, 3], {label: "Decimal places", value: 2})
+viewof gmItems = Inputs.number({label: "Items averaged into each participant's score", value: 1, step: 1, min: 1, width: 90})
+viewof gmRounding = Inputs.select(roundingOptions, {label: "Rounding", value: "up_or_down"})
 ```
 
-The left panel has a simple reading. For two-decimal reporting, the share of SD values that pass is close to *N* × SD / 100. With an SD near 1, the SD check is about as demanding as GRIM is for the mean. With an SD near 0.5, it is twice as demanding and still rejects some values at *N* = 300, well past the point where GRIM gives up. With an SD near 2 or 3, it passes everything from about *N* = 55 or *N* = 35.
+```{ojs}
+//| echo: false
+{
+  const d = gmDigits, scale = 10 ** d, k = gmItems
+  if (!Number.isInteger(k) || k < 1) return html`<p style="font-weight: 600;">Enter a whole number of items.</p>`
+  const bands = [{mid: 0.5, colour: "#2780e3"}, {mid: 1, colour: "#27b3e3"}, {mid: 2, colour: "#e39f27"}, {mid: 3, colour: "#c0392b"}]
+  // up to `count` whole numbers spread evenly from lo to hi
+  const evenly = (lo, hi, count) => hi - lo + 1 <= count ? d3.range(lo, hi + 1) : d3.range(count).map(t => lo + Math.round(t * (hi - lo) / (count - 1)))
+  // sample sizes up to four times the point at which GRIM stops being able to fail
+  const maxN = Math.max(20, Math.ceil(4 * scale / k))
+  const ns = [...new Set(evenly(2, maxN, 60))]
+  // the means tested together with the SD: every ending at one or two decimals, and 100 spread over the 1,000 at three
+  const endings = scale <= 100 ? d3.range(scale) : d3.range(100).map(t => (t * 37) % scale)
+  const rows = []
+  for (const n of ns) {
+    const nk = n * k
+    // for the SD test only, the mean is taken to be correct, so the sum is known: 100 sums spread over a 1 to 7 scale
+    const sumSets = gmTest === "sd" ? evenly(nk, 7 * nk, 100).map(S => [S]) : endings.map(e => grimmerSums(3 * scale + e, nk, scale, gmRounding))
+    for (const {mid} of bands) {
+      // SDs within 0.25 of the stated value, at most 50 of them
+      const js = evenly(Math.round((mid - 0.25) * scale), Math.round((mid + 0.25) * scale) - 1, 50)
+      let pass = 0
+      for (const sums of sumSets) for (const j of js) pass += sums.some(S => grimmerSdFits(S, j, n, k, scale, gmRounding))
+      rows.push({n, band: `SD near ${mid}`, pass: pass / (sumSets.length * js.length)})
+    }
+    rows.push({n, band: "GRIM alone", pass: grimEndings(nk, d, gmRounding).reduce((a, b) => a + b, 0) / scale})
+  }
+  // the sample size from which each line stays at 100%
+  const settles = band => { const r = rows.filter(x => x.band === band); let t = r.length; while (t > 0 && r[t - 1].pass === 1) t--; return t === r.length ? null : r[t].n }
+  const margins = {marginLeft: 64, marginRight: 28, marginTop: 20, marginBottom: 45}
+  const frame = Math.min(520, width - margins.marginLeft - margins.marginRight)
+  const plotWidth = frame + margins.marginLeft + margins.marginRight
+  const plot = Plot.plot({
+    width: plotWidth, height: Math.round(frame * 0.6) + margins.marginTop + margins.marginBottom, ...margins,
+    x: {label: "Sample size (N)", labelAnchor: "center", labelOffset: 38, domain: [0, maxN]},
+    y: {label: "Values that pass", labelAnchor: "center", labelOffset: 54, domain: [0, 1], tickFormat: "%", grid: true},
+    style: {fontSize: "13px", background: "transparent"},
+    marks: [
+      Plot.lineY(rows.filter(r => r.band === "GRIM alone"), {x: "n", y: "pass", stroke: "currentColor", strokeOpacity: 0.5, strokeDasharray: "4,3"}),
+      ...bands.map(({mid, colour}) => Plot.lineY(rows.filter(r => r.band === `SD near ${mid}`), {x: "n", y: "pass", stroke: colour, strokeWidth: 1.5}))
+    ]
+  })
+  const where = band => { const n = settles(band); return n === null ? `not by N = ${maxN}` : n <= 2 ? "at any sample size" : `from about N = ${n}` }
+  // for GRIM, every sample size is checked, as in the plot of GRIM pass rates, so that the two plots agree
+  let grimFrom = maxN + 1
+  while (grimFrom > 1 && grimEndings((grimFrom - 1) * k, d, gmRounding).every(x => x === 1)) grimFrom--
+  const what = `With ${d} ${d === 1 ? "decimal" : "decimals"}, ${k} ${k === 1 ? "item" : "items"} averaged, and ${roundingPhrases[gmRounding]}`
+  const message = `${what}, GRIM cannot fail ${grimFrom <= 1 ? "at any sample size" : grimFrom > maxN ? `by N = ${maxN}` : `from N = ${grimFrom} onwards`}. ${gmTest === "sd" ? "The SD test on its own" : "The mean and SD tests together"} stop${gmTest === "sd" ? "s" : ""} being able to fail ${where("SD near 0.5")} for SDs near 0.5, and ${where("SD near 1")} for SDs near 1.`
+  const legend = html`<div style="display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; justify-content: center; font-size: 0.85rem; margin-top: 0.25rem; max-width: ${plotWidth}px;">`
+  legend.innerHTML = bands.map(({mid, colour}) => `<span><svg width="28" height="10"><line x1="0" x2="28" y1="5" y2="5" stroke="${colour}" stroke-width="2"/></svg> SD near ${mid}</span>`).join("") +
+    `<span><svg width="28" height="10"><line x1="0" x2="28" y1="5" y2="5" stroke="currentColor" stroke-opacity="0.5" stroke-dasharray="4,3"/></svg> GRIM alone</span>`
+  return html`<p style="font-weight: 600; margin: 0.8rem 0 0.5rem 0;">${message}</p>${plot}${legend}`
+}
+```
 
-The right panel shows what this means for the pair. For small samples the two checks multiply: at *N* = 30 and an SD near 1, about 30% of means pass GRIM but under 10% of mean and SD pairs pass both. GRIMMER is therefore a much sharper test than GRIM for small samples, and the only one of the two that can still fail above *N* = 100, provided the SD is small. Small SDs on whole-number data are common where responses pile up at one end of a scale, which is also where the bounds methods of the next chapter are most useful.
+```{ojs}
+//| echo: false
+// GRIMMER for every rounding option, shared by the plot of GRIMMER pass rates
+roundingRules = rounding => ({up_or_down: ["up", "down"], up_or_down_trunc: ["up", "down", "trunc"]}[rounding] ?? [rounding])
+function reportedSteps(num, den, rule) {
+  // a non-negative exact value num / den, in reporting steps, as it would be reported under one rule. whole-number
+  // arithmetic, so that exact halves stay exact
+  const q = (num - (num % den)) / den, twice = 2 * (num % den)
+  return rule === "trunc" ? q
+    : twice > den ? q + 1 : twice < den ? q
+    : rule === "up" ? q + 1 : rule === "down" ? q : q % 2 === 0 ? q : q + 1
+}
+function grimmerSums(i, nk, scale, rounding) {
+  // the whole-number sums whose mean, S / nk, is reported as i steps under any rule of the rounding option
+  const rules = roundingRules(rounding), sums = []
+  for (let S = Math.max(0, Math.floor((i - 1) * nk / scale)); S <= Math.ceil((i + 1) * nk / scale); S++) {
+    if (rules.some(rule => reportedSteps(S * scale, nk, rule) === i)) sums.push(S)
+  }
+  return sums
+}
+function grimmerSdFits(S, j, n, k, scale, rounding) {
+  // can a whole-number sum of squared participant totals, Q, with the parity of S, give a sample SD reported as j steps?
+  // each rule gives the interval of exact SDs (in steps) that are reported as j, and whether each end is included
+  return roundingRules(rounding).some(rule => {
+    let [lo, hi, loIn, hiIn] = rule === "trunc" ? [j, j + 1, true, false]
+      : rule === "up" ? [j - 0.5, j + 0.5, true, false]
+      : rule === "down" ? [j - 0.5, j + 0.5, false, true]
+      : j % 2 === 0 ? [j - 0.5, j + 0.5, true, true] : [j - 0.5, j + 0.5, false, false]
+    if (lo < 0) [lo, loIn] = [0, true]
+    const base = S * S / n, lower = k * k * (n - 1) * (lo / scale) ** 2 + base, upper = k * k * (n - 1) * (hi / scale) ** 2 + base
+    const eps = 1e-9 * Math.max(1, upper)
+    let q = loIn ? Math.ceil(lower - eps) : Math.floor(lower + eps) + 1
+    if (Math.abs(q - S) % 2 === 1) q += 1
+    return hiIn ? q <= upper + eps : q < upper - eps
+  })
+}
+```
+
+Pass rates for GRIMMER by sample size, for the chosen test, number of decimals, items averaged, and rounding rule. Each coloured line is the share of *SD*s within 0.25 of the stated value that pass. With the SD test only, the mean is taken to be correct, so the sum of the scores is known. With both tests, each pair of a mean and an *SD* must pass both. The dashed line is GRIM alone.
+:::
+
+The SD test on its own has a simple reading. For two-decimal reporting, the share of SD values that pass is close to *N* × SD / 100. With an SD near 1, the SD check is about as demanding as GRIM is for the mean. With an SD near 0.5, it is twice as demanding and still rejects some values at *N* = 300, well past the point where GRIM gives up. With an SD near 2 or 3, it passes everything from about *N* = 55 or *N* = 35.
+
+The two tests together show what this means for the pair. For small samples the two checks multiply: at *N* = 30 and an SD near 1, about 30% of means pass GRIM but under 10% of mean and SD pairs pass both. GRIMMER is therefore a much sharper test than GRIM for small samples, and the only one of the two that can still fail above *N* = 100, provided the SD is small. Small SDs on whole-number data are common where responses pile up at one end of a scale, which is also where the bounds methods of the next chapter are most useful.
 
 ## What large-scale applications have found {#sec-grim-evidence}
 
@@ -788,9 +951,11 @@ The only systematic application of GRIM to a sample of the literature that we kn
 
 The authors requested the data for the 21 articles in the last two categories. They obtained data from eight authors, and a ninth provided enough information to check the means. Five authors refused, four promised data that did not arrive, and the rest could not be reached or did not reply. In all nine cases that could be checked, GRIM had identified at least one real problem, and three articles needed formal corrections.
 
-The causes they found are instructive, because none of them is fraud and most are mundane: sample sizes that differed from those reported (in five of the nine cases), a spreadsheet formula that included the wrong cells, values copied incorrectly, the stepped rounding of SDs described in @nte-grim-rounding, and, in one case, an analysis error serious enough for the authors to issue a correction once they noticed it while preparing the data. In one case, Brown and Heathers had themselves made an error by overlooking that a measure was a multi-item composite.
+The causes they found in these nine articles are instructive, because none of them is fraud and most are mundane: sample sizes that differed from those reported (in five of the nine cases), a spreadsheet formula that included the wrong cells, values copied incorrectly, the stepped rounding of SDs described in @nte-grim-rounding, and, in one case, an analysis error serious enough for the authors to issue a correction once they noticed it while preparing the data. In one case, Brown and Heathers had themselves made an error by overlooking that a measure was a multi-item composite.
 
-Granularity tests also became known through case studies. GRIM and GRIMMER were among the tools used in the reanalysis of four articles from the Cornell Food and Brand Lab [@vanderzee2017], and @heathers2025 demonstrate GRIM-U, a related test for the results of Mann-Whitney U tests, on four published medical studies.
+The nine were the articles whose authors cooperated. The other twelve, whose authors refused the request for data, did not send it, or did not reply, were left unresolved in the published article. A later preprint by one of its authors reports what Brown and Heathers had concluded about them [@heathers2024]. All twelve contained multiple inconsistencies, and three contained what the authors considered definite hallmarks of systematic data manipulation. These figures were removed from the 2017 article because they were judged "sufficiently speculative and controversial at the time of publication". Taken together, they put the share of the 71 GRIM-testable articles with hallmarks of data manipulation at between 3 of 71 (4.2%) and 12 of 71 (16.9%). The range is wide for two reasons. A refusal to share data is not in itself evidence of manipulation, and the three clearest cases rest on the authors' judgement of the reported values, without the data that would settle them.
+
+Granularity tests also became known through case studies. GRIM and GRIMMER were among the tools used in the reanalysis of four articles from the Cornell Food and Brand Lab [@vanderzee2017].
 
 ## Assumptions and sources of false positives and false negatives {#sec-grim-errors}
 
@@ -817,15 +982,34 @@ False negatives have a different set of causes, most of which cannot be fixed.
 
 The asymmetry between the two outcomes is the main thing to take from this section. A failure is strong evidence that something is misreported, provided the checks in @tbl-grim-assumptions have been made, and no evidence about what or why. A pass is weak evidence of anything. Brown and Heathers make the same point: the number of GRIM failures in an article is a conservative estimate of the number of errors.
 
-::: {.callout-note collapse="true"}
-## Other granularity methods
+## Other granularity methods: GRIM-U {#sec-grim-u}
 
-Granularity is not restricted to means and SDs of integer data. There may be many other forms of granularity tests that could be developed. Any statistic that is calculated from a finite number of discrete outcomes can take only a finite set of values. 
+Granularity is not restricted to means and SDs of integer data. Any statistic that is calculated from a finite number of discrete outcomes can take only a finite set of values, so many other granularity tests could in principle be developed. Means and SDs were simply the first applications.
 
-One such other test is GRIM-U [@heathers2025], which applies the principle to the Mann-Whitney U test. This relies on the granularity not of the data itself, which could be continuous, but the granularity of the ranks that the test calculates, and the resulting granularity of the test's U coefficient and *p*-value. Hussey subsequently formalized an analytic form of the GRIM-U method and implemented it in an R package (i.e., analytic-GRIM-U: https://github.com/ianhussey/analyticgrimu).
+GRIM-U [@heathers2025] applied the principle to the Mann-Whitney U test. It relies on the granularity not of the data, which could be continuous, but of the ranks that the test calculates, and so of its U statistic and *p*-value. The test ranks all the observations from two groups and counts, for every pair made of one observation from each group, which group's member ranks higher. The U statistic is that count. 
 
-No large scale applications of GRIM-U have been conducted to date. Other forms of granularity methods could in principle be created.
-:::
+Rank tests are a good target because they are used where samples are small and data are not normal: animal studies, pilot trials, and small clinical samples. These are the conditions under which granularity is coarse and the test can fail.
+
+Hussey subsequently formalised an analytic form of GRIM-U, which does not need to enumerate every possible ranking, and implemented it in the {analyticgrimu} R package [@hussey2026analyticgrimu]. For the moment, this chapter does not attempt to explain analytic GRIM-U in any detail, or examine the sample sizes at which its results are informative, or consider the complexities of (assumed) maximum number of ties, etc. GRIM-U is still in early development; this content might be added later. Right now, the point is merely to highlight that other granularity methods do or could exist, and that this is an area of active research in methods development.
+
+### Additional assumptions
+
+GRIM-U needs more assumptions than GRIM, because a Mann-Whitney *p*-value can be calculated in several ways. Software may use the exact distribution or a normal approximation, with or without a continuity correction, and with or without a correction for ties. Exact *p*-values are also defined in more than one way. Sidedness matters too. {analyticgrimu} treats these as GRIM treats rounding: a reported result passes if *any* modelled convention reproduces it.
+
+Ties are the largest source of leniency. Ties shrink the variance of U, so the same U can give a range of *p*-values depending on how heavily tied the data were. The package computes that range exactly and accepts anything inside it, so a correctly reported result from tied data is never flagged. The price is that the default test is weak. Checking a *p*-value on its own will almost never flag anything, and detection is one-sided: a *p*-value that is too large for its U can be caught, but one that is too small can always be explained by supposing more ties.
+
+Two features recover some of the lost ground. If the measure is known to be continuous, or to have a known number of scale points, this can be stated, and the accepted range narrows. The share of three-decimal *p*-values that are attainable for two groups of six falls from 94% when any ties are allowed to 7% when there are none.
+
+```{r}
+grimu_saturation(n1 = 6, n2 = 6, decimals = 3)
+grimu_saturation(n1 = 6, n2 = 6, decimals = 3, ties = "none")
+```
+
+These options are safe in one direction only. If the data were more tied than was assumed, correct results will be flagged, so it is better to err towards allowing ties. The function also reports the minimum amount of tying that a consistent explanation would require. A result that is only possible if half the sample shares one value is unremarkable for a single five-point item and not credible for a reaction time.
+
+One coverage gap remains. Some software computes an exact permutation *p*-value conditional on the observed pattern of ties, which cannot be reconstructed from the group sizes. A failure against a result produced that way may reflect the gap and not an error.
+
+@heathers2025 demonstrate GRIM-U on four published medical studies. No large-scale applications of GRIM-U have been conducted to date.
 
 ## Test yourself
 

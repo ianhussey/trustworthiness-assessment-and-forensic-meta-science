@@ -63,33 +63,35 @@ In class:
 
 ### Week 5
 
-<!-- Before class: -->
+Before class:
 
-<!-- XXX -->
+- Nuijten et al. (2016) The prevalence of statistical reporting errors in psychology (1985–2013). Behavior Research Methods. doi:[10.3758/s13428-015-0664-2](https://doi.org/10.3758/s13428-015-0664-2)
 
-<!-- In class: -->
+In class:
 
-<!-- Repetition and recalculation methods  -->
+- [Chapter 10: Recalculation methods](chapters/10_recalculation_methods.qmd)
+
+Repetition and recalculation methods
 
 ### Week 6
 
-<!-- Before class: -->
+Before class:
 
-<!-- XXX -->
+- Brown & Heathers (2017) The GRIM Test: A Simple Technique Detects Numerous Anomalies in the Reporting of Results in Psychology. doi:[10.1177/1948550616673876](https://doi.org/10.1177/1948550616673876)
 
-<!-- In class: -->
+In class:
 
-<!-- Granularity methods -->
+- [Chapter 11: Granularity methods](chapters/11_granularity_methods.qmd)
 
 ### Week 7
 
 <!-- Before class: -->
 
-<!-- XXX -->
+<!-- - Brown & Heathers (2017) The GRIM Test: A Simple Technique Detects Numerous Anomalies in the Reporting of Results in Psychology. doi:[10.1177/1948550616673876](https://doi.org/10.1177/1948550616673876) -->
 
-<!-- In class: -->
+In class:
 
-<!-- Bounds methods -->
+- [Chapter 12: Bounds methods](chapters/12_bounds_methods.qmd)
 
 ### Week 8
 

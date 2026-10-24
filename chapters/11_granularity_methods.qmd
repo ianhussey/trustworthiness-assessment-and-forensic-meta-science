@@ -42,11 +42,11 @@ The GRIM test (granularity-related inconsistency of means) was introduced by @br
 
 ### Visualising GRIM {#sec-grim-plot}
 
-Use the plot below to see which means can pass GRIM. Each square is a mean as it would be printed to the chosen number of decimals, and the row covers every such mean near the one you enter. The zoom setting chooses how far the row reaches on either side of it: 1 at low zoom, 0.5 at medium, and 0.25 at high. The rounding setting chooses what happens to a mean that falls exactly halfway between two reported values: it may be rounded either up or down, or only up (@sec-grim-rounding). Leave the number of items averaged at 1 unless each participant's score is the mean of several items. A square is black if some set of *N* whole numbers has that mean, and white if no set does. Typing a mean centres the row on it. Clicking or dragging in the row chooses a mean without moving the row. The chosen mean is circled in blue.
+Use the plot below to see which means can pass GRIM. Each square is a mean as it would be printed to the chosen number of decimals, and the row covers every such mean near the one you enter. The zoom setting chooses how far the row reaches on either side of it: 1 at low zoom, 0.5 at medium, and 0.25 at high. The rounding setting chooses what happens to a mean that falls exactly halfway between two reported values: it may be rounded either up or down, or only up (@nte-grim-rounding). Leave the number of items averaged at 1 unless each participant's score is the mean of several items. A square is black if some set of *N* whole numbers has that mean, and white if no set does. Typing a mean centres the row on it. Clicking or dragging in the row chooses a mean without moving the row. The chosen mean is circled in blue.
 
 ```{ojs}
 //| echo: false
-viewof grim1Mean = Inputs.number({label: "Reported mean", value: 22.18, step: 0.01, width: 90})
+viewof grim1Mean = Inputs.number({label: "Reported mean", value: 23.16, step: 0.01, width: 90})
 viewof grim1N = Inputs.range([2, 100], {label: "Sample size (N)", step: 1, value: 2})
 viewof grim1Digits = Inputs.select([1, 2], {label: "Decimal places", value: 2})
 viewof grim1Items = Inputs.number({label: "Items averaged into each participant's score", value: 1, step: 1, min: 1, width: 90})
@@ -58,7 +58,7 @@ viewof grim1Zoom = Inputs.radio(new Map([["Low", 1], ["Medium", 0.5], ["High", 0
 //| echo: false
 // the centre of the row. it moves to the mean when the mean is typed in, and stays put when the mean is chosen by
 // clicking or dragging in the plot, or when anything else changes
-grim1View = ({mean: 22.18, recentre: false})
+grim1View = ({mean: 23.16, recentre: false})
 ```
 
 ```{ojs}
@@ -92,6 +92,11 @@ grim1View = ({mean: 22.18, recentre: false})
   }
   const fills = d3.range(size).map(c => attainable(i0 + c) ? "black" : "white")
   const ix = Math.round(grim1Mean * scale), consistent = attainable(ix)
+  // the test is uninformative when every mean that can be printed at this precision passes. only the decimal part of a
+  // mean matters, so it is enough to check the endings from 0 to scale - 1. this also catches sample sizes where
+  // rounding halves either way makes every value pass before N x items reaches 10^d
+  const uninformative = d3.range(scale).every(attainable)
+  const verdict = uninformative ? ["GRIM-uninformative", "#6c757d"] : consistent ? ["GRIM-consistent", blue] : ["GRIM-inconsistent", red]
   const who = `${grim1N} participants${grim1Items > 1 ? `, each scored as the average of ${grim1Items} items,` : ""}`
   // the same left margin and width as the plot of means and SDs further down, so that the two line up
   const margins = {marginLeft: 64, marginRight: 10, marginTop: 10, marginBottom: 45}
@@ -120,47 +125,14 @@ grim1View = ({mean: 22.18, recentre: false})
   const legend = html`<div style="display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; justify-content: center; font-size: 0.85rem; margin-top: 0.25rem; max-width: ${plotWidth}px;">`
   legend.innerHTML = `<span>${legendSquare("black", "black")} Consistent</span>
     <span>${legendSquare("white", "rgba(128, 128, 128, 0.8)")} Inconsistent</span>
-    <span><svg width="16" height="16" style="vertical-align: -3px;"><circle cx="8" cy="8" r="6" fill="none" stroke="${blue}" stroke-width="2.5"/></svg> Selected value</span>`
-  return html`<p style="font-weight: 600; margin: 0.8rem 0 0.2rem 0;">A mean of ${(ix / scale).toFixed(d)} from ${who} is <span style="color: ${consistent ? blue : red};">${consistent ? "GRIM-consistent" : "GRIM-inconsistent"}</span>.</p>
-<p style="margin: 0 0 0.5rem 0;">Attainable means are ${(1 / nk).toFixed(4)} apart${nk >= 10 ** d ? `, which is no wider than the ${d}-decimal reporting steps, so no mean can fail` : ""}.</p>
+    <span><svg width="16" height="16" style="vertical-align: -3px;"><circle cx="8" cy="8" r="6" fill="none" stroke="${blue}" stroke-width="2.5"/></svg> Reported mean and SD</span>`
+  return html`<p style="font-weight: 600; margin: 0.8rem 0 0.2rem 0;">A mean of ${(ix / scale).toFixed(d)} from ${who} is <span style="color: ${verdict[1]};">${verdict[0]}</span>.</p>
+<p style="margin: 0 0 0.5rem 0;">Attainable means are ${(1 / nk).toFixed(4)} apart${nk >= 10 ** d ? `, which is no wider than the ${d}-decimal reporting steps, so no mean can fail` : uninformative ? `. With halves rounded either way, that is close enough for every ${d}-decimal mean to be reached, so no mean can fail` : ""}.</p>
 ${plot}${legend}`
 }
 ```
 
-Try the default values first. They are the Kool-Aid example's mean of 5.19 from 28 participants. The square for 5.19 is white, because the mean falls between the attainable means 145/28 = 5.179 and 146/28 = 5.214. Most squares are white, because only 28 of every 100 two-decimal means can come from 28 participants. Then raise *N* towards 100 and watch the white squares thin out and disappear, as the attainable means crowd together until every two-decimal mean is attainable. Switch to one decimal place and the white squares are gone from *N* = 10 onwards. Finally, try the third question from the exercise in @sec-granularity-core-idea, a mean of 3.12 from 8 participants, under each rounding setting. The exact mean of 25/8 = 3.125 is reported as 3.12 only if halves can be rounded down.
-
-### When GRIM can say anything at all
-
-The plots show the most important practical fact about GRIM. The test can only fail when the attainable means are further apart than the reporting steps, which requires
-
-$$N \times \text{items} < 10^{d}$$
-
-where *d* is the number of reported decimals. With the usual two decimals, GRIM applies to fewer than 100 participants on a single item. At or above that, every two-decimal value is attainable and every mean passes. Brown and Heathers call variables below this limit **GRIM-testable**.
-
-The plot below reproduces their Figure 1. Each column is a sample size and each row is one of the 100 possible two-decimal endings of a mean. Blue cells are attainable, and grey cells are impossible. Small samples leave most endings impossible, and the impossible region shrinks to nothing as *N* approaches 100.
-
-```{r}
-#| label: fig-grim-grid
-#| fig-cap: "GRIM-consistent (blue) and GRIM-inconsistent (grey) two-decimal endings of a mean, by sample size, for a single whole-number item. Only the decimal part of a mean matters: if 2.49 is attainable for a given N, so are 0.49 and 8.49."
-#| fig-height: 5
-#| code-fold: true
-grid <- expand_grid(n = 1:100, ending = 0:99) |>
-  mutate(consistent = grim(x = ending / 100, n = n, digits_x = 2))
-
-ggplot(grid, aes(n, ending / 100, fill = consistent)) +
-  geom_raster() +
-  scale_fill_manual(values = c(`TRUE` = "#2780e3", `FALSE` = "grey90"), guide = "none") +
-  scale_x_continuous(breaks = seq(0, 100, 10), expand = c(0, 0)) +
-  scale_y_continuous(breaks = seq(0, 1, 0.1), expand = c(0, 0)) +
-  labs(x = "Sample size (N)", y = "Decimal part of the reported mean") +
-  theme_minimal()
-```
-
-Two consequences follow.
-
-**Decimals matter as much as sample size.** Each extra reported decimal multiplies the reach of the test by ten. A mean reported to three decimals is testable up to *N* = 999, and one reported to a single decimal only up to *N* = 9. Supplementary tables, which often report more decimals than the main text, are therefore worth checking.
-
-**Record every value exactly as printed.** "3.50" has two decimals and "3.5" has one, and GRIM gives different answers for them. Spreadsheets and statistical software drop trailing zeros silently, so the number of decimals has to be recorded when the value is read from the article. It cannot be recovered afterwards from a stored number.
+Try the default values first. They are the age example from @sec-granularity-core-idea: a mean of 23.16 from 2 participants. The square for 23.16 is white, because the only attainable means nearby are 23.00 and 23.50. Almost every square is white, because only 2 of every 100 two-decimal means can come from 2 participants. Then raise *N* towards 100 and watch the white squares thin out and disappear, as the attainable means crowd together until every two-decimal mean is attainable. Switch to one decimal place and the white squares are gone from *N* = 10 onwards. Finally, try a mean of 3.12 from 8 participants under each rounding setting. The only whole-number sum near 3.12 × 8 = 24.96 is 25, and the exact mean of 25/8 = 3.125 is reported as 3.12 only if halves can be rounded down (@nte-grim-rounding).
 
 ::: {.callout-note collapse="true"}
 ## The maths: GRIM
@@ -201,7 +173,7 @@ Articles report the mean rounded to $d$ decimals. Call the reported value $\tild
 
 $$\delta = \frac{1}{2} \times 10^{-d}$$
 
-be half of one reporting step, so $\delta = 0.005$ at two decimals. The reported value does not identify the exact mean. It identifies an interval $I(\tilde{M})$ of exact values that would all have been reported as $\tilde{M}$. Which interval depends on the rounding practice (@sec-grim-rounding).
+be half of one reporting step, so $\delta = 0.005$ at two decimals. The reported value does not identify the exact mean. It identifies an interval $I(\tilde{M})$ of exact values that would all have been reported as $\tilde{M}$. Which interval depends on the rounding practice (@nte-grim-rounding).
 
 | Rounding practice | Interval of exact means, $I(\tilde{M})$ |
 |-------------------------------|-----------------------------------------|
@@ -230,7 +202,7 @@ An equivalent form uses the whole number nearest to the implied sum. Writing $S^
 $$\left| S^{*} - Nk\,\tilde{M} \right| \;\le\; Nk\,\delta .$$
 :::
 
-### What counts as whole-number data {#sec-grim-integer-data}
+### What counts as whole-number (integer) data {#sec-grim-integer-data}
 
 GRIM's central assumption is that each participant contributes a whole number. The practical skill in using it is knowing when that holds, and what the effective sample size is.
 
@@ -257,6 +229,8 @@ grim(x = 3.42, n = 20, digits_x = 2, items = 3)
 
 **Statistics that GRIM cannot test at all.** Adjusted means, estimated marginal means, conditional means or predicted values from a regression or mixed model, and other model-based estimates are not simple averages of the observed scores, even when the scores are whole numbers.
 
+**Percentages.** A percentage is a mean of zeros and ones multiplied by 100, so GRIM applies to it directly, with *k* = 1. A percentage reported to *d* decimals is a proportion reported to *d* + 2 decimals, so a percentage given to one decimal is testable for samples of up to 999 [@brown2017]. For example, 37.5% of 13 participants is impossible: 4 of 13 is 30.8% and 5 of 13 is 38.5%.
+
 **Missing responses within a scale.** If some participants skipped some items, the number of responses behind a mean score is smaller than *N* × *k*, and the test's grid is wrong. Brown and Heathers found this caused an inconsistency in only one of the articles they examined, partly because multi-item scales are rarely GRIM-testable in the first place.
 
 @tbl-granularity summarises the common cases.
@@ -274,9 +248,43 @@ grim(x = 3.42, n = 20, digits_x = 2, items = 3)
 
 : Granularity of common measures. {#tbl-granularity}
 
-### Rounding {#sec-grim-rounding}
+### When GRIM is uninformative
 
-Question 3 in the quiz above had no single answer: 25/8 = 3.125 is reported as 3.13 by some software and 3.12 by other software. Rounding gets its own section because, once extraction errors are set aside, it is the main way that a correct value can be flagged as impossible.
+The plot shows the most important practical fact about GRIM. The test can only fail when the attainable means are further apart than the reporting steps, which requires
+
+$$N \times \text{items} < 10^{d}$$
+
+where *d* is the number of reported decimals. With the usual two decimals, GRIM applies to fewer than 100 participants on a single item. At or above that, every two-decimal value is attainable and every mean passes. Brown and Heathers call variables below this limit **GRIM-testable**.
+
+The plot below reproduces their Figure 1. Each column is a sample size and each row is one of the 100 possible two-decimal endings of a mean. Blue cells are attainable, and grey cells are impossible. Small samples leave most endings impossible, and the impossible region shrinks to nothing as *N* approaches 100.
+
+```{r}
+#| label: fig-grim-grid
+#| fig-cap: "GRIM-consistent (blue) and GRIM-inconsistent (grey) two-decimal endings of a mean, by sample size, for a single whole-number item. Only the decimal part of a mean matters: if 2.49 is attainable for a given N, so are 0.49 and 8.49."
+#| fig-height: 5
+#| code-fold: true
+grid <- expand_grid(n = 1:100, ending = 0:99) |>
+  mutate(consistent = grim(x = ending / 100, n = n, digits_x = 2))
+
+ggplot(grid, aes(n, ending / 100, fill = consistent)) +
+  geom_raster() +
+  scale_fill_manual(values = c(`TRUE` = "#2780e3", `FALSE` = "grey90"), guide = "none") +
+  scale_x_continuous(breaks = seq(0, 100, 10), expand = c(0, 0)) +
+  scale_y_continuous(breaks = seq(0, 1, 0.1), expand = c(0, 0)) +
+  labs(x = "Sample size (N)", y = "Decimal part of the reported mean") +
+  theme_minimal()
+```
+
+Two consequences follow.
+
+**Decimals matter as much as sample size.** Each extra reported decimal multiplies the reach of the test by ten. A mean reported to three decimals is testable up to *N* = 999, and one reported to a single decimal only up to *N* = 9. Supplementary tables, which often report more decimals than the main text, are therefore worth checking.
+
+**Record every value exactly as printed.** "3.50" has two decimals and "3.5" has one, and GRIM gives different answers for them. Spreadsheets and statistical software drop trailing zeros silently, so the number of decimals has to be recorded when the value is read from the article. It cannot be recovered afterwards from a stored number.
+
+::: {#nte-grim-rounding .callout-note collapse="true"}
+## Rounding
+
+The last example in @sec-grim-plot, a mean of 3.12 from 8 participants, has no single answer. Its only candidate sum gives an exact mean of 25/8 = 3.125, which is reported as 3.13 by some software and 3.12 by other software. Rounding gets its own section because, once extraction errors are set aside, it is the main way that a correct value can be flagged as impossible.
 
 #### Rounding conventions
 
@@ -316,7 +324,7 @@ Truncation can be allowed for in the same spirit, by also accepting any sum whos
 
 Every rounding practice that the test accommodates widens the band of exact values that count as a match, so more wrong values pass. The trade-off is unavoidable: a lenient test raises fewer false alarms and misses more errors.
 
-To see its size, we need a GRIM function in which the rounding rules can be combined freely. The function below is a plain implementation of the three steps in @sec-grim, and it returns the same verdicts as {scrutiny} for the "up" and "up or down" rules. We use it for the simulations in the rest of the chapter.
+To see its size, we need a GRIM function in which the rounding rules can be combined freely. The function below is a plain implementation of GRIM: it takes the whole-number sums on either side of the implied sum (the mean multiplied by *N* × items), divides each by *N* × items, and checks whether any of them rounds to the reported mean. It returns the same verdicts as {scrutiny} for the "up" and "up or down" rules. We use it for the simulations in the rest of the chapter.
 
 ```{r}
 # round the exact values v to d decimals under one rule, returned as whole numbers of the last decimal place
@@ -380,47 +388,13 @@ Under the strict rule the pass rate is exactly *N*/100. Allowing halves to go ei
 The practical advice is to run the lenient test as the main analysis, because a false accusation of impossibility is the costlier error, and to report how the verdicts change under stricter rules. A value that only passes because a half was rounded down, in an article whose other values were rounded up, deserves a note.
 
 The rounding of reported values also matters when they are used as *inputs* to other calculations, such as recomputing a *p*-value from rounded means and SDs. That is covered in @sec-recalculation.
+:::
 
-### Assumptions, false positives, and false negatives {#sec-grim-errors}
+### Consistency rates under random means {#sec-grim-pass-rates}
 
-The previous sections introduced the assumptions of granularity tests one at a time. @tbl-grim-assumptions collects them. A **false positive** is a correctly reported value that the test flags as impossible. A **false negative** is an incorrect value that the test passes.
+Judging any GRIM result depends on one quantity. Suppose a reported value had nothing to do with any data, and was drawn at random from all the values that can be printed with *d* decimals. What is the probability that it passes GRIM?
 
-| Assumption | If it is wrong | Guard against it by |
-|---------------------|-------------------------|--------------------------|
-| The *N* behind this statistic is the one we used | False positives. Cell sizes assumed equal when they are not, *N* before exclusions used in place of *N* analysed, item-level missing data | Looking for cell sizes in tables, degrees of freedom, and flow diagrams. Searching for an *N* that makes all values consistent (@sec-grim-diagnosis) |
-| The number of items averaged into each participant's score is right | False positives if a mean score is tested as a single item. False negatives if a sum score is tested as a mean score, or if the number of items in the scale is used for a sum score | Reading the measures section for how the scale was scored. Items averaged is 1 for single items, whole-number variables, and sum scores |
-| The data are whole numbers | False positives | Checking the response format |
-| The mean is a simple average of observed scores, not a model estimate | False positives. Estimated marginal means, least-squares means, covariate-adjusted means, and conditional means or predicted values from a regression or mixed model are not averages of whole numbers, even when the raw scores are | Reading table notes and the analysis section for words such as adjusted, estimated, marginal, model-based, or predicted. Testing only raw descriptive means |
-| No missing values were imputed | False positives. Mean imputation, regression imputation, and multiple imputation produce values that are not whole numbers, and a mean pooled over several imputed datasets is an average of means. Methods that copy observed values, such as last observation carried forward, keep whole numbers but change which *N* applies | Reading the missing-data section. Comparing the *N* analysed with the number who completed the measure. Testing complete-case statistics where they are reported |
-| The rounding practice is one we allowed for | False positives | Using the lenient rule, and considering truncation and stepped rounding before reporting a failure |
-| The value was extracted correctly | False positives. Dropped trailing zeros, values read from the wrong column, PDF conversion faults, the assessor's own typos | Re-reading every flagged value in the original article |
-| The SD uses the sample formula (GRIMMER) | False positives | Re-testing with converted SDs |
-
-: Assumptions of granularity tests and what happens when they fail. {#tbl-grim-assumptions}
-
-False negatives have a different set of causes, most of which cannot be fixed.
-
--   **The test cannot fail.** When *N* × items is 100 or more at two decimals, GRIM passes everything.
--   **Chance.** A wrong value can land on an attainable one. For a wrong value picked at random, the probability is the pass rate, covered in the next section.
--   **Leniency.** Every accommodated rounding practice lets more wrong values through.
--   **Errors the test is blind to by design.** GRIM only sees the last decimals of a value. A mean of 3.50 that should have been 5.30 passes if both are attainable. A fabricated dataset produces attainable means automatically, because the fabricator's numbers are whole numbers too. Only summary statistics that were made up or altered directly, without data behind them, are exposed.
--   **Gaming.** An author who knows about GRIM can defeat it by reporting one decimal, or by not reporting cell sizes. The chapter on validating forensic methods returns to this under adversarial robustness.
-
-The asymmetry between the two outcomes is the main thing to take from this section. A failure is strong evidence that something is misreported, provided the checks in @tbl-grim-assumptions have been made, and no evidence about what or why. A pass is weak evidence of anything. Brown and Heathers make the same point: the number of GRIM failures in an article is a conservative estimate of the number of errors.
-
-Before reporting any failure:
-
-1.  Re-extract the value from the original article, with its trailing zeros.
-2.  Try the other sample sizes the article gives for that analysis.
-3.  Check how the scale was scored, and how many items were averaged into each participant's score.
-4.  Check that the value is a raw mean, not a model estimate, and that no missing values were imputed.
-5.  Try the stricter and more lenient rounding rules, and consider truncation.
-
-### Pass rates: how often would a random number pass? {#sec-grim-pass-rates}
-
-The rest of the chapter depends on one quantity. Suppose a reported value had nothing to do with any data, and was drawn at random from all the values that can be printed with *d* decimals. What is the probability that it passes GRIM?
-
-This is the **pass rate** introduced in @sec-grim-rounding, and the **fail rate** is one minus the pass rate. Three properties make it useful.
+This is the **pass rate** introduced in @nte-grim-rounding, and the **fail rate** is one minus the pass rate. Three properties make it useful.
 
 -   It is a property of the design: the sample size, the number of items, the number of decimals, and the rounding rule. It does not depend on the reported value. It can be computed before looking at any results.
 -   The fail rate is the test's power against a random wrong value. A value with a fail rate of 0.72 is one where a wrong number would be caught 72% of the time. A value with a fail rate of zero cannot be caught at all.
@@ -454,12 +428,13 @@ ggplot(pass_grid, aes(n, pass)) +
 
 Every panel has the same shape, because only the product *N* × items matters. The panels differ in where the line reaches 100%: at *N* = 10 for a single item reported to one decimal, and at *N* = 1,000 for a single item reported to three. A five-item mean score at two decimals is exhausted by *N* = 20, and a ten-item mean score at one decimal cannot be tested at any sample size.
 
-The same idea carries over to the other tests. For percentages, the pass rate is about *N* / 10^*d*+2^. For GRIMMER, @fig-grimmer-pass-rates showed the joint pass rate for a random mean and SD, which is far lower than for GRIM alone in small samples. {scrutiny} reports the fail rate under the strict rule as the `probability` column of `grim_map()`, and `grim_probability()` returns it directly.
+The same idea carries over to the other tests. For percentages, the pass rate is about *N* / 10^*d*+2^. For GRIMMER, @fig-grimmer-pass-rates in @sec-grimmer shows the joint pass rate for a random mean and SD, which is far lower than for GRIM alone in small samples. {scrutiny} reports the fail rate under the strict rule as the `probability` column of `grim_map()`, and `grim_probability()` returns it directly.
 
 Is a random number the right comparison? The pass rate assumes that a wrong value is equally likely to be any printable value. Real wrong values are not like that. A typo usually changes one digit. A value copied from the wrong row is another real mean. People who invent numbers favour some final digits and avoid others. The uniform assumption is best treated as a reference point, not a model of how errors arise, and conclusions that depend on it should be checked against other reference distributions. The `grim_sensitivity()` function in {strait} does this for digit preferences.
 
 ::: {.callout-note collapse="true"}
 ## The maths of when GRIM cannot be used
+
 In units of the sum, the interval $Nk \times I(\tilde{M})$ has width
 
 $$2\,\delta\,Nk = \frac{Nk}{10^{d}}.$$
@@ -492,13 +467,13 @@ The only systematic application of GRIM to a sample of the literature that we kn
 
 The authors requested the data for the 21 articles in the last two categories. They obtained data from eight authors, and a ninth provided enough information to check the means. Five authors refused, four promised data that did not arrive, and the rest could not be reached or did not reply. In all nine cases that could be checked, GRIM had identified at least one real problem, and three articles needed formal corrections.
 
-The causes they found are instructive, because none of them is fraud and most are mundane: sample sizes that differed from those reported (in five of the nine cases), a spreadsheet formula that included the wrong cells, values copied incorrectly, the stepped rounding of SDs described in @sec-grim-rounding, and, in one case, an analysis error serious enough for the authors to issue a correction once they noticed it while preparing the data. In one case, Brown and Heathers had themselves made an error by overlooking that a measure was a multi-item composite.
+The causes they found are instructive, because none of them is fraud and most are mundane: sample sizes that differed from those reported (in five of the nine cases), a spreadsheet formula that included the wrong cells, values copied incorrectly, the stepped rounding of SDs described in @nte-grim-rounding, and, in one case, an analysis error serious enough for the authors to issue a correction once they noticed it while preparing the data. In one case, Brown and Heathers had themselves made an error by overlooking that a measure was a multi-item composite.
 
-Granularity tests also became known through case studies. GRIM and GRIMMER were among the tools used in the reanalysis of four articles from the Cornell Food and Brand Lab [@vanderzee2017], and @heathers2025 demonstrate GRIM-U on four published medical studies.
+Granularity tests also became known through case studies. GRIM and GRIMMER were among the tools used in the reanalysis of four articles from the Cornell Food and Brand Lab [@vanderzee2017], and @heathers2025 demonstrate GRIM-U, a related test for the results of Mann-Whitney U tests, on four published medical studies.
 
 ## GRIMMER: Testing consistency among N/M/SD/integer data {#sec-grimmer}
 
-When an article reports the SD alongside the mean, a second tier of the hierarchy opens up. GRIMMER asks whether any set of *N* whole numbers could produce the reported mean and the reported SD together. The test was introduced by @anaya2016, who found the patterns that attainable variances follow by simulation. @allard2018 then showed that the same test can be derived with simple algebra. The implementation in {scrutiny} follows the analytic version.
+When an article reports the SD alongside the mean, a second test becomes possible. GRIMMER asks whether any set of *N* whole numbers could produce the reported mean and the reported SD together. The test was introduced by @anaya2016, who found the patterns that attainable variances follow by simulation. @allard2018 then showed that the same test can be derived with simple algebra. The implementation in {scrutiny} follows the analytic version.
 
 The SD is calculated from the sum of the squared scores. When the scores are whole numbers, that sum of squares must itself be a whole number. It must also be odd when the sum of the scores is odd, and even when the sum is even, because squaring a whole number never changes whether it is odd or even. GRIMMER applies these two facts.
 
@@ -507,107 +482,6 @@ The SD is calculated from the sum of the squared scores. When the scores are who
 3.  Check whether the range contains a whole number, and whether that whole number is odd or even as required.
 
 For example, with a mean of 3.50 from 10 participants, a reported SD of 1.20 or 1.22 is impossible, but 1.18 is possible. The box below works through why.
-
-::: {.callout-note collapse="true"}
-## The maths: GRIMMER
-
-Rearranging the usual formula for the sample SD gives the sum of the squared scores:
-
-$$\sum x^2 = (N - 1) \times SD^2 + \frac{\left(\sum x\right)^2}{N}$$
-
-The left-hand side is a sum of squared whole numbers, so it must be a whole number, with the same parity (odd or even) as $\sum x$. Step 2 above puts the lowest and highest exact SD that round to the reported value into the right-hand side, to give the range that $\sum x^2$ must lie in.
-
-Take a mean of 3.50 from 10 participants, so that the sum is 35, an odd number. For a reported SD of 1.20, the exact SD lies between 1.195 and 1.205, and the sum of squares between 9 × 1.195² + 122.5 = 135.35 and 9 × 1.205² + 122.5 = 135.57. No whole number lies in that range, so the SD is impossible. For a reported SD of 1.22, the range is 135.79 to 136.01. It contains 136, but 136 is even and the sum is odd, so this SD is impossible too. A reported SD of 1.18 gives a range of 134.93 to 135.14, which contains 135, an odd number. That SD is possible.
-
-For a mean score across $k$ items, each participant's total across the items is a whole number, so the same argument applies to the sum of the squared totals, $k^2 \left[(N - 1) \times SD^2 + N \times M^2\right]$.
-:::
-
-```{r}
-grimmer(x = 3.50, sd = c(1.20, 1.22, 1.18), n = 10, digits_x = 2, digits_sd = 2)
-```
-
-The Kool-Aid example reported *SD* = 1.34 for the 28 participants whose mean was 5.19. That mean already fails GRIM. If the mean had been reported as the attainable 5.21, would the SD be possible?
-
-```{r}
-grimmer(x = 5.21, sd = 1.34, n = 28, digits_x = 2, digits_sd = 2)
-```
-
-It would.
-
-### How much does GRIMMER add?
-
-GRIMMER catches impossible SDs when the mean is fine, which GRIM cannot do. How often it does so depends on something GRIM is indifferent to: the size of the SD. The range in step 2 gets wider as the SD gets larger, and a wider range is more likely to contain a suitable whole number. @anaya2016 noted that the test is most powerful when the SD is small.
-
-The simulation below measures this. The left panel looks at GRIMMER's own contribution: the mean is correct, so the sum is known, and we ask what share of two-decimal SD values near a given magnitude would pass. The right panel shows the two tests together: the share of random pairs of a mean and an SD that pass both.
-
-```{r}
-#| label: fig-grimmer-pass-rates
-#| fig-cap: "Pass rates for GRIMMER at two decimals, for a single whole-number item. Left: the SD check alone, when the mean is correct. Right: GRIM and GRIMMER together, for a random mean and a random SD. The dashed line is GRIM alone. SD magnitudes are bands of width 0.5 centred on the stated value."
-#| fig-height: 4.5
-#| code-fold: true
-# the SD check, given a known whole-number sum S (sample SD, halves rounded either way)
-grimmer_given_sum <- function(S, sd, n, d_sd = 2) {
-  half <- 0.5 * 10^-d_sd
-  lower <- (n - 1) * pmax(sd - half, 0)^2 + S^2 / n
-  upper <- (n - 1) * (sd + half)^2 + S^2 / n
-  candidate <- ceiling(lower - 1e-9)
-  candidate <- candidate + ((candidate - S) %% 2)  # move to the next whole number that is odd or even like S
-  candidate <= upper + 1e-9
-}
-
-# all whole-number sums that are consistent with a reported mean
-sums_for_mean <- function(x, n, d = 2) {
-  half <- 0.5 * 10^-d
-  lower <- ceiling((x - half) * n - 1e-9)
-  upper <- floor((x + half) * n + 1e-9)
-  if (lower > upper) integer(0) else lower:upper
-}
-
-# GRIM and GRIMMER together
-grimmer_base <- function(x, sd, n) {
-  S <- sums_for_mean(x, n)
-  length(S) > 0 && any(grimmer_given_sum(S, sd, n))
-}
-
-set.seed(42)
-sd_band <- function(mid) round(seq(mid - 0.25, mid + 0.24, by = 0.01), 2)
-sample_sizes <- c(seq(5, 100, 5), seq(120, 400, 20))
-
-sd_alone <- expand_grid(n = sample_sizes, sd_mid = c(0.5, 1, 2, 3)) |>
-  mutate(pass = map2_dbl(n, sd_mid, \(n, sd_mid) {
-    sums <- sample(n:(7 * n), 200, replace = TRUE)  # possible sums on a 1-7 scale
-    mean(outer(sums, sd_band(sd_mid), \(S, sd) grimmer_given_sum(S, sd, n)))
-  }),
-  panel = "SD check alone (mean is correct)")
-
-both <- expand_grid(n = sample_sizes, sd_mid = c(0.5, 1, 2, 3)) |>
-  mutate(pass = map2_dbl(n, sd_mid, \(n, sd_mid) {
-    pairs <- expand_grid(x = 3 + (0:99) / 100, sd = sd_band(sd_mid))
-    mean(map2_lgl(pairs$x, pairs$sd, \(x, sd) grimmer_base(x, sd, n)))
-  }),
-  panel = "GRIM and GRIMMER together (random mean and SD)")
-
-grim_alone <- tibble(n = 1:400) |>
-  mutate(pass = map_dbl(n, \(n) pass_rate(n, d = 2)),
-         panel = "GRIM and GRIMMER together (random mean and SD)")
-
-bind_rows(sd_alone, both) |>
-  mutate(panel = fct_inorder(panel)) |>
-  ggplot(aes(n, pass)) +
-  geom_line(data = grim_alone |> mutate(panel = factor(panel, levels = c("SD check alone (mean is correct)", panel[1]))),
-            linetype = "dashed", colour = "grey50") +
-  geom_line(aes(colour = factor(sd_mid)), linewidth = 0.7) +
-  facet_wrap(vars(panel)) +
-  scale_colour_manual(values = c("#2780e3", "#27b3e3", "#e39f27", "#c0392b")) +
-  scale_y_continuous(labels = scales::percent) +
-  labs(x = "Sample size (N)", y = "Values that pass", colour = "Size of the SD") +
-  theme_minimal() +
-  theme(legend.position = "bottom")
-```
-
-The left panel has a simple reading. For two-decimal reporting, the share of SD values that pass is close to *N* × SD / 100. With an SD near 1, the SD check is about as demanding as GRIM is for the mean. With an SD near 0.5, it is twice as demanding and still rejects some values at *N* = 300, well past the point where GRIM gives up. With an SD near 2 or 3, it passes everything from about *N* = 55 or *N* = 35.
-
-The right panel shows what this means for the pair. For small samples the two checks multiply: at *N* = 30 and an SD near 1, about 30% of means pass GRIM but under 10% of mean and SD pairs pass both. GRIMMER is therefore a much sharper test than GRIM for small samples, and the only one of the two that can still fail above *N* = 100, provided the SD is small. Small SDs on whole-number data are common where responses pile up at one end of a scale, which is also where the bounds methods of the next chapter are most useful.
 
 ### Visualising GRIMMER together {#sec-grim-grimmer-plot}
 
@@ -733,7 +607,7 @@ grimCalc = {
   const legend = html`<div style="display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; justify-content: center; font-size: 0.85rem; margin-top: 0.25rem; max-width: ${plotWidth}px;">`
   legend.innerHTML = `<span>${legendSquare("black", "black")} Consistent</span>
     <span>${legendSquare("white", "rgba(128, 128, 128, 0.8)")} Inconsistent</span>
-    <span><svg width="16" height="16" style="vertical-align: -3px;"><circle cx="8" cy="8" r="6" fill="none" stroke="${blue}" stroke-width="2.5"/></svg> Selected values</span>`
+    <span><svg width="16" height="16" style="vertical-align: -3px;"><circle cx="8" cy="8" r="6" fill="none" stroke="${blue}" stroke-width="2.5"/></svg> Reported mean</span>`
   return html`<p style="font-weight: 600; margin: 0.8rem 0 0.2rem 0;">${message}</p>
 <p style="margin: 0 0 0.5rem 0;">Attainable means are ${(1 / nk).toFixed(4)} apart${nk >= 10 ** d ? `, which is no wider than the ${d}-decimal reporting steps, so no mean can fail GRIM` : ""}.</p>
 ${plot}${legend}`
@@ -790,13 +664,198 @@ function setInput(view, value) {
 }
 ```
 
-The default values are again the Kool-Aid example, now with its *SD* of 1.34. Each white square in the row above becomes a white column here, because a mean that fails GRIM fails whatever the *SD*. Raise *N* towards 100 and the white columns disappear as before, but white squares among the black columns last longer, especially where the *SD* is small, because GRIMMER can still fail where GRIM no longer can.
+The default values are the Kool-Aid example above: a mean of 5.19 and an *SD* of 1.34 from 28 participants. Each white square in the GRIM plot in @sec-grim-plot becomes a white column here, because a mean that fails GRIM fails whatever the *SD*. Raise *N* towards 100 and the white columns disappear as before, but white squares among the black columns last longer, especially where the *SD* is small, because GRIMMER can still fail where GRIM no longer can.
+
+
+
+::: {.callout-note collapse="true"}
+## The maths: GRIMMER
+
+Rearranging the usual formula for the sample SD gives the sum of the squared scores:
+
+$$\sum x^2 = (N - 1) \times SD^2 + \frac{\left(\sum x\right)^2}{N}$$
+
+The left-hand side is a sum of squared whole numbers, so it must be a whole number, with the same parity (odd or even) as $\sum x$. Step 2 above puts the lowest and highest exact SD that round to the reported value into the right-hand side, to give the range that $\sum x^2$ must lie in.
+
+Take a mean of 3.50 from 10 participants, so that the sum is 35, an odd number. For a reported SD of 1.20, the exact SD lies between 1.195 and 1.205, and the sum of squares between 9 × 1.195² + 122.5 = 135.35 and 9 × 1.205² + 122.5 = 135.57. No whole number lies in that range, so the SD is impossible. For a reported SD of 1.22, the range is 135.79 to 136.01. It contains 136, but 136 is even and the sum is odd, so this SD is impossible too. A reported SD of 1.18 gives a range of 134.93 to 135.14, which contains 135, an odd number. That SD is possible.
+
+For a mean score across $k$ items, each participant's total across the items is a whole number, so the same argument applies to the sum of the squared totals, $k^2 \left[(N - 1) \times SD^2 + N \times M^2\right]$.
+:::
+
+```{r}
+grimmer(x = 3.50, sd = c(1.20, 1.22, 1.18), n = 10, digits_x = 2, digits_sd = 2)
+```
+
+@brown2017 open their article with a fictional example. Participants were randomly assigned to drink water that either did (*N* = 28) or did not (*N* = 27) contain Kool-Aid powder, and then answered the question "To what extent do you believe that pigs can fly?" on a scale from 1 to 7. Those who drank the Kool-Aid reported *M* = 5.19, *SD* = 1.34. That mean already fails GRIM: 5.19 × 28 = 145.32, and the attainable means on either side are 145/28 = 5.179 and 146/28 = 5.214. If the mean had been reported as the attainable 5.21, would the SD be possible?
+
+```{r}
+grimmer(x = 5.21, sd = 1.34, n = 28, digits_x = 2, digits_sd = 2)
+```
+
+It would.
+
+### How much does GRIMMER add?
+
+GRIMMER catches impossible SDs when the mean is fine, which GRIM cannot do. How often it does so depends on something GRIM is indifferent to: the size of the SD. The range in step 2 gets wider as the SD gets larger, and a wider range is more likely to contain a suitable whole number. @anaya2016 noted that the test is most powerful when the SD is small.
+
+The simulation below measures this. The left panel looks at GRIMMER's own contribution: the mean is correct, so the sum is known, and we ask what share of two-decimal SD values near a given magnitude would pass. The right panel shows the two tests together: the share of random pairs of a mean and an SD that pass both.
+
+```{r}
+#| label: fig-grimmer-pass-rates
+#| fig-cap: "Pass rates for GRIMMER at two decimals, for a single whole-number item. Left: the SD check alone, when the mean is correct. Right: GRIM and GRIMMER together, for a random mean and a random SD. The dashed line is GRIM alone. SD magnitudes are bands of width 0.5 centred on the stated value."
+#| fig-height: 4.5
+#| code-fold: true
+# the SD check, given a known whole-number sum S (sample SD, halves rounded either way)
+grimmer_given_sum <- function(S, sd, n, d_sd = 2) {
+  half <- 0.5 * 10^-d_sd
+  lower <- (n - 1) * pmax(sd - half, 0)^2 + S^2 / n
+  upper <- (n - 1) * (sd + half)^2 + S^2 / n
+  candidate <- ceiling(lower - 1e-9)
+  candidate <- candidate + ((candidate - S) %% 2)  # move to the next whole number that is odd or even like S
+  candidate <= upper + 1e-9
+}
+
+# all whole-number sums that are consistent with a reported mean
+sums_for_mean <- function(x, n, d = 2) {
+  half <- 0.5 * 10^-d
+  lower <- ceiling((x - half) * n - 1e-9)
+  upper <- floor((x + half) * n + 1e-9)
+  if (lower > upper) integer(0) else lower:upper
+}
+
+# GRIM and GRIMMER together
+grimmer_base <- function(x, sd, n) {
+  S <- sums_for_mean(x, n)
+  length(S) > 0 && any(grimmer_given_sum(S, sd, n))
+}
+
+set.seed(42)
+sd_band <- function(mid) round(seq(mid - 0.25, mid + 0.24, by = 0.01), 2)
+sample_sizes <- c(seq(5, 100, 5), seq(120, 400, 20))
+
+sd_alone <- expand_grid(n = sample_sizes, sd_mid = c(0.5, 1, 2, 3)) |>
+  mutate(pass = map2_dbl(n, sd_mid, \(n, sd_mid) {
+    sums <- sample(n:(7 * n), 200, replace = TRUE)  # possible sums on a 1-7 scale
+    mean(outer(sums, sd_band(sd_mid), \(S, sd) grimmer_given_sum(S, sd, n)))
+  }),
+  panel = "SD check alone (mean is correct)")
+
+both <- expand_grid(n = sample_sizes, sd_mid = c(0.5, 1, 2, 3)) |>
+  mutate(pass = map2_dbl(n, sd_mid, \(n, sd_mid) {
+    pairs <- expand_grid(x = 3 + (0:99) / 100, sd = sd_band(sd_mid))
+    mean(map2_lgl(pairs$x, pairs$sd, \(x, sd) grimmer_base(x, sd, n)))
+  }),
+  panel = "GRIM and GRIMMER together (random mean and SD)")
+
+grim_alone <- tibble(n = 1:400) |>
+  mutate(pass = map_dbl(n, \(n) pass_rate(n, d = 2)),
+         panel = "GRIM and GRIMMER together (random mean and SD)")
+
+bind_rows(sd_alone, both) |>
+  mutate(panel = fct_inorder(panel)) |>
+  ggplot(aes(n, pass)) +
+  geom_line(data = grim_alone |> mutate(panel = factor(panel, levels = c("SD check alone (mean is correct)", panel[1]))),
+            linetype = "dashed", colour = "grey50") +
+  geom_line(aes(colour = factor(sd_mid)), linewidth = 0.7) +
+  facet_wrap(vars(panel)) +
+  scale_colour_manual(values = c("#2780e3", "#27b3e3", "#e39f27", "#c0392b")) +
+  scale_y_continuous(labels = scales::percent) +
+  labs(x = "Sample size (N)", y = "Values that pass", colour = "Size of the SD") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
+
+The left panel has a simple reading. For two-decimal reporting, the share of SD values that pass is close to *N* × SD / 100. With an SD near 1, the SD check is about as demanding as GRIM is for the mean. With an SD near 0.5, it is twice as demanding and still rejects some values at *N* = 300, well past the point where GRIM gives up. With an SD near 2 or 3, it passes everything from about *N* = 55 or *N* = 35.
+
+The right panel shows what this means for the pair. For small samples the two checks multiply: at *N* = 30 and an SD near 1, about 30% of means pass GRIM but under 10% of mean and SD pairs pass both. GRIMMER is therefore a much sharper test than GRIM for small samples, and the only one of the two that can still fail above *N* = 100, provided the SD is small. Small SDs on whole-number data are common where responses pile up at one end of a scale, which is also where the bounds methods of the next chapter are most useful.
+
+## Assumptions and sources of false positives and false negatives {#sec-grim-errors}
+
+The previous sections introduced the assumptions of granularity tests one at a time. @tbl-grim-assumptions collects them. A **false positive** is a correctly reported value that the test flags as impossible. A **false negative** is an incorrect value that the test passes.
+
+| Assumption | If it is wrong | Guard against it by |
+|---------------------|-------------------------|--------------------------|
+| The *N* behind this statistic is the one we used | False positives. Cell sizes assumed equal when they are not, *N* before exclusions used in place of *N* analysed, item-level missing data | Looking for cell sizes in tables, degrees of freedom, and flow diagrams. Searching for an *N* that makes all values consistent |
+| The number of items averaged into each participant's score is right | False positives if a mean score is tested as a single item. False negatives if a sum score is tested as a mean score, or if the number of items in the scale is used for a sum score | Reading the measures section for how the scale was scored. Items averaged is 1 for single items, whole-number variables, and sum scores |
+| The data are whole numbers | False positives | Checking the response format |
+| The mean is a simple average of observed scores, not a model estimate | False positives. Estimated marginal means, least-squares means, covariate-adjusted means, and conditional means or predicted values from a regression or mixed model are not averages of whole numbers, even when the raw scores are | Reading table notes and the analysis section for words such as adjusted, estimated, marginal, model-based, or predicted. Testing only raw descriptive means |
+| No missing values were imputed | False positives. Mean imputation, regression imputation, and multiple imputation produce values that are not whole numbers, and a mean pooled over several imputed datasets is an average of means. Methods that copy observed values, such as last observation carried forward, keep whole numbers but change which *N* applies | Reading the missing-data section. Comparing the *N* analysed with the number who completed the measure. Testing complete-case statistics where they are reported |
+| The rounding practice is one we allowed for | False positives | Using the lenient rule, and considering truncation and stepped rounding before reporting a failure |
+| The value was extracted correctly | False positives. Dropped trailing zeros, values read from the wrong column, PDF conversion faults, the assessor's own typos | Re-reading every flagged value in the original article |
+| The SD uses the sample formula (GRIMMER) | False positives | Re-testing with converted SDs |
+
+: Assumptions of granularity tests and what happens when they fail. {#tbl-grim-assumptions}
+
+False negatives have a different set of causes, most of which cannot be fixed.
+
+-   **The test cannot fail.** When *N* × items is 100 or more at two decimals, GRIM passes everything.
+-   **Chance.** A wrong value can land on an attainable one. For a wrong value picked at random, the probability is the pass rate, covered in the next section.
+-   **Leniency.** Every accommodated rounding practice lets more wrong values through.
+
+The asymmetry between the two outcomes is the main thing to take from this section. A failure is strong evidence that something is misreported, provided the checks in @tbl-grim-assumptions have been made, and no evidence about what or why. A pass is weak evidence of anything. Brown and Heathers make the same point: the number of GRIM failures in an article is a conservative estimate of the number of errors.
+
+::: {.callout-note collapse="true"}
+## Other granularity methods
+
+Granularity is not restricted to means and SDs of integer data. There may be many other forms of granularity tests that could be developed. Any statistic that is calculated from a finite number of discrete outcomes can take only a finite set of values. 
+
+One such other test is GRIM-U [@heathers2025], which applies the principle to the Mann-Whitney U test. This relies on the granularity not of the data itself, which could be continuous, but the granularity of the ranks that the test calculates, and the resulting granularity of the test's U coefficient and *p*-value. Hussey subsequently formalized an analytic form of the GRIM-U method and implemented it in an R package (i.e., analytic-GRIM-U: https://github.com/ianhussey/analyticgrimu).
+
+No large scale applications of GRIM-U have been conducted to date. Other forms of granularity methods could in principle be created.
+:::
 
 ## Test yourself
 
-[make into a quiz]
+Answer all the questions, then click the button below the quiz to see why each answer is right. Unless a question says otherwise, values are reported to two decimals, each participant answers a single question with a whole number, and halves may be rounded up or down.
 
-The methods discussed in this book are often separated into possibility vs. plausibility tests. Which type is GRIM? [possibility. show answers button below quiz should explain why.]
+::: {.webex-check .webex-box}
+**What GRIM and GRIMMER are for**
+
+1.  Forensic methods are often divided into tests of possibility and tests of plausibility. Which kind of test is GRIM? `r webexercises::mcq(c(answer = "A possibility test", "A plausibility test", "Both", "Neither"))`
+2.  GRIM checks whether a reported mean could have been produced by *N* whole-number scores. `r webexercises::torf(TRUE)`
+3.  GRIMMER can show that a reported *SD* is impossible even when the reported mean passes GRIM. `r webexercises::torf(TRUE)`
+4.  A GRIM failure shows that the authors fabricated their data. `r webexercises::torf(FALSE)`
+
+**A mean outside the scale.** A study collects ratings from 10 participants on a 1--7 scale, and reports their mean as 12.10.
+
+5.  GRIM flags this mean as inconsistent. `r webexercises::torf(FALSE)`
+6.  This mean could have come from the data described. `r webexercises::torf(FALSE)`
+
+**Assumptions**
+
+7.  A 12-item questionnaire is scored by adding up each participant's answers. What number of items averaged should GRIM use? `r webexercises::mcq(c(answer = "1", "12", "144", "It depends on the sample size"))`
+8.  The same questionnaire is instead scored as the mean of the 12 items, in a sample of 15. GRIM can detect an error in the reported mean of these scores. `r webexercises::torf(FALSE)`
+9.  Estimated marginal means from an ANCOVA can be tested with GRIM, as long as the raw scores were whole numbers. `r webexercises::torf(FALSE)`
+10. A mean of 3.12 from 8 participants is GRIM-consistent whichever way halves were rounded. `r webexercises::torf(FALSE)`
+
+**Sample size and informativeness**
+
+11. A mean age in years from 120 participants is reported to two decimals. GRIM can detect an error in this mean. `r webexercises::torf(FALSE)`
+12. A mean from 90 participants passes GRIM. Roughly what share of two-decimal values picked at random would also pass? `r webexercises::mcq(c("10%", "50%", answer = "90%", "100%"))`
+13. Because the mean from 90 participants passed GRIM, there is good evidence that it was reported correctly. `r webexercises::torf(FALSE)`
+14. A mean from 12 participants that passes GRIM tells us more than a mean from 90 participants that passes GRIM. `r webexercises::torf(TRUE)`
+15. With 150 participants, GRIMMER can still find an impossible *SD* even though GRIM can no longer fail. `r webexercises::torf(TRUE)`
+:::
+
+`r webexercises::hide("Why is each answer right?")`
+
+1.  **A possibility test.** GRIM asks whether a reported mean can exist at all, given the sample size and whole-number data. It does not ask whether the result is surprising or unlikely, which is what plausibility tests do. See the chapter on organising principles.
+2.  **True.** That is the whole test: some whole-number sum, divided by *N* × items and rounded, must give the reported mean (@sec-grim).
+3.  **True.** GRIMMER adds a second check, on the sum of the squared scores, which must be a whole number with the same parity (odd or even) as the sum of the scores. An *SD* can fail this check even when the mean is fine (@sec-grimmer).
+4.  **False.** A failure shows that the mean, the sample size, the description of the measure, and the rounding cannot all be as stated. It does not say which one is wrong, or why. In the largest application of GRIM, the causes found were mundane: wrong sample sizes, spreadsheet errors, values copied incorrectly, and stepped rounding (@sec-grim-evidence).
+5.  **False.** 12.10 × 10 = 121, a whole number, so the mean is GRIM-consistent. GRIM only looks at the grid of attainable means. It knows nothing about the scale's minimum and maximum.
+6.  **False.** On a 1--7 scale, no mean can be above 7. The value is impossible, but for a reason GRIM cannot see. Checks that use the scale's limits are the subject of the next chapter, on bounds methods.
+7.  **1.** Each participant's sum is a whole number, so a sum score behaves like a single item, however many items were added up. The number of items only enters the test when each participant's answers are averaged first (@sec-grim-integer-data).
+8.  **False.** With each participant's score averaged over 12 items, the mean moves in steps of 1/(15 × 12) = 1/180. That is finer than the two-decimal reporting steps, so every two-decimal mean is attainable and the test cannot fail.
+9.  **False.** Model-based estimates such as estimated marginal means, covariate-adjusted means, and predicted values are not simple averages of the observed scores. Testing them with GRIM produces false positives (@tbl-grim-assumptions).
+10. **False.** The only candidate sum is 25, and 25/8 = 3.125 exactly. Rounded half up, that is 3.13, so 3.12 fails. It passes only if halves can be rounded down, which is why the lenient rule counts it as consistent (@nte-grim-rounding).
+11. **False.** With a single item and 100 or more participants, attainable means are no further apart than the reporting steps of 0.01, so every two-decimal mean passes. The test is uninformative here.
+12. **90%.** With two decimals and fewer than 100 participants on a single item, about *N*% of all printable values are attainable. So a value made up at random would pass 90% of the time (@sec-grim-pass-rates).
+13. **False.** A test that 90% of random numbers would pass is weak evidence of anything. The pass is what we would expect if the mean were correct, and also very nearly what we would expect if it were not. A consistent result at large *N* should be read as "not shown to be impossible", not as "shown to be correct".
+14. **True.** At *N* = 12, a random value would pass only about 12% of the time, so a pass rules out more ways of being wrong. The informativeness of a pass depends on how often a wrong value would have failed.
+15. **True.** GRIMMER's check on the *SD* stays demanding at larger samples when the *SD* is small. For example, with a mean of 3.50 from 150 participants, 5 of the 21 two-decimal *SD*s from 0.40 to 0.60 are impossible, even though every two-decimal mean is attainable (@fig-grimmer-pass-rates).
+
+`r webexercises::unhide()`
 
 <!-- TODO: add specific figures from van der Zee et al. (2017) and from the GRIM-U report once checked against the sources. -->
 
@@ -859,7 +918,7 @@ The methods discussed in this book are often separated into possibility vs. plau
 
 <!-- Two things should not be done with these results. Failures from GRIM, GRIMMER, and percentage tests should not be added together as if they were independent, because GRIMMER includes GRIM and a wrong *N* affects all of them. And a count of failures should never be converted into a *p*-value for fabrication. The reference model at rung 6 describes random numbers, and rejecting or failing to reject it says nothing direct about how the values in the article came to be. -->
 
-<!-- <!-- TODO: grim_aggregate() does not yet handle percentages or GRIMMER results. --> -->
+<!-- TODO: grim_aggregate() does not yet handle percentages or GRIMMER results. -->
 
 <!-- ### Failing at the random level: diagnosing the cause {#sec-grim-diagnosis} -->
 
@@ -1023,10 +1082,6 @@ The methods discussed in this book are often separated into possibility vs. plau
 
 
 <!-- ## Beyond descriptive statistics: GRIM-U {#sec-grim-u} -->
-
-<!-- The principle behind GRIM is not specific to means. Any statistic that is calculated from a finite number of discrete outcomes can take only a finite set of values. Means were the first application. -->
-
-<!-- GRIM-U [@heathers2025] applies the principle to the Mann-Whitney U test. The test ranks all the observations from two groups and counts, for every pair made of one observation from each group, which group's member ranks higher. The U statistic is that count. With group sizes *n*~1~ and *n*~2~: -->
 
 <!-- -   U must lie between 0 and *n*~1~ × *n*~2~. -->
 <!-- -   U must be a whole number, or end in .5 if some observations are tied. -->

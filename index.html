@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Ian Hussey">
-<meta name="dcterms.date" content="2026-10-24">
+<meta name="dcterms.date" content="2026-10-25">
 
 <title>Trustworthiness Assessment</title>
 <style>
@@ -22,7 +22,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -585,7 +605,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 24, 2026</p>
+      <p class="date">October 25, 2026</p>
     </div>
   </div>
   
@@ -600,27 +620,30 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="introduction" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="introduction">Introduction</h2><p><img src="cover.png" title="Trustworthiness Assessment" class="quarto-cover-image nolightbox img-fluid"></p>
-<p>This is the skeleton of a book we are slowly writing. For the moment, you should not expect any meaningful content here.</p>
-<p>This <a href="#sec-license">freely available</a> eBook provides materials for the semester-long Master’s seminar course “Estimating the Credibility of Past Research” that Ian delivers at the University of Bern’s Institute of Psychology.</p>
-<p>This book is split into four parts:</p>
+<p>This <a href="#sec-license">freely available</a> eBook provides materials for the semester-long Master’s seminar course “Estimating the Credibility of Past Research” that I deliver at the University of Bern’s Institute of Psychology.</p>
+<p>Trustworthiness Assessment asks whether the data and findings reported in a study can be believed. It is distinct from the more well-established assessment of Risk of Bias, which asks whether a study’s design and conduct could have distorted its estimate of an effect. A study can have a low Risk of Bias and still report results that are impossible, fabricated, or the product of critical errors. Cochrane calls these <em>problematic studies</em>: any study “where there are serious questions about the trustworthiness of the data or findings, regardless of whether the study has been formally retracted” <span class="citation" data-cites="cochraneeditorial">(<a href="references.html#ref-cochraneeditorial" role="doc-biblioref">Cochrane, n.d.-a</a>)</span>. Such problems may result from research misconduct, such as fabrication or falsification, but also from poor research practices or honest errors, and Cochrane’s editorial policies and implementation guidance set out what review authors and editors should do about them <span class="citation" data-cites="cochraneeditorial cochraneproblematic">(<a href="references.html#ref-cochraneeditorial" role="doc-biblioref">Cochrane, n.d.-a</a>, <a href="references.html#ref-cochraneproblematic" role="doc-biblioref">n.d.-b</a>)</span>. If problematic studies are not identified, they can be included in systematic reviews and guidelines and distort their conclusions. Risk-of-bias tools are not designed to detect these problems, so bespoke tools for trustworthiness assessment are needed <span class="citation" data-cites="wilkinson2026">(<a href="references.html#ref-wilkinson2026" role="doc-biblioref">Wilkinson et al., 2026</a>)</span>.</p>
+<p>One such tool, INSPECT-SR (Investigating Problematic Clinical Trials in Systematic Reviews), was developed through a large international expert consensus to provide standardised criteria for assessing the trustworthiness of randomised controlled trials <span class="citation" data-cites="wilkinson2026">(<a href="references.html#ref-wilkinson2026" role="doc-biblioref">Wilkinson et al., 2026</a>)</span>. It guides a reviewer through up to 21 checks in four domains: post-publication notices; the study’s conduct, governance, and transparency; its text and figures; and the results it reports. The reviewer then judges whether there are no concerns, some concerns, or serious concerns about the trustworthiness of the trial. In October 2025, Cochrane endorsed INSPECT-SR as an optional tool for authors of systematic reviews of randomised controlled trials who wish to assess the trustworthiness of the trials they include <span class="citation" data-cites="cochrane2025methods">(<a href="references.html#ref-cochrane2025methods" role="doc-biblioref">Cochrane, 2025</a>)</span>.</p>
+<p>Many of the checks that a Trustworthiness Assessment relies on come from <em>Forensic Meta-Science</em>: an emergent subfield of meta-science that develops and applies methods for testing whether the numbers reported in a study are internally consistent and plausible. For example, whether a mean is possible given the sample size, or whether a <em>p</em>-value matches its test statistic. Much of this work has been done by independent researchers who scrutinise the published literature, often called <em>science sleuths</em>. In written testimony to the US House of Representatives in 2026, Kate Travis, the managing editor of Retraction Watch, described how sleuths are coming together to share tools and organise, citing INSPECT-SR as one product of such efforts, and observed that “the field is rapidly professionalizing” <span class="citation" data-cites="travis2026">(<a href="references.html#ref-travis2026" role="doc-biblioref">Travis, 2026</a>)</span>.</p>
+<p>This book is intended as part of that ongoing professionalisation: it sets out the methods of forensic meta-science and trustworthiness assessment, the assumptions they rest on, and how their results should be interpreted. While the <a href="https://inspect-sr.com">INSPECT-SR Guidance website</a> contains the current guidance for the application of its various checks, it is not intended to provide a deep understanding of the methods themselves, or other measures beyond the current scope of INSPECT-SR that are indevelopment or more suited to studies in other areas or using other designs (e.g., psychology articles on non-RCTs). I intend this book to provide that training (see below for links to other resources).</p>
+<p>This book is split into five parts:</p>
 <ul>
 <li>Part I: Conceptual foundations.</li>
 <li>Part II: Understanding statistics</li>
 <li>Part III: Forensic meta-science methods</li>
 <li>Part IV: Organising critique</li>
+<li>Part V: Developing and validating forensic methods</li>
 </ul>
-<ol start="4" type="1">
-<li>Developing and validating forensic methods.</li>
-</ol>
 </section>
 <section id="other-learning-resources" class="level2">
 <h2 class="anchored" data-anchor-id="other-learning-resources">Other learning resources</h2>
-<p>There are many excellent Open Source resources to learn simulation studies in R and {tidyverse}. Readers are encouraged to seek them out to support the materials already provided in this book. I can particularly recommend the following ones:</p>
+<p>There are a growing number of other resources to learn forensic meta-science methods. I can particularly recommend the following ones:</p>
 <ul>
 <li>Heathers, J. (2025) An Introduction To Forensic Metascience. Website: <a href="https://jamesheathers.curve.space/">https://jamesheathers.curve.space</a></li>
-<li>COSIG: The Collection of Open Science Integrity Guides. Website:<a href="https://cosig.net">cosig.net</a>. doi: <a href="https://doi.org/10.17605/OSF.IO/2KDEZ">10.17605/OSF.IO/2KDEZ</a></li>
+<li>COSIG: The Collection of Open Science Integrity Guides. Website:<a href="https://cosig.net">cosig.net</a>. doi: <a href="https://doi.org/10.17605/OSF.IO/2KDEZ">10.17605/OSF.IO/2KDEZ</a>
+<ul>
 <li>Ozturk, Y., Pirelli, S., Richardson, R.A.K. (2026). Introducing COSIG: The Collection of Open Science Integrity Guides. Zenodo. PLOS Biology 24(6): e3003817. doi: <a href="https://doi.org/10.1371/journal.pbio.3003817">10.1371/journal.pbio.3003817</a></li>
-<li><a href="https://trustworthy.scientific.claims/">trustworthy.scientific.claims</a>: A hub for open-source forensic meta-science methods for assessing the trustworthiness of scientific research. Discover available guides and tools, or contribute to development.</li>
+</ul></li>
+<li><a href="https://trustworthy.scientific.claims/">trustworthy.scientific.claims</a>: A hub for open-source forensic meta-science methods for assessing the trustworthiness of scientific research. Discover available guides and tools, or contribute to development. [under construction]</li>
 </ul>
 </section>
 <section id="sec-license" class="level2">
@@ -657,6 +680,23 @@ ul.task-list li input[type="checkbox"] {
 <p>If you are interested in contributing to or adapting this eBook, all code and data are available on <a href="https://github.com/ianhussey/trustworthiness-assessment-and-forensic-meta-science">GitHub</a>.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-cochraneeditorial" class="csl-entry" role="listitem">
+Cochrane. (n.d.-a). <em>Cochrane database of systematic reviews: Editorial policies</em>. Cochrane Library. Retrieved <a href="https://www.cochranelibrary.com/cdsr/editorial-policies">https://www.cochranelibrary.com/cdsr/editorial-policies</a>
+</div>
+<div id="ref-cochraneproblematic" class="csl-entry" role="listitem">
+Cochrane. (n.d.-b). <em>Policy for managing potentially problematic studies: Implementation guidance</em>. Cochrane Library editorial policy. Retrieved <a href="https://www.cochranelibrary.com/cdsr/editorial-policies/problematic-studies-implementation-guidance">https://www.cochranelibrary.com/cdsr/editorial-policies/problematic-studies-implementation-guidance</a>
+</div>
+<div id="ref-cochrane2025methods" class="csl-entry" role="listitem">
+Cochrane. (2025). <em>Methods in <span>Cochrane</span></em>. <a href="https://www.cochrane.org/authors/methods-cochrane">https://www.cochrane.org/authors/methods-cochrane</a>
+</div>
+<div id="ref-travis2026" class="csl-entry" role="listitem">
+Travis, K. (2026). <em>Written testimony of <span>Kate Travis</span>, managing editor, <span>Retraction Watch</span>, for the hearing titled <span>“<span class="nocase">The State of Scientific Publishing: Assessing Trends, Emerging Issues, and Policy Considerations</span>”</span></em>. Subcommittee on Investigations and Oversight, Committee on Science, Space, and Technology, U.S. House of Representatives. <a href="https://republicans-science.house.gov/_cache/files/8/8/8893b8d8-cce4-46ac-b43a-42f2407587b8/C065DE0F54E66B2C273BB4CE31899F1B3EC2FEC433F320AE7B03D8E6DE1112A8.ms.-kate-travis-testimony.pdf">https://republicans-science.house.gov/_cache/files/8/8/8893b8d8-cce4-46ac-b43a-42f2407587b8/C065DE0F54E66B2C273BB4CE31899F1B3EC2FEC433F320AE7B03D8E6DE1112A8.ms.-kate-travis-testimony.pdf</a>
+</div>
+<div id="ref-wilkinson2026" class="csl-entry" role="listitem">
+Wilkinson, J., Bero, L., Heal, C., Flemyng, E., Antoniou, G. A., Aburrow, T., Alfirevic, Z., Avenell, A., Barbour, V., Berghella, V., Bishop, D. V. M., Bordewijk, E. M., Brown, N. J. L., Christopher, J., Clarke, M., Dahly, D., Dennis, J., Dicker, P., Dumville, J., … Kirkham, J. J. (2026). <span>INSPECT-SR</span> tool for assessing trustworthiness of randomised controlled trials. <em>BMJ</em>, <em>394</em>, e100611. <a href="https://doi.org/10.1136/bmj-2026-100611">https://doi.org/10.1136/bmj-2026-100611</a>
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->

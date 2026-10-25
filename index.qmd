@@ -1,25 +1,31 @@
 ## Introduction {.unnumbered}
 
-This is the skeleton of a book we are slowly writing. For the moment, you should not expect any meaningful content here.
+This [freely available](#sec-license) eBook provides materials for the semester-long Master's seminar course "Estimating the Credibility of Past Research" that I deliver at the University of Bern's Institute of Psychology.
 
-This [freely available](#sec-license) eBook provides materials for the semester-long Master's seminar course "Estimating the Credibility of Past Research" that Ian delivers at the University of Bern's Institute of Psychology.
+Trustworthiness Assessment asks whether the data and findings reported in a study can be believed. It is distinct from the more well-established assessment of Risk of Bias, which asks whether a study's design and conduct could have distorted its estimate of an effect. A study can have a low Risk of Bias and still report results that are impossible, fabricated, or the product of critical errors. Cochrane calls these *problematic studies*: any study "where there are serious questions about the trustworthiness of the data or findings, regardless of whether the study has been formally retracted" [@cochraneeditorial]. Such problems may result from research misconduct, such as fabrication or falsification, but also from poor research practices or honest errors, and Cochrane's editorial policies and implementation guidance set out what review authors and editors should do about them [@cochraneeditorial; @cochraneproblematic]. If problematic studies are not identified, they can be included in systematic reviews and guidelines and distort their conclusions. Risk-of-bias tools are not designed to detect these problems, so bespoke tools for trustworthiness assessment are needed [@wilkinson2026].
 
-This book is split into four parts:
+One such tool, INSPECT-SR (Investigating Problematic Clinical Trials in Systematic Reviews), was developed through a large international expert consensus to provide standardised criteria for assessing the trustworthiness of randomised controlled trials [@wilkinson2026]. It guides a reviewer through up to 21 checks in four domains: post-publication notices; the study's conduct, governance, and transparency; its text and figures; and the results it reports. The reviewer then judges whether there are no concerns, some concerns, or serious concerns about the trustworthiness of the trial. In October 2025, Cochrane endorsed INSPECT-SR as an optional tool for authors of systematic reviews of randomised controlled trials who wish to assess the trustworthiness of the trials they include [@cochrane2025methods]. 
+
+Many of the checks that a Trustworthiness Assessment relies on come from *Forensic Meta-Science*: an emergent subfield of meta-science that develops and applies methods for testing whether the numbers reported in a study are internally consistent and plausible. For example, whether a mean is possible given the sample size, or whether a *p*-value matches its test statistic. Much of this work has been done by independent researchers who scrutinise the published literature, often called *science sleuths*. In written testimony to the US House of Representatives in 2026, Kate Travis, the managing editor of Retraction Watch, described how sleuths are coming together to share tools and organise, citing INSPECT-SR as one product of such efforts, and observed that "the field is rapidly professionalizing" [@travis2026]. 
+
+This book is intended as part of that ongoing professionalisation: it sets out the methods of forensic meta-science and trustworthiness assessment, the assumptions they rest on, and how their results should be interpreted. While the [INSPECT-SR Guidance website](https://inspect-sr.com) contains the current guidance for the application of its various checks, it is not intended to provide a deep understanding of the methods themselves, or other measures beyond the current scope of INSPECT-SR that are indevelopment or more suited to studies in other areas or using other designs (e.g., psychology articles on non-RCTs). I intend this book to provide that training (see below for links to other resources).
+
+This book is split into five parts:
 
 - Part I: Conceptual foundations.
 - Part II: Understanding statistics
 - Part III: Forensic meta-science methods
 - Part IV: Organising critique
-4.  Developing and validating forensic methods.
+- Part V: Developing and validating forensic methods
 
 ## Other learning resources
 
-There are many excellent Open Source resources to learn simulation studies in R and {tidyverse}. Readers are encouraged to seek them out to support the materials already provided in this book. I can particularly recommend the following ones:
+There are a growing number of other resources to learn forensic meta-science methods. I can particularly recommend the following ones:
 
 - Heathers, J. (2025) An Introduction To Forensic Metascience. Website: [https://jamesheathers.curve.space](https://jamesheathers.curve.space/)
 - COSIG: The Collection of Open Science Integrity Guides. Website:[cosig.net](https://cosig.net). doi: [10.17605/OSF.IO/2KDEZ](https://doi.org/10.17605/OSF.IO/2KDEZ)
-- Ozturk, Y., Pirelli, S., Richardson, R.A.K. (2026). Introducing COSIG: The Collection of Open Science Integrity Guides. Zenodo. PLOS Biology 24(6): e3003817. doi: [10.1371/journal.pbio.3003817](https://doi.org/10.1371/journal.pbio.3003817)
-- [trustworthy.scientific.claims](https://trustworthy.scientific.claims/): A hub for open-source forensic meta-science methods for assessing the trustworthiness of scientific research. Discover available guides and tools, or contribute to development.
+  - Ozturk, Y., Pirelli, S., Richardson, R.A.K. (2026). Introducing COSIG: The Collection of Open Science Integrity Guides. Zenodo. PLOS Biology 24(6): e3003817. doi: [10.1371/journal.pbio.3003817](https://doi.org/10.1371/journal.pbio.3003817)
+- [trustworthy.scientific.claims](https://trustworthy.scientific.claims/): A hub for open-source forensic meta-science methods for assessing the trustworthiness of scientific research. Discover available guides and tools, or contribute to development. [under construction]
 
 ## License {#sec-license}
 

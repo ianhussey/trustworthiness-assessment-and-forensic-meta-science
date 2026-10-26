@@ -49,10 +49,10 @@ book:
     
   - part: 'Part IV: Organising critique'
     chapters:
-    - exercises/18_critiquing_specific_types_of_articles.qmd
-    - exercises/19_inspect_sr.qmd
-    - exercises/20_organising_critique.qmd
-    - exercises/21_reflexive_critique.qmd
+    - chapters/18_critiquing_specific_types_of_articles.qmd
+    - chapters/19_organising_critique.qmd
+    - chapters/20_trustworthiness_assessment_and_inspect-sr.qmd
+    - chapters/21_reflexive_critique.qmd
     
   - part: 'Part V: Developing and validating forensic methods'
     chapters:

@@ -23,7 +23,9 @@ That assumption fails for *problematic studies*: studies "where there are seriou
 
 #### How common are problematic studies?
 
-Problematic trials are not rare. Carlisle analysed the 526 randomised controlled trials submitted to the journal *Anaesthesia* between February 2017 and March 2020 [@carlisle2021]. He judged that 73 (14%) contained false data, and that 43 (8%) were "zombie" trials, which he considered fatally flawed. These rates depended strongly on what he could see. Among the 153 trials whose authors supplied individual patient data, 44% had false data and 26% were zombie trials, compared with 2% and 1% of the 373 trials assessed from summary data alone. This suggests that most problematic trials go undetected when only the published report is available.
+While good estimates of prevalence do not yet exist, there is reason to believe that problematic trials are not rare. 
+
+For example, Carlisle analysed the 526 randomised controlled trials submitted to the journal *Anaesthesia* between February 2017 and March 2020 [@carlisle2021]. He judged that 73 (14%) contained false data, and that 43 (8%) were "zombie" trials, which he considered fatally flawed. These rates depended strongly on what he could see. Among the 153 trials whose authors supplied individual patient data, 44% had false data and 26% were zombie trials, compared with 2% and 1% of the 373 trials assessed from summary data alone. This suggests that most problematic trials go undetected when only the published report is available.
 
 Estimates from outside clinical trials point the same way. The most widely cited figure comes from surveys of researchers: about 2% admit to having fabricated or falsified data at least once [Fanelli, 2009, summarised in @heathers2024]. Heathers argues that this underestimates the problem. People are unlikely to admit to misconduct, even in anonymous surveys, and the share of researchers who have *ever* faked a result says little about how much of the published literature is fake. He instead collected 12 studies that estimated the proportion of *papers* with fabricated or falsified elements [@heathers2024], including:
 
@@ -33,9 +35,9 @@ Estimates from outside clinical trials point the same way. The most widely cited
 - The editor-in-chief of *Molecular Brain*, who asked for the raw data behind 41 of the 180 manuscripts he handled between 2017 and 2019, because their results looked "too beautiful to be true" [@miyakawa2020]. Twenty-one were withdrawn without providing raw data, and 19 of the remaining 20 were rejected because the raw data were insufficient. In seven of these, the raw data did not match the reported results. Only one manuscript was sent for peer review. Miyakawa notes that he cannot know how many of these manuscripts contained fabricated data. Heathers' estimate of 14.4% of all submissions rests on a hypothetical figure in the editorial: if an informal poll of researchers were right, 26 of the 40 withdrawn or rejected manuscripts would contain fabricated data.
 - A COPE and STM report on paper mills, which found that, on average, 14% of the manuscripts submitted to the journals it examined between 2019 and 2021 were suspect, ranging from 2% to 46% by journal.
 
-Across the 16 estimates in these studies, the median was 14%, and 9 of the 16 fell between 13.4% and 16.9%. Heathers concludes that roughly 1 in 7 papers contain errors consistent with faking in at least one element. He stresses that the studies are too different to meta-analyse, and that most come from the life and biomedical sciences and rely on inspecting images. He also argues that they are lower bounds, because these methods detect obvious fabrication and a skilled fabricator could evade them. The estimate comes from a preprint and has not been peer reviewed.
+Across the 16 estimates in these studies, the median was 14%, and 9 of the 16 fell between 13.4% and 16.9%. Heathers concludes that roughly 1 in 7 papers contain errors consistent with faking in at least one element. It's quite important to emphasise that many commentators have problems with this estimate, including myself. If I was to reframe Heathers' argument, I would do it as so: **Collectively, we are acting as if the prevalence of untrustworthy articles is so small that it can literally be ignored. There is sufficient reason to act as if the prevalence of untrustworthy research is much higher than this, and we should at least look for it.**
 
-More recent studies report similar or higher rates in specific fields. Aquarius and colleagues assessed every article that was eligible for a systematic review of preclinical studies of microvascular injury after myocardial infarction, using the image-analysis software Imagetwin together with visual checks [@aquarius2026]. They had decided in advance to exclude problematic articles from the review. Of 201 articles, 57 (28.4%) were problematic: 46 because of duplicated or manipulated images, and 11 because of inappropriately duplicated values in tables. Only three of the 57 had previously been flagged on PubPeer for serious concerns. Similar assessments within other systematic reviews of animal studies found image-related problems in 19% of included articles on depression and 40% of included articles on early brain injury after subarachnoid haemorrhage [both summarised in @aquarius2026]. These studies are examples of trustworthiness assessment as part of a systematic review: every eligible study was checked, and problematic studies were excluded before synthesis.
+More recent studies report similar or higher rates in specific fields. Aquarius and colleagues assessed every article that was eligible for a systematic review of preclinical studies of microvascular injury after myocardial infarction, using the image-analysis software Imagetwin together with visual checks [@aquarius2026]. They had decided in advance to exclude problematic articles from the review. Of 201 articles, 57 (28.4%) were deemed problematic: 46 because of duplicated or manipulated images, and 11 because of inappropriately duplicated values in tables. Only three of the 57 had previously been flagged on PubPeer for serious concerns. Similar assessments within other systematic reviews of animal studies found image-related problems in 19% of included articles on depression and 40% of included articles on early brain injury after subarachnoid haemorrhage [both summarised in @aquarius2026]. These studies are examples of trustworthiness assessment as part of a systematic review: every eligible study was checked, and problematic studies were excluded before synthesis.
 
 #### Problematic studies change the conclusions of reviews
 
@@ -57,8 +59,9 @@ Trustworthiness Assessment and science sleuthing use many of the same methods, a
 
 | | Trustworthiness Assessment | Science sleuthing |
 |:--|:--|:--|
-| **Which studies** | Every trial that is eligible for a systematic review, whether or not anything seems wrong with it | Usually studies that have already attracted suspicion, or other work by the same authors |
-| **Process** | Structured: the same checks for every study, a recorded response to each check, judgments per domain and overall, and ideally two independent reviewers who then reach consensus | Open-ended: follows whatever leads seem most promising for that study |
+| **Which studies** | Every trial that is eligible for a systematic review, whether or not anything seems wrong with it | Articles are selected via heterogeneous means |
+| **Process** | Structured: the same checks for every study, a recorded response to each check, judgments per domain and overall, and ideally two independent reviewers who then reach consensus  | Open-ended: follows whatever leads seem most promising for that study |
+| **Complexity** | Checks are often shallower to facilitate speed and lower training burden | Checks are often deeper as they are (currently) performed by more expert sleuths, with more attention paid to fewer articles. Exceptions to this exist, e.g., image forensics work conducted by Elisabeth Bik, Rene Aquarius, Matthew Shrank and others often involve thousands of articles |
 | **Purpose** | To decide whether a study's data can be used in a particular evidence synthesis | To correct the scientific record, for example by alerting journals and institutions or posting on PubPeer |
 | **Outcome** | Studies with serious concerns are excluded from the review, and studies with some concerns are examined in sensitivity analyses | Corrections, Expressions of Concern, retractions, and sometimes misconduct investigations |
 | **Stance on misconduct** | Explicitly not a test for fraud: concerns about trustworthiness "do not constitute an accusation of research misconduct" [@wilkinson2026] | May raise the question of misconduct, although findings are usually framed as concerns to be resolved by journals and institutions |
@@ -117,7 +120,9 @@ I am one of the co-authors of the INSPECT-SR article and contributed to its guid
 
 Tool for Checks 1.1, 1.2, and 1.3:
 
-Enter a DOI below to check Crossref for post-publication notices (retractions, expressions of concern, corrections). Crossref includes the Retraction Watch database, but a clean result here does not rule out notices that were never registered, so also check PubPeer and the journal's own page.
+Enter a DOI below to check for post-publication notices (retractions, expressions of concern, and corrections). The app combines three sources: Crossref, which includes both the notices that publishers register and the Retraction Watch Database; PubMed, which links articles to retraction and expression of concern notices; and the article's title, because some publishers mark a retraction only by changing the title (e.g., "RETRACTED: ..."). This approach follows, and was inspired by, the "Annulled" and "Concerning" detectors of the [Problematic Paper Screener](https://dbrech.irit.fr/pls/apex/f?p=9999:33::::::) [@cabanac2022], which combine the same sources. The difference is that this app queries the sources live, whereas the Problematic Paper Screener's lists are updated periodically.
+
+No database has complete coverage, so a clean result here does not rule out notices that were never registered. Also check the publisher's page and PubPeer, using the links in the result.
 
 ```{=html}
 <style>
@@ -174,6 +179,8 @@ Enter a DOI below to check Crossref for post-publication notices (retractions, e
   padding-top: 0.6rem; padding-bottom: 0.6rem;
 }
 .inspect-sr-table tbody tr:not(:has(> td:first-child > strong:only-child)) > td:first-child { padding-left: 1.75rem; }
+.doi-result .checked { display: flex; flex-wrap: wrap; gap: 0.25rem 0.9rem; margin-top: 0.75rem; font-size: 0.8rem; color: var(--dc-muted); }
+.doi-result .checked .unavailable { color: var(--bs-warning); }
 .doi-result .note { font-size: 0.85rem; color: var(--dc-muted); margin-top: 0.5rem; }
 .doi-result .coverage {
   display: flex; gap: 0.5rem; align-items: flex-start; margin-top: 1rem; padding: 0.6rem 0.75rem;
@@ -239,41 +246,132 @@ viewof doi = {
 
 ```{ojs}
 //| echo: false
-// Look up the DOI in Crossref and summarise its post-publication notices
+// Look up a DOI in Crossref (which includes the Retraction Watch database) and PubMed,
+// and check the article title, then combine the post-publication notices from all three.
+// Together these cover the sources used by the Problematic Paper Screener's
+// "Annulled" and "Concerning" detectors, but are queried live.
 async function lookupDoi(d) {
+  const [cr, pm] = await Promise.all([lookupCrossref(d), lookupPubmed(d)]);
+  if (cr.status !== "ok" && pm.status !== "ok") {
+    return {status: "error", message: cr.message, pubmed: pm};
+  }
+  // Use Crossref for the reference where possible, otherwise PubMed
+  const ref = cr.status === "ok" ? cr : pm;
+  const notices = [
+    ...(cr.status === "ok" ? cr.notices : []),
+    ...(pm.status === "ok" ? pm.notices : []),
+    ...titleNotices(ref.title)
+  ];
+  const types = new Set(notices.map(n => n.type));
+  const kind = types.has("retraction") ? "retracted"
+    : types.has("concern") ? "concern"
+    : notices.length ? "other"
+    : "clean";
+  return {
+    status: "ok", authors: ref.authors, year: ref.year, title: ref.title, journal: ref.journal,
+    notices, kind, isNotice: cr.status === "ok" && cr.isNotice, crossref: cr, pubmed: pm
+  };
+}
+
+cleanText = x => (x ?? "").replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+
+function formatAuthors(names) {
+  return names.length === 0 ? "Unknown authors"
+    : names.length === 1 ? names[0]
+    : names.slice(0, -1).join(", ") + (names.length > 2 ? "," : "") + " & " + names.at(-1);
+}
+
+async function lookupCrossref(d) {
   let r;
   try {
     r = await fetch(`https://api.crossref.org/works/${encodeURIComponent(d)}`);
   } catch (e) {
     return {status: "error", message: "Could not reach Crossref. Check your connection and try again."};
   }
-  if (r.status === 404) return {status: "error", message: "This DOI was not found in Crossref. It may be mistyped, or registered with another agency (e.g., DataCite)."};
+  if (r.status === 404) return {status: "notfound", message: "This DOI was not found in Crossref or PubMed. It may be mistyped, or registered with another agency (e.g., DataCite)."};
   if (!r.ok) return {status: "error", message: `Crossref returned an error (${r.status}). Try again later.`};
   const m = (await r.json()).message;
 
-  // Deduplicate: Crossref can list the same notice from both the publisher and Retraction Watch
+  const typeOf = t => ["retraction", "withdrawal", "removal"].includes(t) ? "retraction"
+    : t === "expression_of_concern" ? "concern"
+    : ["correction", "erratum", "corrigendum"].includes(t) ? "correction"
+    : "other";
+  // Deduplicate: Crossref can list the same notice more than once
   const seen = new Set();
-  const updates = (m["updated-by"] ?? []).filter(u => {
-    const key = `${u.type}|${(u.DOI ?? "").toLowerCase()}`;
+  const notices = (m["updated-by"] ?? []).filter(u => {
+    const key = `${u.type}|${(u.DOI ?? "").toLowerCase()}|${u.source}`;
     return seen.has(key) ? false : (seen.add(key), true);
-  });
+  }).map(u => ({
+    type: typeOf(u.type),
+    label: u.label ?? u.type,
+    date: u.updated?.["date-parts"]?.[0]?.map(x => String(x).padStart(2, "0")).join("-"),
+    source: u.source === "retraction-watch" ? "Crossref (Retraction Watch)" : "Crossref (publisher)",
+    url: u.DOI && u.DOI.toLowerCase() !== d.toLowerCase() ? `https://doi.org/${encodeURI(u.DOI)}` : null
+  }));
 
-  const names = (m.author ?? []).map(a => a.family ?? a.name).filter(Boolean);
-  const authors = names.length === 0 ? "Unknown authors"
-    : names.length === 1 ? names[0]
-    : names.slice(0, -1).join(", ") + (names.length > 2 ? "," : "") + " & " + names.at(-1);
-  const year = (m.issued ?? m.published ?? m.created)?.["date-parts"]?.[0]?.[0] ?? "n.d.";
-  const clean = x => (x ?? "").replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
-  const title = clean(m.title?.[0]) || "(untitled)";
-  const journal = clean(m["container-title"]?.[0]);
-  const isNotice = (m["update-to"] ?? []).some(u => (u.DOI ?? "").toLowerCase() !== d.toLowerCase());
+  return {
+    status: "ok", notices,
+    authors: formatAuthors((m.author ?? []).map(a => a.family ?? a.name).filter(Boolean)),
+    year: (m.issued ?? m.published ?? m.created)?.["date-parts"]?.[0]?.[0] ?? "n.d.",
+    title: cleanText(m.title?.[0]) || "(untitled)",
+    journal: cleanText(m["container-title"]?.[0]),
+    isNotice: (m["update-to"] ?? []).some(u => (u.DOI ?? "").toLowerCase() !== d.toLowerCase())
+  };
+}
 
-  const types = new Set(updates.map(u => u.type));
-  const kind = ["retraction", "withdrawal", "removal"].some(t => types.has(t)) ? "retracted"
-    : types.has("expression_of_concern") ? "concern"
-    : updates.length ? "other"
-    : "clean";
-  return {status: "ok", authors, year, title, journal, updates, isNotice, kind};
+async function lookupPubmed(d) {
+  const eutils = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils";
+  try {
+    const s = await fetch(`${eutils}/esearch.fcgi?db=pubmed&retmode=json&tool=trustworthyresearch&term=${encodeURIComponent(d + "[doi]")}`);
+    if (!s.ok) return {status: "error"};
+    const ids = (await s.json()).esearchresult?.idlist ?? [];
+    if (!ids.length) return {status: "notfound"};
+    const r = await fetch(`${eutils}/esummary.fcgi?db=pubmed&retmode=json&tool=trustworthyresearch&id=${ids.slice(0, 5).join(",")}`);
+    if (!r.ok) return {status: "error"};
+    const result = (await r.json()).result ?? {};
+    // PubMed's DOI search is fuzzy, so keep only a record whose DOI matches exactly
+    const rec = (result.uids ?? []).map(u => result[u]).find(x =>
+      (x.articleids ?? []).some(a => a.idtype === "doi" && a.value.toLowerCase() === d.toLowerCase()));
+    if (!rec) return {status: "notfound"};
+
+    const refTypes = {
+      "retraction in": ["retraction", "Retraction"],
+      "retracted and republished in": ["retraction", "Retracted and republished"],
+      "partial retraction in": ["other", "Partial retraction"],
+      "expression of concern in": ["concern", "Expression of concern"],
+      "erratum in": ["correction", "Erratum"]
+    };
+    const notices = (rec.references ?? [])
+      .filter(x => refTypes[(x.reftype ?? "").toLowerCase()])
+      .map(x => {
+        const [type, label] = refTypes[x.reftype.toLowerCase()];
+        return {
+          type, label, date: null, citation: (x.refsource ?? "").replace(/\s*doi:.*$/i, ""),
+          source: "PubMed",
+          url: x.pmid ? `https://pubmed.ncbi.nlm.nih.gov/${x.pmid}/` : null
+        };
+      });
+    // Retracted publications are also tagged with a publication type, even without a linked notice
+    if ((rec.pubtype ?? []).includes("Retracted Publication") && !notices.some(n => n.type === "retraction")) {
+      notices.push({type: "retraction", label: "Indexed as a retracted publication", date: null, source: "PubMed", url: null});
+    }
+
+    return {
+      status: "ok", pmid: rec.uid, notices,
+      authors: formatAuthors((rec.authors ?? []).filter(a => a.authtype === "Author").map(a => a.name.replace(/\s+\S+$/, ""))),
+      year: (rec.pubdate ?? "").slice(0, 4) || "n.d.",
+      title: cleanText(rec.title) || "(untitled)",
+      journal: cleanText(rec.fulljournalname)
+    };
+  } catch (e) {
+    return {status: "error"};
+  }
+}
+
+// Some publishers mark a retraction only by changing the article's title
+function titleNotices(title) {
+  const marked = /^\W*(retracted|withdrawn|removed)\b/i.test(title ?? "") || /\((retracted|withdrawn)( article| paper)?\)/i.test(title ?? "");
+  return marked ? [{type: "retraction", label: "Title marks the article as retracted or withdrawn", date: null, source: "Article title", url: null}] : [];
 }
 ```
 
@@ -284,15 +382,17 @@ async function lookupDoi(d) {
   if (!d) return html``;
 
   const doiUrl = x => `https://doi.org/${encodeURI(x)}`;
-  const links = html`<div class="actions">
+  const makeLinks = pmid => html`<div class="actions">
     <a class="btn btn-outline-primary btn-sm" href="${doiUrl(d)}" target="_blank" rel="noopener">
       <i class="bi bi-box-arrow-up-right"></i> Publisher's page</a>
     <a class="btn btn-outline-primary btn-sm" href="https://pubpeer.com/search?q=${encodeURIComponent(d)}" target="_blank" rel="noopener">
       <i class="bi bi-chat-square-text"></i> PubPeer comments</a>
+    ${pmid ? html`<a class="btn btn-outline-primary btn-sm" href="https://pubmed.ncbi.nlm.nih.gov/${pmid}/" target="_blank" rel="noopener">
+      <i class="bi bi-journal-medical"></i> PubMed record</a>` : ""}
   </div>`;
 
   yield html`<div class="doi-result loading">
-    <span class="spinner-border spinner-border-sm" role="status"></span> Checking Crossref for <span class="doi-text">${d}</span>...
+    <span class="spinner-border spinner-border-sm" role="status"></span> Checking Crossref and PubMed for <span class="doi-text">${d}</span>...
   </div>`;
 
   const res = await lookupDoi(d);
@@ -302,7 +402,7 @@ async function lookupDoi(d) {
       <span class="badge text-bg-secondary status"><i class="bi bi-exclamation-triangle-fill"></i> Could not check</span>
       <div class="citation">${res.message}</div>
       <div class="doi-text">${d}</div>
-      ${links}
+      ${makeLinks(null)}
     </div>`;
     return;
   }
@@ -311,22 +411,25 @@ async function lookupDoi(d) {
     retracted: html`<span class="badge text-bg-danger status"><i class="bi bi-x-octagon-fill"></i> Retracted</span>`,
     concern: html`<span class="badge text-bg-warning status"><i class="bi bi-exclamation-triangle-fill"></i> Expression of concern</span>`,
     other: html`<span class="badge text-bg-info status"><i class="bi bi-info-circle-fill"></i> Other notices (e.g., corrections)</span>`,
-    clean: html`<span class="badge text-bg-success status"><i class="bi bi-check-circle-fill"></i> No notices found in Crossref</span>`
+    clean: html`<span class="badge text-bg-success status"><i class="bi bi-check-circle-fill"></i> No notices found</span>`
   };
-  const icons = {
-    retraction: "bi-x-octagon", withdrawal: "bi-x-octagon", removal: "bi-x-octagon",
-    expression_of_concern: "bi-exclamation-triangle", correction: "bi-pencil-square"
-  };
-  const fmtDate = u => u.updated?.["date-parts"]?.[0]?.map(x => String(x).padStart(2, "0")).join("-") ?? "date unknown";
-  const noticeItem = u => {
-    const ownDoi = !u.DOI || u.DOI.toLowerCase() === d.toLowerCase();
-    return html`<li>
-      <i class="bi ${icons[u.type] ?? "bi-file-earmark-text"}"></i>
-      <strong>${u.label ?? u.type}</strong>
-      <span class="meta"> · ${fmtDate(u)}${u.source ? ` · source: ${u.source}` : ""}</span>
-      ${ownDoi ? "" : html` · <a href="${doiUrl(u.DOI)}" target="_blank" rel="noopener">view notice</a>`}
-    </li>`;
-  };
+  const icons = {retraction: "bi-x-octagon", concern: "bi-exclamation-triangle", correction: "bi-pencil-square", other: "bi-file-earmark-text"};
+  const noticeItem = n => html`<li>
+    <i class="bi ${icons[n.type]}"></i>
+    <strong>${n.label}</strong>
+    <span class="meta"> · ${n.date ?? n.citation ?? ""}${n.date || n.citation ? " · " : ""}source: ${n.source}</span>
+    ${n.url ? html` · <a href="${n.url}" target="_blank" rel="noopener">view notice</a>` : ""}
+  </li>`;
+
+  // Which sources could be checked
+  const status = (name, s, found) => s.status === "ok" ? html`<span><i class="bi bi-check2"></i> ${name}${found ?? ""}</span>`
+    : s.status === "notfound" ? html`<span><i class="bi bi-dash"></i> ${name}: not indexed</span>`
+    : html`<span class="unavailable"><i class="bi bi-exclamation-triangle"></i> ${name}: could not be checked</span>`;
+  const checked = html`<div class="checked">Checked:
+    ${status("Crossref and Retraction Watch", res.crossref)}
+    ${status("PubMed", res.pubmed, res.pubmed.pmid ? ` (PMID ${res.pubmed.pmid})` : "")}
+    <span><i class="bi bi-check2"></i> article title</span>
+  </div>`;
 
   yield html`<div class="doi-result ${res.kind}">
     ${badges[res.kind]}
@@ -336,11 +439,12 @@ async function lookupDoi(d) {
       ${res.journal ? html`<em>${res.journal}</em>.` : ""}
       <a href="${doiUrl(d)}" target="_blank" rel="noopener">https://doi.org/${d}</a>
     </div>
-    ${res.updates.length ? html`<ul class="notices">${res.updates.map(noticeItem)}</ul>` : ""}
+    ${res.notices.length ? html`<ul class="notices">${res.notices.map(noticeItem)}</ul>` : ""}
     ${res.isNotice ? html`<div class="note">This DOI is itself a notice that updates another article.</div>` : ""}
+    ${checked}
     ${res.kind === "retracted" ? "" : html`<div class="coverage"><i class="bi bi-info-circle"></i>
-      <span>Crossref and the Retraction Watch database do not have complete coverage. Even if no retraction or other notice is listed here, check the publisher's page for notices, and PubPeer for comments, using the links below.</span></div>`}
-    ${links}
+      <span>Crossref, Retraction Watch, and PubMed do not have complete coverage. Even if no retraction or other notice is listed here, check the publisher's page for notices, and PubPeer for comments, using the links below.</span></div>`}
+    ${makeLinks(res.pubmed.pmid)}
   </div>`;
 }
 ```

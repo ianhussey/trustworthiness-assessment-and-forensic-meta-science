@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>22&nbsp; Trustworthiness Assessment and INSPECT-SR ✎ Draft – Trustworthiness Assessment</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../chapters/23_reflexive_critique.html" rel="next">
+<link href="../chapters/21_organising_critique.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dcd6dad1d9027e0fc018a6aab5a8b21b.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2ff81c2e5dfd9e56c4f590b9591e1eb8.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dcd6dad1d9027e0fc018a6aab5a8b21b.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-b449d80222d5ed01c4849d61a5fa3f46.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-48bf0c1ec3ee293dbcdcadcc7780d5d0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-b449d80222d5ed01c4849d61a5fa3f46.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>
+  /* more breathing room before section headings.
+     scoped to main.content so the sidebar/TOC headings are left alone.
+     this <style> block is emitted after the bootstrap theme css, so these
+     win without needing !important. */
+  main.content h2 { margin-top: 3rem; }
+  main.content h3 { margin-top: 2rem; }
+  main.content h4 { margin-top: 1.5rem; }
+  .kable-table table { width: 70%; margin: 0 auto; }
+  /* Observable Inputs.button uses .btn-quarto: give it the plots' blue (the default text colour matched its background), and space between stacked buttons */
+  .btn.btn-quarto { color: #fff; background-color: #2780e3; border-color: #2780e3; margin: 0.4rem 0; }
+  .btn.btn-quarto:hover { background-color: #1f6ab8; border-color: #1f6ab8; }
+  /* quarto adds a copy button to every code cell, which still appears at the top right of Observable JS cells whose code is hidden (echo: false). hide it for those cells only */
+  .code-copy-outer-scaffold > .cell-code.hidden:has(> pre.js) ~ .code-copy-button { display: none; }
+  /* .big-number: [89%]{.number} then [explanatory text]{.description}
+     .big-quote:  [quote text]{.quote} then [source]{.citation}
+     each works as a span (use a trailing \ for line breaks) or a div (for multiple paragraphs) */
+  .big-number, .big-quote { text-align: center; margin: 2.5rem auto; }
+  .big-number { max-width: 32rem; }
+  .big-quote  { max-width: 36rem; }
+  .big-number .number, .big-quote .quote, .big-number .description, .big-quote .citation { display: block; }
+  .big-number .number {
+    font-size: 5rem; font-weight: 700; line-height: 1;
+    color: var(--bs-primary); margin-bottom: 0.75rem;
+  }
+  .big-quote .quote {
+    font-size: 1.5rem; font-weight: 700; line-height: 1.35;
+    color: var(--bs-primary); margin-bottom: 0.75rem;
+  }
+  .big-number .description { font-size: 1.05rem; color: var(--bs-secondary-color); }
+  .big-quote .citation { font-size: 1rem; color: var(--bs-secondary-color); }
+  .badge {
+    display: inline-flex; align-items: center; gap: 0.3em;
+    padding: 0.2em 0.65em; border-radius: 20px;
+    font-size: 0.72em; font-weight: 500; font-family: monospace;
+    vertical-align: middle; position: relative; top: -0.1em;
+  }
+  .badge-draft1   { background: #fdecea; color: #8b2a2a; border: 1px solid #f5b8b8; }
+  .badge-draft2   { background: #fef0e6; color: #8b4a1a; border: 1px solid #f5cfa0; }
+  .badge-draft3   { background: #fef9e7; color: #7a5c00; border: 1px solid #f5d97a; }
+  .badge-complete { background: #e6f4ea; color: #1e6e3a; border: 1px solid #b7dfbe; }
+  .quarto-color-scheme-toggle::after { content: " Dark mode"; font-family: sans-serif; font-size: 0.85em; }
+  /* thin black border around the book's cover image */
+  .quarto-cover-image { border: 1px solid #000; }
+</style>
+
+
+<link rel="stylesheet" href="../include/webex.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/20_critiquing_specific_types_of_articles.html">Part IV: Organising critique</a></li><li class="breadcrumb-item"><a href="../chapters/22_trustworthiness_assessment_and_inspect-sr.html"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Trustworthiness Assessment and INSPECT-SR <span class="badge badge-draft2">✎ Draft</span></span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Trustworthiness Assessment</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lesson_plan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson plan <span class="badge badge-draft1">✎ Outline</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part I: Conceptual foundations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/01_scope_and_need.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Scope and need <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/02_psychological_preparation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Psychological preparation <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/03_organising_principles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Organising principles <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part II: Understanding statistics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/04_understanding_p_values.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Understanding <em>p</em>-values <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/05_standardized_mean_differences_cohens_d.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Understanding Standardized Mean Differences (Cohen’s <em>d</em>) <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/06_standardized_deviations_vs_standards_errors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Standard Deviations vs.&nbsp;Standards Errors <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part III: Forensic meta-science methods</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/07_misinterpretation_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Misinterpretation methods <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/08_effect_size_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Effect size methods: SMD/Cohen’s <em>d</em> <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/09_repetition_and_consistency_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Repetition and consistency methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/10_recalculation_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">(Re)calculation methods <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/11_granularity_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Granularity methods <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/12_bounds_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Bounds methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/13_reconstruction_resampling_simulation_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Reconstruction, resampling, and simulation methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/14_post_publication_notices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Inspecting post-publication notices <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/15_reference_and_citation_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Reference and citation methods <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/16_design_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Design methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/17_measurement_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Measurement methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/18_theory_specification_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Theory specification methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/19_data_extraction_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Data extraction methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part IV: Organising critique</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/20_critiquing_specific_types_of_articles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Critiquing specific types of articles <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/21_organising_critique.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Organising critique <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/22_trustworthiness_assessment_and_inspect-sr.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Trustworthiness Assessment and INSPECT-SR <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/23_reflexive_critique.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Reflexive critique <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part V: Developing and validating forensic methods</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/24_forensic_methods_require_validation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Forensic meta-science methods require validation <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/25_method_implementation_and_tool.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Method, implementation, and tool <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/26_validation_using_simulated_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Validating meta-science methods using simulated data <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#cochrane" id="toc-cochrane" class="nav-link active" data-scroll-target="#cochrane"><span class="header-section-number">22.1</span> Cochrane</a>
+  <ul class="collapse">
+  <li><a href="#risk-of-bias" id="toc-risk-of-bias" class="nav-link" data-scroll-target="#risk-of-bias"><span class="header-section-number">22.1.1</span> Risk of Bias</a></li>
+  <li><a href="#problematic-studies" id="toc-problematic-studies" class="nav-link" data-scroll-target="#problematic-studies"><span class="header-section-number">22.1.2</span> Problematic studies</a></li>
+  <li><a href="#trustworthiness-assessment-vs.-science-sleuthing" id="toc-trustworthiness-assessment-vs.-science-sleuthing" class="nav-link" data-scroll-target="#trustworthiness-assessment-vs.-science-sleuthing"><span class="header-section-number">22.1.3</span> Trustworthiness Assessment vs.&nbsp;science sleuthing</a></li>
+  </ul></li>
+  <li><a href="#sec-inspect-sr" id="toc-sec-inspect-sr" class="nav-link" data-scroll-target="#sec-inspect-sr"><span class="header-section-number">22.2</span> INSPECT-SR domains and checks</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/20_critiquing_specific_types_of_articles.html">Part IV: Organising critique</a></li><li class="breadcrumb-item"><a href="../chapters/22_trustworthiness_assessment_and_inspect-sr.html"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Trustworthiness Assessment and INSPECT-SR <span class="badge badge-draft2">✎ Draft</span></span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Trustworthiness Assessment and INSPECT-SR <span class="badge badge-draft2">✎ Draft</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="cochrane" class="level2" data-number="22.1">
+<h2 data-number="22.1" class="anchored" data-anchor-id="cochrane"><span class="header-section-number">22.1</span> Cochrane</h2>
+<p>Cochrane (formerly the Cochrane Collaboration) is an international network of researchers, health professionals, and patients that produces systematic reviews of the evidence on healthcare interventions. It was founded in 1993 and is named after the epidemiologist Archie Cochrane. Its reviews are published in the Cochrane Database of Systematic Reviews, part of the Cochrane Library. Cochrane describes its work as “internationally recognized as the benchmark for high-quality information about the effectiveness of health care” <span class="citation" data-cites="cochraneeditorial">(<a href="../references.html#ref-cochraneeditorial" role="doc-biblioref">Cochrane, n.d.-a</a>)</span>.</p>
+<p>A Cochrane Review is a systematic review that follows a published protocol. The review authors search for every study that meets prespecified eligibility criteria, appraise each study, extract its data, and, where appropriate, combine the results in a meta-analysis. Cochrane Reviews aim “to provide the best available evidence of the effects of healthcare interventions”, but the quality of that evidence “depends, inevitably, upon the reliability of the studies included” <span class="citation" data-cites="cochraneeditorial">(<a href="../references.html#ref-cochraneeditorial" role="doc-biblioref">Cochrane, n.d.-a</a>)</span>.</p>
+<section id="risk-of-bias" class="level3" data-number="22.1.1">
+<h3 data-number="22.1.1" class="anchored" data-anchor-id="risk-of-bias"><span class="header-section-number">22.1.1</span> Risk of Bias</h3>
+<p>The established way to appraise the trials in a review is a Risk of Bias assessment. Cochrane’s original tool for randomised controlled trials was published in 2011 <span class="citation" data-cites="higgins2011">(<a href="../references.html#ref-higgins2011" role="doc-biblioref">Higgins et al., 2011</a>)</span> and was later replaced by RoB 2 <span class="citation" data-cites="sterne2019">(<a href="../references.html#ref-sterne2019" role="doc-biblioref">Sterne et al., 2019</a>)</span>. RoB 2 asks whether the design, conduct, or analysis of a trial could have biased its estimate of the effect, across five domains: the randomisation process, deviations from the intended interventions, missing outcome data, measurement of the outcome, and selection of the reported result.</p>
+<p>Risk of Bias assessment takes a trial’s report at face value. It asks whether the trial, <em>as described</em>, was likely to produce a biased estimate. It does not ask whether the trial was actually conducted as described, or whether the numbers it reports are possible or real.</p>
+</section>
+<section id="problematic-studies" class="level3" data-number="22.1.2">
+<h3 data-number="22.1.2" class="anchored" data-anchor-id="problematic-studies"><span class="header-section-number">22.1.2</span> Problematic studies</h3>
+<p>That assumption fails for <em>problematic studies</em>: studies “where there are serious questions about the trustworthiness of the data or findings, regardless of whether the study has been formally retracted” <span class="citation" data-cites="cochraneeditorial">(<a href="../references.html#ref-cochraneeditorial" role="doc-biblioref">Cochrane, n.d.-a</a>)</span>. A study can be problematic because of misconduct, such as fabrication, falsification, or plagiarism, but also because of poor research practices or honest critical errors.</p>
+<section id="how-common-are-problematic-studies" class="level4" data-number="22.1.2.1">
+<h4 data-number="22.1.2.1" class="anchored" data-anchor-id="how-common-are-problematic-studies"><span class="header-section-number">22.1.2.1</span> How common are problematic studies?</h4>
+<p>While good estimates of prevalence do not yet exist, there is reason to believe that problematic trials are not rare.</p>
+<p>For example, Carlisle analysed the 526 randomised controlled trials submitted to the journal <em>Anaesthesia</em> between February 2017 and March 2020 <span class="citation" data-cites="carlisle2021">(<a href="../references.html#ref-carlisle2021" role="doc-biblioref">Carlisle, 2021</a>)</span>. He judged that 73 (14%) contained false data, and that 43 (8%) were “zombie” trials, which he considered fatally flawed. These rates depended strongly on what he could see. Among the 153 trials whose authors supplied individual patient data, 44% had false data and 26% were zombie trials, compared with 2% and 1% of the 373 trials assessed from summary data alone. This suggests that most problematic trials go undetected when only the published report is available.</p>
+<p>Estimates from outside clinical trials point the same way. The most widely cited figure comes from surveys of researchers: about 2% admit to having fabricated or falsified data at least once <span class="citation" data-cites="heathers2024">(Fanelli, 2009, summarised in <a href="../references.html#ref-heathers2024" role="doc-biblioref">Heathers, 2024</a>)</span>. Heathers argues that this underestimates the problem. People are unlikely to admit to misconduct, even in anonymous surveys, and the share of researchers who have <em>ever</em> faked a result says little about how much of the published literature is fake. He instead collected 12 studies that estimated the proportion of <em>papers</em> with fabricated or falsified elements <span class="citation" data-cites="heathers2024">(<a href="../references.html#ref-heathers2024" role="doc-biblioref">Heathers, 2024</a>)</span>, including:</p>
+<ul>
+<li>A visual inspection of 20,621 papers in 40 biomedical journals, which found inappropriately duplicated images in 3.8% of them, and about 4% of those published from 2005 onwards.</li>
+<li>An analysis of 588 preclinical studies of chronic stress models of depression, of which 13.9% contained image anomalies consistent with manipulation.</li>
+<li>A GRIM analysis of 71 psychology articles, half of which reported at least one impossible mean <span class="citation" data-cites="brown2017">(<a href="../references.html#ref-brown2017" role="doc-biblioref">Brown &amp; Heathers, 2017</a>)</span>. GRIM is described in <a href="11_granularity_methods.html#sec-grim" class="quarto-xref"><span>Section 11.2</span></a>. After requesting the authors’ data, Heathers puts the proportion with hallmarks of manipulation between 4.2% and 16.9%.</li>
+<li>The editor-in-chief of <em>Molecular Brain</em>, who asked for the raw data behind 41 of the 180 manuscripts he handled between 2017 and 2019, because their results looked “too beautiful to be true” <span class="citation" data-cites="miyakawa2020">(<a href="../references.html#ref-miyakawa2020" role="doc-biblioref">Miyakawa, 2020</a>)</span>. Twenty-one were withdrawn without providing raw data, and 19 of the remaining 20 were rejected because the raw data were insufficient. In seven of these, the raw data did not match the reported results. Only one manuscript was sent for peer review. Miyakawa notes that he cannot know how many of these manuscripts contained fabricated data. Heathers’ estimate of 14.4% of all submissions rests on a hypothetical figure in the editorial: if an informal poll of researchers were right, 26 of the 40 withdrawn or rejected manuscripts would contain fabricated data.</li>
+<li>A COPE and STM report on paper mills, which found that, on average, 14% of the manuscripts submitted to the journals it examined between 2019 and 2021 were suspect, ranging from 2% to 46% by journal.</li>
+</ul>
+<p>Across the 16 estimates in these studies, the median was 14%, and 9 of the 16 fell between 13.4% and 16.9%. Heathers concludes that roughly 1 in 7 papers contain errors consistent with faking in at least one element. It’s quite important to emphasise that many commentators have problems with this estimate, including myself. If I was to reframe Heathers’ argument, I would do it as so: <strong>Collectively, we are acting as if the prevalence of untrustworthy articles is so small that it can literally be ignored. There is sufficient reason to act as if the prevalence of untrustworthy research is much higher than this, and we should at least look for it.</strong></p>
+<p>More recent studies report similar or higher rates in specific fields. Aquarius and colleagues assessed every article that was eligible for a systematic review of preclinical studies of microvascular injury after myocardial infarction, using the image-analysis software Imagetwin together with visual checks <span class="citation" data-cites="aquarius2026">(<a href="../references.html#ref-aquarius2026" role="doc-biblioref">Aquarius et al., 2026</a>)</span>. They had decided in advance to exclude problematic articles from the review. Of 201 articles, 57 (28.4%) were deemed problematic: 46 because of duplicated or manipulated images, and 11 because of inappropriately duplicated values in tables. Only three of the 57 had previously been flagged on PubPeer for serious concerns. Similar assessments within other systematic reviews of animal studies found image-related problems in 19% of included articles on depression and 40% of included articles on early brain injury after subarachnoid haemorrhage <span class="citation" data-cites="aquarius2026">(both summarised in <a href="../references.html#ref-aquarius2026" role="doc-biblioref">Aquarius et al., 2026</a>)</span>. These studies are examples of trustworthiness assessment as part of a systematic review: every eligible study was checked, and problematic studies were excluded before synthesis.</p>
+</section>
+<section id="problematic-studies-change-the-conclusions-of-reviews" class="level4" data-number="22.1.2.2">
+<h4 data-number="22.1.2.2" class="anchored" data-anchor-id="problematic-studies-change-the-conclusions-of-reviews"><span class="header-section-number">22.1.2.2</span> Problematic studies change the conclusions of reviews</h4>
+<p>A review of 847 systematic reviews that included at least one retracted trial found that excluding the retracted trials changed the size of the pooled effect in 16% of meta-analyses, and its direction in just over 8% <span class="citation" data-cites="wilkinson2026">(summarised in <a href="../references.html#ref-wilkinson2026" role="doc-biblioref">Wilkinson et al., 2026</a>)</span>. Retraction can take years, if it happens at all, so retraction status alone cannot identify problematic trials. Risk of Bias tools are not designed to detect these problems, and do not appear to succeed in doing so <span class="citation" data-cites="wilkinson2026">(<a href="../references.html#ref-wilkinson2026" role="doc-biblioref">Wilkinson et al., 2026</a>)</span>.</p>
+</section>
+<section id="cochranes-policy-on-problematic-studies" class="level4" data-number="22.1.2.3">
+<h4 data-number="22.1.2.3" class="anchored" data-anchor-id="cochranes-policy-on-problematic-studies"><span class="header-section-number">22.1.2.3</span> Cochrane’s policy on problematic studies</h4>
+<p>Cochrane’s policy for managing potentially problematic studies sets out what review authors and editors should do <span class="citation" data-cites="cochraneeditorial cochraneproblematic">(<a href="../references.html#ref-cochraneeditorial" role="doc-biblioref">Cochrane, n.d.-a</a>, <a href="../references.html#ref-cochraneproblematic" role="doc-biblioref">n.d.-b</a>)</span>:</p>
+<ul>
+<li><strong>Retracted studies</strong> must not be included in a Cochrane Review. They are listed as excluded, with a citation to the retraction notice.</li>
+<li><strong>Studies with an Expression of Concern</strong> should be treated “with a high degree of caution”. Whether they are excluded depends on the reason for the concern, because some Expressions of Concern relate to matters that do not affect the validity of the data, such as authorship disputes.</li>
+<li><strong>Studies with no post-publication notice, but where the review team has concerns,</strong> should be checked against bibliographic databases, the Retraction Watch Database, PubPeer, and the publisher’s website. The review team should contact the study authors for clarification, and if concerns remain, write to the journal editor in neutral language. Meanwhile, the study is classified as “Awaiting Classification” rather than included.</li>
+</ul>
+<p>The implementation guidance notes that “there is no standard definition of, nor validated method to identify, a problematic study”, and that it will be updated as evidence and consensus emerge <span class="citation" data-cites="cochraneproblematic">(<a href="../references.html#ref-cochraneproblematic" role="doc-biblioref">Cochrane, n.d.-b</a>)</span>. INSPECT-SR was developed to provide such a method. In October 2025, Cochrane endorsed it as an optional tool for review authors who wish to assess the trustworthiness of the randomised controlled trials in their reviews <span class="citation" data-cites="cochrane2025methods">(<a href="../references.html#ref-cochrane2025methods" role="doc-biblioref">Cochrane, 2025</a>)</span>.</p>
+</section>
+</section>
+<section id="trustworthiness-assessment-vs.-science-sleuthing" class="level3" data-number="22.1.3">
+<h3 data-number="22.1.3" class="anchored" data-anchor-id="trustworthiness-assessment-vs.-science-sleuthing"><span class="header-section-number">22.1.3</span> Trustworthiness Assessment vs.&nbsp;science sleuthing</h3>
+<p>Trustworthiness Assessment and science sleuthing use many of the same methods, and the people who develop them often overlap. They differ in how studies are chosen, how the checks are carried out, and what the result is used for.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">Trustworthiness Assessment</th>
+<th style="text-align: left;">Science sleuthing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Which studies</strong></td>
+<td style="text-align: left;">Every trial that is eligible for a systematic review, whether or not anything seems wrong with it</td>
+<td style="text-align: left;">Articles are selected via heterogeneous means</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Process</strong></td>
+<td style="text-align: left;">Structured: the same checks for every study, a recorded response to each check, judgments per domain and overall, and ideally two independent reviewers who then reach consensus</td>
+<td style="text-align: left;">Open-ended: follows whatever leads seem most promising for that study</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Complexity</strong></td>
+<td style="text-align: left;">Checks are often shallower to facilitate speed and lower training burden</td>
+<td style="text-align: left;">Checks are often deeper as they are (currently) performed by more expert sleuths, with more attention paid to fewer articles. Exceptions to this exist, e.g., image forensics work conducted by Elisabeth Bik, Rene Aquarius, Matthew Shrank and others often involve thousands of articles</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Purpose</strong></td>
+<td style="text-align: left;">To decide whether a study’s data can be used in a particular evidence synthesis</td>
+<td style="text-align: left;">To correct the scientific record, for example by alerting journals and institutions or posting on PubPeer</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Outcome</strong></td>
+<td style="text-align: left;">Studies with serious concerns are excluded from the review, and studies with some concerns are examined in sensitivity analyses</td>
+<td style="text-align: left;">Corrections, Expressions of Concern, retractions, and sometimes misconduct investigations</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Stance on misconduct</strong></td>
+<td style="text-align: left;">Explicitly not a test for fraud: concerns about trustworthiness “do not constitute an accusation of research misconduct” <span class="citation" data-cites="wilkinson2026">(<a href="../references.html#ref-wilkinson2026" role="doc-biblioref">Wilkinson et al., 2026</a>)</span></td>
+<td style="text-align: left;">May raise the question of misconduct, although findings are usually framed as concerns to be resolved by journals and institutions</td>
+</tr>
+</tbody>
+</table>
+<p>How studies are selected also changes what a positive result means. A check that flags a trial chosen because it already looked suspicious is more likely to point to a problem than the same flag in a trial selected only because it met a review’s eligibility criteria. Trustworthiness Assessment is applied to many trials that have no problems at all, so false positives matter more there, and judgments should rest on the guidance for each check rather than on a single flag.</p>
+</section>
+</section>
+<section id="sec-inspect-sr" class="level2" data-number="22.2">
+<h2 data-number="22.2" class="anchored" data-anchor-id="sec-inspect-sr"><span class="header-section-number">22.2</span> INSPECT-SR domains and checks</h2>
+<p>INSPECT-SR (Investigating Problematic Clinical Trials in Systematic Reviews) is a tool for assessing the trustworthiness of randomised controlled trials <span class="citation" data-cites="wilkinson2026">(<a href="../references.html#ref-wilkinson2026" role="doc-biblioref">Wilkinson et al., 2026</a>)</span>. It was developed in five stages:</p>
+<ol type="1">
+<li>A list of 76 candidate checks was drawn from the existing literature and a survey of experts.</li>
+<li>The checks were applied to the trials in 50 Cochrane Reviews to assess how feasible they were and how much difference they made.</li>
+<li>A two-round Delphi survey (148 and 134 participants) found expert consensus for 29 checks.</li>
+<li>Eight online consensus meetings narrowed these to 21 checks and decided how each should be applied.</li>
+<li>User testing and a workshop refined the wording and the guidance. Testers took a median of 45 minutes to assess a trial.</li>
+</ol>
+<p>The final tool has 21 checks in four domains, shown in the table below. Each check is answered “yes”, “no”, “unclear”, or “not applicable”, where “yes” indicates a potential problem. After each domain, the reviewer judges whether there are no concerns, some concerns, or serious concerns about the trial in that domain. The overall judgment for the study should usually be at least as severe as the most severe domain judgment. There is no algorithm that converts answers into judgments: a single “yes” does not automatically mean serious concerns, although some, such as a retraction (check 1.1), usually will.</p>
+<p>The article recommends that INSPECT-SR is applied to every eligible trial in a systematic review, before Risk of Bias assessment and data extraction, by two reviewers working independently. Trials with serious concerns should be excluded, and trials with some concerns should be examined in sensitivity analyses. Checks 1.1 and 1.2 should be repeated shortly before the review is completed, because new notices may have been published in the meantime. INSPECT-SR can be used for trials in any area of healthcare and does not require individual participant data. It does not assess Risk of Bias, generalisability, or conflicts of interest. Extensions are in development or planned for individual participant data (INSPECT-IPD), non-randomised studies (INSPECT-NRS), and use by journal editors (INSPECT-JR).</p>
+<p>The wording of each check is short, and users should not try to infer how to apply a check from its wording alone <span class="citation" data-cites="wilkinson2026">(<a href="../references.html#ref-wilkinson2026" role="doc-biblioref">Wilkinson et al., 2026</a>)</span>. The <a href="https://inspect-sr.com">INSPECT-SR Guidance website</a> explains each check with examples, provides an editable template for recording assessments, and is updated as the tool is used and evaluated.</p>
+<p>I am one of the co-authors of the INSPECT-SR article and contributed to its guidance document. With Jack Wilkinson, I maintain the INSPECT-SR Guidance website, whose source code is on <a href="https://github.com/ianhussey/inspect-sr-guidance">GitHub</a>. Lukas Jung and I also developed an <a href="https://errors.shinyapps.io/inspect-sr-means-variances/">app for check 4.8</a>, which the article recommends to users. This book is not part of the official INSPECT-SR guidance. It aims to explain the methods behind many of the checks in more depth, and the table below shows which chapters are relevant to each check.</p>
+<table class="inspect-sr-table caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Domains and checks</th>
+<th>Relevant chapters in this book</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Inspecting post-publication notices</strong></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1.1. Does the study have an associated retraction?</td>
+<td><a href="14_post_publication_notices.html" class="quarto-xref"><span>Chapter 14</span></a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1.2. Does the study have an associated expression of concern or other relevant post publication notice?</td>
+<td><a href="14_post_publication_notices.html" class="quarto-xref"><span>Chapter 14</span></a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1.3. Do other studies by the research team highlight causes for concern (associated retractions, expressions of concern, relevant post-publication notices?)</td>
+<td><a href="14_post_publication_notices.html" class="quarto-xref"><span>Chapter 14</span></a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Inspecting conduct, governance and transparency</strong></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2.1. Are there concerns relating to ethical approval?</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2.2. Are there concerns relating to the timing or absence of study registration?</td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2.3. Are there important inconsistencies between the publication and the registration documents?</td>
+<td><a href="09_repetition_and_consistency_methods.html" class="quarto-xref"><span>Chapter 9</span></a>; <a href="https://regcheck.app">RegCheck</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2.4. Is the recruitment of participants implausible?</td>
+<td><a href="16_design_methods.html" class="quarto-xref"><span>Chapter 16</span></a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2.5. Are the reported methods implausible considering the reported resources?</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Inspecting text and figures</strong></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">3.1. Are there concerns relating to duplicated content, such as text or tables, or text that is incompatible with the study?</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3.2. Is there evidence of manipulation or duplication of figures?</td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Inspecting results in the study</strong></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.1. Are there any unexplained discrepancies between reported data and participant eligibility criteria?</td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.2. Are numbers of participants allocated to each group implausible given the allocation method?</td>
+<td><a href="16_design_methods.html" class="quarto-xref"><span>Chapter 16</span></a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.3. Are any baseline data implausible?</td>
+<td><a href="16_design_methods.html" class="quarto-xref"><span>Chapter 16</span></a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.4. Are there any discrepancies between results reported in figures, tables, and text?</td>
+<td><a href="09_repetition_and_consistency_methods.html" class="quarto-xref"><span>Chapter 9</span></a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.5. Are the numbers of participants lost to follow-up implausible?</td>
+<td><a href="16_design_methods.html" class="quarto-xref"><span>Chapter 16</span></a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.6. Are there any unexplained inconsistencies in the numbers of participants?</td>
+<td><a href="09_repetition_and_consistency_methods.html" class="quarto-xref"><span>Chapter 9</span></a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.7. Are any outcome data, including estimated treatment effects, implausible?</td>
+<td><a href="08_effect_size_methods.html" class="quarto-xref"><span>Chapter 8</span></a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.8. Are the means and variances of integer data impossible?</td>
+<td><a href="11_granularity_methods.html" class="quarto-xref"><span>Chapter 11</span></a> and <a href="12_bounds_methods.html" class="quarto-xref"><span>Chapter 12</span></a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.9. Are there errors in statistical results?</td>
+<td><a href="10_recalculation_methods.html" class="quarto-xref"><span>Chapter 10</span></a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.10. Are any other contradictions implied by the data?</td>
+<td><a href="10_recalculation_methods.html" class="quarto-xref"><span>Chapter 10</span></a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.11. Are there inconsistencies in descriptions of methods and results across publications describing the study?</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<style>
+/* INSPECT-SR table: rows whose first cell is entirely bold are domain subheadings; checks are indented beneath them */
+.inspect-sr-table tbody tr:has(> td:first-child > strong:only-child) > td {
+  background-color: color-mix(in srgb, var(--bs-body-color) 7%, var(--bs-body-bg));
+  border-top: 2px solid color-mix(in srgb, var(--bs-body-color) 35%, var(--bs-body-bg));
+  padding-top: 0.6rem; padding-bottom: 0.6rem;
+}
+.inspect-sr-table tbody tr:not(:has(> td:first-child > strong:only-child)) > td:first-child { padding-left: 1.75rem; }
+</style>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-aquarius2026" class="csl-entry" role="listitem">
+Aquarius, R., Reijmersdal, V. P. A. van, Kuster, C. T. A., Konijnenberg, L. S. F., Nijveldt, R., &amp; Wever, K. E. (2026). Problematic articles in preclinical literature on microvascular injury after acute myocardial infarction. <em>Canadian Journal of Cardiology</em>. <a href="https://doi.org/10.1016/j.cjca.2026.07.375">https://doi.org/10.1016/j.cjca.2026.07.375</a>
+</div>
+<div id="ref-brown2017" class="csl-entry" role="listitem">
+Brown, N. J. L., &amp; Heathers, J. A. J. (2017). The <span>GRIM</span> test: A simple technique detects numerous anomalies in the reporting of results in psychology. <em>Social Psychological and Personality Science</em>, <em>8</em>(4), 363–369. <a href="https://doi.org/10.1177/1948550616673876">https://doi.org/10.1177/1948550616673876</a>
+</div>
+<div id="ref-carlisle2021" class="csl-entry" role="listitem">
+Carlisle, J. B. (2021). False individual patient data and zombie randomised controlled trials submitted to <span>Anaesthesia</span>. <em>Anaesthesia</em>, <em>76</em>(4), 472–479. <a href="https://doi.org/10.1111/anae.15263">https://doi.org/10.1111/anae.15263</a>
+</div>
+<div id="ref-cochraneeditorial" class="csl-entry" role="listitem">
+Cochrane. (n.d.-a). <em>Cochrane database of systematic reviews: Editorial policies</em>. Cochrane Library. Retrieved <a href="https://www.cochranelibrary.com/cdsr/editorial-policies">https://www.cochranelibrary.com/cdsr/editorial-policies</a>
+</div>
+<div id="ref-cochraneproblematic" class="csl-entry" role="listitem">
+Cochrane. (n.d.-b). <em>Policy for managing potentially problematic studies: Implementation guidance</em>. Cochrane Library editorial policy. Retrieved <a href="https://www.cochranelibrary.com/cdsr/editorial-policies/problematic-studies-implementation-guidance">https://www.cochranelibrary.com/cdsr/editorial-policies/problematic-studies-implementation-guidance</a>
+</div>
+<div id="ref-cochrane2025methods" class="csl-entry" role="listitem">
+Cochrane. (2025). <em>Methods in <span>Cochrane</span></em>. <a href="https://www.cochrane.org/authors/methods-cochrane">https://www.cochrane.org/authors/methods-cochrane</a>
+</div>
+<div id="ref-heathers2024" class="csl-entry" role="listitem">
+Heathers, J. A. J. (2024). <em>Approximately 1 in 7 scientific papers are fake</em>. <a href="https://osf.io/5rf2m/">https://osf.io/5rf2m/</a>
+</div>
+<div id="ref-higgins2011" class="csl-entry" role="listitem">
+Higgins, J. P. T., Altman, D. G., Gøtzsche, P. C., Jüni, P., Moher, D., Oxman, A. D., Savović, J., Schulz, K. F., Weeks, L., &amp; Sterne, J. A. C. (2011). The <span>Cochrane</span> <span>Collaboration</span>’s tool for assessing risk of bias in randomised trials. <em>BMJ</em>, <em>343</em>, d5928. <a href="https://doi.org/10.1136/bmj.d5928">https://doi.org/10.1136/bmj.d5928</a>
+</div>
+<div id="ref-miyakawa2020" class="csl-entry" role="listitem">
+Miyakawa, T. (2020). No raw data, no science: Another possible source of the reproducibility crisis. <em>Molecular Brain</em>, <em>13</em>, 24. <a href="https://doi.org/10.1186/s13041-020-0552-2">https://doi.org/10.1186/s13041-020-0552-2</a>
+</div>
+<div id="ref-sterne2019" class="csl-entry" role="listitem">
+Sterne, J. A. C., Savović, J., Page, M. J., Elbers, R. G., Blencowe, N. S., Boutron, I., Cates, C. J., Cheng, H.-Y., Corbett, M. S., Eldridge, S. M., Emberson, J. R., Hernán, M. A., et al. (2019). <span>RoB</span> 2: A revised tool for assessing risk of bias in randomised trials. <em>BMJ</em>, <em>366</em>, l4898. <a href="https://doi.org/10.1136/bmj.l4898">https://doi.org/10.1136/bmj.l4898</a>
+</div>
+<div id="ref-wilkinson2026" class="csl-entry" role="listitem">
+Wilkinson, J., Bero, L., Heal, C., Flemyng, E., Antoniou, G. A., Aburrow, T., Alfirevic, Z., Avenell, A., Barbour, V., Berghella, V., Bishop, D. V. M., Bordewijk, E. M., Brown, N. J. L., Christopher, J., Clarke, M., Dahly, D., Dennis, J., Dicker, P., Dumville, J., … Kirkham, J. J. (2026). <span>INSPECT-SR</span> tool for assessing trustworthiness of randomised controlled trials. <em>BMJ</em>, <em>394</em>, e100611. <a href="https://doi.org/10.1136/bmj-2026-100611">https://doi.org/10.1136/bmj-2026-100611</a>
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  update_total_correct();
+}
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../chapters/21_organising_critique.html" class="pagination-link" aria-label="Organising critique [✎ Outline]{.badge .badge-draft1}">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Organising critique <span class="badge badge-draft1">✎ Outline</span></span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../chapters/23_reflexive_critique.html" class="pagination-link" aria-label="Reflexive critique [✎ Outline]{.badge .badge-draft1}">
+        <span class="nav-page-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Reflexive critique <span class="badge badge-draft1">✎ Outline</span></span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Text and figures © Ian Hussey, <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>. Code <a href="https://opensource.org/licenses/MIT">MIT</a>. <a href="../index.html#sec-license">License details</a>.</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

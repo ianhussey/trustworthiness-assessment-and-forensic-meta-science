@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>14&nbsp; Reference and citation methods ✎ Draft – Trustworthiness Assessment</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../chapters/15_design_methods.html" rel="next">
+<link href="../chapters/13_reconstruction_resampling_simulation_methods.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dcd6dad1d9027e0fc018a6aab5a8b21b.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2ff81c2e5dfd9e56c4f590b9591e1eb8.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dcd6dad1d9027e0fc018a6aab5a8b21b.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-b449d80222d5ed01c4849d61a5fa3f46.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-48bf0c1ec3ee293dbcdcadcc7780d5d0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-b449d80222d5ed01c4849d61a5fa3f46.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>
+  /* more breathing room before section headings.
+     scoped to main.content so the sidebar/TOC headings are left alone.
+     this <style> block is emitted after the bootstrap theme css, so these
+     win without needing !important. */
+  main.content h2 { margin-top: 3rem; }
+  main.content h3 { margin-top: 2rem; }
+  main.content h4 { margin-top: 1.5rem; }
+  .kable-table table { width: 70%; margin: 0 auto; }
+  /* Observable Inputs.button uses .btn-quarto: give it the plots' blue (the default text colour matched its background), and space between stacked buttons */
+  .btn.btn-quarto { color: #fff; background-color: #2780e3; border-color: #2780e3; margin: 0.4rem 0; }
+  .btn.btn-quarto:hover { background-color: #1f6ab8; border-color: #1f6ab8; }
+  /* quarto adds a copy button to every code cell, which still appears at the top right of Observable JS cells whose code is hidden (echo: false). hide it for those cells only */
+  .code-copy-outer-scaffold > .cell-code.hidden:has(> pre.js) ~ .code-copy-button { display: none; }
+  /* .big-number: [89%]{.number} then [explanatory text]{.description}
+     .big-quote:  [quote text]{.quote} then [source]{.citation}
+     each works as a span (use a trailing \ for line breaks) or a div (for multiple paragraphs) */
+  .big-number, .big-quote { text-align: center; margin: 2.5rem auto; }
+  .big-number { max-width: 32rem; }
+  .big-quote  { max-width: 36rem; }
+  .big-number .number, .big-quote .quote, .big-number .description, .big-quote .citation { display: block; }
+  .big-number .number {
+    font-size: 5rem; font-weight: 700; line-height: 1;
+    color: var(--bs-primary); margin-bottom: 0.75rem;
+  }
+  .big-quote .quote {
+    font-size: 1.5rem; font-weight: 700; line-height: 1.35;
+    color: var(--bs-primary); margin-bottom: 0.75rem;
+  }
+  .big-number .description { font-size: 1.05rem; color: var(--bs-secondary-color); }
+  .big-quote .citation { font-size: 1rem; color: var(--bs-secondary-color); }
+  .badge {
+    display: inline-flex; align-items: center; gap: 0.3em;
+    padding: 0.2em 0.65em; border-radius: 20px;
+    font-size: 0.72em; font-weight: 500; font-family: monospace;
+    vertical-align: middle; position: relative; top: -0.1em;
+  }
+  .badge-draft1   { background: #fdecea; color: #8b2a2a; border: 1px solid #f5b8b8; }
+  .badge-draft2   { background: #fef0e6; color: #8b4a1a; border: 1px solid #f5cfa0; }
+  .badge-draft3   { background: #fef9e7; color: #7a5c00; border: 1px solid #f5d97a; }
+  .badge-complete { background: #e6f4ea; color: #1e6e3a; border: 1px solid #b7dfbe; }
+  .quarto-color-scheme-toggle::after { content: " Dark mode"; font-family: sans-serif; font-size: 0.85em; }
+  /* thin black border around the book's cover image */
+  .quarto-cover-image { border: 1px solid #000; }
+</style>
+
+
+<link rel="stylesheet" href="../include/webex.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/07_misinterpretation_methods.html">Part III: Forensic meta-science methods</a></li><li class="breadcrumb-item"><a href="../chapters/14_reference_and_citation_methods.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Reference and citation methods <span class="badge badge-draft2">✎ Draft</span></span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Trustworthiness Assessment</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lesson_plan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson plan <span class="badge badge-draft1">✎ Outline</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part I: Conceptual foundations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/01_scope_and_need.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Scope and need <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/02_psychological_preparation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Psychological preparation <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/03_organising_principles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Organising principles <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part II: Understanding statistics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/04_understanding_p_values.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Understanding <em>p</em>-values <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/05_standardized_mean_differences_cohens_d.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Understanding Standardized Mean Differences (Cohen’s <em>d</em>) <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/06_standardized_deviations_vs_standards_errors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Standard Deviations vs.&nbsp;Standards Errors <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part III: Forensic meta-science methods</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/07_misinterpretation_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Misinterpretation methods <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/08_effect_size_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Effect size methods: SMD/Cohen’s <em>d</em> <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/09_repetition_and_consistency_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Repetition and consistency methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/10_recalculation_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">(Re)calculation methods <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/11_granularity_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Granularity methods <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/12_bounds_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Bounds methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/13_reconstruction_resampling_simulation_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Reconstruction, resampling, and simulation methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/14_reference_and_citation_methods.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Reference and citation methods <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/15_design_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Design methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/16_measurement_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Measurement methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/17_theory_specification_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Theory specification methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/18_data_extraction_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Data extraction methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part IV: Organising critique</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/19_critiquing_specific_types_of_articles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Critiquing specific types of articles <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/20_organising_critique.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Organising critique <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/21_trustworthiness_assessment_and_inspect-sr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Trustworthiness Assessment and INSPECT-SR <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/22_reflexive_critique.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Reflexive critique <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part V: Developing and validating forensic methods</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/23_forensic_methods_require_validation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Forensic meta-science methods require validation <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/24_method_implementation_and_tool.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Method, implementation, and tool <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/25_validation_using_simulated_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Validating meta-science methods using simulated data <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-hallucinated-references" id="toc-sec-hallucinated-references" class="nav-link active" data-scroll-target="#sec-hallucinated-references"><span class="header-section-number">14.1</span> Nonexistent and hallucinated references</a>
+  <ul class="collapse">
+  <li><a href="#automated-tools" id="toc-automated-tools" class="nav-link" data-scroll-target="#automated-tools"><span class="header-section-number">14.1.1</span> Automated tools</a></li>
+  </ul></li>
+  <li><a href="#sec-miscitation" id="toc-sec-miscitation" class="nav-link" data-scroll-target="#sec-miscitation"><span class="header-section-number">14.2</span> Citations of articles that exist but do not support the claim</a></li>
+  <li><a href="#estimates-from-psychology" id="toc-estimates-from-psychology" class="nav-link" data-scroll-target="#estimates-from-psychology"><span class="header-section-number">14.3</span> Estimates from psychology</a>
+  <ul class="collapse">
+  <li><a href="#estimates-from-medicine" id="toc-estimates-from-medicine" class="nav-link" data-scroll-target="#estimates-from-medicine"><span class="header-section-number">14.3.1</span> Estimates from medicine</a></li>
+  <li><a href="#checking-citations-by-hand" id="toc-checking-citations-by-hand" class="nav-link" data-scroll-target="#checking-citations-by-hand"><span class="header-section-number">14.3.2</span> Checking citations by hand</a></li>
+  </ul></li>
+  <li><a href="#sec-retracted-citations" id="toc-sec-retracted-citations" class="nav-link" data-scroll-target="#sec-retracted-citations"><span class="header-section-number">14.4</span> Citations of retracted articles</a>
+  <ul class="collapse">
+  <li><a href="#feet-of-clay" id="toc-feet-of-clay" class="nav-link" data-scroll-target="#feet-of-clay"><span class="header-section-number">14.4.1</span> Feet of Clay</a></li>
+  <li><a href="#interpreting-citations-of-retracted-articles" id="toc-interpreting-citations-of-retracted-articles" class="nav-link" data-scroll-target="#interpreting-citations-of-retracted-articles"><span class="header-section-number">14.4.2</span> Interpreting citations of retracted articles</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/07_misinterpretation_methods.html">Part III: Forensic meta-science methods</a></li><li class="breadcrumb-item"><a href="../chapters/14_reference_and_citation_methods.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Reference and citation methods <span class="badge badge-draft2">✎ Draft</span></span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-reference-citation" class="quarto-section-identifier"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Reference and citation methods <span class="badge badge-draft2">✎ Draft</span></span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>An article’s reference list is part of its evidence. Each citation is a claim that another document exists, and that it says what the citing article says it says. Both claims can be checked. This chapter covers three ways they can fail:</p>
+<ul>
+<li>the cited document does not exist</li>
+<li>the cited document has been retracted</li>
+<li>the cited document does not support the claim it is cited for</li>
+</ul>
+<p>The first two problems can now be screened for semi-automatically. The third still mostly requires carefully reading and checking the cited articles.</p>
+<section id="sec-hallucinated-references" class="level2" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="sec-hallucinated-references"><span class="header-section-number">14.1</span> Nonexistent and hallucinated references</h2>
+<p>A nonexistent reference points to an article that does not exist. Some are fabricated outright and bear no relationship to any published article. Others may bear some resemblance to a published article, e.g., sharing a similar name or authorship but with other details incorrect - often the DOI resolves to a totally unrelated article. Many of these come from large language models. Others are real articles cited with the wrong title, authors, year, or DOI, so that the reference cannot be traced to the document it is supposed to point to.</p>
+<p>These references are already common in the published literature and becoming more so. <span class="citation" data-cites="topaz2026">Topaz et al. (<a href="../references.html#ref-topaz2026" role="doc-biblioref">2026</a>)</span> checked around 2.5 million articles in PubMed Central and found 4,046 fabricated citations in 2,810 of them.</p>
+<div class="big-number">
+<p><span class="number">1 in 277</span></p>
+<p><span class="description">biomedical articles published in early 2026 contained a fabricated reference, up from 1 in 2,828 in 2023 <span class="citation" data-cites="topaz2026">(<a href="../references.html#ref-topaz2026" role="doc-biblioref">Topaz et al., 2026</a>)</span>.</span></p>
+</div>
+<p><span class="citation" data-cites="zhao2026">Zhao et al. (<a href="../references.html#ref-zhao2026" role="doc-biblioref">2026</a>)</span> found the same trend across arXiv, bioRxiv, SSRN, and PubMed Central. The rate of references that could not be matched to any published work rose sharply from mid-2024, and the authors estimated rates of hallucinated citations in 2025 of 0.27% for PubMed Central and 1.91% for SSRN. Neither study can show that any one fabricated reference was produced by a language model; paper mills and deliberate manipulation produce them too. Either way, they passed whatever editorial checks the articles went through.</p>
+<p>A single nonexistent reference is not by itself evidence that an article’s results are untrustworthy. It does show that at least part of the text was not checked by its authors, and it raises questions about how the rest of the article was produced. Several nonexistent references, especially ones cited for key claims, are a more serious concern.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Example: a reference whose DOI leads to an unrelated article">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Example: a reference whose DOI leads to an unrelated article
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="citation" data-cites="baldeo2026">Baldeo (<a href="../references.html#ref-baldeo2026" role="doc-biblioref">2026</a>)</span> reported that heavy use of generative AI was associated with lower confidence in one’s own reasoning. It was promoted in a <a href="https://www.apa.org/news/press/releases/2026/04/overreliance-ai-undermine-confidence">press release by the American Psychological Association</a>, the journal’s publisher, titled “Overreliance on AI programs may undermine confidence at work”. It was then covered by <a href="https://time.com/article/2026/04/15/how-ai-use-affects-confidence-thinking-study/"><em>Time</em></a> (“Letting AI do your work erodes your confidence, according to a new study”) and <a href="https://futurism.com/health-medicine/ai-cognition-study"><em>Futurism</em></a> (“Study finds AI use eats away at users’ confidence in their own brains”).</p>
+<p>Its reference list contained only nine references. Commenters on <a href="https://pubpeer.com/publications/E3065B6D2261CDAD0F7F407003E027">PubPeer</a> - including myself, Sandra Grinchgl, Malte Elson, and Jamie Cummins - found that one of them, attributed to Clemenson, Stark, and Stark (2021) in the <em>Journal of Experimental Psychology: General</em>, could not be found anywhere. Its DOI led to a different article: Tompary and Thompson-Schill’s (2021) “Semantic influences on episodic memory distortions”. Two other references were real, but were cited for claims about cognitive offloading that they did not make, one of the problems covered in <a href="#sec-miscitation" class="quarto-xref"><span>Section 14.2</span></a>.</p>
+<p>The commenters also raised many other concerns, including regression results that were mathematically impossible given the reported correlations (see <a href="10_recalculation_methods.html" class="quarto-xref"><span>Chapter 10</span></a>), implausible recruitment, and measures that did not match the article’s claims. The journal <a href="https://retractionwatch.com/2026/06/16/technology-mind-behavior-apa-journal-investigation-cognitive-impact-generative-ai/">opened an investigation</a> and retracted the article in August 2026 <span class="citation" data-cites="baldeo2026retraction">(<a href="../references.html#ref-baldeo2026retraction" role="doc-biblioref">American Psychological Association, 2026</a>)</span>. As <a href="https://retractionwatch.com/2026/09/14/american-psychological-association-technology-mind-behavior-sarah-baldeo-id-quotient/">Retraction Watch reported</a>, the company that granted ethical approval for the study was a company founded and run by the author, meaning that the study had not actually received independent ethical review. The APA’s press release now carries a retraction notice; the <em>Time</em> and <em>Futurism</em> articles do not.</p>
+</div>
+</div>
+<section id="automated-tools" class="level3" data-number="14.1.1">
+<h3 data-number="14.1.1" class="anchored" data-anchor-id="automated-tools"><span class="header-section-number">14.1.1</span> Automated tools</h3>
+<p>Checking whether a reference exists is tedious by hand, but simple to automate: extract each reference, search for it in bibliographic databases such as Crossref, OpenAlex, Semantic Scholar, and PubMed, and flag references with no close match. Many open-source tools now do this. They differ in three ways that matter to most readers:</p>
+<ul>
+<li><strong>Ease of use.</strong> Some run in the browser and need no installation (e.g., <a href="https://zabbonat.github.io/References-Validation/">CheckIfExist</a>, CiteScan, and CiteAudit). Others must be installed locally and run from the command line or a local web interface (e.g., <a href="https://github.com/gianlucasb/hallucinator">Hallucinator</a>, <a href="https://github.com/markrussinovich/refchecker">RefChecker</a>, and <a href="https://github.com/davidjurgens/hallucinated-reference-finder">HalRef</a>).</li>
+<li><strong>Cost.</strong> Most are free. Some features depend on paid services; for example, RefChecker’s hallucination check needs access to a language model with web search.</li>
+<li><strong>Validation.</strong> Few have been tested independently, and several are tuned to the reference formats and databases of computer science, which makes them less suitable for psychology and medicine.</li>
+</ul>
+<p><span class="citation" data-cites="badalova2026">Badalova &amp; Mayr (<a href="../references.html#ref-badalova2026" role="doc-biblioref">2026</a>)</span> compared five of these tools on 104 references from three documents, which they had checked by hand: 71 genuine references and 33 problematic ones, such as references with incorrect titles, mismatched authors or journals, unresolvable or incorrect DOIs, or no traceable source.</p>
+<div id="tbl-reference-checkers" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-reference-checkers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;14.1: Performance of five tools for detecting nonexistent and problematic references. Counts from <span class="citation" data-cites="badalova2026">Badalova &amp; Mayr (<a href="../references.html#ref-badalova2026" role="doc-biblioref">2026</a>, Table 4)</span>; sensitivity and specificity calculated from them.
+</figcaption>
+<div aria-describedby="tbl-reference-checkers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tool</th>
+<th>Problematic references caught</th>
+<th>Genuine references accepted</th>
+<th>Sensitivity</th>
+<th>Specificity</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RefChecker</td>
+<td>32 of 33</td>
+<td>35 of 71</td>
+<td>.97</td>
+<td>.49</td>
+</tr>
+<tr class="even">
+<td>CheckIfExist</td>
+<td>31 of 33</td>
+<td>37 of 71</td>
+<td>.94</td>
+<td>.52</td>
+</tr>
+<tr class="odd">
+<td>Hallucinator</td>
+<td>29 of 33</td>
+<td>43 of 71</td>
+<td>.88</td>
+<td>.61</td>
+</tr>
+<tr class="even">
+<td>HalRef</td>
+<td>24 of 33</td>
+<td>18 of 71</td>
+<td>.73</td>
+<td>.25</td>
+</tr>
+<tr class="odd">
+<td>HalluCiteChecker</td>
+<td>18 of 33</td>
+<td>51 of 71</td>
+<td>.55</td>
+<td>.72</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p><a href="#tbl-reference-checkers" class="quarto-xref">Table&nbsp;<span>14.1</span></a> shows a trade-off between sensitivity (the proportion of problematic references a tool flags) and specificity (the proportion of genuine references it accepts). A tool can catch more problematic references by being stricter about what counts as a match, but the same strictness makes it flag more genuine references whose details are slightly off. The tools that caught the most problematic references also flagged around half of the genuine references, and the tool with the fewest false alarms missed almost half of the problematic references. No tool did well on both. The main causes of false alarms were errors in extracting references from PDFs, sensitivity to formatting, and gaps in database coverage (e.g., books, reports, and very recent or non-English work). The test set is also small. These tools are therefore screening tools: every flagged reference has to be checked by hand, by searching for its title and DOI, before anything is said about it.</p>
+<p>For now, I recommend <a href="https://zabbonat.github.io/References-Validation/">CheckIfExist</a> <span class="citation" data-cites="abbonato2026">(<a href="../references.html#ref-abbonato2026" role="doc-biblioref">Abbonato, 2026</a>)</span>. It caught 31 of the 33 problematic references in <span class="citation" data-cites="badalova2026">Badalova &amp; Mayr (<a href="../references.html#ref-badalova2026" role="doc-biblioref">2026</a>)</span>’s comparison, it is free, and it runs as a web app with no login. It accepts a full PDF or Word document, a BibTeX file, or pasted references, and checks them against Crossref, Semantic Scholar, and OpenAlex. These are general-purpose databases, so it is a reasonable fit for psychology and medicine.</p>
+<div class="big-quote">
+<p><span class="quote"><a href="https://zabbonat.github.io/References-Validation/">CheckIfExist</a></span></p>
+<p><span class="citation">Free web app, no login required: zabbonat.github.io/References-Validation</span></p>
+</div>
+<div id="fig-checkifexist" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Screenshot of the CheckIfExist web app, showing a text box for pasting references in BibTeX or APA format, buttons to upload references or auto-extract them from a PDF or Word file, and Quick Check and Batch Check buttons.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-checkifexist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../images/CheckIfExist.png" class="img-fluid figure-img" alt="Screenshot of the CheckIfExist web app, showing a text box for pasting references in BibTeX or APA format, buttons to upload references or auto-extract them from a PDF or Word file, and Quick Check and Batch Check buttons.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-checkifexist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;14.1: The CheckIfExist web app. Paste one or more references, or upload a PDF, Word, or BibTeX file, then run a Quick Check (one reference) or Batch Check (several).
+</figcaption>
+</figure>
+</div>
+<p>CheckIfExist’s sensitivity is good, but its specificity is not: it also flagged 34 of the 71 genuine references. So in <span class="citation" data-cites="badalova2026">Badalova &amp; Mayr (<a href="../references.html#ref-badalova2026" role="doc-biblioref">2026</a>)</span>’s comparison, about half of the references it flagged were in fact fine. In a typical article the proportion will be worse, because most reference lists contain few or no problematic references, so most of the flags will be false alarms. A flag from CheckIfExist means only that a reference needs checking, not that it is nonexistent. Check each flagged reference by hand before drawing any conclusions about it.</p>
+</section>
+</section>
+<section id="sec-miscitation" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="sec-miscitation"><span class="header-section-number">14.2</span> Citations of articles that exist but do not support the claim</h2>
+<p>The most common citation problem cannot be caught by checking that a reference exists. A real, unretracted article can still be cited for something it does not say. In medicine this is often called “quotation accuracy”; <span class="citation" data-cites="cobb2023">Cobb et al. (<a href="../references.html#ref-cobb2023" role="doc-biblioref">2023</a>)</span> call it “miscitation”.</p>
+<p>To the best of my knowledge, it is currently quite rare for such inaccuracies or miscitations to be the basis of a retraction. It is unclear whether this is due to journals/publishers not viewing this as a serious problem, or whether reports to research integrity offices do not tend to references such issues. Nonetheless, a high prevalence of miscitation of the literature may undermine an article’s trustworthiness.</p>
+</section>
+<section id="estimates-from-psychology" class="level2" data-number="14.3">
+<h2 data-number="14.3" class="anchored" data-anchor-id="estimates-from-psychology"><span class="header-section-number">14.3</span> Estimates from psychology</h2>
+<p><span class="citation" data-cites="cobb2023">Cobb et al. (<a href="../references.html#ref-cobb2023" role="doc-biblioref">2023</a>)</span> checked 3,347 citations of empirical studies in the introductions of 89 articles, from the most recent issues of eight leading psychology journals. Two independent coders compared each citing claim to the methods and results of the cited article. Each citation was coded as accurate, somewhat accurate (correct in broad terms, but omitting an important qualifier, e.g., describing an effect found only in boys as an effect in children), or inaccurate (the claim was never examined in the cited article, or the cited article found the opposite). When coders could not agree, the citation was given the more lenient code.</p>
+<div class="big-number">
+<p><span class="number">19%</span></p>
+<p><span class="description">of 3,347 citations in 89 articles in eight leading psychology journals were only ‘somewhat accuate’, e.g., failed to include important nuance of the article they cited <span class="citation" data-cites="cobb2023">(<a href="../references.html#ref-cobb2023" role="doc-biblioref">Cobb et al., 2023</a>)</span>.</span></p>
+</div>
+<div class="big-number">
+<p><span class="number">10%</span></p>
+<p><span class="description">of citations completely mischaracterized the results of the article cited, e.g., the cited article did not examine the claim or found the opposite <span class="citation" data-cites="cobb2023">(<a href="../references.html#ref-cobb2023" role="doc-biblioref">Cobb et al., 2023</a>)</span>.</span></p>
+</div>
+<p>Of the 318 inaccurate citations, 195 cited an article for something it never assessed, and 123 cited an article for a result it contradicted. Rates varied between journals. The <em>Journal of Consulting and Clinical Psychology</em> had the most miscitations, at 28.7%, which is more than one in four. Miscitation was not related to the number of authors or the seniority of the first author.</p>
+<p>These are probably underestimates for the literature as a whole. The journals were among the most prestigious in their fields, and disagreements between coders were resolved in the authors’ favour.</p>
+<section id="estimates-from-medicine" class="level3" data-number="14.3.1">
+<h3 data-number="14.3.1" class="anchored" data-anchor-id="estimates-from-medicine"><span class="header-section-number">14.3.1</span> Estimates from medicine</h3>
+<p>Miscitation has been studied for longer in medicine, where it is usually called a “quotation error”. <span class="citation" data-cites="jergas2015">Jergas &amp; Baethge (<a href="../references.html#ref-jergas2015" role="doc-biblioref">2015</a>)</span> meta-analysed 28 studies of quotation accuracy in medical journal articles.</p>
+<div class="big-number">
+<p><span class="number">25%</span></p>
+<p><span class="description">(95% CI [19.5, 32.4]) of citations in medical journal articles contain a quotation error <span class="citation" data-cites="jergas2015">(<a href="../references.html#ref-jergas2015" role="doc-biblioref">Jergas &amp; Baethge, 2015</a>)</span>.</span></p>
+</div>
+<div class="big-number">
+<p><span class="number">12%</span></p>
+<p><span class="description">(95% CI [8.4, 16.6]) of citations contain a major quotation error <span class="citation" data-cites="jergas2015">(<a href="../references.html#ref-jergas2015" role="doc-biblioref">Jergas &amp; Baethge, 2015</a>)</span>.</span></p>
+</div>
+<p>Heterogeneity between studies was substantial, but even the lowest estimate was 6.7%. Citations of secondary rather than original sources accounted for less than one sixth of the errors. <span class="citation" data-cites="mogull2017">Mogull (<a href="../references.html#ref-mogull2017" role="doc-biblioref">2017</a>)</span> reanalysed 15 such studies, counting errors per citing statement rather than per reference, and estimated a lower overall rate of 14.5% (95% CI [10.5, 18.6]). About two thirds of these errors (64.8%) were major: the cited source did not support the claim, was unrelated to it, or contradicted it.</p>
+<p>Individual studies show the same pattern in specific fields:</p>
+<ul>
+<li>In 250 randomly selected citations from the five highest-impact orthopaedic and sports medicine journals, 13.6% were not fully supported by the cited article, and 2.8% were completely unsupported <span class="citation" data-cites="gazendam2021">(<a href="../references.html#ref-gazendam2021" role="doc-biblioref">Gazendam et al., 2021</a>)</span>.</li>
+<li>In 2,995 articles citing 13 highly cited nephrology papers, 15% contained at least one inaccurate citation of those papers. The most common problem was citing a finding the cited article did not report (38.4% of inaccurate citations), and one fifth of the inaccurate citations repeated an earlier inaccurate citation rather than the original article <span class="citation" data-cites="pavlovic2021">(<a href="../references.html#ref-pavlovic2021" role="doc-biblioref">Pavlovic et al., 2021</a>)</span>.</li>
+<li>A 2010 commentary criticising the Newcastle-Ottawa scale, a tool widely used to rate the quality of observational studies in systematic reviews, had been cited more than 1,250 times by 2016. In a random sample of 100 articles citing it, 96 were systematic reviews, and 94 of these (98%) cited it as support for using the scale: the opposite of what it argued <span class="citation" data-cites="stang2018">(<a href="../references.html#ref-stang2018" role="doc-biblioref">Stang et al., 2018</a>)</span>.</li>
+</ul>
+<p>The last example shows how miscitation spreads. Once a few authors cite an article for the wrong conclusion, later authors copy the citation without reading the original.</p>
+</section>
+<section id="checking-citations-by-hand" class="level3" data-number="14.3.2">
+<h3 data-number="14.3.2" class="anchored" data-anchor-id="checking-citations-by-hand"><span class="header-section-number">14.3.2</span> Checking citations by hand</h3>
+<p>No validated automated tool yet checks whether a cited article supports a claim, so this check still means reading. It is not feasible to check every citation in an article, so focus on the citations that matter most:</p>
+<ul>
+<li>citations that support the study’s rationale and hypotheses;</li>
+<li>citations given as justification for methods, such as measures described as “validated” or analyses described as “standard”;</li>
+<li>citations used to interpret the results, especially claims that the results agree with previous research.</li>
+</ul>
+<p>For each one, find the cited article and read its methods and results, not just its abstract. Check that the cited study examined the claim, in the population the citing article describes, and found what the citing article says it found. Citations of reviews and meta-analyses need particular care, because they are often cited as evidence for a general effect that the review itself found to vary or to be absent in some studies.</p>
+<p>A few miscitations are, unfortunately, normal. They are a concern for trustworthiness when they are concentrated in the claims an article depends on, or when they all point the same way: towards making the article’s own hypotheses look better supported than the cited literature suggests.</p>
+</section>
+</section>
+<section id="sec-retracted-citations" class="level2" data-number="14.4">
+<h2 data-number="14.4" class="anchored" data-anchor-id="sec-retracted-citations"><span class="header-section-number">14.4</span> Citations of retracted articles</h2>
+<p>Checking whether references have been retracted is a separate check from checking whether they exist. A retracted reference does exist, but it has been withdrawn from the record, often because its results could not be trusted. Citations of retracted work matter for two reasons.</p>
+<p>First, an article that builds its rationale, methods, or interpretation on retracted work may inherit that work’s problems.</p>
+<p>Second, several citations of retracted work are a warning sign that the citing article came from a paper mill.</p>
+<p>Paper mills are businesses that sell research articles, and authorship on them, to researchers who need publications, for example to be promoted or to graduate. They produce manuscripts to order, often from templates, with fabricated or recycled data and images. They then get them into journals, in some cases by bribing editors or by arranging entire special issues. They operate at an industrial scale, and their output appears to be growing faster than the legitimate literature. For accessible introductions, see:</p>
+<ul>
+<li><a href="https://www.nature.com/articles/d41586-021-00733-5">The fight against fake-paper factories that churn out sham science</a> (Holly Else and Richard Van Noorden, <em>Nature</em>, 2021);</li>
+<li><a href="https://www.science.org/content/article/paper-mills-bribing-editors-scholarly-journals-science-investigation-finds">Paper mills are bribing editors at scholarly journals, Science investigation finds</a> (Frederik Joelving, <em>Science</em>, 2024);</li>
+<li><a href="https://www.science.org/content/article/scientific-fraud-has-become-industry-alarming-analysis-finds">Scientific fraud has become an ‘industry,’ alarming analysis finds</a> (<em>Science</em>, 2025).</li>
+</ul>
+<p>Paper mills tend to cite their own earlier products, to pad out reference lists and to raise the mill’s citation counts. Once a mill is discovered, its products are often retracted in large batches. Articles from the same mill then have reference lists full of retracted articles. A reference list with several retracted articles is a flag in its own right, especially when they come from the same journal, special issue, or group of authors. It suggests the article may share their origin, whatever its own results look like.</p>
+<section id="feet-of-clay" class="level3" data-number="14.4.1">
+<h3 data-number="14.4.1" class="anchored" data-anchor-id="feet-of-clay"><span class="header-section-number">14.4.1</span> Feet of Clay</h3>
+<p>Guillaume Cabanac’s <a href="https://dbrech.irit.fr/pls/apex/f?p=9999:33::::::">Problematic Paper Screener</a> <span class="citation" data-cites="cabanac2022">(<a href="../references.html#ref-cabanac2022" role="doc-biblioref">Cabanac et al., 2022</a>)</span> includes a “Feet of Clay” detector <span class="citation" data-cites="cabanacfeetofclay">(<a href="../references.html#ref-cabanacfeetofclay" role="doc-biblioref">Cabanac, 2022</a>)</span>, named after the Biblical image of a statue on a fragile base. It flags published articles that cite retracted articles, or articles flagged on PubPeer. It uses the retraction notices registered with Crossref, which now include the Retraction Watch Database. Each flagged article gets a report listing its problematic references, and you can also look up which articles cite a given retracted article. It covers the literature indexed by Dimensions, and its lists are updated periodically rather than in real time.</p>
+<p>To check a single article’s references yourself, you can also enter each cited DOI into the post-publication notice checker in <a href="21_trustworthiness_assessment_and_inspect-sr.html#sec-post-publication-notices" class="quarto-xref"><span>Section 21.2.1</span></a>. Reference managers such as Zotero also flag retracted items in your library, which helps authors avoid the problem in the first place.</p>
+</section>
+<section id="interpreting-citations-of-retracted-articles" class="level3" data-number="14.4.2">
+<h3 data-number="14.4.2" class="anchored" data-anchor-id="interpreting-citations-of-retracted-articles"><span class="header-section-number">14.4.2</span> Interpreting citations of retracted articles</h3>
+<p>Citing a retracted article is not always a problem. The citation may predate the retraction, the article may be cited precisely because it was retracted, or it may be cited for a minor point. What matters is how many retracted articles are cited, what they are cited for, whether they were cited after the retraction notice, and whether they cluster in a way that suggests a common source. An article whose main hypothesis or method depends on a retracted study is a concern. So is one with many retracted references from the same journal or authors. An article that cites a single retracted study in passing, among a dozen others, usually is not.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-abbonato2026" class="csl-entry" role="listitem">
+Abbonato, D. (2026). <em><span>CheckIfExist</span>: Detecting citation hallucinations in the era of <span>AI</span>-generated content</em>. arXiv. <a href="https://doi.org/10.48550/arXiv.2602.15871">https://doi.org/10.48550/arXiv.2602.15871</a>
+</div>
+<div id="ref-baldeo2026retraction" class="csl-entry" role="listitem">
+American Psychological Association. (2026). Retraction of <span>“<span>Generative</span> artificial intelligence reliance and executive function attenuation: <span>Behavioral</span> evidence of cognitive offload in high-use adults”</span> by <span>Baldeo</span> (2026). <em>Technology, Mind, and Behavior</em>. <a href="https://doi.org/10.1037/tmb0000217">https://doi.org/10.1037/tmb0000217</a>
+</div>
+<div id="ref-badalova2026" class="csl-entry" role="listitem">
+Badalova, F., &amp; Mayr, P. (2026). <em>Detecting hallucinated and suspicious citations: What current tools can and cannot do</em>. arXiv. <a href="https://doi.org/10.48550/arXiv.2607.22693">https://doi.org/10.48550/arXiv.2607.22693</a>
+</div>
+<div id="ref-baldeo2026" class="csl-entry" role="listitem">
+Baldeo, S. (2026). Generative artificial intelligence reliance and executive function attenuation: Behavioral evidence of cognitive offload in high-use adults. <em>Technology, Mind, and Behavior</em>. <a href="https://doi.org/10.1037/tmb0000191">https://doi.org/10.1037/tmb0000191</a>
+</div>
+<div id="ref-cabanacfeetofclay" class="csl-entry" role="listitem">
+Cabanac, G. (2022). <em>Feet of clay detector</em>. Problematic Paper Screener. <a href="https://dbrech.irit.fr/pls/apex/f?p=9999:33::::::">https://dbrech.irit.fr/pls/apex/f?p=9999:33::::::</a>
+</div>
+<div id="ref-cabanac2022" class="csl-entry" role="listitem">
+Cabanac, G., Labbé, C., &amp; Magazinov, A. (2022). <em>The <span>’Problematic Paper Screener’</span> automatically selects suspect publications for post-publication (re)assessment</em>. arXiv. <a href="https://doi.org/10.48550/arXiv.2210.04895">https://doi.org/10.48550/arXiv.2210.04895</a>
+</div>
+<div id="ref-cobb2023" class="csl-entry" role="listitem">
+Cobb, C. L., Crumly, B., Montero-Zamora, P., Schwartz, S. J., &amp; Martínez, C. R., Jr. (2023). The problem of miscitation in psychological science: Righting the ship. <em>American Psychologist</em>. <a href="https://doi.org/10.1037/amp0001138">https://doi.org/10.1037/amp0001138</a>
+</div>
+<div id="ref-gazendam2021" class="csl-entry" role="listitem">
+Gazendam, A., Cohen, D., Morgan, S., Ekhtiari, S., &amp; Ghert, M. (2021). Quotation errors in high-impact-factor orthopaedic and sports medicine journals. <em>JB &amp; JS Open Access</em>, <em>6</em>(3), e21.00019. <a href="https://doi.org/10.2106/JBJS.OA.21.00019">https://doi.org/10.2106/JBJS.OA.21.00019</a>
+</div>
+<div id="ref-jergas2015" class="csl-entry" role="listitem">
+Jergas, H., &amp; Baethge, C. (2015). Quotation accuracy in medical journal articles: A systematic review and meta-analysis. <em>PeerJ</em>, <em>3</em>, e1364. <a href="https://doi.org/10.7717/peerj.1364">https://doi.org/10.7717/peerj.1364</a>
+</div>
+<div id="ref-mogull2017" class="csl-entry" role="listitem">
+Mogull, S. A. (2017). Accuracy of cited "facts" in medical research articles: A review of study methodology and recalculation of quotation error rate. <em>PLOS ONE</em>, <em>12</em>(9), e0184727. <a href="https://doi.org/10.1371/journal.pone.0184727">https://doi.org/10.1371/journal.pone.0184727</a>
+</div>
+<div id="ref-pavlovic2021" class="csl-entry" role="listitem">
+Pavlovic, V., Weissgerber, T., Stanisavljevic, D., Pekmezovic, T., Milicevic, O., Lazovic, J. M., Cirkovic, A., Savic, M., Rajovic, N., Piperac, P., Djuric, N., Madzarevic, P., Dimitrijevic, A., Randjelovic, S., Nestorovic, E., Akinyombo, R., Pavlovic, A., Ghamrawi, R., Garovic, V., &amp; Milic, N. (2021). How accurate are citations of frequently cited papers in biomedical literature? <em>Clinical Science</em>, <em>135</em>(5), 671–681. <a href="https://doi.org/10.1042/CS20201573">https://doi.org/10.1042/CS20201573</a>
+</div>
+<div id="ref-stang2018" class="csl-entry" role="listitem">
+Stang, A., Jonas, S., &amp; Poole, C. (2018). Case study in major quotation errors: A critical commentary on the <span>Newcastle-Ottawa</span> scale. <em>European Journal of Epidemiology</em>, <em>33</em>(11), 1025–1031. <a href="https://doi.org/10.1007/s10654-018-0443-3">https://doi.org/10.1007/s10654-018-0443-3</a>
+</div>
+<div id="ref-topaz2026" class="csl-entry" role="listitem">
+Topaz, M., Roguin, N., Gupta, P., Zhang, Z., &amp; Peltonen, L.-M. (2026). Fabricated citations: An audit across 2.5 million biomedical papers. <em>The Lancet</em>, <em>407</em>(10541), 1779–1781. <a href="https://doi.org/10.1016/S0140-6736(26)00603-3">https://doi.org/10.1016/S0140-6736(26)00603-3</a>
+</div>
+<div id="ref-zhao2026" class="csl-entry" role="listitem">
+Zhao, Z., Wang, Y., Stuart, T., De Vaan, M., Ginsparg, P., &amp; Yin, Y. (2026). <em><span>LLM</span> hallucinations in the wild: Large-scale evidence from non-existent citations</em>. arXiv. <a href="https://doi.org/10.48550/arXiv.2605.07723">https://doi.org/10.48550/arXiv.2605.07723</a>
+</div>
+</div>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  update_total_correct();
+}
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../chapters/13_reconstruction_resampling_simulation_methods.html" class="pagination-link" aria-label="Reconstruction, resampling, and simulation methods [✎ Outline]{.badge .badge-draft1}">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Reconstruction, resampling, and simulation methods <span class="badge badge-draft1">✎ Outline</span></span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../chapters/15_design_methods.html" class="pagination-link" aria-label="Design methods [✎ Outline]{.badge .badge-draft1}">
+        <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Design methods <span class="badge badge-draft1">✎ Outline</span></span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Text and figures © Ian Hussey, <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>. Code <a href="https://opensource.org/licenses/MIT">MIT</a>. <a href="../index.html#sec-license">License details</a>.</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

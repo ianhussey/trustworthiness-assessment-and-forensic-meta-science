@@ -1,0 +1,1943 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>21&nbsp; Trustworthiness Assessment and INSPECT-SR ✎ Draft – Trustworthiness Assessment</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../chapters/22_reflexive_critique.html" rel="next">
+<link href="../chapters/20_organising_critique.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dcd6dad1d9027e0fc018a6aab5a8b21b.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2ff81c2e5dfd9e56c4f590b9591e1eb8.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dcd6dad1d9027e0fc018a6aab5a8b21b.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-b449d80222d5ed01c4849d61a5fa3f46.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-48bf0c1ec3ee293dbcdcadcc7780d5d0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-b449d80222d5ed01c4849d61a5fa3f46.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+<style>
+  /* more breathing room before section headings.
+     scoped to main.content so the sidebar/TOC headings are left alone.
+     this <style> block is emitted after the bootstrap theme css, so these
+     win without needing !important. */
+  main.content h2 { margin-top: 3rem; }
+  main.content h3 { margin-top: 2rem; }
+  main.content h4 { margin-top: 1.5rem; }
+  .kable-table table { width: 70%; margin: 0 auto; }
+  /* Observable Inputs.button uses .btn-quarto: give it the plots' blue (the default text colour matched its background), and space between stacked buttons */
+  .btn.btn-quarto { color: #fff; background-color: #2780e3; border-color: #2780e3; margin: 0.4rem 0; }
+  .btn.btn-quarto:hover { background-color: #1f6ab8; border-color: #1f6ab8; }
+  /* quarto adds a copy button to every code cell, which still appears at the top right of Observable JS cells whose code is hidden (echo: false). hide it for those cells only */
+  .code-copy-outer-scaffold > .cell-code.hidden:has(> pre.js) ~ .code-copy-button { display: none; }
+  /* .big-number: [89%]{.number} then [explanatory text]{.description}
+     .big-quote:  [quote text]{.quote} then [source]{.citation}
+     each works as a span (use a trailing \ for line breaks) or a div (for multiple paragraphs) */
+  .big-number, .big-quote { text-align: center; margin: 2.5rem auto; }
+  .big-number { max-width: 32rem; }
+  .big-quote  { max-width: 36rem; }
+  .big-number .number, .big-quote .quote, .big-number .description, .big-quote .citation { display: block; }
+  .big-number .number {
+    font-size: 5rem; font-weight: 700; line-height: 1;
+    color: var(--bs-primary); margin-bottom: 0.75rem;
+  }
+  .big-quote .quote {
+    font-size: 1.5rem; font-weight: 700; line-height: 1.35;
+    color: var(--bs-primary); margin-bottom: 0.75rem;
+  }
+  .big-number .description { font-size: 1.05rem; color: var(--bs-secondary-color); }
+  .big-quote .citation { font-size: 1rem; color: var(--bs-secondary-color); }
+  .badge {
+    display: inline-flex; align-items: center; gap: 0.3em;
+    padding: 0.2em 0.65em; border-radius: 20px;
+    font-size: 0.72em; font-weight: 500; font-family: monospace;
+    vertical-align: middle; position: relative; top: -0.1em;
+  }
+  .badge-draft1   { background: #fdecea; color: #8b2a2a; border: 1px solid #f5b8b8; }
+  .badge-draft2   { background: #fef0e6; color: #8b4a1a; border: 1px solid #f5cfa0; }
+  .badge-draft3   { background: #fef9e7; color: #7a5c00; border: 1px solid #f5d97a; }
+  .badge-complete { background: #e6f4ea; color: #1e6e3a; border: 1px solid #b7dfbe; }
+  .quarto-color-scheme-toggle::after { content: " Dark mode"; font-family: sans-serif; font-size: 0.85em; }
+  /* thin black border around the book's cover image */
+  .quarto-cover-image { border: 1px solid #000; }
+</style>
+
+
+<link rel="stylesheet" href="../include/webex.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/19_critiquing_specific_types_of_articles.html">Part IV: Organising critique</a></li><li class="breadcrumb-item"><a href="../chapters/21_trustworthiness_assessment_and_inspect-sr.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Trustworthiness Assessment and INSPECT-SR <span class="badge badge-draft2">✎ Draft</span></span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Trustworthiness Assessment</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lesson_plan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson plan <span class="badge badge-draft1">✎ Outline</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part I: Conceptual foundations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/01_scope_and_need.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Scope and need <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/02_psychological_preparation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Psychological preparation <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/03_organising_principles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Organising principles <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part II: Understanding statistics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/04_understanding_p_values.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Understanding <em>p</em>-values <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/05_standardized_mean_differences_cohens_d.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Understanding Standardized Mean Differences (Cohen’s <em>d</em>) <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/06_standardized_deviations_vs_standards_errors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Standard Deviations vs.&nbsp;Standards Errors <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part III: Forensic meta-science methods</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/07_misinterpretation_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Misinterpretation methods <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/08_effect_size_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Effect size methods: SMD/Cohen’s <em>d</em> <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/09_repetition_and_consistency_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Repetition and consistency methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/10_recalculation_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">(Re)calculation methods <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/11_granularity_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Granularity methods <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/12_bounds_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Bounds methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/13_reconstruction_resampling_simulation_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Reconstruction, resampling, and simulation methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/14_reference_and_citation_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Reference and citation methods <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/15_design_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Design methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/16_measurement_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Measurement methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/17_theory_specification_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Theory specification methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/18_data_extraction_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Data extraction methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part IV: Organising critique</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/19_critiquing_specific_types_of_articles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Critiquing specific types of articles <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/20_organising_critique.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Organising critique <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/21_trustworthiness_assessment_and_inspect-sr.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Trustworthiness Assessment and INSPECT-SR <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/22_reflexive_critique.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Reflexive critique <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part V: Developing and validating forensic methods</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/23_forensic_methods_require_validation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Forensic meta-science methods require validation <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/24_method_implementation_and_tool.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Method, implementation, and tool <span class="badge badge-draft2">✎ Draft</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/25_validation_using_simulated_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Validating meta-science methods using simulated data <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#cochrane" id="toc-cochrane" class="nav-link active" data-scroll-target="#cochrane"><span class="header-section-number">21.1</span> Cochrane</a>
+  <ul class="collapse">
+  <li><a href="#risk-of-bias" id="toc-risk-of-bias" class="nav-link" data-scroll-target="#risk-of-bias"><span class="header-section-number">21.1.1</span> Risk of Bias</a></li>
+  <li><a href="#problematic-studies" id="toc-problematic-studies" class="nav-link" data-scroll-target="#problematic-studies"><span class="header-section-number">21.1.2</span> Problematic studies</a></li>
+  <li><a href="#trustworthiness-assessment-vs.-science-sleuthing" id="toc-trustworthiness-assessment-vs.-science-sleuthing" class="nav-link" data-scroll-target="#trustworthiness-assessment-vs.-science-sleuthing"><span class="header-section-number">21.1.3</span> Trustworthiness Assessment vs.&nbsp;science sleuthing</a></li>
+  </ul></li>
+  <li><a href="#inspect-sr-domains-and-checks" id="toc-inspect-sr-domains-and-checks" class="nav-link" data-scroll-target="#inspect-sr-domains-and-checks"><span class="header-section-number">21.2</span> INSPECT-SR domains and checks</a>
+  <ul class="collapse">
+  <li><a href="#sec-post-publication-notices" id="toc-sec-post-publication-notices" class="nav-link" data-scroll-target="#sec-post-publication-notices"><span class="header-section-number">21.2.1</span> Inspecting post-publication notices</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/19_critiquing_specific_types_of_articles.html">Part IV: Organising critique</a></li><li class="breadcrumb-item"><a href="../chapters/21_trustworthiness_assessment_and_inspect-sr.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Trustworthiness Assessment and INSPECT-SR <span class="badge badge-draft2">✎ Draft</span></span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Trustworthiness Assessment and INSPECT-SR <span class="badge badge-draft2">✎ Draft</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="cochrane" class="level2" data-number="21.1">
+<h2 data-number="21.1" class="anchored" data-anchor-id="cochrane"><span class="header-section-number">21.1</span> Cochrane</h2>
+<p>Cochrane (formerly the Cochrane Collaboration) is an international network of researchers, health professionals, and patients that produces systematic reviews of the evidence on healthcare interventions. It was founded in 1993 and is named after the epidemiologist Archie Cochrane. Its reviews are published in the Cochrane Database of Systematic Reviews, part of the Cochrane Library. Cochrane describes its work as “internationally recognized as the benchmark for high-quality information about the effectiveness of health care” <span class="citation" data-cites="cochraneeditorial">(<a href="../references.html#ref-cochraneeditorial" role="doc-biblioref">Cochrane, n.d.-a</a>)</span>.</p>
+<p>A Cochrane Review is a systematic review that follows a published protocol. The review authors search for every study that meets prespecified eligibility criteria, appraise each study, extract its data, and, where appropriate, combine the results in a meta-analysis. Cochrane Reviews aim “to provide the best available evidence of the effects of healthcare interventions”, but the quality of that evidence “depends, inevitably, upon the reliability of the studies included” <span class="citation" data-cites="cochraneeditorial">(<a href="../references.html#ref-cochraneeditorial" role="doc-biblioref">Cochrane, n.d.-a</a>)</span>.</p>
+<section id="risk-of-bias" class="level3" data-number="21.1.1">
+<h3 data-number="21.1.1" class="anchored" data-anchor-id="risk-of-bias"><span class="header-section-number">21.1.1</span> Risk of Bias</h3>
+<p>The established way to appraise the trials in a review is a Risk of Bias assessment. Cochrane’s original tool for randomised controlled trials was published in 2011 <span class="citation" data-cites="higgins2011">(<a href="../references.html#ref-higgins2011" role="doc-biblioref">Higgins et al., 2011</a>)</span> and was later replaced by RoB 2 <span class="citation" data-cites="sterne2019">(<a href="../references.html#ref-sterne2019" role="doc-biblioref">Sterne et al., 2019</a>)</span>. RoB 2 asks whether the design, conduct, or analysis of a trial could have biased its estimate of the effect, across five domains: the randomisation process, deviations from the intended interventions, missing outcome data, measurement of the outcome, and selection of the reported result.</p>
+<p>Risk of Bias assessment takes a trial’s report at face value. It asks whether the trial, <em>as described</em>, was likely to produce a biased estimate. It does not ask whether the trial was actually conducted as described, or whether the numbers it reports are possible or real.</p>
+</section>
+<section id="problematic-studies" class="level3" data-number="21.1.2">
+<h3 data-number="21.1.2" class="anchored" data-anchor-id="problematic-studies"><span class="header-section-number">21.1.2</span> Problematic studies</h3>
+<p>That assumption fails for <em>problematic studies</em>: studies “where there are serious questions about the trustworthiness of the data or findings, regardless of whether the study has been formally retracted” <span class="citation" data-cites="cochraneeditorial">(<a href="../references.html#ref-cochraneeditorial" role="doc-biblioref">Cochrane, n.d.-a</a>)</span>. A study can be problematic because of misconduct, such as fabrication, falsification, or plagiarism, but also because of poor research practices or honest critical errors.</p>
+<section id="how-common-are-problematic-studies" class="level4" data-number="21.1.2.1">
+<h4 data-number="21.1.2.1" class="anchored" data-anchor-id="how-common-are-problematic-studies"><span class="header-section-number">21.1.2.1</span> How common are problematic studies?</h4>
+<p>While good estimates of prevalence do not yet exist, there is reason to believe that problematic trials are not rare.</p>
+<p>For example, Carlisle analysed the 526 randomised controlled trials submitted to the journal <em>Anaesthesia</em> between February 2017 and March 2020 <span class="citation" data-cites="carlisle2021">(<a href="../references.html#ref-carlisle2021" role="doc-biblioref">Carlisle, 2021</a>)</span>. He judged that 73 (14%) contained false data, and that 43 (8%) were “zombie” trials, which he considered fatally flawed. These rates depended strongly on what he could see. Among the 153 trials whose authors supplied individual patient data, 44% had false data and 26% were zombie trials, compared with 2% and 1% of the 373 trials assessed from summary data alone. This suggests that most problematic trials go undetected when only the published report is available.</p>
+<p>Estimates from outside clinical trials point the same way. The most widely cited figure comes from surveys of researchers: about 2% admit to having fabricated or falsified data at least once <span class="citation" data-cites="heathers2024">(Fanelli, 2009, summarised in <a href="../references.html#ref-heathers2024" role="doc-biblioref">Heathers, 2024</a>)</span>. Heathers argues that this underestimates the problem. People are unlikely to admit to misconduct, even in anonymous surveys, and the share of researchers who have <em>ever</em> faked a result says little about how much of the published literature is fake. He instead collected 12 studies that estimated the proportion of <em>papers</em> with fabricated or falsified elements <span class="citation" data-cites="heathers2024">(<a href="../references.html#ref-heathers2024" role="doc-biblioref">Heathers, 2024</a>)</span>, including:</p>
+<ul>
+<li>A visual inspection of 20,621 papers in 40 biomedical journals, which found inappropriately duplicated images in 3.8% of them, and about 4% of those published from 2005 onwards.</li>
+<li>An analysis of 588 preclinical studies of chronic stress models of depression, of which 13.9% contained image anomalies consistent with manipulation.</li>
+<li>A GRIM analysis of 71 psychology articles, half of which reported at least one impossible mean <span class="citation" data-cites="brown2017">(<a href="../references.html#ref-brown2017" role="doc-biblioref">Brown &amp; Heathers, 2017</a>)</span>. GRIM is described in <a href="11_granularity_methods.html#sec-grim" class="quarto-xref"><span>Section 11.2</span></a>. After requesting the authors’ data, Heathers puts the proportion with hallmarks of manipulation between 4.2% and 16.9%.</li>
+<li>The editor-in-chief of <em>Molecular Brain</em>, who asked for the raw data behind 41 of the 180 manuscripts he handled between 2017 and 2019, because their results looked “too beautiful to be true” <span class="citation" data-cites="miyakawa2020">(<a href="../references.html#ref-miyakawa2020" role="doc-biblioref">Miyakawa, 2020</a>)</span>. Twenty-one were withdrawn without providing raw data, and 19 of the remaining 20 were rejected because the raw data were insufficient. In seven of these, the raw data did not match the reported results. Only one manuscript was sent for peer review. Miyakawa notes that he cannot know how many of these manuscripts contained fabricated data. Heathers’ estimate of 14.4% of all submissions rests on a hypothetical figure in the editorial: if an informal poll of researchers were right, 26 of the 40 withdrawn or rejected manuscripts would contain fabricated data.</li>
+<li>A COPE and STM report on paper mills, which found that, on average, 14% of the manuscripts submitted to the journals it examined between 2019 and 2021 were suspect, ranging from 2% to 46% by journal.</li>
+</ul>
+<p>Across the 16 estimates in these studies, the median was 14%, and 9 of the 16 fell between 13.4% and 16.9%. Heathers concludes that roughly 1 in 7 papers contain errors consistent with faking in at least one element. It’s quite important to emphasise that many commentators have problems with this estimate, including myself. If I was to reframe Heathers’ argument, I would do it as so: <strong>Collectively, we are acting as if the prevalence of untrustworthy articles is so small that it can literally be ignored. There is sufficient reason to act as if the prevalence of untrustworthy research is much higher than this, and we should at least look for it.</strong></p>
+<p>More recent studies report similar or higher rates in specific fields. Aquarius and colleagues assessed every article that was eligible for a systematic review of preclinical studies of microvascular injury after myocardial infarction, using the image-analysis software Imagetwin together with visual checks <span class="citation" data-cites="aquarius2026">(<a href="../references.html#ref-aquarius2026" role="doc-biblioref">Aquarius et al., 2026</a>)</span>. They had decided in advance to exclude problematic articles from the review. Of 201 articles, 57 (28.4%) were deemed problematic: 46 because of duplicated or manipulated images, and 11 because of inappropriately duplicated values in tables. Only three of the 57 had previously been flagged on PubPeer for serious concerns. Similar assessments within other systematic reviews of animal studies found image-related problems in 19% of included articles on depression and 40% of included articles on early brain injury after subarachnoid haemorrhage <span class="citation" data-cites="aquarius2026">(both summarised in <a href="../references.html#ref-aquarius2026" role="doc-biblioref">Aquarius et al., 2026</a>)</span>. These studies are examples of trustworthiness assessment as part of a systematic review: every eligible study was checked, and problematic studies were excluded before synthesis.</p>
+</section>
+<section id="problematic-studies-change-the-conclusions-of-reviews" class="level4" data-number="21.1.2.2">
+<h4 data-number="21.1.2.2" class="anchored" data-anchor-id="problematic-studies-change-the-conclusions-of-reviews"><span class="header-section-number">21.1.2.2</span> Problematic studies change the conclusions of reviews</h4>
+<p>A review of 847 systematic reviews that included at least one retracted trial found that excluding the retracted trials changed the size of the pooled effect in 16% of meta-analyses, and its direction in just over 8% <span class="citation" data-cites="wilkinson2026">(summarised in <a href="../references.html#ref-wilkinson2026" role="doc-biblioref">Wilkinson et al., 2026</a>)</span>. Retraction can take years, if it happens at all, so retraction status alone cannot identify problematic trials. Risk of Bias tools are not designed to detect these problems, and do not appear to succeed in doing so <span class="citation" data-cites="wilkinson2026">(<a href="../references.html#ref-wilkinson2026" role="doc-biblioref">Wilkinson et al., 2026</a>)</span>.</p>
+</section>
+<section id="cochranes-policy-on-problematic-studies" class="level4" data-number="21.1.2.3">
+<h4 data-number="21.1.2.3" class="anchored" data-anchor-id="cochranes-policy-on-problematic-studies"><span class="header-section-number">21.1.2.3</span> Cochrane’s policy on problematic studies</h4>
+<p>Cochrane’s policy for managing potentially problematic studies sets out what review authors and editors should do <span class="citation" data-cites="cochraneeditorial cochraneproblematic">(<a href="../references.html#ref-cochraneeditorial" role="doc-biblioref">Cochrane, n.d.-a</a>, <a href="../references.html#ref-cochraneproblematic" role="doc-biblioref">n.d.-b</a>)</span>:</p>
+<ul>
+<li><strong>Retracted studies</strong> must not be included in a Cochrane Review. They are listed as excluded, with a citation to the retraction notice.</li>
+<li><strong>Studies with an Expression of Concern</strong> should be treated “with a high degree of caution”. Whether they are excluded depends on the reason for the concern, because some Expressions of Concern relate to matters that do not affect the validity of the data, such as authorship disputes.</li>
+<li><strong>Studies with no post-publication notice, but where the review team has concerns,</strong> should be checked against bibliographic databases, the Retraction Watch Database, PubPeer, and the publisher’s website. The review team should contact the study authors for clarification, and if concerns remain, write to the journal editor in neutral language. Meanwhile, the study is classified as “Awaiting Classification” rather than included.</li>
+</ul>
+<p>The implementation guidance notes that “there is no standard definition of, nor validated method to identify, a problematic study”, and that it will be updated as evidence and consensus emerge <span class="citation" data-cites="cochraneproblematic">(<a href="../references.html#ref-cochraneproblematic" role="doc-biblioref">Cochrane, n.d.-b</a>)</span>. INSPECT-SR was developed to provide such a method. In October 2025, Cochrane endorsed it as an optional tool for review authors who wish to assess the trustworthiness of the randomised controlled trials in their reviews <span class="citation" data-cites="cochrane2025methods">(<a href="../references.html#ref-cochrane2025methods" role="doc-biblioref">Cochrane, 2025</a>)</span>.</p>
+</section>
+</section>
+<section id="trustworthiness-assessment-vs.-science-sleuthing" class="level3" data-number="21.1.3">
+<h3 data-number="21.1.3" class="anchored" data-anchor-id="trustworthiness-assessment-vs.-science-sleuthing"><span class="header-section-number">21.1.3</span> Trustworthiness Assessment vs.&nbsp;science sleuthing</h3>
+<p>Trustworthiness Assessment and science sleuthing use many of the same methods, and the people who develop them often overlap. They differ in how studies are chosen, how the checks are carried out, and what the result is used for.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">Trustworthiness Assessment</th>
+<th style="text-align: left;">Science sleuthing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Which studies</strong></td>
+<td style="text-align: left;">Every trial that is eligible for a systematic review, whether or not anything seems wrong with it</td>
+<td style="text-align: left;">Articles are selected via heterogeneous means</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Process</strong></td>
+<td style="text-align: left;">Structured: the same checks for every study, a recorded response to each check, judgments per domain and overall, and ideally two independent reviewers who then reach consensus</td>
+<td style="text-align: left;">Open-ended: follows whatever leads seem most promising for that study</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Complexity</strong></td>
+<td style="text-align: left;">Checks are often shallower to facilitate speed and lower training burden</td>
+<td style="text-align: left;">Checks are often deeper as they are (currently) performed by more expert sleuths, with more attention paid to fewer articles. Exceptions to this exist, e.g., image forensics work conducted by Elisabeth Bik, Rene Aquarius, Matthew Shrank and others often involve thousands of articles</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Purpose</strong></td>
+<td style="text-align: left;">To decide whether a study’s data can be used in a particular evidence synthesis</td>
+<td style="text-align: left;">To correct the scientific record, for example by alerting journals and institutions or posting on PubPeer</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Outcome</strong></td>
+<td style="text-align: left;">Studies with serious concerns are excluded from the review, and studies with some concerns are examined in sensitivity analyses</td>
+<td style="text-align: left;">Corrections, Expressions of Concern, retractions, and sometimes misconduct investigations</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Stance on misconduct</strong></td>
+<td style="text-align: left;">Explicitly not a test for fraud: concerns about trustworthiness “do not constitute an accusation of research misconduct” <span class="citation" data-cites="wilkinson2026">(<a href="../references.html#ref-wilkinson2026" role="doc-biblioref">Wilkinson et al., 2026</a>)</span></td>
+<td style="text-align: left;">May raise the question of misconduct, although findings are usually framed as concerns to be resolved by journals and institutions</td>
+</tr>
+</tbody>
+</table>
+<p>How studies are selected also changes what a positive result means. A check that flags a trial chosen because it already looked suspicious is more likely to point to a problem than the same flag in a trial selected only because it met a review’s eligibility criteria. Trustworthiness Assessment is applied to many trials that have no problems at all, so false positives matter more there, and judgments should rest on the guidance for each check rather than on a single flag.</p>
+</section>
+</section>
+<section id="inspect-sr-domains-and-checks" class="level2" data-number="21.2">
+<h2 data-number="21.2" class="anchored" data-anchor-id="inspect-sr-domains-and-checks"><span class="header-section-number">21.2</span> INSPECT-SR domains and checks</h2>
+<p>INSPECT-SR (Investigating Problematic Clinical Trials in Systematic Reviews) is a tool for assessing the trustworthiness of randomised controlled trials <span class="citation" data-cites="wilkinson2026">(<a href="../references.html#ref-wilkinson2026" role="doc-biblioref">Wilkinson et al., 2026</a>)</span>. It was developed in five stages:</p>
+<ol type="1">
+<li>A list of 76 candidate checks was drawn from the existing literature and a survey of experts.</li>
+<li>The checks were applied to the trials in 50 Cochrane Reviews to assess how feasible they were and how much difference they made.</li>
+<li>A two-round Delphi survey (148 and 134 participants) found expert consensus for 29 checks.</li>
+<li>Eight online consensus meetings narrowed these to 21 checks and decided how each should be applied.</li>
+<li>User testing and a workshop refined the wording and the guidance. Testers took a median of 45 minutes to assess a trial.</li>
+</ol>
+<p>The final tool has 21 checks in four domains, shown in the table below. Each check is answered “yes”, “no”, “unclear”, or “not applicable”, where “yes” indicates a potential problem. After each domain, the reviewer judges whether there are no concerns, some concerns, or serious concerns about the trial in that domain. The overall judgment for the study should usually be at least as severe as the most severe domain judgment. There is no algorithm that converts answers into judgments: a single “yes” does not automatically mean serious concerns, although some, such as a retraction (check 1.1), usually will.</p>
+<p>The article recommends that INSPECT-SR is applied to every eligible trial in a systematic review, before Risk of Bias assessment and data extraction, by two reviewers working independently. Trials with serious concerns should be excluded, and trials with some concerns should be examined in sensitivity analyses. Checks 1.1 and 1.2 should be repeated shortly before the review is completed, because new notices may have been published in the meantime. INSPECT-SR can be used for trials in any area of healthcare and does not require individual participant data. It does not assess Risk of Bias, generalisability, or conflicts of interest. Extensions are in development or planned for individual participant data (INSPECT-IPD), non-randomised studies (INSPECT-NRS), and use by journal editors (INSPECT-JR).</p>
+<p>The wording of each check is short, and users should not try to infer how to apply a check from its wording alone <span class="citation" data-cites="wilkinson2026">(<a href="../references.html#ref-wilkinson2026" role="doc-biblioref">Wilkinson et al., 2026</a>)</span>. The <a href="https://inspect-sr.com">INSPECT-SR Guidance website</a> explains each check with examples, provides an editable template for recording assessments, and is updated as the tool is used and evaluated.</p>
+<p>I am one of the co-authors of the INSPECT-SR article and contributed to its guidance document. With Jack Wilkinson, I maintain the INSPECT-SR Guidance website, whose source code is on <a href="https://github.com/ianhussey/inspect-sr-guidance">GitHub</a>. Lukas Jung and I also developed an <a href="https://errors.shinyapps.io/inspect-sr-means-variances/">app for check 4.8</a>, which the article recommends to users. This book is not part of the official INSPECT-SR guidance. It aims to explain the methods behind many of the checks in more depth, and the table below shows which chapters are relevant to each check.</p>
+<table class="inspect-sr-table caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Domains and checks</th>
+<th>Relevant chapters in this book</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Inspecting post-publication notices</strong></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1.1. Does the study have an associated retraction?</td>
+<td><a href="#sec-post-publication-notices" class="quarto-xref"><span>Section 21.2.1</span></a> (below)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1.2. Does the study have an associated expression of concern or other relevant post publication notice?</td>
+<td><a href="#sec-post-publication-notices" class="quarto-xref"><span>Section 21.2.1</span></a> (below)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1.3. Do other studies by the research team highlight causes for concern (associated retractions, expressions of concern, relevant post-publication notices?)</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Inspecting conduct, governance and transparency</strong></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2.1. Are there concerns relating to ethical approval?</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2.2. Are there concerns relating to the timing or absence of study registration?</td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2.3. Are there important inconsistencies between the publication and the registration documents?</td>
+<td><a href="09_repetition_and_consistency_methods.html" class="quarto-xref"><span>Chapter 9</span></a>; <a href="https://regcheck.app">RegCheck</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2.4. Is the recruitment of participants implausible?</td>
+<td><a href="15_design_methods.html" class="quarto-xref"><span>Chapter 15</span></a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2.5. Are the reported methods implausible considering the reported resources?</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Inspecting text and figures</strong></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">3.1. Are there concerns relating to duplicated content, such as text or tables, or text that is incompatible with the study?</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3.2. Is there evidence of manipulation or duplication of figures?</td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Inspecting results in the study</strong></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.1. Are there any unexplained discrepancies between reported data and participant eligibility criteria?</td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.2. Are numbers of participants allocated to each group implausible given the allocation method?</td>
+<td><a href="15_design_methods.html" class="quarto-xref"><span>Chapter 15</span></a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.3. Are any baseline data implausible?</td>
+<td><a href="15_design_methods.html" class="quarto-xref"><span>Chapter 15</span></a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.4. Are there any discrepancies between results reported in figures, tables, and text?</td>
+<td><a href="09_repetition_and_consistency_methods.html" class="quarto-xref"><span>Chapter 9</span></a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.5. Are the numbers of participants lost to follow-up implausible?</td>
+<td><a href="15_design_methods.html" class="quarto-xref"><span>Chapter 15</span></a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.6. Are there any unexplained inconsistencies in the numbers of participants?</td>
+<td><a href="09_repetition_and_consistency_methods.html" class="quarto-xref"><span>Chapter 9</span></a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.7. Are any outcome data, including estimated treatment effects, implausible?</td>
+<td><a href="08_effect_size_methods.html" class="quarto-xref"><span>Chapter 8</span></a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.8. Are the means and variances of integer data impossible?</td>
+<td><a href="11_granularity_methods.html" class="quarto-xref"><span>Chapter 11</span></a> and <a href="12_bounds_methods.html" class="quarto-xref"><span>Chapter 12</span></a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.9. Are there errors in statistical results?</td>
+<td><a href="10_recalculation_methods.html" class="quarto-xref"><span>Chapter 10</span></a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.10. Are any other contradictions implied by the data?</td>
+<td><a href="10_recalculation_methods.html" class="quarto-xref"><span>Chapter 10</span></a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.11. Are there inconsistencies in descriptions of methods and results across publications describing the study?</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<section id="sec-post-publication-notices" class="level3" data-number="21.2.1">
+<h3 data-number="21.2.1" class="anchored" data-anchor-id="sec-post-publication-notices"><span class="header-section-number">21.2.1</span> Inspecting post-publication notices</h3>
+<p>Tool for Checks 1.1 and 1.2.</p>
+<p>Enter a DOI below to check for post-publication notices (retractions, expressions of concern, and corrections). The app combines three sources: Crossref, which includes both the notices that publishers register and the Retraction Watch Database; PubMed, which links articles to retraction and expression of concern notices; and the article’s title, because some publishers mark a retraction only by changing the title (e.g., “RETRACTED: …”). This approach follows, and was inspired by, the “Annulled” and “Concerning” detectors of the <a href="https://dbrech.irit.fr/pls/apex/f?p=9999:33::::::">Problematic Paper Screener</a> <span class="citation" data-cites="cabanac2022">(<a href="../references.html#ref-cabanac2022" role="doc-biblioref">Cabanac et al., 2022</a>)</span>, which combine the same sources. The difference is that this app queries the sources live, whereas the Problematic Paper Screener’s lists are updated periodically.</p>
+<p>No database has complete coverage, so a clean result here does not rule out notices that were never registered. Also check the publisher’s page and PubPeer, using the links in the result.</p>
+<style>
+/* Colours are derived from the page's text and background colours, because the dark theme
+   (darkly) keeps Bootstrap's light-mode values for --bs-tertiary-bg and --bs-border-color */
+.doi-checker, .doi-result {
+  --dc-bg: color-mix(in srgb, var(--bs-body-color) 4%, var(--bs-body-bg));
+  --dc-border: color-mix(in srgb, var(--bs-body-color) 18%, var(--bs-body-bg));
+  --dc-muted: var(--bs-secondary-color);
+  --dc-accent: var(--bs-link-color);
+  border: 1px solid var(--dc-border);
+  border-radius: 0.5rem;
+  padding: 1rem 1.25rem;
+}
+.doi-checker { background: var(--dc-bg); margin-bottom: 1rem; }
+.doi-checker .input-group-text { background: var(--dc-border); color: var(--bs-body-color); border-color: var(--dc-border); }
+.doi-checker .form-control { border-color: var(--dc-border); }
+.doi-checker .examples { margin-top: 0.9rem; font-size: 0.875rem; }
+.doi-checker .examples-title { color: var(--dc-muted); margin-bottom: 0.35rem; }
+.doi-checker .example { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; padding: 0.15rem 0; }
+.doi-checker .example .example-label { min-width: 6.5rem; color: var(--dc-muted); }
+.doi-checker .example code {
+  background: var(--bs-body-bg); color: var(--bs-body-color);
+  border: 1px solid var(--dc-border); border-radius: 0.25rem; padding: 0.15rem 0.45rem;
+}
+.doi-checker .example .btn { padding: 0.1rem 0.5rem; font-size: 0.8rem; }
+/* Quarto adds .btn-quarto to buttons, which forces a solid fill; use outline buttons instead */
+.doi-checker .btn-outline-primary.btn-quarto, .doi-result .btn-outline-primary {
+  background-color: transparent; color: var(--dc-accent); border-color: var(--dc-accent);
+}
+.doi-checker .btn-outline-primary.btn-quarto:hover, .doi-result .btn-outline-primary:hover {
+  background-color: var(--dc-accent); color: var(--bs-body-bg); border-color: var(--dc-accent);
+}
+.doi-checker .btn-outline-secondary.btn-quarto { background-color: transparent; color: var(--dc-muted); border-color: var(--dc-border); }
+.doi-checker .btn-outline-secondary.btn-quarto:hover { background-color: var(--dc-border); color: var(--bs-body-color); }
+.doi-result { border-left-width: 6px; margin-bottom: 1rem; }
+.doi-result.retracted { border-left-color: var(--bs-danger); }
+.doi-result.concern { border-left-color: var(--bs-warning); }
+.doi-result.other { border-left-color: var(--bs-info); }
+.doi-result.clean { border-left-color: var(--bs-success); }
+.doi-result.error, .doi-result.loading { border-left-color: var(--bs-secondary); }
+.doi-result .status { font-size: 0.85rem; padding: 0.4em 0.7em; }
+.doi-result .citation { margin: 0.75rem 0 0.15rem; }
+.doi-result .citation .who { font-weight: 600; }
+.doi-result .doi-text { font-family: var(--bs-font-monospace); font-size: 0.85rem; color: var(--dc-muted); }
+.doi-result ul.notices { list-style: none; padding: 0; margin: 0.75rem 0 0; }
+.doi-result ul.notices li { padding: 0.4rem 0; border-top: 1px solid var(--dc-border); font-size: 0.9rem; }
+.doi-result ul.notices li .meta { color: var(--dc-muted); }
+.doi-result .actions { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem; }
+/* INSPECT-SR table: rows whose first cell is entirely bold are domain subheadings; checks are indented beneath them */
+.inspect-sr-table tbody tr:has(> td:first-child > strong:only-child) > td {
+  background-color: color-mix(in srgb, var(--bs-body-color) 7%, var(--bs-body-bg));
+  border-top: 2px solid color-mix(in srgb, var(--bs-body-color) 35%, var(--bs-body-bg));
+  padding-top: 0.6rem; padding-bottom: 0.6rem;
+}
+.inspect-sr-table tbody tr:not(:has(> td:first-child > strong:only-child)) > td:first-child { padding-left: 1.75rem; }
+.doi-result .checked { display: flex; flex-wrap: wrap; gap: 0.25rem 0.9rem; margin-top: 0.75rem; font-size: 0.8rem; color: var(--dc-muted); }
+.doi-result .checked .unavailable { color: var(--bs-warning); }
+.doi-result .note { font-size: 0.85rem; color: var(--dc-muted); margin-top: 0.5rem; }
+.doi-result .coverage {
+  display: flex; gap: 0.5rem; align-items: flex-start; margin-top: 1rem; padding: 0.6rem 0.75rem;
+  font-size: 0.875rem; background: var(--dc-bg); border: 1px solid var(--dc-border); border-radius: 0.375rem;
+}
+</style>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="198" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 197;"><span id="cb1-198"><a href="#cb1-198" aria-hidden="true" tabindex="-1"></a>viewof doi <span class="op">=</span> {</span>
+<span id="cb1-199"><a href="#cb1-199" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> initial <span class="op">=</span> <span class="st">"10.1177/0269215520923135"</span><span class="op">;</span></span>
+<span id="cb1-200"><a href="#cb1-200" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> examples <span class="op">=</span> [</span>
+<span id="cb1-201"><a href="#cb1-201" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">label</span><span class="op">:</span> <span class="st">"Retracted"</span><span class="op">,</span> <span class="dt">doi</span><span class="op">:</span> <span class="st">"10.1177/0269215520923135"</span>}<span class="op">,</span></span>
+<span id="cb1-202"><a href="#cb1-202" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">label</span><span class="op">:</span> <span class="st">"Not retracted"</span><span class="op">,</span> <span class="dt">doi</span><span class="op">:</span> <span class="st">"10.1177/25152459241287123"</span>}</span>
+<span id="cb1-203"><a href="#cb1-203" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">;</span></span>
+<span id="cb1-204"><a href="#cb1-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-205"><a href="#cb1-205" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> input <span class="op">=</span> <span class="fu">html</span><span class="vs">`&lt;input class="form-control font-monospace" type="text" spellcheck="false" autocomplete="off"</span></span>
+<span id="cb1-206"><a href="#cb1-206" aria-hidden="true" tabindex="-1"></a><span class="vs">    aria-label="DOI" placeholder="e.g., 10.1177/0269215520923135 or https://doi.org/..."&gt;`</span><span class="op">;</span></span>
+<span id="cb1-207"><a href="#cb1-207" aria-hidden="true" tabindex="-1"></a>  input<span class="op">.</span><span class="at">value</span> <span class="op">=</span> initial<span class="op">;</span></span>
+<span id="cb1-208"><a href="#cb1-208" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Only update the result when the form is submitted, not on every keystroke</span></span>
+<span id="cb1-209"><a href="#cb1-209" aria-hidden="true" tabindex="-1"></a>  input<span class="op">.</span><span class="fu">addEventListener</span>(<span class="st">"input"</span><span class="op">,</span> e <span class="kw">=&gt;</span> e<span class="op">.</span><span class="fu">stopPropagation</span>())<span class="op">;</span></span>
+<span id="cb1-210"><a href="#cb1-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-211"><a href="#cb1-211" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> form <span class="op">=</span> <span class="fu">html</span><span class="vs">`&lt;form class="input-group"&gt;</span></span>
+<span id="cb1-212"><a href="#cb1-212" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;span class="input-group-text"&gt;DOI&lt;/span&gt;</span></span>
+<span id="cb1-213"><a href="#cb1-213" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span>input<span class="sc">}</span></span>
+<span id="cb1-214"><a href="#cb1-214" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;button class="btn btn-primary" type="submit"&gt;&lt;i class="bi bi-search"&gt;&lt;/i&gt; Check&lt;/button&gt;</span></span>
+<span id="cb1-215"><a href="#cb1-215" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/form&gt;`</span><span class="op">;</span></span>
+<span id="cb1-216"><a href="#cb1-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-217"><a href="#cb1-217" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> exampleRow <span class="op">=</span> ({label<span class="op">,</span> doi}) <span class="kw">=&gt;</span> {</span>
+<span id="cb1-218"><a href="#cb1-218" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> useBtn <span class="op">=</span> <span class="fu">html</span><span class="vs">`&lt;button type="button" class="btn btn-outline-primary" title="Check this DOI"&gt;Try it&lt;/button&gt;`</span><span class="op">;</span></span>
+<span id="cb1-219"><a href="#cb1-219" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> copyBtn <span class="op">=</span> <span class="fu">html</span><span class="vs">`&lt;button type="button" class="btn btn-outline-secondary" title="Copy DOI"&gt;&lt;i class="bi bi-clipboard"&gt;&lt;/i&gt;&lt;/button&gt;`</span><span class="op">;</span></span>
+<span id="cb1-220"><a href="#cb1-220" aria-hidden="true" tabindex="-1"></a>    useBtn<span class="op">.</span><span class="at">onclick</span> <span class="op">=</span> () <span class="kw">=&gt;</span> { input<span class="op">.</span><span class="at">value</span> <span class="op">=</span> doi<span class="op">;</span> <span class="fu">run</span>()<span class="op">;</span> }<span class="op">;</span></span>
+<span id="cb1-221"><a href="#cb1-221" aria-hidden="true" tabindex="-1"></a>    copyBtn<span class="op">.</span><span class="at">onclick</span> <span class="op">=</span> <span class="kw">async</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb1-222"><a href="#cb1-222" aria-hidden="true" tabindex="-1"></a>      <span class="cf">try</span> {</span>
+<span id="cb1-223"><a href="#cb1-223" aria-hidden="true" tabindex="-1"></a>        <span class="cf">await</span> <span class="bu">navigator</span><span class="op">.</span><span class="at">clipboard</span><span class="op">.</span><span class="fu">writeText</span>(doi)<span class="op">;</span></span>
+<span id="cb1-224"><a href="#cb1-224" aria-hidden="true" tabindex="-1"></a>        copyBtn<span class="op">.</span><span class="at">innerHTML</span> <span class="op">=</span> <span class="vs">`&lt;i class="bi bi-check2"&gt;&lt;/i&gt;`</span><span class="op">;</span></span>
+<span id="cb1-225"><a href="#cb1-225" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">catch</span> (e) {</span>
+<span id="cb1-226"><a href="#cb1-226" aria-hidden="true" tabindex="-1"></a>        copyBtn<span class="op">.</span><span class="at">innerHTML</span> <span class="op">=</span> <span class="vs">`&lt;i class="bi bi-x"&gt;&lt;/i&gt;`</span><span class="op">;</span></span>
+<span id="cb1-227"><a href="#cb1-227" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb1-228"><a href="#cb1-228" aria-hidden="true" tabindex="-1"></a>      <span class="pp">setTimeout</span>(() <span class="kw">=&gt;</span> (copyBtn<span class="op">.</span><span class="at">innerHTML</span> <span class="op">=</span> <span class="vs">`&lt;i class="bi bi-clipboard"&gt;&lt;/i&gt;`</span>)<span class="op">,</span> <span class="dv">1500</span>)<span class="op">;</span></span>
+<span id="cb1-229"><a href="#cb1-229" aria-hidden="true" tabindex="-1"></a>    }<span class="op">;</span></span>
+<span id="cb1-230"><a href="#cb1-230" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">html</span><span class="vs">`&lt;div class="example"&gt;&lt;span class="example-label"&gt;</span><span class="sc">${</span>label<span class="sc">}</span><span class="vs">&lt;/span&gt;&lt;code&gt;</span><span class="sc">${</span>doi<span class="sc">}</span><span class="vs">&lt;/code&gt;</span><span class="sc">${</span>useBtn<span class="sc">}${</span>copyBtn<span class="sc">}</span><span class="vs">&lt;/div&gt;`</span><span class="op">;</span></span>
+<span id="cb1-231"><a href="#cb1-231" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
+<span id="cb1-232"><a href="#cb1-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-233"><a href="#cb1-233" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> <span class="bu">root</span> <span class="op">=</span> <span class="fu">html</span><span class="vs">`&lt;div class="doi-checker"&gt;</span></span>
+<span id="cb1-234"><a href="#cb1-234" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span>form<span class="sc">}</span></span>
+<span id="cb1-235"><a href="#cb1-235" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;div class="examples"&gt;</span></span>
+<span id="cb1-236"><a href="#cb1-236" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;div class="examples-title"&gt;Examples&lt;/div&gt;</span></span>
+<span id="cb1-237"><a href="#cb1-237" aria-hidden="true" tabindex="-1"></a><span class="vs">      </span><span class="sc">${</span>examples<span class="op">.</span><span class="fu">map</span>(exampleRow)<span class="sc">}</span></span>
+<span id="cb1-238"><a href="#cb1-238" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;/div&gt;</span></span>
+<span id="cb1-239"><a href="#cb1-239" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;`</span><span class="op">;</span></span>
+<span id="cb1-240"><a href="#cb1-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-241"><a href="#cb1-241" aria-hidden="true" tabindex="-1"></a>  <span class="bu">root</span><span class="op">.</span><span class="at">value</span> <span class="op">=</span> initial<span class="op">;</span></span>
+<span id="cb1-242"><a href="#cb1-242" aria-hidden="true" tabindex="-1"></a>  <span class="kw">function</span> <span class="fu">run</span>() {</span>
+<span id="cb1-243"><a href="#cb1-243" aria-hidden="true" tabindex="-1"></a>    <span class="bu">root</span><span class="op">.</span><span class="at">value</span> <span class="op">=</span> input<span class="op">.</span><span class="at">value</span><span class="op">;</span></span>
+<span id="cb1-244"><a href="#cb1-244" aria-hidden="true" tabindex="-1"></a>    <span class="bu">root</span><span class="op">.</span><span class="fu">dispatchEvent</span>(<span class="kw">new</span> <span class="bu">Event</span>(<span class="st">"input"</span><span class="op">,</span> {<span class="dt">bubbles</span><span class="op">:</span> <span class="kw">true</span>}))<span class="op">;</span></span>
+<span id="cb1-245"><a href="#cb1-245" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-246"><a href="#cb1-246" aria-hidden="true" tabindex="-1"></a>  form<span class="op">.</span><span class="at">onsubmit</span> <span class="op">=</span> e <span class="kw">=&gt;</span> { e<span class="op">.</span><span class="fu">preventDefault</span>()<span class="op">;</span> <span class="fu">run</span>()<span class="op">;</span> }<span class="op">;</span></span>
+<span id="cb1-247"><a href="#cb1-247" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="bu">root</span><span class="op">;</span></span>
+<span id="cb1-248"><a href="#cb1-248" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="258" data-source-offset="-319"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 257;"><span id="cb2-258"><a href="#cb2-258" aria-hidden="true" tabindex="-1"></a><span class="kw">async</span> <span class="kw">function</span> <span class="fu">lookupDoi</span>(d) {</span>
+<span id="cb2-259"><a href="#cb2-259" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> [cr<span class="op">,</span> pm] <span class="op">=</span> <span class="cf">await</span> <span class="bu">Promise</span><span class="op">.</span><span class="fu">all</span>([<span class="fu">lookupCrossref</span>(d)<span class="op">,</span> <span class="fu">lookupPubmed</span>(d)])<span class="op">;</span></span>
+<span id="cb2-260"><a href="#cb2-260" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (cr<span class="op">.</span><span class="at">status</span> <span class="op">!==</span> <span class="st">"ok"</span> <span class="op">&amp;&amp;</span> pm<span class="op">.</span><span class="at">status</span> <span class="op">!==</span> <span class="st">"ok"</span>) {</span>
+<span id="cb2-261"><a href="#cb2-261" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {<span class="dt">status</span><span class="op">:</span> <span class="st">"error"</span><span class="op">,</span> <span class="dt">message</span><span class="op">:</span> cr<span class="op">.</span><span class="at">message</span><span class="op">,</span> <span class="dt">pubmed</span><span class="op">:</span> pm}<span class="op">;</span></span>
+<span id="cb2-262"><a href="#cb2-262" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-263"><a href="#cb2-263" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Use Crossref for the reference where possible, otherwise PubMed</span></span>
+<span id="cb2-264"><a href="#cb2-264" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> ref <span class="op">=</span> cr<span class="op">.</span><span class="at">status</span> <span class="op">===</span> <span class="st">"ok"</span> <span class="op">?</span> cr <span class="op">:</span> pm<span class="op">;</span></span>
+<span id="cb2-265"><a href="#cb2-265" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> notices <span class="op">=</span> [</span>
+<span id="cb2-266"><a href="#cb2-266" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span>(cr<span class="op">.</span><span class="at">status</span> <span class="op">===</span> <span class="st">"ok"</span> <span class="op">?</span> cr<span class="op">.</span><span class="at">notices</span> <span class="op">:</span> [])<span class="op">,</span></span>
+<span id="cb2-267"><a href="#cb2-267" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span>(pm<span class="op">.</span><span class="at">status</span> <span class="op">===</span> <span class="st">"ok"</span> <span class="op">?</span> pm<span class="op">.</span><span class="at">notices</span> <span class="op">:</span> [])<span class="op">,</span></span>
+<span id="cb2-268"><a href="#cb2-268" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span><span class="fu">titleNotices</span>(ref<span class="op">.</span><span class="at">title</span>)</span>
+<span id="cb2-269"><a href="#cb2-269" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">;</span></span>
+<span id="cb2-270"><a href="#cb2-270" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> types <span class="op">=</span> <span class="kw">new</span> <span class="bu">Set</span>(notices<span class="op">.</span><span class="fu">map</span>(n <span class="kw">=&gt;</span> n<span class="op">.</span><span class="at">type</span>))<span class="op">;</span></span>
+<span id="cb2-271"><a href="#cb2-271" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> kind <span class="op">=</span> types<span class="op">.</span><span class="fu">has</span>(<span class="st">"retraction"</span>) <span class="op">?</span> <span class="st">"retracted"</span></span>
+<span id="cb2-272"><a href="#cb2-272" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> types<span class="op">.</span><span class="fu">has</span>(<span class="st">"concern"</span>) <span class="op">?</span> <span class="st">"concern"</span></span>
+<span id="cb2-273"><a href="#cb2-273" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> notices<span class="op">.</span><span class="at">length</span> <span class="op">?</span> <span class="st">"other"</span></span>
+<span id="cb2-274"><a href="#cb2-274" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> <span class="st">"clean"</span><span class="op">;</span></span>
+<span id="cb2-275"><a href="#cb2-275" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> {</span>
+<span id="cb2-276"><a href="#cb2-276" aria-hidden="true" tabindex="-1"></a>    <span class="dt">status</span><span class="op">:</span> <span class="st">"ok"</span><span class="op">,</span> <span class="dt">authors</span><span class="op">:</span> ref<span class="op">.</span><span class="at">authors</span><span class="op">,</span> <span class="dt">year</span><span class="op">:</span> ref<span class="op">.</span><span class="at">year</span><span class="op">,</span> <span class="dt">title</span><span class="op">:</span> ref<span class="op">.</span><span class="at">title</span><span class="op">,</span> <span class="dt">journal</span><span class="op">:</span> ref<span class="op">.</span><span class="at">journal</span><span class="op">,</span></span>
+<span id="cb2-277"><a href="#cb2-277" aria-hidden="true" tabindex="-1"></a>    notices<span class="op">,</span> kind<span class="op">,</span> <span class="dt">isNotice</span><span class="op">:</span> cr<span class="op">.</span><span class="at">status</span> <span class="op">===</span> <span class="st">"ok"</span> <span class="op">&amp;&amp;</span> cr<span class="op">.</span><span class="at">isNotice</span><span class="op">,</span> <span class="dt">crossref</span><span class="op">:</span> cr<span class="op">,</span> <span class="dt">pubmed</span><span class="op">:</span> pm</span>
+<span id="cb2-278"><a href="#cb2-278" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
+<span id="cb2-279"><a href="#cb2-279" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-280"><a href="#cb2-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-281"><a href="#cb2-281" aria-hidden="true" tabindex="-1"></a>cleanText <span class="op">=</span> x <span class="kw">=&gt;</span> (x <span class="op">??</span> <span class="st">""</span>)<span class="op">.</span><span class="fu">replace</span>(<span class="ss">/&lt;</span><span class="sc">[^&gt;]+</span><span class="ss">&gt;/g</span><span class="op">,</span> <span class="st">""</span>)<span class="op">.</span><span class="fu">replace</span>(<span class="ss">/</span><span class="sc">\s+</span><span class="ss">/g</span><span class="op">,</span> <span class="st">" "</span>)<span class="op">.</span><span class="fu">trim</span>()<span class="op">;</span></span>
+<span id="cb2-282"><a href="#cb2-282" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-283"><a href="#cb2-283" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">formatAuthors</span>(names) {</span>
+<span id="cb2-284"><a href="#cb2-284" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> names<span class="op">.</span><span class="at">length</span> <span class="op">===</span> <span class="dv">0</span> <span class="op">?</span> <span class="st">"Unknown authors"</span></span>
+<span id="cb2-285"><a href="#cb2-285" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> names<span class="op">.</span><span class="at">length</span> <span class="op">===</span> <span class="dv">1</span> <span class="op">?</span> names[<span class="dv">0</span>]</span>
+<span id="cb2-286"><a href="#cb2-286" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> names<span class="op">.</span><span class="fu">slice</span>(<span class="dv">0</span><span class="op">,</span> <span class="op">-</span><span class="dv">1</span>)<span class="op">.</span><span class="fu">join</span>(<span class="st">", "</span>) <span class="op">+</span> (names<span class="op">.</span><span class="at">length</span> <span class="op">&gt;</span> <span class="dv">2</span> <span class="op">?</span> <span class="st">","</span> <span class="op">:</span> <span class="st">""</span>) <span class="op">+</span> <span class="st">" &amp; "</span> <span class="op">+</span> names<span class="op">.</span><span class="fu">at</span>(<span class="op">-</span><span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb2-287"><a href="#cb2-287" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-288"><a href="#cb2-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-289"><a href="#cb2-289" aria-hidden="true" tabindex="-1"></a><span class="kw">async</span> <span class="kw">function</span> <span class="fu">lookupCrossref</span>(d) {</span>
+<span id="cb2-290"><a href="#cb2-290" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> r<span class="op">;</span></span>
+<span id="cb2-291"><a href="#cb2-291" aria-hidden="true" tabindex="-1"></a>  <span class="cf">try</span> {</span>
+<span id="cb2-292"><a href="#cb2-292" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> <span class="cf">await</span> <span class="fu">fetch</span>(<span class="vs">`https://api.crossref.org/works/</span><span class="sc">${</span><span class="pp">encodeURIComponent</span>(d)<span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
+<span id="cb2-293"><a href="#cb2-293" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">catch</span> (e) {</span>
+<span id="cb2-294"><a href="#cb2-294" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {<span class="dt">status</span><span class="op">:</span> <span class="st">"error"</span><span class="op">,</span> <span class="dt">message</span><span class="op">:</span> <span class="st">"Could not reach Crossref. Check your connection and try again."</span>}<span class="op">;</span></span>
+<span id="cb2-295"><a href="#cb2-295" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-296"><a href="#cb2-296" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (r<span class="op">.</span><span class="at">status</span> <span class="op">===</span> <span class="dv">404</span>) <span class="cf">return</span> {<span class="dt">status</span><span class="op">:</span> <span class="st">"notfound"</span><span class="op">,</span> <span class="dt">message</span><span class="op">:</span> <span class="st">"This DOI was not found in Crossref or PubMed. It may be mistyped, or registered with another agency (e.g., DataCite)."</span>}<span class="op">;</span></span>
+<span id="cb2-297"><a href="#cb2-297" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="op">!</span>r<span class="op">.</span><span class="at">ok</span>) <span class="cf">return</span> {<span class="dt">status</span><span class="op">:</span> <span class="st">"error"</span><span class="op">,</span> <span class="dt">message</span><span class="op">:</span> <span class="vs">`Crossref returned an error (</span><span class="sc">${</span>r<span class="op">.</span><span class="at">status</span><span class="sc">}</span><span class="vs">). Try again later.`</span>}<span class="op">;</span></span>
+<span id="cb2-298"><a href="#cb2-298" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> m <span class="op">=</span> (<span class="cf">await</span> r<span class="op">.</span><span class="fu">json</span>())<span class="op">.</span><span class="at">message</span><span class="op">;</span></span>
+<span id="cb2-299"><a href="#cb2-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-300"><a href="#cb2-300" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> typeOf <span class="op">=</span> t <span class="kw">=&gt;</span> [<span class="st">"retraction"</span><span class="op">,</span> <span class="st">"withdrawal"</span><span class="op">,</span> <span class="st">"removal"</span>]<span class="op">.</span><span class="fu">includes</span>(t) <span class="op">?</span> <span class="st">"retraction"</span></span>
+<span id="cb2-301"><a href="#cb2-301" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> t <span class="op">===</span> <span class="st">"expression_of_concern"</span> <span class="op">?</span> <span class="st">"concern"</span></span>
+<span id="cb2-302"><a href="#cb2-302" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> [<span class="st">"correction"</span><span class="op">,</span> <span class="st">"erratum"</span><span class="op">,</span> <span class="st">"corrigendum"</span>]<span class="op">.</span><span class="fu">includes</span>(t) <span class="op">?</span> <span class="st">"correction"</span></span>
+<span id="cb2-303"><a href="#cb2-303" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> <span class="st">"other"</span><span class="op">;</span></span>
+<span id="cb2-304"><a href="#cb2-304" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Deduplicate: Crossref can list the same notice more than once</span></span>
+<span id="cb2-305"><a href="#cb2-305" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> seen <span class="op">=</span> <span class="kw">new</span> <span class="bu">Set</span>()<span class="op">;</span></span>
+<span id="cb2-306"><a href="#cb2-306" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> notices <span class="op">=</span> (m[<span class="st">"updated-by"</span>] <span class="op">??</span> [])<span class="op">.</span><span class="fu">filter</span>(u <span class="kw">=&gt;</span> {</span>
+<span id="cb2-307"><a href="#cb2-307" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> key <span class="op">=</span> <span class="vs">`</span><span class="sc">${</span>u<span class="op">.</span><span class="at">type</span><span class="sc">}</span><span class="vs">|</span><span class="sc">${</span>(u<span class="op">.</span><span class="at">DOI</span> <span class="op">??</span> <span class="st">""</span>)<span class="op">.</span><span class="fu">toLowerCase</span>()<span class="sc">}</span><span class="vs">|</span><span class="sc">${</span>u<span class="op">.</span><span class="at">source</span><span class="sc">}</span><span class="vs">`</span><span class="op">;</span></span>
+<span id="cb2-308"><a href="#cb2-308" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> seen<span class="op">.</span><span class="fu">has</span>(key) <span class="op">?</span> <span class="kw">false</span> <span class="op">:</span> (seen<span class="op">.</span><span class="fu">add</span>(key)<span class="op">,</span> <span class="kw">true</span>)<span class="op">;</span></span>
+<span id="cb2-309"><a href="#cb2-309" aria-hidden="true" tabindex="-1"></a>  })<span class="op">.</span><span class="fu">map</span>(u <span class="kw">=&gt;</span> ({</span>
+<span id="cb2-310"><a href="#cb2-310" aria-hidden="true" tabindex="-1"></a>    <span class="dt">type</span><span class="op">:</span> <span class="fu">typeOf</span>(u<span class="op">.</span><span class="at">type</span>)<span class="op">,</span></span>
+<span id="cb2-311"><a href="#cb2-311" aria-hidden="true" tabindex="-1"></a>    <span class="dt">label</span><span class="op">:</span> u<span class="op">.</span><span class="at">label</span> <span class="op">??</span> u<span class="op">.</span><span class="at">type</span><span class="op">,</span></span>
+<span id="cb2-312"><a href="#cb2-312" aria-hidden="true" tabindex="-1"></a>    <span class="dt">date</span><span class="op">:</span> u<span class="op">.</span><span class="at">updated</span><span class="op">?.</span>[<span class="st">"date-parts"</span>]<span class="op">?.</span>[<span class="dv">0</span>]<span class="op">?.</span><span class="fu">map</span>(x <span class="kw">=&gt;</span> <span class="bu">String</span>(x)<span class="op">.</span><span class="fu">padStart</span>(<span class="dv">2</span><span class="op">,</span> <span class="st">"0"</span>))<span class="op">.</span><span class="fu">join</span>(<span class="st">"-"</span>)<span class="op">,</span></span>
+<span id="cb2-313"><a href="#cb2-313" aria-hidden="true" tabindex="-1"></a>    <span class="dt">source</span><span class="op">:</span> u<span class="op">.</span><span class="at">source</span> <span class="op">===</span> <span class="st">"retraction-watch"</span> <span class="op">?</span> <span class="st">"Crossref (Retraction Watch)"</span> <span class="op">:</span> <span class="st">"Crossref (publisher)"</span><span class="op">,</span></span>
+<span id="cb2-314"><a href="#cb2-314" aria-hidden="true" tabindex="-1"></a>    <span class="dt">url</span><span class="op">:</span> u<span class="op">.</span><span class="at">DOI</span> <span class="op">&amp;&amp;</span> u<span class="op">.</span><span class="at">DOI</span><span class="op">.</span><span class="fu">toLowerCase</span>() <span class="op">!==</span> d<span class="op">.</span><span class="fu">toLowerCase</span>() <span class="op">?</span> <span class="vs">`https://doi.org/</span><span class="sc">${</span><span class="pp">encodeURI</span>(u<span class="op">.</span><span class="at">DOI</span>)<span class="sc">}</span><span class="vs">`</span> <span class="op">:</span> <span class="kw">null</span></span>
+<span id="cb2-315"><a href="#cb2-315" aria-hidden="true" tabindex="-1"></a>  }))<span class="op">;</span></span>
+<span id="cb2-316"><a href="#cb2-316" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-317"><a href="#cb2-317" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> {</span>
+<span id="cb2-318"><a href="#cb2-318" aria-hidden="true" tabindex="-1"></a>    <span class="dt">status</span><span class="op">:</span> <span class="st">"ok"</span><span class="op">,</span> notices<span class="op">,</span></span>
+<span id="cb2-319"><a href="#cb2-319" aria-hidden="true" tabindex="-1"></a>    <span class="dt">authors</span><span class="op">:</span> <span class="fu">formatAuthors</span>((m<span class="op">.</span><span class="at">author</span> <span class="op">??</span> [])<span class="op">.</span><span class="fu">map</span>(a <span class="kw">=&gt;</span> a<span class="op">.</span><span class="at">family</span> <span class="op">??</span> a<span class="op">.</span><span class="at">name</span>)<span class="op">.</span><span class="fu">filter</span>(<span class="bu">Boolean</span>))<span class="op">,</span></span>
+<span id="cb2-320"><a href="#cb2-320" aria-hidden="true" tabindex="-1"></a>    <span class="dt">year</span><span class="op">:</span> (m<span class="op">.</span><span class="at">issued</span> <span class="op">??</span> m<span class="op">.</span><span class="at">published</span> <span class="op">??</span> m<span class="op">.</span><span class="at">created</span>)<span class="op">?.</span>[<span class="st">"date-parts"</span>]<span class="op">?.</span>[<span class="dv">0</span>]<span class="op">?.</span>[<span class="dv">0</span>] <span class="op">??</span> <span class="st">"n.d."</span><span class="op">,</span></span>
+<span id="cb2-321"><a href="#cb2-321" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span><span class="op">:</span> <span class="fu">cleanText</span>(m<span class="op">.</span><span class="at">title</span><span class="op">?.</span>[<span class="dv">0</span>]) <span class="op">||</span> <span class="st">"(untitled)"</span><span class="op">,</span></span>
+<span id="cb2-322"><a href="#cb2-322" aria-hidden="true" tabindex="-1"></a>    <span class="dt">journal</span><span class="op">:</span> <span class="fu">cleanText</span>(m[<span class="st">"container-title"</span>]<span class="op">?.</span>[<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb2-323"><a href="#cb2-323" aria-hidden="true" tabindex="-1"></a>    <span class="dt">isNotice</span><span class="op">:</span> (m[<span class="st">"update-to"</span>] <span class="op">??</span> [])<span class="op">.</span><span class="fu">some</span>(u <span class="kw">=&gt;</span> (u<span class="op">.</span><span class="at">DOI</span> <span class="op">??</span> <span class="st">""</span>)<span class="op">.</span><span class="fu">toLowerCase</span>() <span class="op">!==</span> d<span class="op">.</span><span class="fu">toLowerCase</span>())</span>
+<span id="cb2-324"><a href="#cb2-324" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
+<span id="cb2-325"><a href="#cb2-325" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-326"><a href="#cb2-326" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-327"><a href="#cb2-327" aria-hidden="true" tabindex="-1"></a><span class="kw">async</span> <span class="kw">function</span> <span class="fu">lookupPubmed</span>(d) {</span>
+<span id="cb2-328"><a href="#cb2-328" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> eutils <span class="op">=</span> <span class="st">"https://eutils.ncbi.nlm.nih.gov/entrez/eutils"</span><span class="op">;</span></span>
+<span id="cb2-329"><a href="#cb2-329" aria-hidden="true" tabindex="-1"></a>  <span class="cf">try</span> {</span>
+<span id="cb2-330"><a href="#cb2-330" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> s <span class="op">=</span> <span class="cf">await</span> <span class="fu">fetch</span>(<span class="vs">`</span><span class="sc">${</span>eutils<span class="sc">}</span><span class="vs">/esearch.fcgi?db=pubmed&amp;retmode=json&amp;tool=trustworthyresearch&amp;term=</span><span class="sc">${</span><span class="pp">encodeURIComponent</span>(d <span class="op">+</span> <span class="st">"[doi]"</span>)<span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
+<span id="cb2-331"><a href="#cb2-331" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="op">!</span>s<span class="op">.</span><span class="at">ok</span>) <span class="cf">return</span> {<span class="dt">status</span><span class="op">:</span> <span class="st">"error"</span>}<span class="op">;</span></span>
+<span id="cb2-332"><a href="#cb2-332" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> ids <span class="op">=</span> (<span class="cf">await</span> s<span class="op">.</span><span class="fu">json</span>())<span class="op">.</span><span class="at">esearchresult</span><span class="op">?.</span><span class="at">idlist</span> <span class="op">??</span> []<span class="op">;</span></span>
+<span id="cb2-333"><a href="#cb2-333" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="op">!</span>ids<span class="op">.</span><span class="at">length</span>) <span class="cf">return</span> {<span class="dt">status</span><span class="op">:</span> <span class="st">"notfound"</span>}<span class="op">;</span></span>
+<span id="cb2-334"><a href="#cb2-334" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> r <span class="op">=</span> <span class="cf">await</span> <span class="fu">fetch</span>(<span class="vs">`</span><span class="sc">${</span>eutils<span class="sc">}</span><span class="vs">/esummary.fcgi?db=pubmed&amp;retmode=json&amp;tool=trustworthyresearch&amp;id=</span><span class="sc">${</span>ids<span class="op">.</span><span class="fu">slice</span>(<span class="dv">0</span><span class="op">,</span> <span class="dv">5</span>)<span class="op">.</span><span class="fu">join</span>(<span class="st">","</span>)<span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
+<span id="cb2-335"><a href="#cb2-335" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="op">!</span>r<span class="op">.</span><span class="at">ok</span>) <span class="cf">return</span> {<span class="dt">status</span><span class="op">:</span> <span class="st">"error"</span>}<span class="op">;</span></span>
+<span id="cb2-336"><a href="#cb2-336" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> result <span class="op">=</span> (<span class="cf">await</span> r<span class="op">.</span><span class="fu">json</span>())<span class="op">.</span><span class="at">result</span> <span class="op">??</span> {}<span class="op">;</span></span>
+<span id="cb2-337"><a href="#cb2-337" aria-hidden="true" tabindex="-1"></a>    <span class="co">// PubMed's DOI search is fuzzy, so keep only a record whose DOI matches exactly</span></span>
+<span id="cb2-338"><a href="#cb2-338" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> rec <span class="op">=</span> (result<span class="op">.</span><span class="at">uids</span> <span class="op">??</span> [])<span class="op">.</span><span class="fu">map</span>(u <span class="kw">=&gt;</span> result[u])<span class="op">.</span><span class="fu">find</span>(x <span class="kw">=&gt;</span></span>
+<span id="cb2-339"><a href="#cb2-339" aria-hidden="true" tabindex="-1"></a>      (x<span class="op">.</span><span class="at">articleids</span> <span class="op">??</span> [])<span class="op">.</span><span class="fu">some</span>(a <span class="kw">=&gt;</span> a<span class="op">.</span><span class="at">idtype</span> <span class="op">===</span> <span class="st">"doi"</span> <span class="op">&amp;&amp;</span> a<span class="op">.</span><span class="at">value</span><span class="op">.</span><span class="fu">toLowerCase</span>() <span class="op">===</span> d<span class="op">.</span><span class="fu">toLowerCase</span>()))<span class="op">;</span></span>
+<span id="cb2-340"><a href="#cb2-340" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="op">!</span>rec) <span class="cf">return</span> {<span class="dt">status</span><span class="op">:</span> <span class="st">"notfound"</span>}<span class="op">;</span></span>
+<span id="cb2-341"><a href="#cb2-341" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-342"><a href="#cb2-342" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> refTypes <span class="op">=</span> {</span>
+<span id="cb2-343"><a href="#cb2-343" aria-hidden="true" tabindex="-1"></a>      <span class="st">"retraction in"</span><span class="op">:</span> [<span class="st">"retraction"</span><span class="op">,</span> <span class="st">"Retraction"</span>]<span class="op">,</span></span>
+<span id="cb2-344"><a href="#cb2-344" aria-hidden="true" tabindex="-1"></a>      <span class="st">"retracted and republished in"</span><span class="op">:</span> [<span class="st">"retraction"</span><span class="op">,</span> <span class="st">"Retracted and republished"</span>]<span class="op">,</span></span>
+<span id="cb2-345"><a href="#cb2-345" aria-hidden="true" tabindex="-1"></a>      <span class="st">"partial retraction in"</span><span class="op">:</span> [<span class="st">"other"</span><span class="op">,</span> <span class="st">"Partial retraction"</span>]<span class="op">,</span></span>
+<span id="cb2-346"><a href="#cb2-346" aria-hidden="true" tabindex="-1"></a>      <span class="st">"expression of concern in"</span><span class="op">:</span> [<span class="st">"concern"</span><span class="op">,</span> <span class="st">"Expression of concern"</span>]<span class="op">,</span></span>
+<span id="cb2-347"><a href="#cb2-347" aria-hidden="true" tabindex="-1"></a>      <span class="st">"erratum in"</span><span class="op">:</span> [<span class="st">"correction"</span><span class="op">,</span> <span class="st">"Erratum"</span>]</span>
+<span id="cb2-348"><a href="#cb2-348" aria-hidden="true" tabindex="-1"></a>    }<span class="op">;</span></span>
+<span id="cb2-349"><a href="#cb2-349" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> notices <span class="op">=</span> (rec<span class="op">.</span><span class="at">references</span> <span class="op">??</span> [])</span>
+<span id="cb2-350"><a href="#cb2-350" aria-hidden="true" tabindex="-1"></a>      <span class="op">.</span><span class="fu">filter</span>(x <span class="kw">=&gt;</span> refTypes[(x<span class="op">.</span><span class="at">reftype</span> <span class="op">??</span> <span class="st">""</span>)<span class="op">.</span><span class="fu">toLowerCase</span>()])</span>
+<span id="cb2-351"><a href="#cb2-351" aria-hidden="true" tabindex="-1"></a>      <span class="op">.</span><span class="fu">map</span>(x <span class="kw">=&gt;</span> {</span>
+<span id="cb2-352"><a href="#cb2-352" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> [type<span class="op">,</span> label] <span class="op">=</span> refTypes[x<span class="op">.</span><span class="at">reftype</span><span class="op">.</span><span class="fu">toLowerCase</span>()]<span class="op">;</span></span>
+<span id="cb2-353"><a href="#cb2-353" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> {</span>
+<span id="cb2-354"><a href="#cb2-354" aria-hidden="true" tabindex="-1"></a>          type<span class="op">,</span> label<span class="op">,</span> <span class="dt">date</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span> <span class="dt">citation</span><span class="op">:</span> (x<span class="op">.</span><span class="at">refsource</span> <span class="op">??</span> <span class="st">""</span>)<span class="op">.</span><span class="fu">replace</span>(<span class="ss">/</span><span class="sc">\s*</span><span class="ss">doi:.</span><span class="sc">*$</span><span class="ss">/i</span><span class="op">,</span> <span class="st">""</span>)<span class="op">,</span></span>
+<span id="cb2-355"><a href="#cb2-355" aria-hidden="true" tabindex="-1"></a>          <span class="dt">source</span><span class="op">:</span> <span class="st">"PubMed"</span><span class="op">,</span></span>
+<span id="cb2-356"><a href="#cb2-356" aria-hidden="true" tabindex="-1"></a>          <span class="dt">url</span><span class="op">:</span> x<span class="op">.</span><span class="at">pmid</span> <span class="op">?</span> <span class="vs">`https://pubmed.ncbi.nlm.nih.gov/</span><span class="sc">${</span>x<span class="op">.</span><span class="at">pmid</span><span class="sc">}</span><span class="vs">/`</span> <span class="op">:</span> <span class="kw">null</span></span>
+<span id="cb2-357"><a href="#cb2-357" aria-hidden="true" tabindex="-1"></a>        }<span class="op">;</span></span>
+<span id="cb2-358"><a href="#cb2-358" aria-hidden="true" tabindex="-1"></a>      })<span class="op">;</span></span>
+<span id="cb2-359"><a href="#cb2-359" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Retracted publications are also tagged with a publication type, even without a linked notice</span></span>
+<span id="cb2-360"><a href="#cb2-360" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> ((rec<span class="op">.</span><span class="at">pubtype</span> <span class="op">??</span> [])<span class="op">.</span><span class="fu">includes</span>(<span class="st">"Retracted Publication"</span>) <span class="op">&amp;&amp;</span> <span class="op">!</span>notices<span class="op">.</span><span class="fu">some</span>(n <span class="kw">=&gt;</span> n<span class="op">.</span><span class="at">type</span> <span class="op">===</span> <span class="st">"retraction"</span>)) {</span>
+<span id="cb2-361"><a href="#cb2-361" aria-hidden="true" tabindex="-1"></a>      notices<span class="op">.</span><span class="fu">push</span>({<span class="dt">type</span><span class="op">:</span> <span class="st">"retraction"</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Indexed as a retracted publication"</span><span class="op">,</span> <span class="dt">date</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span> <span class="dt">source</span><span class="op">:</span> <span class="st">"PubMed"</span><span class="op">,</span> <span class="dt">url</span><span class="op">:</span> <span class="kw">null</span>})<span class="op">;</span></span>
+<span id="cb2-362"><a href="#cb2-362" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-363"><a href="#cb2-363" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-364"><a href="#cb2-364" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {</span>
+<span id="cb2-365"><a href="#cb2-365" aria-hidden="true" tabindex="-1"></a>      <span class="dt">status</span><span class="op">:</span> <span class="st">"ok"</span><span class="op">,</span> <span class="dt">pmid</span><span class="op">:</span> rec<span class="op">.</span><span class="at">uid</span><span class="op">,</span> notices<span class="op">,</span></span>
+<span id="cb2-366"><a href="#cb2-366" aria-hidden="true" tabindex="-1"></a>      <span class="dt">authors</span><span class="op">:</span> <span class="fu">formatAuthors</span>((rec<span class="op">.</span><span class="at">authors</span> <span class="op">??</span> [])<span class="op">.</span><span class="fu">filter</span>(a <span class="kw">=&gt;</span> a<span class="op">.</span><span class="at">authtype</span> <span class="op">===</span> <span class="st">"Author"</span>)<span class="op">.</span><span class="fu">map</span>(a <span class="kw">=&gt;</span> a<span class="op">.</span><span class="at">name</span><span class="op">.</span><span class="fu">replace</span>(<span class="ss">/</span><span class="sc">\s+\S+$</span><span class="ss">/</span><span class="op">,</span> <span class="st">""</span>)))<span class="op">,</span></span>
+<span id="cb2-367"><a href="#cb2-367" aria-hidden="true" tabindex="-1"></a>      <span class="dt">year</span><span class="op">:</span> (rec<span class="op">.</span><span class="at">pubdate</span> <span class="op">??</span> <span class="st">""</span>)<span class="op">.</span><span class="fu">slice</span>(<span class="dv">0</span><span class="op">,</span> <span class="dv">4</span>) <span class="op">||</span> <span class="st">"n.d."</span><span class="op">,</span></span>
+<span id="cb2-368"><a href="#cb2-368" aria-hidden="true" tabindex="-1"></a>      <span class="dt">title</span><span class="op">:</span> <span class="fu">cleanText</span>(rec<span class="op">.</span><span class="at">title</span>) <span class="op">||</span> <span class="st">"(untitled)"</span><span class="op">,</span></span>
+<span id="cb2-369"><a href="#cb2-369" aria-hidden="true" tabindex="-1"></a>      <span class="dt">journal</span><span class="op">:</span> <span class="fu">cleanText</span>(rec<span class="op">.</span><span class="at">fulljournalname</span>)</span>
+<span id="cb2-370"><a href="#cb2-370" aria-hidden="true" tabindex="-1"></a>    }<span class="op">;</span></span>
+<span id="cb2-371"><a href="#cb2-371" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">catch</span> (e) {</span>
+<span id="cb2-372"><a href="#cb2-372" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {<span class="dt">status</span><span class="op">:</span> <span class="st">"error"</span>}<span class="op">;</span></span>
+<span id="cb2-373"><a href="#cb2-373" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-374"><a href="#cb2-374" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-375"><a href="#cb2-375" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-376"><a href="#cb2-376" aria-hidden="true" tabindex="-1"></a><span class="co">// Some publishers mark a retraction only by changing the article's title</span></span>
+<span id="cb2-377"><a href="#cb2-377" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">titleNotices</span>(title) {</span>
+<span id="cb2-378"><a href="#cb2-378" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> marked <span class="op">=</span> <span class="ss">/</span><span class="sc">^\W*(</span><span class="ss">retracted</span><span class="sc">|</span><span class="ss">withdrawn</span><span class="sc">|</span><span class="ss">removed</span><span class="sc">)\b</span><span class="ss">/i</span><span class="op">.</span><span class="fu">test</span>(title <span class="op">??</span> <span class="st">""</span>) <span class="op">||</span> <span class="ss">/</span><span class="sc">\((</span><span class="ss">retracted</span><span class="sc">|</span><span class="ss">withdrawn</span><span class="sc">)(</span><span class="ss"> article</span><span class="sc">|</span><span class="ss"> paper</span><span class="sc">)?\)</span><span class="ss">/i</span><span class="op">.</span><span class="fu">test</span>(title <span class="op">??</span> <span class="st">""</span>)<span class="op">;</span></span>
+<span id="cb2-379"><a href="#cb2-379" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> marked <span class="op">?</span> [{<span class="dt">type</span><span class="op">:</span> <span class="st">"retraction"</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Title marks the article as retracted or withdrawn"</span><span class="op">,</span> <span class="dt">date</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span> <span class="dt">source</span><span class="op">:</span> <span class="st">"Article title"</span><span class="op">,</span> <span class="dt">url</span><span class="op">:</span> <span class="kw">null</span>}] <span class="op">:</span> []<span class="op">;</span></span>
+<span id="cb2-380"><a href="#cb2-380" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-5" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-6" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="384" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 383;"><span id="cb3-384"><a href="#cb3-384" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb3-385"><a href="#cb3-385" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> d <span class="op">=</span> doi<span class="op">.</span><span class="fu">trim</span>()<span class="op">.</span><span class="fu">replace</span>(<span class="ss">/</span><span class="sc">^(</span><span class="ss">https</span><span class="sc">?</span><span class="ss">:</span><span class="sc">\/\/(</span><span class="ss">dx</span><span class="sc">\.)?</span><span class="ss">doi</span><span class="sc">\.</span><span class="ss">org</span><span class="sc">\/|</span><span class="ss">doi:</span><span class="sc">\s*)</span><span class="ss">/i</span><span class="op">,</span> <span class="st">""</span>)<span class="op">.</span><span class="fu">trim</span>()<span class="op">;</span></span>
+<span id="cb3-386"><a href="#cb3-386" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="op">!</span>d) <span class="cf">return</span> <span class="fu">html</span><span class="vs">``</span><span class="op">;</span></span>
+<span id="cb3-387"><a href="#cb3-387" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-388"><a href="#cb3-388" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> doiUrl <span class="op">=</span> x <span class="kw">=&gt;</span> <span class="vs">`https://doi.org/</span><span class="sc">${</span><span class="pp">encodeURI</span>(x)<span class="sc">}</span><span class="vs">`</span><span class="op">;</span></span>
+<span id="cb3-389"><a href="#cb3-389" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> makeLinks <span class="op">=</span> pmid <span class="kw">=&gt;</span> <span class="fu">html</span><span class="vs">`&lt;div class="actions"&gt;</span></span>
+<span id="cb3-390"><a href="#cb3-390" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;a class="btn btn-outline-primary btn-sm" href="</span><span class="sc">${</span><span class="fu">doiUrl</span>(d)<span class="sc">}</span><span class="vs">" target="_blank" rel="noopener"&gt;</span></span>
+<span id="cb3-391"><a href="#cb3-391" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;i class="bi bi-box-arrow-up-right"&gt;&lt;/i&gt; Publisher's page&lt;/a&gt;</span></span>
+<span id="cb3-392"><a href="#cb3-392" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;a class="btn btn-outline-primary btn-sm" href="https://pubpeer.com/search?q=</span><span class="sc">${</span><span class="pp">encodeURIComponent</span>(d)<span class="sc">}</span><span class="vs">" target="_blank" rel="noopener"&gt;</span></span>
+<span id="cb3-393"><a href="#cb3-393" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;i class="bi bi-chat-square-text"&gt;&lt;/i&gt; PubPeer comments&lt;/a&gt;</span></span>
+<span id="cb3-394"><a href="#cb3-394" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span>pmid <span class="op">?</span> <span class="fu">html</span><span class="vs">`&lt;a class="btn btn-outline-primary btn-sm" href="https://pubmed.ncbi.nlm.nih.gov/</span><span class="sc">${</span>pmid<span class="sc">}</span><span class="vs">/" target="_blank" rel="noopener"&gt;</span></span>
+<span id="cb3-395"><a href="#cb3-395" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;i class="bi bi-journal-medical"&gt;&lt;/i&gt; PubMed record&lt;/a&gt;`</span> <span class="op">:</span> <span class="st">""</span><span class="sc">}</span></span>
+<span id="cb3-396"><a href="#cb3-396" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;`</span><span class="op">;</span></span>
+<span id="cb3-397"><a href="#cb3-397" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-398"><a href="#cb3-398" aria-hidden="true" tabindex="-1"></a>  <span class="kw">yield</span> <span class="fu">html</span><span class="vs">`&lt;div class="doi-result loading"&gt;</span></span>
+<span id="cb3-399"><a href="#cb3-399" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;span class="spinner-border spinner-border-sm" role="status"&gt;&lt;/span&gt; Checking Crossref and PubMed for &lt;span class="doi-text"&gt;</span><span class="sc">${</span>d<span class="sc">}</span><span class="vs">&lt;/span&gt;...</span></span>
+<span id="cb3-400"><a href="#cb3-400" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;`</span><span class="op">;</span></span>
+<span id="cb3-401"><a href="#cb3-401" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-402"><a href="#cb3-402" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> res <span class="op">=</span> <span class="cf">await</span> <span class="fu">lookupDoi</span>(d)<span class="op">;</span></span>
+<span id="cb3-403"><a href="#cb3-403" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-404"><a href="#cb3-404" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (res<span class="op">.</span><span class="at">status</span> <span class="op">===</span> <span class="st">"error"</span>) {</span>
+<span id="cb3-405"><a href="#cb3-405" aria-hidden="true" tabindex="-1"></a>    <span class="kw">yield</span> <span class="fu">html</span><span class="vs">`&lt;div class="doi-result error"&gt;</span></span>
+<span id="cb3-406"><a href="#cb3-406" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;span class="badge text-bg-secondary status"&gt;&lt;i class="bi bi-exclamation-triangle-fill"&gt;&lt;/i&gt; Could not check&lt;/span&gt;</span></span>
+<span id="cb3-407"><a href="#cb3-407" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;div class="citation"&gt;</span><span class="sc">${</span>res<span class="op">.</span><span class="at">message</span><span class="sc">}</span><span class="vs">&lt;/div&gt;</span></span>
+<span id="cb3-408"><a href="#cb3-408" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;div class="doi-text"&gt;</span><span class="sc">${</span>d<span class="sc">}</span><span class="vs">&lt;/div&gt;</span></span>
+<span id="cb3-409"><a href="#cb3-409" aria-hidden="true" tabindex="-1"></a><span class="vs">      </span><span class="sc">${</span><span class="fu">makeLinks</span>(<span class="kw">null</span>)<span class="sc">}</span></span>
+<span id="cb3-410"><a href="#cb3-410" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;/div&gt;`</span><span class="op">;</span></span>
+<span id="cb3-411"><a href="#cb3-411" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb3-412"><a href="#cb3-412" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-413"><a href="#cb3-413" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-414"><a href="#cb3-414" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> badges <span class="op">=</span> {</span>
+<span id="cb3-415"><a href="#cb3-415" aria-hidden="true" tabindex="-1"></a>    <span class="dt">retracted</span><span class="op">:</span> <span class="fu">html</span><span class="vs">`&lt;span class="badge text-bg-danger status"&gt;&lt;i class="bi bi-x-octagon-fill"&gt;&lt;/i&gt; Retracted&lt;/span&gt;`</span><span class="op">,</span></span>
+<span id="cb3-416"><a href="#cb3-416" aria-hidden="true" tabindex="-1"></a>    <span class="dt">concern</span><span class="op">:</span> <span class="fu">html</span><span class="vs">`&lt;span class="badge text-bg-warning status"&gt;&lt;i class="bi bi-exclamation-triangle-fill"&gt;&lt;/i&gt; Expression of concern&lt;/span&gt;`</span><span class="op">,</span></span>
+<span id="cb3-417"><a href="#cb3-417" aria-hidden="true" tabindex="-1"></a>    <span class="dt">other</span><span class="op">:</span> <span class="fu">html</span><span class="vs">`&lt;span class="badge text-bg-info status"&gt;&lt;i class="bi bi-info-circle-fill"&gt;&lt;/i&gt; Other notices (e.g., corrections)&lt;/span&gt;`</span><span class="op">,</span></span>
+<span id="cb3-418"><a href="#cb3-418" aria-hidden="true" tabindex="-1"></a>    <span class="dt">clean</span><span class="op">:</span> <span class="fu">html</span><span class="vs">`&lt;span class="badge text-bg-success status"&gt;&lt;i class="bi bi-check-circle-fill"&gt;&lt;/i&gt; No notices found&lt;/span&gt;`</span></span>
+<span id="cb3-419"><a href="#cb3-419" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
+<span id="cb3-420"><a href="#cb3-420" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> icons <span class="op">=</span> {<span class="dt">retraction</span><span class="op">:</span> <span class="st">"bi-x-octagon"</span><span class="op">,</span> <span class="dt">concern</span><span class="op">:</span> <span class="st">"bi-exclamation-triangle"</span><span class="op">,</span> <span class="dt">correction</span><span class="op">:</span> <span class="st">"bi-pencil-square"</span><span class="op">,</span> <span class="dt">other</span><span class="op">:</span> <span class="st">"bi-file-earmark-text"</span>}<span class="op">;</span></span>
+<span id="cb3-421"><a href="#cb3-421" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> noticeItem <span class="op">=</span> n <span class="kw">=&gt;</span> <span class="fu">html</span><span class="vs">`&lt;li&gt;</span></span>
+<span id="cb3-422"><a href="#cb3-422" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;i class="bi </span><span class="sc">${</span>icons[n<span class="op">.</span><span class="at">type</span>]<span class="sc">}</span><span class="vs">"&gt;&lt;/i&gt;</span></span>
+<span id="cb3-423"><a href="#cb3-423" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;strong&gt;</span><span class="sc">${</span>n<span class="op">.</span><span class="at">label</span><span class="sc">}</span><span class="vs">&lt;/strong&gt;</span></span>
+<span id="cb3-424"><a href="#cb3-424" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;span class="meta"&gt; · </span><span class="sc">${</span>n<span class="op">.</span><span class="at">date</span> <span class="op">??</span> n<span class="op">.</span><span class="at">citation</span> <span class="op">??</span> <span class="st">""</span><span class="sc">}${</span>n<span class="op">.</span><span class="at">date</span> <span class="op">||</span> n<span class="op">.</span><span class="at">citation</span> <span class="op">?</span> <span class="st">" · "</span> <span class="op">:</span> <span class="st">""</span><span class="sc">}</span><span class="vs">source: </span><span class="sc">${</span>n<span class="op">.</span><span class="at">source</span><span class="sc">}</span><span class="vs">&lt;/span&gt;</span></span>
+<span id="cb3-425"><a href="#cb3-425" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span>n<span class="op">.</span><span class="at">url</span> <span class="op">?</span> <span class="fu">html</span><span class="vs">` · &lt;a href="</span><span class="sc">${</span>n<span class="op">.</span><span class="at">url</span><span class="sc">}</span><span class="vs">" target="_blank" rel="noopener"&gt;view notice&lt;/a&gt;`</span> <span class="op">:</span> <span class="st">""</span><span class="sc">}</span></span>
+<span id="cb3-426"><a href="#cb3-426" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/li&gt;`</span><span class="op">;</span></span>
+<span id="cb3-427"><a href="#cb3-427" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-428"><a href="#cb3-428" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Which sources could be checked</span></span>
+<span id="cb3-429"><a href="#cb3-429" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> status <span class="op">=</span> (name<span class="op">,</span> s<span class="op">,</span> found) <span class="kw">=&gt;</span> s<span class="op">.</span><span class="at">status</span> <span class="op">===</span> <span class="st">"ok"</span> <span class="op">?</span> <span class="fu">html</span><span class="vs">`&lt;span&gt;&lt;i class="bi bi-check2"&gt;&lt;/i&gt; </span><span class="sc">${</span>name<span class="sc">}${</span>found <span class="op">??</span> <span class="st">""</span><span class="sc">}</span><span class="vs">&lt;/span&gt;`</span></span>
+<span id="cb3-430"><a href="#cb3-430" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> s<span class="op">.</span><span class="at">status</span> <span class="op">===</span> <span class="st">"notfound"</span> <span class="op">?</span> <span class="fu">html</span><span class="vs">`&lt;span&gt;&lt;i class="bi bi-dash"&gt;&lt;/i&gt; </span><span class="sc">${</span>name<span class="sc">}</span><span class="vs">: not indexed&lt;/span&gt;`</span></span>
+<span id="cb3-431"><a href="#cb3-431" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> <span class="fu">html</span><span class="vs">`&lt;span class="unavailable"&gt;&lt;i class="bi bi-exclamation-triangle"&gt;&lt;/i&gt; </span><span class="sc">${</span>name<span class="sc">}</span><span class="vs">: could not be checked&lt;/span&gt;`</span><span class="op">;</span></span>
+<span id="cb3-432"><a href="#cb3-432" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> checked <span class="op">=</span> <span class="fu">html</span><span class="vs">`&lt;div class="checked"&gt;Checked:</span></span>
+<span id="cb3-433"><a href="#cb3-433" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span><span class="fu">status</span>(<span class="st">"Crossref and Retraction Watch"</span><span class="op">,</span> res<span class="op">.</span><span class="at">crossref</span>)<span class="sc">}</span></span>
+<span id="cb3-434"><a href="#cb3-434" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span><span class="fu">status</span>(<span class="st">"PubMed"</span><span class="op">,</span> res<span class="op">.</span><span class="at">pubmed</span><span class="op">,</span> res<span class="op">.</span><span class="at">pubmed</span><span class="op">.</span><span class="at">pmid</span> <span class="op">?</span> <span class="vs">` (PMID </span><span class="sc">${</span>res<span class="op">.</span><span class="at">pubmed</span><span class="op">.</span><span class="at">pmid</span><span class="sc">}</span><span class="vs">)`</span> <span class="op">:</span> <span class="st">""</span>)<span class="sc">}</span></span>
+<span id="cb3-435"><a href="#cb3-435" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;span&gt;&lt;i class="bi bi-check2"&gt;&lt;/i&gt; article title&lt;/span&gt;</span></span>
+<span id="cb3-436"><a href="#cb3-436" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;`</span><span class="op">;</span></span>
+<span id="cb3-437"><a href="#cb3-437" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-438"><a href="#cb3-438" aria-hidden="true" tabindex="-1"></a>  <span class="kw">yield</span> <span class="fu">html</span><span class="vs">`&lt;div class="doi-result </span><span class="sc">${</span>res<span class="op">.</span><span class="at">kind</span><span class="sc">}</span><span class="vs">"&gt;</span></span>
+<span id="cb3-439"><a href="#cb3-439" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span>badges[res<span class="op">.</span><span class="at">kind</span>]<span class="sc">}</span></span>
+<span id="cb3-440"><a href="#cb3-440" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;div class="citation"&gt;</span></span>
+<span id="cb3-441"><a href="#cb3-441" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;span class="who"&gt;</span><span class="sc">${</span>res<span class="op">.</span><span class="at">authors</span><span class="sc">}</span><span class="vs"> (</span><span class="sc">${</span>res<span class="op">.</span><span class="at">year</span><span class="sc">}</span><span class="vs">)&lt;/span&gt;</span></span>
+<span id="cb3-442"><a href="#cb3-442" aria-hidden="true" tabindex="-1"></a><span class="vs">      </span><span class="sc">${</span><span class="ss">/</span><span class="sc">[.?!]$</span><span class="ss">/</span><span class="op">.</span><span class="fu">test</span>(res<span class="op">.</span><span class="at">title</span>) <span class="op">?</span> res<span class="op">.</span><span class="at">title</span> <span class="op">:</span> res<span class="op">.</span><span class="at">title</span> <span class="op">+</span> <span class="st">"."</span><span class="sc">}</span></span>
+<span id="cb3-443"><a href="#cb3-443" aria-hidden="true" tabindex="-1"></a><span class="vs">      </span><span class="sc">${</span>res<span class="op">.</span><span class="at">journal</span> <span class="op">?</span> <span class="fu">html</span><span class="vs">`&lt;em&gt;</span><span class="sc">${</span>res<span class="op">.</span><span class="at">journal</span><span class="sc">}</span><span class="vs">&lt;/em&gt;.`</span> <span class="op">:</span> <span class="st">""</span><span class="sc">}</span></span>
+<span id="cb3-444"><a href="#cb3-444" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;a href="</span><span class="sc">${</span><span class="fu">doiUrl</span>(d)<span class="sc">}</span><span class="vs">" target="_blank" rel="noopener"&gt;https://doi.org/</span><span class="sc">${</span>d<span class="sc">}</span><span class="vs">&lt;/a&gt;</span></span>
+<span id="cb3-445"><a href="#cb3-445" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;/div&gt;</span></span>
+<span id="cb3-446"><a href="#cb3-446" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span>res<span class="op">.</span><span class="at">notices</span><span class="op">.</span><span class="at">length</span> <span class="op">?</span> <span class="fu">html</span><span class="vs">`&lt;ul class="notices"&gt;</span><span class="sc">${</span>res<span class="op">.</span><span class="at">notices</span><span class="op">.</span><span class="fu">map</span>(noticeItem)<span class="sc">}</span><span class="vs">&lt;/ul&gt;`</span> <span class="op">:</span> <span class="st">""</span><span class="sc">}</span></span>
+<span id="cb3-447"><a href="#cb3-447" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span>res<span class="op">.</span><span class="at">isNotice</span> <span class="op">?</span> <span class="fu">html</span><span class="vs">`&lt;div class="note"&gt;This DOI is itself a notice that updates another article.&lt;/div&gt;`</span> <span class="op">:</span> <span class="st">""</span><span class="sc">}</span></span>
+<span id="cb3-448"><a href="#cb3-448" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span>checked<span class="sc">}</span></span>
+<span id="cb3-449"><a href="#cb3-449" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span>res<span class="op">.</span><span class="at">kind</span> <span class="op">===</span> <span class="st">"retracted"</span> <span class="op">?</span> <span class="st">""</span> <span class="op">:</span> <span class="fu">html</span><span class="vs">`&lt;div class="coverage"&gt;&lt;i class="bi bi-info-circle"&gt;&lt;/i&gt;</span></span>
+<span id="cb3-450"><a href="#cb3-450" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;span&gt;Crossref, Retraction Watch, and PubMed do not have complete coverage. Even if no retraction or other notice is listed here, check the publisher's page for notices, and PubPeer for comments, using the links below.&lt;/span&gt;&lt;/div&gt;`</span><span class="sc">}</span></span>
+<span id="cb3-451"><a href="#cb3-451" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span><span class="fu">makeLinks</span>(res<span class="op">.</span><span class="at">pubmed</span><span class="op">.</span><span class="at">pmid</span>)<span class="sc">}</span></span>
+<span id="cb3-452"><a href="#cb3-452" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;`</span><span class="op">;</span></span>
+<span id="cb3-453"><a href="#cb3-453" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-3" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-aquarius2026" class="csl-entry" role="listitem">
+Aquarius, R., Reijmersdal, V. P. A. van, Kuster, C. T. A., Konijnenberg, L. S. F., Nijveldt, R., &amp; Wever, K. E. (2026). Problematic articles in preclinical literature on microvascular injury after acute myocardial infarction. <em>Canadian Journal of Cardiology</em>. <a href="https://doi.org/10.1016/j.cjca.2026.07.375">https://doi.org/10.1016/j.cjca.2026.07.375</a>
+</div>
+<div id="ref-brown2017" class="csl-entry" role="listitem">
+Brown, N. J. L., &amp; Heathers, J. A. J. (2017). The <span>GRIM</span> test: A simple technique detects numerous anomalies in the reporting of results in psychology. <em>Social Psychological and Personality Science</em>, <em>8</em>(4), 363–369. <a href="https://doi.org/10.1177/1948550616673876">https://doi.org/10.1177/1948550616673876</a>
+</div>
+<div id="ref-cabanac2022" class="csl-entry" role="listitem">
+Cabanac, G., Labbé, C., &amp; Magazinov, A. (2022). <em>The <span>’Problematic Paper Screener’</span> automatically selects suspect publications for post-publication (re)assessment</em>. arXiv. <a href="https://doi.org/10.48550/arXiv.2210.04895">https://doi.org/10.48550/arXiv.2210.04895</a>
+</div>
+<div id="ref-carlisle2021" class="csl-entry" role="listitem">
+Carlisle, J. B. (2021). False individual patient data and zombie randomised controlled trials submitted to <span>Anaesthesia</span>. <em>Anaesthesia</em>, <em>76</em>(4), 472–479. <a href="https://doi.org/10.1111/anae.15263">https://doi.org/10.1111/anae.15263</a>
+</div>
+<div id="ref-cochraneeditorial" class="csl-entry" role="listitem">
+Cochrane. (n.d.-a). <em>Cochrane database of systematic reviews: Editorial policies</em>. Cochrane Library. Retrieved <a href="https://www.cochranelibrary.com/cdsr/editorial-policies">https://www.cochranelibrary.com/cdsr/editorial-policies</a>
+</div>
+<div id="ref-cochraneproblematic" class="csl-entry" role="listitem">
+Cochrane. (n.d.-b). <em>Policy for managing potentially problematic studies: Implementation guidance</em>. Cochrane Library editorial policy. Retrieved <a href="https://www.cochranelibrary.com/cdsr/editorial-policies/problematic-studies-implementation-guidance">https://www.cochranelibrary.com/cdsr/editorial-policies/problematic-studies-implementation-guidance</a>
+</div>
+<div id="ref-cochrane2025methods" class="csl-entry" role="listitem">
+Cochrane. (2025). <em>Methods in <span>Cochrane</span></em>. <a href="https://www.cochrane.org/authors/methods-cochrane">https://www.cochrane.org/authors/methods-cochrane</a>
+</div>
+<div id="ref-heathers2024" class="csl-entry" role="listitem">
+Heathers, J. A. J. (2024). <em>Approximately 1 in 7 scientific papers are fake</em>. <a href="https://osf.io/5rf2m/">https://osf.io/5rf2m/</a>
+</div>
+<div id="ref-higgins2011" class="csl-entry" role="listitem">
+Higgins, J. P. T., Altman, D. G., Gøtzsche, P. C., Jüni, P., Moher, D., Oxman, A. D., Savović, J., Schulz, K. F., Weeks, L., &amp; Sterne, J. A. C. (2011). The <span>Cochrane</span> <span>Collaboration</span>’s tool for assessing risk of bias in randomised trials. <em>BMJ</em>, <em>343</em>, d5928. <a href="https://doi.org/10.1136/bmj.d5928">https://doi.org/10.1136/bmj.d5928</a>
+</div>
+<div id="ref-miyakawa2020" class="csl-entry" role="listitem">
+Miyakawa, T. (2020). No raw data, no science: Another possible source of the reproducibility crisis. <em>Molecular Brain</em>, <em>13</em>, 24. <a href="https://doi.org/10.1186/s13041-020-0552-2">https://doi.org/10.1186/s13041-020-0552-2</a>
+</div>
+<div id="ref-sterne2019" class="csl-entry" role="listitem">
+Sterne, J. A. C., Savović, J., Page, M. J., Elbers, R. G., Blencowe, N. S., Boutron, I., Cates, C. J., Cheng, H.-Y., Corbett, M. S., Eldridge, S. M., Emberson, J. R., Hernán, M. A., et al. (2019). <span>RoB</span> 2: A revised tool for assessing risk of bias in randomised trials. <em>BMJ</em>, <em>366</em>, l4898. <a href="https://doi.org/10.1136/bmj.l4898">https://doi.org/10.1136/bmj.l4898</a>
+</div>
+<div id="ref-wilkinson2026" class="csl-entry" role="listitem">
+Wilkinson, J., Bero, L., Heal, C., Flemyng, E., Antoniou, G. A., Aburrow, T., Alfirevic, Z., Avenell, A., Barbour, V., Berghella, V., Bishop, D. V. M., Bordewijk, E. M., Brown, N. J. L., Christopher, J., Clarke, M., Dahly, D., Dennis, J., Dicker, P., Dumville, J., … Kirkham, J. J. (2026). <span>INSPECT-SR</span> tool for assessing trustworthiness of randomised controlled trials. <em>BMJ</em>, <em>394</em>, e100611. <a href="https://doi.org/10.1136/bmj-2026-100611">https://doi.org/10.1136/bmj-2026-100611</a>
+</div>
+</div>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  update_total_correct();
+}
+
+</script>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBkb2kgPSB7XG4gIGNvbnN0IGluaXRpYWwgPSBcIjEwLjExNzcvMDI2OTIxNTUyMDkyMzEzNVwiO1xuICBjb25zdCBleGFtcGxlcyA9IFtcbiAgICB7bGFiZWw6IFwiUmV0cmFjdGVkXCIsIGRvaTogXCIxMC4xMTc3LzAyNjkyMTU1MjA5MjMxMzVcIn0sXG4gICAge2xhYmVsOiBcIk5vdCByZXRyYWN0ZWRcIiwgZG9pOiBcIjEwLjExNzcvMjUxNTI0NTkyNDEyODcxMjNcIn1cbiAgXTtcblxuICBjb25zdCBpbnB1dCA9IGh0bWxgPGlucHV0IGNsYXNzPVwiZm9ybS1jb250cm9sIGZvbnQtbW9ub3NwYWNlXCIgdHlwZT1cInRleHRcIiBzcGVsbGNoZWNrPVwiZmFsc2VcIiBhdXRvY29tcGxldGU9XCJvZmZcIlxuICAgIGFyaWEtbGFiZWw9XCJET0lcIiBwbGFjZWhvbGRlcj1cImUuZy4sIDEwLjExNzcvMDI2OTIxNTUyMDkyMzEzNSBvciBodHRwczovL2RvaS5vcmcvLi4uXCI+YDtcbiAgaW5wdXQudmFsdWUgPSBpbml0aWFsO1xuICAvLyBPbmx5IHVwZGF0ZSB0aGUgcmVzdWx0IHdoZW4gdGhlIGZvcm0gaXMgc3VibWl0dGVkLCBub3Qgb24gZXZlcnkga2V5c3Ryb2tlXG4gIGlucHV0LmFkZEV2ZW50TGlzdGVuZXIoXCJpbnB1dFwiLCBlID0+IGUuc3RvcFByb3BhZ2F0aW9uKCkpO1xuXG4gIGNvbnN0IGZvcm0gPSBodG1sYDxmb3JtIGNsYXNzPVwiaW5wdXQtZ3JvdXBcIj5cbiAgICA8c3BhbiBjbGFzcz1cImlucHV0LWdyb3VwLXRleHRcIj5ET0k8L3NwYW4+XG4gICAgJHtpbnB1dH1cbiAgICA8YnV0dG9uIGNsYXNzPVwiYnRuIGJ0bi1wcmltYXJ5XCIgdHlwZT1cInN1Ym1pdFwiPjxpIGNsYXNzPVwiYmkgYmktc2VhcmNoXCI+PC9pPiBDaGVjazwvYnV0dG9uPlxuICA8L2Zvcm0+YDtcblxuICBjb25zdCBleGFtcGxlUm93ID0gKHtsYWJlbCwgZG9pfSkgPT4ge1xuICAgIGNvbnN0IHVzZUJ0biA9IGh0bWxgPGJ1dHRvbiB0eXBlPVwiYnV0dG9uXCIgY2xhc3M9XCJidG4gYnRuLW91dGxpbmUtcHJpbWFyeVwiIHRpdGxlPVwiQ2hlY2sgdGhpcyBET0lcIj5UcnkgaXQ8L2J1dHRvbj5gO1xuICAgIGNvbnN0IGNvcHlCdG4gPSBodG1sYDxidXR0b24gdHlwZT1cImJ1dHRvblwiIGNsYXNzPVwiYnRuIGJ0bi1vdXRsaW5lLXNlY29uZGFyeVwiIHRpdGxlPVwiQ29weSBET0lcIj48aSBjbGFzcz1cImJpIGJpLWNsaXBib2FyZFwiPjwvaT48L2J1dHRvbj5gO1xuICAgIHVzZUJ0bi5vbmNsaWNrID0gKCkgPT4geyBpbnB1dC52YWx1ZSA9IGRvaTsgcnVuKCk7IH07XG4gICAgY29weUJ0bi5vbmNsaWNrID0gYXN5bmMgKCkgPT4ge1xuICAgICAgdHJ5IHtcbiAgICAgICAgYXdhaXQgbmF2aWdhdG9yLmNsaXBib2FyZC53cml0ZVRleHQoZG9pKTtcbiAgICAgICAgY29weUJ0bi5pbm5lckhUTUwgPSBgPGkgY2xhc3M9XCJiaSBiaS1jaGVjazJcIj48L2k+YDtcbiAgICAgIH0gY2F0Y2ggKGUpIHtcbiAgICAgICAgY29weUJ0bi5pbm5lckhUTUwgPSBgPGkgY2xhc3M9XCJiaSBiaS14XCI+PC9pPmA7XG4gICAgICB9XG4gICAgICBzZXRUaW1lb3V0KCgpID0+IChjb3B5QnRuLmlubmVySFRNTCA9IGA8aSBjbGFzcz1cImJpIGJpLWNsaXBib2FyZFwiPjwvaT5gKSwgMTUwMCk7XG4gICAgfTtcbiAgICByZXR1cm4gaHRtbGA8ZGl2IGNsYXNzPVwiZXhhbXBsZVwiPjxzcGFuIGNsYXNzPVwiZXhhbXBsZS1sYWJlbFwiPiR7bGFiZWx9PC9zcGFuPjxjb2RlPiR7ZG9pfTwvY29kZT4ke3VzZUJ0bn0ke2NvcHlCdG59PC9kaXY+YDtcbiAgfTtcblxuICBjb25zdCByb290ID0gaHRtbGA8ZGl2IGNsYXNzPVwiZG9pLWNoZWNrZXJcIj5cbiAgICAke2Zvcm19XG4gICAgPGRpdiBjbGFzcz1cImV4YW1wbGVzXCI+XG4gICAgICA8ZGl2IGNsYXNzPVwiZXhhbXBsZXMtdGl0bGVcIj5FeGFtcGxlczwvZGl2PlxuICAgICAgJHtleGFtcGxlcy5tYXAoZXhhbXBsZVJvdyl9XG4gICAgPC9kaXY+XG4gIDwvZGl2PmA7XG5cbiAgcm9vdC52YWx1ZSA9IGluaXRpYWw7XG4gIGZ1bmN0aW9uIHJ1bigpIHtcbiAgICByb290LnZhbHVlID0gaW5wdXQudmFsdWU7XG4gICAgcm9vdC5kaXNwYXRjaEV2ZW50KG5ldyBFdmVudChcImlucHV0XCIsIHtidWJibGVzOiB0cnVlfSkpO1xuICB9XG4gIGZvcm0ub25zdWJtaXQgPSBlID0+IHsgZS5wcmV2ZW50RGVmYXVsdCgpOyBydW4oKTsgfTtcbiAgcmV0dXJuIHJvb3Q7XG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTIiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiIvLyBMb29rIHVwIGEgRE9JIGluIENyb3NzcmVmICh3aGljaCBpbmNsdWRlcyB0aGUgUmV0cmFjdGlvbiBXYXRjaCBkYXRhYmFzZSkgYW5kIFB1Yk1lZCxcbi8vIGFuZCBjaGVjayB0aGUgYXJ0aWNsZSB0aXRsZSwgdGhlbiBjb21iaW5lIHRoZSBwb3N0LXB1YmxpY2F0aW9uIG5vdGljZXMgZnJvbSBhbGwgdGhyZWUuXG4vLyBUb2dldGhlciB0aGVzZSBjb3ZlciB0aGUgc291cmNlcyB1c2VkIGJ5IHRoZSBQcm9ibGVtYXRpYyBQYXBlciBTY3JlZW5lcidzXG4vLyBcIkFubnVsbGVkXCIgYW5kIFwiQ29uY2VybmluZ1wiIGRldGVjdG9ycywgYnV0IGFyZSBxdWVyaWVkIGxpdmUuXG5hc3luYyBmdW5jdGlvbiBsb29rdXBEb2koZCkge1xuICBjb25zdCBbY3IsIHBtXSA9IGF3YWl0IFByb21pc2UuYWxsKFtsb29rdXBDcm9zc3JlZihkKSwgbG9va3VwUHVibWVkKGQpXSk7XG4gIGlmIChjci5zdGF0dXMgIT09IFwib2tcIiAmJiBwbS5zdGF0dXMgIT09IFwib2tcIikge1xuICAgIHJldHVybiB7c3RhdHVzOiBcImVycm9yXCIsIG1lc3NhZ2U6IGNyLm1lc3NhZ2UsIHB1Ym1lZDogcG19O1xuICB9XG4gIC8vIFVzZSBDcm9zc3JlZiBmb3IgdGhlIHJlZmVyZW5jZSB3aGVyZSBwb3NzaWJsZSwgb3RoZXJ3aXNlIFB1Yk1lZFxuICBjb25zdCByZWYgPSBjci5zdGF0dXMgPT09IFwib2tcIiA/IGNyIDogcG07XG4gIGNvbnN0IG5vdGljZXMgPSBbXG4gICAgLi4uKGNyLnN0YXR1cyA9PT0gXCJva1wiID8gY3Iubm90aWNlcyA6IFtdKSxcbiAgICAuLi4ocG0uc3RhdHVzID09PSBcIm9rXCIgPyBwbS5ub3RpY2VzIDogW10pLFxuICAgIC4uLnRpdGxlTm90aWNlcyhyZWYudGl0bGUpXG4gIF07XG4gIGNvbnN0IHR5cGVzID0gbmV3IFNldChub3RpY2VzLm1hcChuID0+IG4udHlwZSkpO1xuICBjb25zdCBraW5kID0gdHlwZXMuaGFzKFwicmV0cmFjdGlvblwiKSA/IFwicmV0cmFjdGVkXCJcbiAgICA6IHR5cGVzLmhhcyhcImNvbmNlcm5cIikgPyBcImNvbmNlcm5cIlxuICAgIDogbm90aWNlcy5sZW5ndGggPyBcIm90aGVyXCJcbiAgICA6IFwiY2xlYW5cIjtcbiAgcmV0dXJuIHtcbiAgICBzdGF0dXM6IFwib2tcIiwgYXV0aG9yczogcmVmLmF1dGhvcnMsIHllYXI6IHJlZi55ZWFyLCB0aXRsZTogcmVmLnRpdGxlLCBqb3VybmFsOiByZWYuam91cm5hbCxcbiAgICBub3RpY2VzLCBraW5kLCBpc05vdGljZTogY3Iuc3RhdHVzID09PSBcIm9rXCIgJiYgY3IuaXNOb3RpY2UsIGNyb3NzcmVmOiBjciwgcHVibWVkOiBwbVxuICB9O1xufVxuXG5jbGVhblRleHQgPSB4ID0+ICh4ID8/IFwiXCIpLnJlcGxhY2UoLzxbXj5dKz4vZywgXCJcIikucmVwbGFjZSgvXFxzKy9nLCBcIiBcIikudHJpbSgpO1xuXG5mdW5jdGlvbiBmb3JtYXRBdXRob3JzKG5hbWVzKSB7XG4gIHJldHVybiBuYW1lcy5sZW5ndGggPT09IDAgPyBcIlVua25vd24gYXV0aG9yc1wiXG4gICAgOiBuYW1lcy5sZW5ndGggPT09IDEgPyBuYW1lc1swXVxuICAgIDogbmFtZXMuc2xpY2UoMCwgLTEpLmpvaW4oXCIsIFwiKSArIChuYW1lcy5sZW5ndGggPiAyID8gXCIsXCIgOiBcIlwiKSArIFwiICYgXCIgKyBuYW1lcy5hdCgtMSk7XG59XG5cbmFzeW5jIGZ1bmN0aW9uIGxvb2t1cENyb3NzcmVmKGQpIHtcbiAgbGV0IHI7XG4gIHRyeSB7XG4gICAgciA9IGF3YWl0IGZldGNoKGBodHRwczovL2FwaS5jcm9zc3JlZi5vcmcvd29ya3MvJHtlbmNvZGVVUklDb21wb25lbnQoZCl9YCk7XG4gIH0gY2F0Y2ggKGUpIHtcbiAgICByZXR1cm4ge3N0YXR1czogXCJlcnJvclwiLCBtZXNzYWdlOiBcIkNvdWxkIG5vdCByZWFjaCBDcm9zc3JlZi4gQ2hlY2sgeW91ciBjb25uZWN0aW9uIGFuZCB0cnkgYWdhaW4uXCJ9O1xuICB9XG4gIGlmIChyLnN0YXR1cyA9PT0gNDA0KSByZXR1cm4ge3N0YXR1czogXCJub3Rmb3VuZFwiLCBtZXNzYWdlOiBcIlRoaXMgRE9JIHdhcyBub3QgZm91bmQgaW4gQ3Jvc3NyZWYgb3IgUHViTWVkLiBJdCBtYXkgYmUgbWlzdHlwZWQsIG9yIHJlZ2lzdGVyZWQgd2l0aCBhbm90aGVyIGFnZW5jeSAoZS5nLiwgRGF0YUNpdGUpLlwifTtcbiAgaWYgKCFyLm9rKSByZXR1cm4ge3N0YXR1czogXCJlcnJvclwiLCBtZXNzYWdlOiBgQ3Jvc3NyZWYgcmV0dXJuZWQgYW4gZXJyb3IgKCR7ci5zdGF0dXN9KS4gVHJ5IGFnYWluIGxhdGVyLmB9O1xuICBjb25zdCBtID0gKGF3YWl0IHIuanNvbigpKS5tZXNzYWdlO1xuXG4gIGNvbnN0IHR5cGVPZiA9IHQgPT4gW1wicmV0cmFjdGlvblwiLCBcIndpdGhkcmF3YWxcIiwgXCJyZW1vdmFsXCJdLmluY2x1ZGVzKHQpID8gXCJyZXRyYWN0aW9uXCJcbiAgICA6IHQgPT09IFwiZXhwcmVzc2lvbl9vZl9jb25jZXJuXCIgPyBcImNvbmNlcm5cIlxuICAgIDogW1wiY29ycmVjdGlvblwiLCBcImVycmF0dW1cIiwgXCJjb3JyaWdlbmR1bVwiXS5pbmNsdWRlcyh0KSA/IFwiY29ycmVjdGlvblwiXG4gICAgOiBcIm90aGVyXCI7XG4gIC8vIERlZHVwbGljYXRlOiBDcm9zc3JlZiBjYW4gbGlzdCB0aGUgc2FtZSBub3RpY2UgbW9yZSB0aGFuIG9uY2VcbiAgY29uc3Qgc2VlbiA9IG5ldyBTZXQoKTtcbiAgY29uc3Qgbm90aWNlcyA9IChtW1widXBkYXRlZC1ieVwiXSA/PyBbXSkuZmlsdGVyKHUgPT4ge1xuICAgIGNvbnN0IGtleSA9IGAke3UudHlwZX18JHsodS5ET0kgPz8gXCJcIikudG9Mb3dlckNhc2UoKX18JHt1LnNvdXJjZX1gO1xuICAgIHJldHVybiBzZWVuLmhhcyhrZXkpID8gZmFsc2UgOiAoc2Vlbi5hZGQoa2V5KSwgdHJ1ZSk7XG4gIH0pLm1hcCh1ID0+ICh7XG4gICAgdHlwZTogdHlwZU9mKHUudHlwZSksXG4gICAgbGFiZWw6IHUubGFiZWwgPz8gdS50eXBlLFxuICAgIGRhdGU6IHUudXBkYXRlZD8uW1wiZGF0ZS1wYXJ0c1wiXT8uWzBdPy5tYXAoeCA9PiBTdHJpbmcoeCkucGFkU3RhcnQoMiwgXCIwXCIpKS5qb2luKFwiLVwiKSxcbiAgICBzb3VyY2U6IHUuc291cmNlID09PSBcInJldHJhY3Rpb24td2F0Y2hcIiA/IFwiQ3Jvc3NyZWYgKFJldHJhY3Rpb24gV2F0Y2gpXCIgOiBcIkNyb3NzcmVmIChwdWJsaXNoZXIpXCIsXG4gICAgdXJsOiB1LkRPSSAmJiB1LkRPSS50b0xvd2VyQ2FzZSgpICE9PSBkLnRvTG93ZXJDYXNlKCkgPyBgaHR0cHM6Ly9kb2kub3JnLyR7ZW5jb2RlVVJJKHUuRE9JKX1gIDogbnVsbFxuICB9KSk7XG5cbiAgcmV0dXJuIHtcbiAgICBzdGF0dXM6IFwib2tcIiwgbm90aWNlcyxcbiAgICBhdXRob3JzOiBmb3JtYXRBdXRob3JzKChtLmF1dGhvciA/PyBbXSkubWFwKGEgPT4gYS5mYW1pbHkgPz8gYS5uYW1lKS5maWx0ZXIoQm9vbGVhbikpLFxuICAgIHllYXI6IChtLmlzc3VlZCA/PyBtLnB1Ymxpc2hlZCA/PyBtLmNyZWF0ZWQpPy5bXCJkYXRlLXBhcnRzXCJdPy5bMF0/LlswXSA/PyBcIm4uZC5cIixcbiAgICB0aXRsZTogY2xlYW5UZXh0KG0udGl0bGU/LlswXSkgfHwgXCIodW50aXRsZWQpXCIsXG4gICAgam91cm5hbDogY2xlYW5UZXh0KG1bXCJjb250YWluZXItdGl0bGVcIl0/LlswXSksXG4gICAgaXNOb3RpY2U6IChtW1widXBkYXRlLXRvXCJdID8/IFtdKS5zb21lKHUgPT4gKHUuRE9JID8/IFwiXCIpLnRvTG93ZXJDYXNlKCkgIT09IGQudG9Mb3dlckNhc2UoKSlcbiAgfTtcbn1cblxuYXN5bmMgZnVuY3Rpb24gbG9va3VwUHVibWVkKGQpIHtcbiAgY29uc3QgZXV0aWxzID0gXCJodHRwczovL2V1dGlscy5uY2JpLm5sbS5uaWguZ292L2VudHJlei9ldXRpbHNcIjtcbiAgdHJ5IHtcbiAgICBjb25zdCBzID0gYXdhaXQgZmV0Y2goYCR7ZXV0aWxzfS9lc2VhcmNoLmZjZ2k/ZGI9cHVibWVkJnJldG1vZGU9anNvbiZ0b29sPXRydXN0d29ydGh5cmVzZWFyY2gmdGVybT0ke2VuY29kZVVSSUNvbXBvbmVudChkICsgXCJbZG9pXVwiKX1gKTtcbiAgICBpZiAoIXMub2spIHJldHVybiB7c3RhdHVzOiBcImVycm9yXCJ9O1xuICAgIGNvbnN0IGlkcyA9IChhd2FpdCBzLmpzb24oKSkuZXNlYXJjaHJlc3VsdD8uaWRsaXN0ID8/IFtdO1xuICAgIGlmICghaWRzLmxlbmd0aCkgcmV0dXJuIHtzdGF0dXM6IFwibm90Zm91bmRcIn07XG4gICAgY29uc3QgciA9IGF3YWl0IGZldGNoKGAke2V1dGlsc30vZXN1bW1hcnkuZmNnaT9kYj1wdWJtZWQmcmV0bW9kZT1qc29uJnRvb2w9dHJ1c3R3b3J0aHlyZXNlYXJjaCZpZD0ke2lkcy5zbGljZSgwLCA1KS5qb2luKFwiLFwiKX1gKTtcbiAgICBpZiAoIXIub2spIHJldHVybiB7c3RhdHVzOiBcImVycm9yXCJ9O1xuICAgIGNvbnN0IHJlc3VsdCA9IChhd2FpdCByLmpzb24oKSkucmVzdWx0ID8/IHt9O1xuICAgIC8vIFB1Yk1lZCdzIERPSSBzZWFyY2ggaXMgZnV6enksIHNvIGtlZXAgb25seSBhIHJlY29yZCB3aG9zZSBET0kgbWF0Y2hlcyBleGFjdGx5XG4gICAgY29uc3QgcmVjID0gKHJlc3VsdC51aWRzID8/IFtdKS5tYXAodSA9PiByZXN1bHRbdV0pLmZpbmQoeCA9PlxuICAgICAgKHguYXJ0aWNsZWlkcyA/PyBbXSkuc29tZShhID0+IGEuaWR0eXBlID09PSBcImRvaVwiICYmIGEudmFsdWUudG9Mb3dlckNhc2UoKSA9PT0gZC50b0xvd2VyQ2FzZSgpKSk7XG4gICAgaWYgKCFyZWMpIHJldHVybiB7c3RhdHVzOiBcIm5vdGZvdW5kXCJ9O1xuXG4gICAgY29uc3QgcmVmVHlwZXMgPSB7XG4gICAgICBcInJldHJhY3Rpb24gaW5cIjogW1wicmV0cmFjdGlvblwiLCBcIlJldHJhY3Rpb25cIl0sXG4gICAgICBcInJldHJhY3RlZCBhbmQgcmVwdWJsaXNoZWQgaW5cIjogW1wicmV0cmFjdGlvblwiLCBcIlJldHJhY3RlZCBhbmQgcmVwdWJsaXNoZWRcIl0sXG4gICAgICBcInBhcnRpYWwgcmV0cmFjdGlvbiBpblwiOiBbXCJvdGhlclwiLCBcIlBhcnRpYWwgcmV0cmFjdGlvblwiXSxcbiAgICAgIFwiZXhwcmVzc2lvbiBvZiBjb25jZXJuIGluXCI6IFtcImNvbmNlcm5cIiwgXCJFeHByZXNzaW9uIG9mIGNvbmNlcm5cIl0sXG4gICAgICBcImVycmF0dW0gaW5cIjogW1wiY29ycmVjdGlvblwiLCBcIkVycmF0dW1cIl1cbiAgICB9O1xuICAgIGNvbnN0IG5vdGljZXMgPSAocmVjLnJlZmVyZW5jZXMgPz8gW10pXG4gICAgICAuZmlsdGVyKHggPT4gcmVmVHlwZXNbKHgucmVmdHlwZSA/PyBcIlwiKS50b0xvd2VyQ2FzZSgpXSlcbiAgICAgIC5tYXAoeCA9PiB7XG4gICAgICAgIGNvbnN0IFt0eXBlLCBsYWJlbF0gPSByZWZUeXBlc1t4LnJlZnR5cGUudG9Mb3dlckNhc2UoKV07XG4gICAgICAgIHJldHVybiB7XG4gICAgICAgICAgdHlwZSwgbGFiZWwsIGRhdGU6IG51bGwsIGNpdGF0aW9uOiAoeC5yZWZzb3VyY2UgPz8gXCJcIikucmVwbGFjZSgvXFxzKmRvaTouKiQvaSwgXCJcIiksXG4gICAgICAgICAgc291cmNlOiBcIlB1Yk1lZFwiLFxuICAgICAgICAgIHVybDogeC5wbWlkID8gYGh0dHBzOi8vcHVibWVkLm5jYmkubmxtLm5paC5nb3YvJHt4LnBtaWR9L2AgOiBudWxsXG4gICAgICAgIH07XG4gICAgICB9KTtcbiAgICAvLyBSZXRyYWN0ZWQgcHVibGljYXRpb25zIGFyZSBhbHNvIHRhZ2dlZCB3aXRoIGEgcHVibGljYXRpb24gdHlwZSwgZXZlbiB3aXRob3V0IGEgbGlua2VkIG5vdGljZVxuICAgIGlmICgocmVjLnB1YnR5cGUgPz8gW10pLmluY2x1ZGVzKFwiUmV0cmFjdGVkIFB1YmxpY2F0aW9uXCIpICYmICFub3RpY2VzLnNvbWUobiA9PiBuLnR5cGUgPT09IFwicmV0cmFjdGlvblwiKSkge1xuICAgICAgbm90aWNlcy5wdXNoKHt0eXBlOiBcInJldHJhY3Rpb25cIiwgbGFiZWw6IFwiSW5kZXhlZCBhcyBhIHJldHJhY3RlZCBwdWJsaWNhdGlvblwiLCBkYXRlOiBudWxsLCBzb3VyY2U6IFwiUHViTWVkXCIsIHVybDogbnVsbH0pO1xuICAgIH1cblxuICAgIHJldHVybiB7XG4gICAgICBzdGF0dXM6IFwib2tcIiwgcG1pZDogcmVjLnVpZCwgbm90aWNlcyxcbiAgICAgIGF1dGhvcnM6IGZvcm1hdEF1dGhvcnMoKHJlYy5hdXRob3JzID8/IFtdKS5maWx0ZXIoYSA9PiBhLmF1dGh0eXBlID09PSBcIkF1dGhvclwiKS5tYXAoYSA9PiBhLm5hbWUucmVwbGFjZSgvXFxzK1xcUyskLywgXCJcIikpKSxcbiAgICAgIHllYXI6IChyZWMucHViZGF0ZSA/PyBcIlwiKS5zbGljZSgwLCA0KSB8fCBcIm4uZC5cIixcbiAgICAgIHRpdGxlOiBjbGVhblRleHQocmVjLnRpdGxlKSB8fCBcIih1bnRpdGxlZClcIixcbiAgICAgIGpvdXJuYWw6IGNsZWFuVGV4dChyZWMuZnVsbGpvdXJuYWxuYW1lKVxuICAgIH07XG4gIH0gY2F0Y2ggKGUpIHtcbiAgICByZXR1cm4ge3N0YXR1czogXCJlcnJvclwifTtcbiAgfVxufVxuXG4vLyBTb21lIHB1Ymxpc2hlcnMgbWFyayBhIHJldHJhY3Rpb24gb25seSBieSBjaGFuZ2luZyB0aGUgYXJ0aWNsZSdzIHRpdGxlXG5mdW5jdGlvbiB0aXRsZU5vdGljZXModGl0bGUpIHtcbiAgY29uc3QgbWFya2VkID0gL15cXFcqKHJldHJhY3RlZHx3aXRoZHJhd258cmVtb3ZlZClcXGIvaS50ZXN0KHRpdGxlID8/IFwiXCIpIHx8IC9cXCgocmV0cmFjdGVkfHdpdGhkcmF3bikoIGFydGljbGV8IHBhcGVyKT9cXCkvaS50ZXN0KHRpdGxlID8/IFwiXCIpO1xuICByZXR1cm4gbWFya2VkID8gW3t0eXBlOiBcInJldHJhY3Rpb25cIiwgbGFiZWw6IFwiVGl0bGUgbWFya3MgdGhlIGFydGljbGUgYXMgcmV0cmFjdGVkIG9yIHdpdGhkcmF3blwiLCBkYXRlOiBudWxsLCBzb3VyY2U6IFwiQXJ0aWNsZSB0aXRsZVwiLCB1cmw6IG51bGx9XSA6IFtdO1xufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0zIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoie1xuICBjb25zdCBkID0gZG9pLnRyaW0oKS5yZXBsYWNlKC9eKGh0dHBzPzpcXC9cXC8oZHhcXC4pP2RvaVxcLm9yZ1xcL3xkb2k6XFxzKikvaSwgXCJcIikudHJpbSgpO1xuICBpZiAoIWQpIHJldHVybiBodG1sYGA7XG5cbiAgY29uc3QgZG9pVXJsID0geCA9PiBgaHR0cHM6Ly9kb2kub3JnLyR7ZW5jb2RlVVJJKHgpfWA7XG4gIGNvbnN0IG1ha2VMaW5rcyA9IHBtaWQgPT4gaHRtbGA8ZGl2IGNsYXNzPVwiYWN0aW9uc1wiPlxuICAgIDxhIGNsYXNzPVwiYnRuIGJ0bi1vdXRsaW5lLXByaW1hcnkgYnRuLXNtXCIgaHJlZj1cIiR7ZG9pVXJsKGQpfVwiIHRhcmdldD1cIl9ibGFua1wiIHJlbD1cIm5vb3BlbmVyXCI+XG4gICAgICA8aSBjbGFzcz1cImJpIGJpLWJveC1hcnJvdy11cC1yaWdodFwiPjwvaT4gUHVibGlzaGVyJ3MgcGFnZTwvYT5cbiAgICA8YSBjbGFzcz1cImJ0biBidG4tb3V0bGluZS1wcmltYXJ5IGJ0bi1zbVwiIGhyZWY9XCJodHRwczovL3B1YnBlZXIuY29tL3NlYXJjaD9xPSR7ZW5jb2RlVVJJQ29tcG9uZW50KGQpfVwiIHRhcmdldD1cIl9ibGFua1wiIHJlbD1cIm5vb3BlbmVyXCI+XG4gICAgICA8aSBjbGFzcz1cImJpIGJpLWNoYXQtc3F1YXJlLXRleHRcIj48L2k+IFB1YlBlZXIgY29tbWVudHM8L2E+XG4gICAgJHtwbWlkID8gaHRtbGA8YSBjbGFzcz1cImJ0biBidG4tb3V0bGluZS1wcmltYXJ5IGJ0bi1zbVwiIGhyZWY9XCJodHRwczovL3B1Ym1lZC5uY2JpLm5sbS5uaWguZ292LyR7cG1pZH0vXCIgdGFyZ2V0PVwiX2JsYW5rXCIgcmVsPVwibm9vcGVuZXJcIj5cbiAgICAgIDxpIGNsYXNzPVwiYmkgYmktam91cm5hbC1tZWRpY2FsXCI+PC9pPiBQdWJNZWQgcmVjb3JkPC9hPmAgOiBcIlwifVxuICA8L2Rpdj5gO1xuXG4gIHlpZWxkIGh0bWxgPGRpdiBjbGFzcz1cImRvaS1yZXN1bHQgbG9hZGluZ1wiPlxuICAgIDxzcGFuIGNsYXNzPVwic3Bpbm5lci1ib3JkZXIgc3Bpbm5lci1ib3JkZXItc21cIiByb2xlPVwic3RhdHVzXCI+PC9zcGFuPiBDaGVja2luZyBDcm9zc3JlZiBhbmQgUHViTWVkIGZvciA8c3BhbiBjbGFzcz1cImRvaS10ZXh0XCI+JHtkfTwvc3Bhbj4uLi5cbiAgPC9kaXY+YDtcblxuICBjb25zdCByZXMgPSBhd2FpdCBsb29rdXBEb2koZCk7XG5cbiAgaWYgKHJlcy5zdGF0dXMgPT09IFwiZXJyb3JcIikge1xuICAgIHlpZWxkIGh0bWxgPGRpdiBjbGFzcz1cImRvaS1yZXN1bHQgZXJyb3JcIj5cbiAgICAgIDxzcGFuIGNsYXNzPVwiYmFkZ2UgdGV4dC1iZy1zZWNvbmRhcnkgc3RhdHVzXCI+PGkgY2xhc3M9XCJiaSBiaS1leGNsYW1hdGlvbi10cmlhbmdsZS1maWxsXCI+PC9pPiBDb3VsZCBub3QgY2hlY2s8L3NwYW4+XG4gICAgICA8ZGl2IGNsYXNzPVwiY2l0YXRpb25cIj4ke3Jlcy5tZXNzYWdlfTwvZGl2PlxuICAgICAgPGRpdiBjbGFzcz1cImRvaS10ZXh0XCI+JHtkfTwvZGl2PlxuICAgICAgJHttYWtlTGlua3MobnVsbCl9XG4gICAgPC9kaXY+YDtcbiAgICByZXR1cm47XG4gIH1cblxuICBjb25zdCBiYWRnZXMgPSB7XG4gICAgcmV0cmFjdGVkOiBodG1sYDxzcGFuIGNsYXNzPVwiYmFkZ2UgdGV4dC1iZy1kYW5nZXIgc3RhdHVzXCI+PGkgY2xhc3M9XCJiaSBiaS14LW9jdGFnb24tZmlsbFwiPjwvaT4gUmV0cmFjdGVkPC9zcGFuPmAsXG4gICAgY29uY2VybjogaHRtbGA8c3BhbiBjbGFzcz1cImJhZGdlIHRleHQtYmctd2FybmluZyBzdGF0dXNcIj48aSBjbGFzcz1cImJpIGJpLWV4Y2xhbWF0aW9uLXRyaWFuZ2xlLWZpbGxcIj48L2k+IEV4cHJlc3Npb24gb2YgY29uY2Vybjwvc3Bhbj5gLFxuICAgIG90aGVyOiBodG1sYDxzcGFuIGNsYXNzPVwiYmFkZ2UgdGV4dC1iZy1pbmZvIHN0YXR1c1wiPjxpIGNsYXNzPVwiYmkgYmktaW5mby1jaXJjbGUtZmlsbFwiPjwvaT4gT3RoZXIgbm90aWNlcyAoZS5nLiwgY29ycmVjdGlvbnMpPC9zcGFuPmAsXG4gICAgY2xlYW46IGh0bWxgPHNwYW4gY2xhc3M9XCJiYWRnZSB0ZXh0LWJnLXN1Y2Nlc3Mgc3RhdHVzXCI+PGkgY2xhc3M9XCJiaSBiaS1jaGVjay1jaXJjbGUtZmlsbFwiPjwvaT4gTm8gbm90aWNlcyBmb3VuZDwvc3Bhbj5gXG4gIH07XG4gIGNvbnN0IGljb25zID0ge3JldHJhY3Rpb246IFwiYmkteC1vY3RhZ29uXCIsIGNvbmNlcm46IFwiYmktZXhjbGFtYXRpb24tdHJpYW5nbGVcIiwgY29ycmVjdGlvbjogXCJiaS1wZW5jaWwtc3F1YXJlXCIsIG90aGVyOiBcImJpLWZpbGUtZWFybWFyay10ZXh0XCJ9O1xuICBjb25zdCBub3RpY2VJdGVtID0gbiA9PiBodG1sYDxsaT5cbiAgICA8aSBjbGFzcz1cImJpICR7aWNvbnNbbi50eXBlXX1cIj48L2k+XG4gICAgPHN0cm9uZz4ke24ubGFiZWx9PC9zdHJvbmc+XG4gICAgPHNwYW4gY2xhc3M9XCJtZXRhXCI+IMK3ICR7bi5kYXRlID8/IG4uY2l0YXRpb24gPz8gXCJcIn0ke24uZGF0ZSB8fCBuLmNpdGF0aW9uID8gXCIgwrcgXCIgOiBcIlwifXNvdXJjZTogJHtuLnNvdXJjZX08L3NwYW4+XG4gICAgJHtuLnVybCA/IGh0bWxgIMK3IDxhIGhyZWY9XCIke24udXJsfVwiIHRhcmdldD1cIl9ibGFua1wiIHJlbD1cIm5vb3BlbmVyXCI+dmlldyBub3RpY2U8L2E+YCA6IFwiXCJ9XG4gIDwvbGk+YDtcblxuICAvLyBXaGljaCBzb3VyY2VzIGNvdWxkIGJlIGNoZWNrZWRcbiAgY29uc3Qgc3RhdHVzID0gKG5hbWUsIHMsIGZvdW5kKSA9PiBzLnN0YXR1cyA9PT0gXCJva1wiID8gaHRtbGA8c3Bhbj48aSBjbGFzcz1cImJpIGJpLWNoZWNrMlwiPjwvaT4gJHtuYW1lfSR7Zm91bmQgPz8gXCJcIn08L3NwYW4+YFxuICAgIDogcy5zdGF0dXMgPT09IFwibm90Zm91bmRcIiA/IGh0bWxgPHNwYW4+PGkgY2xhc3M9XCJiaSBiaS1kYXNoXCI+PC9pPiAke25hbWV9OiBub3QgaW5kZXhlZDwvc3Bhbj5gXG4gICAgOiBodG1sYDxzcGFuIGNsYXNzPVwidW5hdmFpbGFibGVcIj48aSBjbGFzcz1cImJpIGJpLWV4Y2xhbWF0aW9uLXRyaWFuZ2xlXCI+PC9pPiAke25hbWV9OiBjb3VsZCBub3QgYmUgY2hlY2tlZDwvc3Bhbj5gO1xuICBjb25zdCBjaGVja2VkID0gaHRtbGA8ZGl2IGNsYXNzPVwiY2hlY2tlZFwiPkNoZWNrZWQ6XG4gICAgJHtzdGF0dXMoXCJDcm9zc3JlZiBhbmQgUmV0cmFjdGlvbiBXYXRjaFwiLCByZXMuY3Jvc3NyZWYpfVxuICAgICR7c3RhdHVzKFwiUHViTWVkXCIsIHJlcy5wdWJtZWQsIHJlcy5wdWJtZWQucG1pZCA/IGAgKFBNSUQgJHtyZXMucHVibWVkLnBtaWR9KWAgOiBcIlwiKX1cbiAgICA8c3Bhbj48aSBjbGFzcz1cImJpIGJpLWNoZWNrMlwiPjwvaT4gYXJ0aWNsZSB0aXRsZTwvc3Bhbj5cbiAgPC9kaXY+YDtcblxuICB5aWVsZCBodG1sYDxkaXYgY2xhc3M9XCJkb2ktcmVzdWx0ICR7cmVzLmtpbmR9XCI+XG4gICAgJHtiYWRnZXNbcmVzLmtpbmRdfVxuICAgIDxkaXYgY2xhc3M9XCJjaXRhdGlvblwiPlxuICAgICAgPHNwYW4gY2xhc3M9XCJ3aG9cIj4ke3Jlcy5hdXRob3JzfSAoJHtyZXMueWVhcn0pPC9zcGFuPlxuICAgICAgJHsvWy4/IV0kLy50ZXN0KHJlcy50aXRsZSkgPyByZXMudGl0bGUgOiByZXMudGl0bGUgKyBcIi5cIn1cbiAgICAgICR7cmVzLmpvdXJuYWwgPyBodG1sYDxlbT4ke3Jlcy5qb3VybmFsfTwvZW0+LmAgOiBcIlwifVxuICAgICAgPGEgaHJlZj1cIiR7ZG9pVXJsKGQpfVwiIHRhcmdldD1cIl9ibGFua1wiIHJlbD1cIm5vb3BlbmVyXCI+aHR0cHM6Ly9kb2kub3JnLyR7ZH08L2E+XG4gICAgPC9kaXY+XG4gICAgJHtyZXMubm90aWNlcy5sZW5ndGggPyBodG1sYDx1bCBjbGFzcz1cIm5vdGljZXNcIj4ke3Jlcy5ub3RpY2VzLm1hcChub3RpY2VJdGVtKX08L3VsPmAgOiBcIlwifVxuICAgICR7cmVzLmlzTm90aWNlID8gaHRtbGA8ZGl2IGNsYXNzPVwibm90ZVwiPlRoaXMgRE9JIGlzIGl0c2VsZiBhIG5vdGljZSB0aGF0IHVwZGF0ZXMgYW5vdGhlciBhcnRpY2xlLjwvZGl2PmAgOiBcIlwifVxuICAgICR7Y2hlY2tlZH1cbiAgICAke3Jlcy5raW5kID09PSBcInJldHJhY3RlZFwiID8gXCJcIiA6IGh0bWxgPGRpdiBjbGFzcz1cImNvdmVyYWdlXCI+PGkgY2xhc3M9XCJiaSBiaS1pbmZvLWNpcmNsZVwiPjwvaT5cbiAgICAgIDxzcGFuPkNyb3NzcmVmLCBSZXRyYWN0aW9uIFdhdGNoLCBhbmQgUHViTWVkIGRvIG5vdCBoYXZlIGNvbXBsZXRlIGNvdmVyYWdlLiBFdmVuIGlmIG5vIHJldHJhY3Rpb24gb3Igb3RoZXIgbm90aWNlIGlzIGxpc3RlZCBoZXJlLCBjaGVjayB0aGUgcHVibGlzaGVyJ3MgcGFnZSBmb3Igbm90aWNlcywgYW5kIFB1YlBlZXIgZm9yIGNvbW1lbnRzLCB1c2luZyB0aGUgbGlua3MgYmVsb3cuPC9zcGFuPjwvZGl2PmB9XG4gICAgJHttYWtlTGlua3MocmVzLnB1Ym1lZC5wbWlkKX1cbiAgPC9kaXY+YDtcbn1cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnZG9pJykifV19
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../chapters";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../chapters/20_organising_critique.html" class="pagination-link" aria-label="Organising critique [✎ Outline]{.badge .badge-draft1}">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Organising critique <span class="badge badge-draft1">✎ Outline</span></span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../chapters/22_reflexive_critique.html" class="pagination-link" aria-label="Reflexive critique [✎ Outline]{.badge .badge-draft1}">
+        <span class="nav-page-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Reflexive critique <span class="badge badge-draft1">✎ Outline</span></span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Text and figures © Ian Hussey, <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>. Code <a href="https://opensource.org/licenses/MIT">MIT</a>. <a href="../index.html#sec-license">License details</a>.</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

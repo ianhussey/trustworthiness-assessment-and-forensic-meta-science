@@ -126,7 +126,7 @@ grim1View = ({mean: 23.16, recentre: false})
   const legend = html`<div style="display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; justify-content: center; font-size: 0.85rem; margin-top: 0.25rem; max-width: ${plotWidth}px;">`
   legend.innerHTML = `<span>${legendSquare("black", "black")} Consistent</span>
     <span>${legendSquare("white", "rgba(128, 128, 128, 0.8)")} Inconsistent</span>
-    <span><svg width="16" height="16" style="vertical-align: -3px;"><circle cx="8" cy="8" r="6" fill="none" stroke="${blue}" stroke-width="2.5"/></svg> Reported mean and SD</span>`
+    <span><svg width="16" height="16" style="vertical-align: -3px;"><circle cx="8" cy="8" r="6" fill="none" stroke="${blue}" stroke-width="2.5"/></svg> Reported mean</span>`
   return html`<p style="font-weight: 600; margin: 0.8rem 0 0.2rem 0;">A mean of ${(ix / scale).toFixed(d)} from ${who} is <span style="color: ${verdict[1]};">${verdict[0]}</span>.</p>
 <p style="margin: 0 0 0.5rem 0;">Attainable means are ${(1 / nk).toFixed(4)} apart${nk >= 10 ** d ? `, which is no wider than the ${d}-decimal reporting steps, so no mean can fail` : uninformative ? `. With halves rounded either way, that is close enough for every ${d}-decimal mean to be reached, so no mean can fail` : ""}.</p>
 ${plot}${legend}`
@@ -747,7 +747,7 @@ grimCalc = {
   const legend = html`<div style="display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; justify-content: center; font-size: 0.85rem; margin-top: 0.25rem; max-width: ${plotWidth}px;">`
   legend.innerHTML = `<span>${legendSquare("black", "black")} Consistent</span>
     <span>${legendSquare("white", "rgba(128, 128, 128, 0.8)")} Inconsistent</span>
-    <span><svg width="16" height="16" style="vertical-align: -3px;"><circle cx="8" cy="8" r="6" fill="none" stroke="${blue}" stroke-width="2.5"/></svg> Reported mean</span>`
+    <span><svg width="16" height="16" style="vertical-align: -3px;"><circle cx="8" cy="8" r="6" fill="none" stroke="${blue}" stroke-width="2.5"/></svg> Reported mean and SD</span>`
   return html`<p style="font-weight: 600; margin: 0.8rem 0 0.2rem 0;">${message}</p>
 <p style="margin: 0 0 0.5rem 0;">Attainable means are ${(1 / nk).toFixed(4)} apart${nk >= 10 ** d ? `, which is no wider than the ${d}-decimal reporting steps, so no mean can fail GRIM` : ""}.</p>
 ${plot}${legend}`
@@ -969,6 +969,362 @@ False negatives have a different set of causes, most of which cannot be fixed.
 -   **Leniency.** Every accommodated rounding practice lets more wrong values through.
 
 The asymmetry between the two outcomes is the main thing to take from this section. A failure is strong evidence that something is misreported, provided the checks in @tbl-grim-assumptions have been made, and no evidence about what or why. A pass is weak evidence of anything. Brown and Heathers make the same point: the number of GRIM failures in an article is a conservative estimate of the number of errors.
+
+## GRIM and GRIMMER checker {#sec-grim-app}
+
+An assessment rarely involves a single mean. A baseline table can contain dozens of means, *SD*s, and percentages, each with its own sample size. The app below runs GRIM and GRIMMER on all of them at once. It runs the {scrutiny} R package itself, the same functions used throughout this chapter, inside your browser, using [webR](https://docs.r-wasm.org/webr/latest/) as in the statcheck app (@sec-statcheck-app). Nothing you enter is sent anywhere. The first run takes several seconds, because R and {scrutiny} have to be downloaded, and later runs are almost instant. Its inputs follow the first tab of the INSPECT-SR consistency tester by Lukas Jung and Ian Hussey ([source code](https://github.com/lhdjung/inspect-sr-means-variances)), which also runs bounds checks (@sec-bounds).
+
+Enter one row per value. Each row needs:
+
+-   **Type.** Choose *Mean of whole numbers* only if every value in the raw data was a whole number, such as answers on a 1–7 scale, counts, or age in years (@sec-grim-integer-data). Choose *% from yes/no count* only if the percentage is a count divided by the sample size you enter, such as 10 of 22 people = 45.5%, and not a weighted percentage or an average of percentages. Otherwise, or if unsure, choose *Not whole numbers, or unsure*, which is the default for new rows: the row is then not tested.
+-   **Mean or percentage**, and optionally the ***SD***, exactly as printed. The number of decimals is taken from what you type, so type 4.70 rather than 4.7 if the article reported two decimals. GRIMMER only runs when an *SD* is given, and does not apply to percentages.
+-   **Sample size**: the *N* behind this particular value, which may not be the total sample size (@tbl-grim-assumptions).
+-   **Items averaged over**: the number of items averaged to make each participant's score. It is 1 for single items, for whole-number variables such as age, and for sum scores, however many items were summed (@sec-grim-integer-data). Set it to more than 1 only when the scale has multiple items and was mean scored.
+
+GRIM is reported as **Uninformative** when it could not have failed: once *N* × items averaged reaches 10^*d*^, where *d* is the number of reported decimals, every value is attainable and every mean passes (@sec-grim-uninformative). A row is only uninformative overall if GRIMMER was not run as well, because GRIMMER can still fail for samples where GRIM cannot (@sec-grimmer). Tests that could not be run on a row, because its type is *Not whole numbers, or unsure*, or because no mean or *SD* was given, are reported as **Not run**.
+
+A second table summarises all the GRIM tests together, using {scrutiny}'s `audit()` function. It gives the number of means that are GRIM-testable, that is, for which GRIM could have failed. It gives the empirical inconsistency rate, the share of the tested means that fail GRIM, and the expected inconsistency rate, the average probability that a mean made of random digits would fail GRIM, given its sample size, items averaged, and number of decimals (@sec-grim-pass-rates). The last row is the ratio of the two. A ratio well below 1 is what we expect from accurately reported values, which fail less often than random ones. A ratio near or above 1 means the means fail about as often as random numbers would, or more often. Both rates include every tested mean, including those for which GRIM is uninformative, which count as consistent and have an expected rate of zero.
+
+Rows can also be pasted from a spreadsheet: copy a block of cells and paste it into the cell where the block should start. The **Examples** button loads the examples used in this chapter, and the rounding setting chooses which rounding practices are allowed for (@nte-grim-rounding). Rows that fail are a reason to check the extraction and the assumptions in @tbl-grim-assumptions, not a finding in themselves.
+
+```{ojs}
+//| echo: false
+viewof gaInput = {
+  const types = [["any", "Not whole numbers, or unsure"], ["whole", "Mean of whole numbers"], ["percent", "% from yes/no count"]]
+  const fields = [["label", "Label"], ["type", "Type"], ["x", "Mean or percentage"], ["sd", "SD"], ["n", "Sample size"], ["items", "Items averaged over"]]
+  // the examples used in this chapter: the Kool-Aid group as reported and with its mean corrected, the three SDs from
+  // the GRIMMER section, the age example, the percentage example, the 3-item scale, a mean too large a sample to test,
+  // and a mean that is not of whole numbers
+  const examples = [
+    ["Kool-Aid, as reported", "whole", "5.19", "1.34", "28", "1"],
+    ["Kool-Aid, mean corrected", "whole", "5.21", "1.34", "28", "1"],
+    ["GRIMMER example A", "whole", "3.50", "1.20", "10", "1"],
+    ["GRIMMER example B", "whole", "3.50", "1.22", "10", "1"],
+    ["GRIMMER example C", "whole", "3.50", "1.18", "10", "1"],
+    ["Age", "whole", "23.16", "", "2", "1"],
+    ["Percentage", "percent", "37.5", "", "13", "1"],
+    ["3-item mean score", "whole", "3.42", "", "20", "3"],
+    ["Large sample", "whole", "4.37", "1.52", "150", "1"],
+    ["Reaction time (ms)", "any", "512.37", "88.10", "24", "1"]
+  ]
+  // new rows are not tested until their type is chosen, so that GRIM and GRIMMER are only run on data known to be whole
+  // numbers
+  const blank = ["", "any", "", "", "", "1"]
+  // a pasted type is matched loosely, so that a column of "%" or "percent" or "whole" from a spreadsheet works. anything
+  // else is not tested
+  const readType = text => /not|other|unsure|any/i.test(text) ? "any" : /%|perc|prop|yes|count/i.test(text) ? "percent"
+    : /whole|integer|int\b|likert/i.test(text) ? "whole" : "any"
+  const body = html`<tbody></tbody>`
+  const addRow = (values = blank) => {
+    const tr = html`<tr></tr>`
+    tr.inputs = fields.map(([key, label], j) => {
+      const input = key === "type"
+        ? html`<select class="form-select form-select-sm" aria-label="${label}">${types.map(([value, name]) => html`<option value="${value}">${name}</option>`)}</select>`
+        : html`<input type="text" class="form-control form-control-sm" inputmode="${j === 0 ? "text" : "decimal"}" aria-label="${label}" placeholder="${key === "sd" ? "optional" : ""}">`
+      input.value = values[j] ?? blank[j]
+      input.onpaste = e => paste(e, tr, j)
+      return input
+    })
+    const remove = html`<button class="btn btn-sm ga-remove" title="Remove this row" aria-label="Remove this row">×</button>`
+    remove.onclick = () => { tr.remove(); if (body.children.length === 0) addRow() }
+    tr.append(...tr.inputs.map(input => html`<td>${input}</td>`), html`<td>${remove}</td>`)
+    body.append(tr)
+    return tr
+  }
+  // a block of cells copied from a spreadsheet (tab-separated) or typed as comma-separated values fills the grid
+  // from the cell it was pasted into, adding rows as needed. a single value is pasted as normal
+  const paste = (e, tr, j) => {
+    const text = e.clipboardData.getData("text").replace(/\r/g, "").replace(/\n+$/, "")
+    if (!/[\t\n,]/.test(text)) return
+    e.preventDefault()
+    let row = tr
+    for (const line of text.split("\n")) {
+      const cells = line.split(line.includes("\t") ? "\t" : ",")
+      cells.forEach((cell, k) => {
+        if (j + k >= fields.length) return
+        row.inputs[j + k].value = fields[j + k][0] === "type" ? readType(cell) : cell.trim()
+      })
+      row = row.nextElementSibling ?? addRow()
+    }
+    // a trailing empty row that was only added for the next line is removed again
+    if (row !== tr && row.inputs.every((input, k) => input.value === blank[k]) && row.previousElementSibling) row.remove()
+  }
+  const load = rows => { body.replaceChildren(); rows.forEach(values => addRow(values)) }
+  load(examples)
+  const rounding = html`<select class="form-select form-select-sm" aria-label="Rounding">
+    <option value="up_or_down">Halves rounded up or down (lenient, the default)</option>
+    <option value="up">Halves rounded up</option>
+    <option value="down">Halves rounded down</option>
+    <option value="even">Halves rounded to even</option>
+    <option value="trunc">Truncation</option>
+  </select>`
+  const exampleButton = html`<button class="btn btn-quarto">Examples</button>`
+  const add = html`<button class="btn btn-quarto">Add row</button>`
+  const clear = html`<button class="btn btn-quarto">Clear all</button>`
+  const run = html`<button class="btn btn-quarto">Run GRIM and GRIMMER</button>`
+  exampleButton.onclick = () => load(examples)
+  add.onclick = () => addRow().inputs[0].focus()
+  clear.onclick = () => { body.replaceChildren(); addRow().inputs[0].focus() }
+  const view = html`<div>
+    <div class="table-responsive"><table class="table table-sm ga-grid">
+      <thead><tr><th>Label (optional)</th><th>Type</th><th>Mean or percentage</th><th><em>SD</em> (optional)</th><th>Sample size</th><th>Items averaged over</th><th></th></tr></thead>
+      ${body}
+    </table></div>
+    <div class="ga-controls"><label class="ga-label">Rounding</label>${rounding}</div>
+    <div class="ga-buttons">${exampleButton}${add}${clear}${run}</div>
+  </div>`
+  // the value only changes when the run button is clicked, so that R is not run on every keystroke
+  view.value = {runs: 0}
+  run.onclick = () => {
+    const rows = [...body.children].map(tr => Object.fromEntries(fields.map(([key], j) => [key, tr.inputs[j].value.trim()])))
+    view.value = {runs: view.value.runs + 1, rows, rounding: rounding.value, roundingName: rounding.selectedOptions[0].text}
+    view.dispatchEvent(new Event("input", {bubbles: true}))
+  }
+  return view
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  if (gaInput.runs === 0) {
+    yield html`<div class="ga-status">Click <strong>Run GRIM and GRIMMER</strong> to check the rows above.</div>`
+    return
+  }
+  const rows = gaChecked(gaInput.rows)
+  if (rows.length === 0) {
+    yield html`<div class="ga-status">Enter at least one mean or percentage, with its sample size.</div>`
+    return
+  }
+  yield html`<div class="ga-status"><span class="spinner-border spinner-border-sm" role="status"></span> ${gaSession.started() ? "Running GRIM and GRIMMER…" : "Starting R in your browser and installing scrutiny. This takes several seconds the first time…"}</div>`
+  yield gaRun(rows, gaInput.rounding, gaInput.roundingName).then(gaResults, e => html`<div class="ga-feedback"><strong>Something went wrong.</strong> ${e.message}</div>`)
+}
+```
+
+```{ojs}
+//| echo: false
+// functions and styles used by the GRIM and GRIMMER app
+
+// webR, a version of R compiled to WebAssembly, is only downloaded and started the first time the app is run. the
+// webR version is pinned, as in the apps in the recalculation chapter, so that the versions of R and of scrutiny do not
+// change unnoticed
+gaWebrVersion = "0.6.0"
+
+gaSession = {
+  let session = null
+  const start = async () => {
+    const {WebR} = await import(`https://webr.r-wasm.org/v${gaWebrVersion}/webr.mjs`)
+    const webR = new WebR()
+    await webR.init()
+    await webR.installPackages(["scrutiny"], {quiet: true})
+    await webR.evalRVoid(`suppressPackageStartupMessages({library(scrutiny); library(tibble)})`)
+    return {webR, rVersion: await webR.evalRString("R.version.string"), version: await webR.evalRString(`as.character(packageVersion("scrutiny"))`)}
+  }
+  return {
+    // whether R has been started, so that the first, slower run can say what it is doing
+    started: () => session !== null,
+    // if starting R or installing scrutiny fails, the next click tries again
+    get: () => session ??= start().catch(e => { session = null; throw e })
+  }
+}
+
+function gaChecked(rows) {
+  // reads the values in each row of the grid. rows without a label, mean, SD, or sample size are left out. the values
+  // are kept as typed, because the number of decimals is part of the input to the tests. a row is only sent to R if its
+  // values are numbers that the tests can use
+  const plain = /^[+-]?(\d+\.?\d*|\.\d+)$/
+  // a minus sign copied from a PDF is often not the ASCII hyphen-minus
+  const clean = s => s.replace(/[−–]/g, "-")
+  return rows.map((r, i) => ({...r, x: clean(r.x), sd: clean(r.sd), row: i + 1}))
+    .filter(r => [r.label, r.x, r.sd, r.n].some(v => v !== ""))
+    .map(r => {
+      const x = Number(r.x), sd = Number(r.sd), n = Number(r.n), items = Number(r.items)
+      const problem = r.type === "any" ? "Not whole-number data"
+        : r.x === "" ? "No mean given"
+        : /,/.test(r.x + r.sd + r.n) ? "Use a decimal point, without thousands separators"
+        : !plain.test(r.x) ? "The mean is not a number"
+        : r.sd !== "" && !plain.test(r.sd) ? "The SD is not a number"
+        : r.sd !== "" && sd < 0 ? "The SD cannot be negative"
+        : !/^\d+$/.test(r.n) || n < 2 ? "The sample size must be a whole number of at least 2"
+        : !/^\d+$/.test(r.items) || items < 1 ? "Items averaged over must be a whole number of at least 1"
+        : r.type === "percent" && (x < 0 || x > 100) ? "A percentage must be between 0 and 100"
+        : r.type === "percent" && items !== 1 ? "A percentage is of single yes/no items, so items averaged over must be 1"
+        : null
+      const notRun = r.type === "any" || r.x === ""
+      return {...r, n, items, percent: r.type === "percent", valid: problem === null, problem, notRun}
+    })
+}
+
+async function gaRun(rows, rounding, roundingName) {
+  const {webR, rVersion, version} = await gaSession.get()
+  const valid = rows.filter(r => r.valid)
+  let audit = null
+  if (valid.length > 0) {
+    const shelter = await new webR.Shelter()
+    try {
+      // the values are passed to R as vectors, never pasted into the code. the means and SDs are passed as text, so that
+      // their decimals are kept. scrutiny 1.0.0 takes numbers and the number of decimals instead, so both are supported
+      const res = await shelter.evalR(`
+        new_api <- "digits_x" %in% names(formals(grim_map))
+        dp <- function(s) if (grepl(".", s, fixed = TRUE)) nchar(sub("^[^.]*[.]", "", s)) else 0L
+        one <- function(i) {
+          xi <- x[i]; sdi <- sd[i]; ni <- n[i]; ki <- items[i]; pc <- percent[i]
+          g <- suppressMessages(suppressWarnings(if (new_api)
+            grim_map(tibble(x = as.numeric(xi), n = ni), digits_x = dp(xi), items = ki, percent = pc, rounding = rounding) else
+            grim_map(tibble(x = xi, n = ni), items = ki, percent = pc, rounding = rounding)))
+          out <- data.frame(grim = g$consistency, probability = g$probability, grimmer = NA, reason = "")
+          if (nzchar(sdi) && !pc) {
+            m <- suppressMessages(suppressWarnings(if (new_api)
+              grimmer_map(tibble(x = as.numeric(xi), sd = as.numeric(sdi), n = ni), digits_x = dp(xi), digits_sd = dp(sdi), items = ki, rounding = rounding, show_reason = TRUE) else
+              grimmer_map(tibble(x = xi, sd = sdi, n = ni), items = ki, rounding = rounding, show_reason = TRUE)))
+            out$grimmer <- m$consistency
+            out$reason <- m$reason
+          }
+          list(out = out, grim = g)
+        }
+        res <- lapply(seq_along(x), one)
+        # audit() summarises all the GRIM results together. the rows were run one at a time, because each can have its
+        # own number of items and type, so their grim_map() results are first combined into one
+        assign(".ga_audit", as.data.frame(audit(dplyr::bind_rows(lapply(res, function(r) r$grim)))), envir = globalenv())
+        do.call(rbind, lapply(res, function(r) r$out))
+      `, {env: {x: valid.map(r => r.x), sd: valid.map(r => r.sd), n: valid.map(r => r.n), items: valid.map(r => r.items), percent: valid.map(r => r.percent), rounding}})
+      const out = await res.toD3()
+      valid.forEach((r, i) => Object.assign(r, out[i]))
+      audit = (await (await shelter.evalR(".ga_audit")).toD3())[0]
+      await webR.evalRVoid("rm(.ga_audit, envir = globalenv())")
+    } finally {
+      shelter.purge()
+    }
+  }
+  rows.forEach(r => Object.assign(r, gaVerdicts(r)))
+  return {rows, audit, rounding, roundingName, runAt: new Date(), scrutinyVersion: version, rVersion}
+}
+
+function gaVerdicts(r) {
+  // the result of each test as text, and the verdict for the row, from scrutiny's output
+  // rows of the wrong type or without a mean are not run. rows with values the tests cannot use say why instead
+  if (!r.valid) return r.notRun ? {grimResult: "Not run", grimmerResult: "Not run", verdict: "Not tested", kind: "na"}
+    : {grimResult: "", grimmerResult: "", verdict: "Not tested", kind: "na"}
+  // probability is the share of values that would fail GRIM at this sample size. when it is 0, the test cannot fail, and a
+  // pass says nothing
+  const uninformative = r.grim && r.probability === 0
+  const grimResult = uninformative ? "Uninformative" : r.grim ? "Consistent" : "Inconsistent"
+  const grimmerResult = r.sd === "" ? "Not run"
+    : r.percent ? "Does not apply to percentages"
+    : !r.grim ? "Not run: inconsistent mean"
+    : r.grimmer ? "Consistent"
+    : "Inconsistent"
+  const fails = !r.grim || r.grimmer === false
+  // a row is only uninformative if GRIM could not fail and GRIMMER was not run
+  const verdict = fails ? "Inconsistent" : uninformative && r.grimmer !== true ? "Uninformative" : "Consistent"
+  return {grimResult, grimmerResult, verdict, kind: {Inconsistent: "bad", Uninformative: "na", Consistent: "ok"}[verdict]}
+}
+
+function gaResults(run) {
+  const {rows, roundingName, scrutinyVersion, rVersion} = run
+  const typeName = {whole: "Whole numbers", percent: "%", any: "Not whole numbers, or unsure"}
+  // the cells are built one by one, because a fragment of several cells is not kept as separate cells by html``
+  const td = (content, colspan = 1) => { const cell = html`<td>${content}</td>`; if (colspan > 1) cell.colSpan = colspan; return cell }
+  const body = rows.map(r => {
+    const tr = html`<tr class="${r.valid ? "" : "ga-row-none"}"></tr>`
+    const results = r.valid || r.notRun ? [td(r.grimResult), td(r.grimmerResult)] : [td(r.problem, 2)]
+    tr.append(td(r.label || `Row ${r.row}`), td(typeName[r.type]), td(r.x), td(r.sd), td(Number.isFinite(r.n) ? r.n : ""), td(r.items),
+      ...results, td(html`<span class="ga-verdict ga-verdict-${r.kind}">${r.verdict}</span>`))
+    return tr
+  })
+  const counts = d3.rollup(rows, v => v.length, r => r.verdict)
+  const summary = ["Consistent", "Inconsistent", "Uninformative", "Not tested"].map(k => `${counts.get(k) ?? 0} ${k.toLowerCase()}`).join(", ")
+  const cannotFail = rows.filter(r => r.valid && r.grimResult === "Uninformative").length
+  return html`<div>
+    <div class="table-responsive"><table class="table table-sm ga-table">
+      <thead><tr><th>Label</th><th>Type</th><th>Mean or percent</th><th><em>SD</em></th><th><em>N</em></th><th>Items averaged</th><th>GRIM</th><th>GRIMMER</th><th>Verdict</th></tr></thead>
+      <tbody>${body}</tbody>
+    </table></div>
+    ${run.audit ? gaAuditTable(run.audit) : ""}
+    <div class="ga-status">${rows.length} row${rows.length === 1 ? "" : "s"}: ${summary}. ${cannotFail > 0 ? html`GRIM was uninformative for ${cannotFail} row${cannotFail === 1 ? "" : "s"}: with this sample size and number of items averaged, every value at the reported number of decimals is attainable, so GRIM could not have failed (see <a href="#sec-grim-uninformative">When GRIM is uninformative</a>).` : ""} Rounding: ${roundingName.toLowerCase()}. Calculated by <code>grim_map()</code> and <code>grimmer_map()</code> with scrutiny ${scrutinyVersion}, ${rVersion}, running in webR ${gaWebrVersion}.</div>
+    <div class="ga-buttons ga-download">${gaDownloadButton(run)}</div>
+  </div>`
+}
+
+function gaAuditTable(a) {
+  // the summary of all the GRIM results from scrutiny's audit(): testable_cases, incons_rate, mean_grim_prob, and
+  // incons_to_prob
+  const pct = v => Number.isFinite(v) ? `${(100 * v).toFixed(1)}%` : "–"
+  const rows = [
+    ["GRIM-testable means", `${a.testable_cases} of ${a.all_cases}`],
+    ["Empirical inconsistency rate", `${pct(a.incons_rate)} (${a.incons_cases} of ${a.all_cases})`],
+    ["Expected inconsistency rate", pct(a.mean_grim_prob)],
+    ["Ratio of empirical to expected rate", Number.isFinite(a.incons_to_prob) ? a.incons_to_prob.toFixed(2) : "–"]
+  ]
+  return html`<div>
+    <div class="table-responsive"><table class="table table-sm ga-audit">
+      <thead><tr><th>Summary of all GRIM tests</th><th>Value</th></tr></thead>
+      <tbody>${rows.map(([name, value]) => html`<tr><td>${name}</td><td>${value}</td></tr>`)}</tbody>
+    </table></div>
+  </div>`
+}
+
+function gaDownloadButton(run) {
+  // a button that saves the inputs, scrutiny's output, and the versions used as a CSV file, one row per row of the grid
+  // that was not empty, named after the local date and time of the run, e.g. grim_grimmer_results_2026-10-27_14-05-09.csv
+  const {rows, rounding, runAt, scrutinyVersion, rVersion} = run
+  const columns = ["row", "label", "type", "x", "sd", "n", "items", "grim", "grim_fail_probability", "grim_result", "grimmer", "grimmer_result", "verdict", "problem",
+    "rounding", "scrutiny_version", "r_version", "webr_version", "run_at"]
+  const records = rows.map(r => ({...r, grim: r.valid ? r.grim : "", grim_fail_probability: r.valid ? r.probability : "", grim_result: r.grimResult,
+    grimmer: r.valid && r.grimmer !== null ? r.grimmer : "", grimmer_result: r.grimmerResult, problem: r.problem ?? "",
+    n: Number.isFinite(r.n) ? r.n : "", rounding, scrutiny_version: scrutinyVersion, r_version: rVersion, webr_version: gaWebrVersion, run_at: runAt.toISOString()}))
+  const cell = x => {
+    if (x === null || x === undefined) return ""
+    const text = typeof x === "boolean" ? (x ? "TRUE" : "FALSE") : String(x)
+    // a leading = + - or @ would be read as a formula by spreadsheet programs
+    const safe = /^[=+@]/.test(text) ? `'${text}` : text
+    return /[",\n\r]/.test(safe) ? `"${safe.replace(/"/g, '""')}"` : safe
+  }
+  const csv = [columns.join(","), ...records.map(r => columns.map(c => cell(r[c])).join(","))].join("\r\n")
+  const pad = n => String(n).padStart(2, "0")
+  const d = runAt
+  const name = `grim_grimmer_results_${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}_${pad(d.getHours())}-${pad(d.getMinutes())}-${pad(d.getSeconds())}.csv`
+  const button = html`<button class="btn btn-quarto">Download results as CSV</button>`
+  button.onclick = () => {
+    // the byte order mark lets spreadsheet programs read symbols such as – correctly
+    const url = URL.createObjectURL(new Blob(["﻿" + csv], {type: "text/csv;charset=utf-8"}))
+    const link = html`<a href="${url}" download="${name}"></a>`
+    document.body.append(link)
+    link.click()
+    link.remove()
+    setTimeout(() => URL.revokeObjectURL(url), 1000)
+  }
+  return button
+}
+
+gaAppStyle = html`<style>
+  .ga-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+  .ga-buttons .btn { font-family: inherit; }
+  .ga-download { margin-bottom: 1.5rem; }
+  .ga-label { display: block; font-size: 0.9rem; margin-bottom: 0.25rem; }
+  .ga-controls { margin: 0.5rem 0 0.75rem; max-width: 24rem; }
+  .ga-status { margin: 0.75rem 0 1.5rem; color: var(--bs-secondary-color); font-size: 0.9rem; }
+  .ga-feedback { margin: 0.5rem 0 1rem; padding: 0.6rem 0.9rem; border-left: 4px solid #d9a02b; background: rgba(128, 128, 128, 0.08); font-size: 0.9rem; }
+  .ga-grid { font-size: 0.9rem; margin-bottom: 0.5rem; }
+  .ga-grid th { font-weight: 600; border-bottom-width: 1px; vertical-align: bottom; }
+  .ga-grid td { padding: 0.15rem; }
+  .ga-grid input, .ga-grid select { background-color: transparent; color: inherit; }
+  .ga-grid input { min-width: 4.5rem; text-align: right; }
+  .ga-grid td:first-child input { min-width: 9rem; text-align: left; }
+  .ga-grid select { min-width: 13rem; }
+  .ga-grid select option { color: initial; }
+  .ga-remove { line-height: 1; padding: 0.2rem 0.5rem; color: var(--bs-secondary-color); }
+  .ga-table { font-size: 0.9rem; margin-top: 0.75rem; }
+  .ga-table td:nth-child(n+3):nth-child(-n+6), .ga-table th:nth-child(n+3):nth-child(-n+6) { text-align: right; }
+  .ga-row-none td { color: var(--bs-secondary-color); }
+  .ga-audit { font-size: 0.9rem; max-width: 30rem; margin-top: 1rem; }
+  .ga-audit td:nth-child(2), .ga-audit th:nth-child(2) { text-align: right; }
+  .ga-verdict { display: inline-block; padding: 0.1rem 0.5rem; border-left: 4px solid; background: rgba(128, 128, 128, 0.08); white-space: nowrap; }
+  .ga-verdict-ok { border-color: #3b9c6e; }
+  .ga-verdict-bad { border-color: #c0392b; }
+  .ga-verdict-na { border-color: #8a8a8a; }
+</style>`
+```
 
 ## Other granularity methods: GRIM-U {#sec-grim-u}
 

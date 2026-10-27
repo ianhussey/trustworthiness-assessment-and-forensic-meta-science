@@ -443,3 +443,58 @@ function titleNotices(title) {
   </div>`;
 }
 ```
+
+## Test yourself
+
+Answer all the questions, then click the button below the quiz to see why each answer is right.
+
+::: {.webex-check .webex-box}
+**Types of notice**
+
+1.  A journal has serious, credible doubts about an article, but is still waiting for the authors' institution to finish its investigation. Which notice should it publish? `r webexercises::mcq(c("A correction", answer = "An expression of concern", "A retraction", "None until the investigation ends"))`
+2.  When an article is retracted, it is usually deleted from the journal's website. `r webexercises::torf(FALSE)`
+3.  A retraction shows that the authors committed misconduct. `r webexercises::torf(FALSE)`
+4.  For a trustworthiness assessment, an article retracted because of an honest error, with no misconduct involved, can still be used. `r webexercises::torf(FALSE)`
+5.  Roughly what share of retracted articles had an expression of concern before they were retracted? `r webexercises::mcq(c(answer = "3%", "25%", "50%", "90%"))`
+6.  An article with no expression of concern is unlikely to be under investigation by its journal. `r webexercises::torf(FALSE)`
+
+**Who decides, and what notices say**
+
+7.  Under COPE's guidelines, who should make the final decision to retract an article? `r webexercises::mcq(c(answer = "The journal's editor", "The publisher", "The authors' institution", "COPE"))`
+8.  A retraction notice that gives "an error in the analysis" as its reason is good evidence that there was no misconduct. `r webexercises::torf(FALSE)`
+9.  Why do retraction notices often say little about what happened? `r webexercises::mcq(c(answer = "They are written to be legally defensible, and are often negotiated with the authors", "COPE forbids notices from giving reasons", "Journals rarely know why an article is being retracted", "Notices have strict word limits"))`
+
+**Finding notices**
+
+10. Checking the Retraction Watch Database alone is enough to find every retraction. `r webexercises::torf(FALSE)`
+11. Of the publications that at least one of Crossref, the Retraction Watch Database, Scopus, and Web of Science recorded as retracted, most were recorded as retracted by all four. `r webexercises::torf(FALSE)`
+12. Why does the checker in this chapter also look at the article's title? `r webexercises::mcq(c(answer = "Some publishers mark a retraction only by changing the title", "Titles are more reliable identifiers than DOIs", "To detect hallucinated references", "PubMed indexes only titles"))`
+13. Zotero warns you if you try to cite an article in your library that has been retracted. `r webexercises::torf(TRUE)`
+
+**PubPeer**
+
+14. PubPeer's moderators check each comment's scientific merit before publishing it. `r webexercises::torf(FALSE)`
+15. Large-scale analyses of PubPeer show that most comments are about trivial issues such as typos. `r webexercises::torf(FALSE)`
+16. A PubPeer thread raising concerns about an article is enough on its own to conclude that the article is untrustworthy. `r webexercises::torf(FALSE)`
+:::
+
+`r webexercises::hide("Why is each answer right?")`
+
+1.  **An expression of concern.** Expressions of concern are for cases where there are serious, credible doubts but the journal cannot yet decide whether to correct or retract the article, for example while an institutional investigation is ongoing. COPE's guidance is that editors should not wait silently for a decision (@sec-notice-types).
+2.  **False.** Retracted articles normally stay online, marked as retracted and linked to a retraction notice, so that readers who come across them, or across citations of them, can find out. Only rarely is an article removed entirely (@sec-notice-types).
+3.  **False.** Retraction corrects the literature; it is not a finding of misconduct. Unreliable results can come from honest error as well as from fabrication, falsification, plagiarism, or paper mills, and some retractions are requested by the authors themselves (@sec-notice-types).
+4.  **False.** A retraction for any reason means the journal no longer considers the findings reliable, so they should not be used. The reason matters more for what it implies about the authors' other work (@sec-reading-retraction-notices).
+5.  **3%.** In the Retraction Watch Database up to the end of 2024, only 3.3% of retracted articles had a preceding expression of concern [@grey2026].
+6.  **False.** Because expressions of concern are so rarely used, most articles that are later retracted carried no warning while they were being investigated. The absence of an expression of concern says very little (@sec-notice-types).
+7.  **The journal's editor.** The editor is responsible for the journal's content. The publisher can support and advise, and issue the notice jointly, but should not make the decision (@sec-who-decides).
+8.  **False.** Notices are the most conservative statement a journal can defend, and are often negotiated with the authors and checked by lawyers. A vague reason can cover anything from a typo to fabrication (@sec-reading-retraction-notices).
+9.  **They are written to be legally defensible, and are often negotiated with the authors.** An author named in a notice as having committed misconduct may sue, so notices rarely say so outright. Most do not even say whether an institutional investigation took place (@sec-reading-retraction-notices).
+10. **False.** There is no single complete database of retractions. The Retraction Watch Database is the most comprehensive, but the checker combines it with publishers' notices in Crossref, PubMed, and the article's title (@sec-retraction-databases).
+11. **False.** Only 3% were recorded as retracted by all four sources, and for almost 30% one source recorded a retraction that another, which indexed the same publication, did not (@sec-retraction-databases).
+12. **Some publishers mark a retraction only by changing the title**, for example by adding "RETRACTED:" to it, without registering a notice anywhere else (@sec-retraction-databases).
+13. **True.** Since 2019, Zotero has checked the DOIs and PubMed IDs in your library against the Retraction Watch Database. It flags retracted articles, and warns you when you try to cite one, or when a document already cites one that is later retracted (@sec-notice-types).
+14. **False.** Moderators check comments against PubPeer's rules, such as being based on publicly verifiable information and avoiding personal comments, not against their scientific merit. Readers are expected to judge each comment on its evidence (@sec-pubpeer).
+15. **False.** In a classification of 17,244 articles commented on PubPeer, the comments on 82.9% reported manipulation, publishing fraud, methodological flaws, or honest errors (@sec-pubpeer).
+16. **False.** PubPeer comments are not verdicts. Read the thread, check the claims it makes, and treat it as information to verify, not as a conclusion (@sec-pubpeer).
+
+`r webexercises::unhide()`

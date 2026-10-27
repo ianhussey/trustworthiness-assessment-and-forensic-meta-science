@@ -166,3 +166,51 @@ To check a single article's references yourself, you can also enter each cited D
 
 Citing a retracted article is not always a problem. The citation may predate the retraction, the article may be cited precisely because it was retracted, or it may be cited for a minor point. What matters is how many retracted articles are cited, what they are cited for, whether they were cited after the retraction notice, and whether they cluster in a way that suggests a common source. An article whose main hypothesis or method depends on a retracted study is a concern. So is one with many retracted references from the same journal or authors. An article that cites a single retracted study in passing, among a dozen others, usually is not.
 
+
+## Test yourself
+
+Answer all the questions, then click the button below the quiz to see why each answer is right.
+
+::: {.webex-check .webex-box}
+**Nonexistent and hallucinated references**
+
+1.  A single nonexistent reference shows that an article's results were fabricated. `r webexercises::torf(FALSE)`
+2.  If a reference's DOI resolves to a real article, the reference exists. `r webexercises::torf(FALSE)`
+3.  In early 2026, roughly how many biomedical articles contained a fabricated reference? `r webexercises::mcq(c("1 in 27", answer = "1 in 277", "1 in 2,828", "1 in 27,700"))`
+4.  A reference-checking tool with high sensitivity rarely flags genuine references. `r webexercises::torf(FALSE)`
+5.  You run CheckIfExist on a typical article's reference list. What will most of its flags probably be? `r webexercises::mcq(c(answer = "False alarms", "Nonexistent references", "Retracted references", "Miscitations"))`
+6.  A reference that an automated tool flags can be reported as nonexistent without further checking. `r webexercises::torf(FALSE)`
+
+**Citations that do not support the claim**
+
+7.  In @cobb2023's study of leading psychology journals, roughly what share of citations were inaccurate, meaning the cited article did not examine the claim or found the opposite? `r webexercises::mcq(c("1%", answer = "10%", "25%", "50%"))`
+8.  In the same study, articles whose first authors were more senior miscited less often. `r webexercises::torf(FALSE)`
+9.  A commentary criticising the Newcastle-Ottawa scale was cited by many systematic reviews. How did 98% of them cite it? `r webexercises::mcq(c(answer = "As support for using the scale", "As a criticism of the scale", "As validation of a different scale", "As a meta-analysis"))`
+10. It is not feasible to check every citation by hand. Which should you check first? `r webexercises::mcq(c(answer = "Those supporting the rationale, methods, and interpretation of results", "The oldest citations", "Citations of the authors' own work", "Citations that appear only once"))`
+11. To check whether a cited article supports a claim, reading its abstract is usually enough. `r webexercises::torf(FALSE)`
+
+**Citations of retracted articles**
+
+12. Citing a retracted article is always a sign that something is wrong with the citing article. `r webexercises::torf(FALSE)`
+13. Several retracted references from the same journal, special issue, or group of authors can be a sign that the citing article came from a paper mill. `r webexercises::torf(TRUE)`
+14. What does the Problematic Paper Screener's Feet of Clay detector flag? `r webexercises::mcq(c(answer = "Articles that cite retracted or PubPeer-flagged articles", "Articles that contain tortured phrases", "Articles that have been retracted", "Articles with nonexistent references"))`
+:::
+
+`r webexercises::hide("Why is each answer right?")`
+
+1.  **False.** A nonexistent reference shows that at least part of the text was not checked by its authors, and raises questions about how the rest of the article was produced. Several, especially for key claims, are a more serious concern, but none of this shows that the results were fabricated (@sec-hallucinated-references).
+2.  **False.** A DOI can resolve to an unrelated article. In the example in @sec-hallucinated-references, a reference's DOI led to a real article with a different title and different authors, and the cited article could not be found anywhere.
+3.  **1 in 277.** In an audit of around 2.5 million articles in PubMed Central, the rate rose from 1 in 2,828 articles in 2023 to 1 in 277 in early 2026 [@topaz2026].
+4.  **False.** Sensitivity is the proportion of problematic references a tool flags. The proportion of genuine references it accepts is its specificity. In @tbl-reference-checkers, the tools with the highest sensitivity also flagged around half of the genuine references.
+5.  **False alarms.** CheckIfExist flagged 34 of 71 genuine references in @badalova2026's comparison. Most reference lists contain few or no problematic references, so most of its flags will be genuine references whose details are slightly off.
+6.  **False.** Automated tools are screening tools. Check each flagged reference by hand, by searching for its title and DOI, before saying anything about it (@sec-hallucinated-references).
+7.  **10%.** 9.5% of 3,347 citations were inaccurate, and a further 9.3% were only somewhat accurate, omitting an important qualifier [@cobb2023].
+8.  **False.** Miscitation was not related to the seniority of the first author, or to the number of authors (@sec-miscitation).
+9.  **As support for using the scale**, which was the opposite of what the commentary argued. This suggests that most of the citing authors had not read it, and copied the citation from others [@stang2018].
+10. **Those supporting the rationale, methods, and interpretation of results.** These are the citations an article depends on: for its hypotheses, for describing measures as "validated" or analyses as "standard", and for claiming that its results agree with previous research (@sec-miscitation).
+11. **False.** Read the cited article's methods and results. Abstracts often omit the qualifiers, populations, and null results that determine whether a claim is supported (@sec-miscitation).
+12. **False.** The citation may predate the retraction, the article may be cited because it was retracted, or it may be cited for a minor point. What matters is how many are cited, for what, when, and whether they cluster (@sec-retracted-citations).
+13. **True.** Paper mills cite their own earlier products, which are often retracted in batches once a mill is discovered. Clusters of retracted references therefore suggest a common origin (@sec-retracted-citations).
+14. **Articles that cite retracted or PubPeer-flagged articles.** Each flagged article gets a report listing its problematic references (@sec-retracted-citations).
+
+`r webexercises::unhide()`

@@ -1,3 +1,8 @@
+---
+aliases:
+  - 16_theory_specification_methods.html
+---
+
 # Theory specification methods [✎ Outline]{.badge .badge-draft1} {#sec-theory-specification}
 
 ```{r}

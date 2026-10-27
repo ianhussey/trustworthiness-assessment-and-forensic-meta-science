@@ -1,3 +1,8 @@
+---
+aliases:
+  - 17_data_extraction_methods.html
+---
+
 # Data extraction methods [✎ Outline]{.badge .badge-draft1}
 
 ```{r}

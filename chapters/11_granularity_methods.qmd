@@ -43,18 +43,6 @@ Granularity methods are tests of possibility: they ask whether a reported value 
 
 The GRIM test (granularity-related inconsistency of means) was introduced by @brown2017. The {scrutiny} package [@jung2026] implements GRIM and the other tests in this chapter.
 
-### How GRIM works {#sec-grim-logic}
-
-GRIM checks a reported mean in three steps. Take the age example from @sec-granularity-core-idea, a mean of 23.16 from 2 participants.
-
-1.  Multiply the reported mean by the sample size to get the implied sum: 23.16 × 2 = 46.32.
-2.  The scores are whole numbers, so their sum must be one too. Take the whole numbers on either side of the implied sum: 46 and 47.
-3.  Divide each by the sample size and round to the reported number of decimals: 46/2 = 23.00 and 47/2 = 23.50. If neither result matches the reported mean, the mean is **inconsistent** with the sample size, as 23.16 is here.
-
-When each participant's score is itself the average of several items, the sample size is replaced by *N* × items (@sec-grim-integer-data). A mean that falls exactly halfway between two reported values can be rounded more than one way, which the test has to allow for (@nte-grim-rounding).
-
-### Visualising GRIM {#sec-grim-plot}
-
 Use the plot below to see which means can pass GRIM. Each square is a mean as it would be printed to the chosen number of decimals, and the row covers every such mean near the one you enter. The zoom setting chooses how far the row reaches on either side of it: 1 at low zoom, 0.5 at medium, and 0.25 at high. The rounding setting chooses what happens to a mean that falls exactly halfway between two reported values: it may be rounded either up or down, or only up (@nte-grim-rounding). Leave the number of items averaged at 1 unless each participant's score is the mean of several items. A square is black if some set of *N* whole numbers has that mean, and white if no set does. Typing a mean centres the row on it. Clicking or dragging in the row chooses a mean without moving the row. The chosen mean is circled in blue.
 
 ```{ojs}
@@ -196,7 +184,7 @@ grim(x = 3.42, n = 20, digits_x = 2, items = 3)
 ::: {#nte-grim-rounding .callout-note collapse="true"}
 ## Rounding
 
-The last example in @sec-grim-plot, a mean of 3.12 from 8 participants, has no single answer. Its only candidate sum gives an exact mean of 25/8 = 3.125, which is reported as 3.13 by some software and 3.12 by other software. Rounding gets its own note because, once extraction errors are set aside, it is the main way that a correct value can be flagged as impossible.
+The last example in @sec-grim-grimmer-plot, a mean of 3.12 from 8 participants, has no single answer. Its only candidate sum gives an exact mean of 25/8 = 3.125, which is reported as 3.13 by some software and 3.12 by other software. Rounding gets its own note because, once extraction errors are set aside, it is the main way that a correct value can be flagged as impossible.
 
 #### Rounding conventions
 
@@ -507,7 +495,7 @@ The most important practical fact about GRIM is where its pass rate reaches 100%
 $$N \times \text{items} < 10^{d}$$
 
 where *d* is the number of reported decimals. With the usual two decimals, GRIM applies to fewer than 100 participants on a single item. At or above that, every two-decimal value is attainable and every mean passes. Brown and Heathers call variables below this limit **GRIM-testable**.
-Allowing halves to be rounded either way can end the test slightly earlier, at sample sizes that produce exact halves. At *N* = 80, for example, every two-decimal value passes (@sec-grim-leniency). The GRIM plot in @sec-grim-plot reports the test as uninformative in both cases.
+Allowing halves to be rounded either way can end the test slightly earlier, at sample sizes that produce exact halves. At *N* = 80, for example, every two-decimal value passes (@sec-grim-leniency). The GRIM plot in @sec-grim-grimmer-plot reports the test as uninformative in both cases.
 
 Use @fig-pass-rates to see where the limit falls for different numbers of decimals, items averaged, and rounding rules.
 
@@ -816,7 +804,7 @@ function setInput(view, value) {
 }
 ```
 
-The default values are the Kool-Aid example above: a mean of 5.19 and an *SD* of 1.34 from 28 participants. Each white square in the GRIM plot in @sec-grim-plot becomes a white column here, because a mean that fails GRIM fails whatever the *SD*. Raise *N* towards 100 and the white columns disappear as before, but white squares among the black columns last longer, especially where the *SD* is small, because GRIMMER can still fail where GRIM no longer can.
+The default values are the Kool-Aid example above: a mean of 5.19 and an *SD* of 1.34 from 28 participants. Each white square in the GRIM plot in @sec-grim-grimmer-plot becomes a white column here, because a mean that fails GRIM fails whatever the *SD*. Raise *N* towards 100 and the white columns disappear as before, but white squares among the black columns last longer, especially where the *SD* is small, because GRIMMER can still fail where GRIM no longer can.
 
 ### How much does GRIMMER add?
 

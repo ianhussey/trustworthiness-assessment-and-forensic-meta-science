@@ -1,3 +1,8 @@
+---
+aliases:
+  - 19_organising_critique.html
+---
+
 # Organising critique [✎ Outline]{.badge .badge-draft1}
 
 ```{r}

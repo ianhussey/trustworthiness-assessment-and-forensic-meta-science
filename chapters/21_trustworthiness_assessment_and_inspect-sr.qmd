@@ -1,3 +1,8 @@
+---
+aliases:
+  - 20_trustworthiness_assessment_and_inspect-sr.html
+---
+
 # Trustworthiness Assessment and INSPECT-SR [✎ Draft]{.badge .badge-draft2}
 
 ```{r}
@@ -91,7 +96,7 @@ I am one of the co-authors of the INSPECT-SR article and contributed to its guid
 | **Inspecting post-publication notices** |    |
 | 1.1. Does the study have an associated retraction? | @sec-post-publication-notices (below) |
 | 1.2. Does the study have an associated expression of concern or other relevant post publication notice? | @sec-post-publication-notices (below) |
-| 1.3. Do other studies by the research team highlight causes for concern (associated retractions, expressions of concern, relevant post-publication notices?) | @sec-post-publication-notices (below) |
+| 1.3. Do other studies by the research team highlight causes for concern (associated retractions, expressions of concern, relevant post-publication notices?) |     |
 | **Inspecting conduct, governance and transparency** |    |
 | 2.1. Are there concerns relating to ethical approval? |    |
 | 2.2. Are there concerns relating to the timing or absence of study registration? |    |
@@ -118,7 +123,7 @@ I am one of the co-authors of the INSPECT-SR article and contributed to its guid
 
 ### Inspecting post-publication notices {#sec-post-publication-notices}
 
-Tool for Checks 1.1, 1.2, and 1.3:
+Tool for Checks 1.1 and 1.2.
 
 Enter a DOI below to check for post-publication notices (retractions, expressions of concern, and corrections). The app combines three sources: Crossref, which includes both the notices that publishers register and the Retraction Watch Database; PubMed, which links articles to retraction and expression of concern notices; and the article's title, because some publishers mark a retraction only by changing the title (e.g., "RETRACTED: ..."). This approach follows, and was inspired by, the "Annulled" and "Concerning" detectors of the [Problematic Paper Screener](https://dbrech.irit.fr/pls/apex/f?p=9999:33::::::) [@cabanac2022], which combine the same sources. The difference is that this app queries the sources live, whereas the Problematic Paper Screener's lists are updated periodically.
 

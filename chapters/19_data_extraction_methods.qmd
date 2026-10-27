@@ -1,5 +1,6 @@
 ---
 aliases:
+  - 18_data_extraction_methods.html
   - 17_data_extraction_methods.html
 ---
 

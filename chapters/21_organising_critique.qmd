@@ -1,5 +1,6 @@
 ---
 aliases:
+  - 20_organising_critique.html
   - 19_organising_critique.html
 ---
 

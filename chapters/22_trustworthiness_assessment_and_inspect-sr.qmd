@@ -1,0 +1,135 @@
+---
+aliases:
+  - 21_trustworthiness_assessment_and_inspect-sr.html
+  - 20_trustworthiness_assessment_and_inspect-sr.html
+---
+
+# Trustworthiness Assessment and INSPECT-SR [✎ Draft]{.badge .badge-draft2}
+
+```{r}
+#| include: false
+if(file.exists("../_setup.R")){source("../_setup.R")}
+```
+
+## Cochrane
+
+Cochrane (formerly the Cochrane Collaboration) is an international network of researchers, health professionals, and patients that produces systematic reviews of the evidence on healthcare interventions. It was founded in 1993 and is named after the epidemiologist Archie Cochrane. Its reviews are published in the Cochrane Database of Systematic Reviews, part of the Cochrane Library. Cochrane describes its work as "internationally recognized as the benchmark for high-quality information about the effectiveness of health care" [@cochraneeditorial].
+
+A Cochrane Review is a systematic review that follows a published protocol. The review authors search for every study that meets prespecified eligibility criteria, appraise each study, extract its data, and, where appropriate, combine the results in a meta-analysis. Cochrane Reviews aim "to provide the best available evidence of the effects of healthcare interventions", but the quality of that evidence "depends, inevitably, upon the reliability of the studies included" [@cochraneeditorial].
+
+### Risk of Bias
+
+The established way to appraise the trials in a review is a Risk of Bias assessment. Cochrane's original tool for randomised controlled trials was published in 2011 [@higgins2011] and was later replaced by RoB 2 [@sterne2019]. RoB 2 asks whether the design, conduct, or analysis of a trial could have biased its estimate of the effect, across five domains: the randomisation process, deviations from the intended interventions, missing outcome data, measurement of the outcome, and selection of the reported result.
+
+Risk of Bias assessment takes a trial's report at face value. It asks whether the trial, *as described*, was likely to produce a biased estimate. It does not ask whether the trial was actually conducted as described, or whether the numbers it reports are possible or real.
+
+### Problematic studies
+
+That assumption fails for *problematic studies*: studies "where there are serious questions about the trustworthiness of the data or findings, regardless of whether the study has been formally retracted" [@cochraneeditorial]. A study can be problematic because of misconduct, such as fabrication, falsification, or plagiarism, but also because of poor research practices or honest critical errors.
+
+#### How common are problematic studies?
+
+While good estimates of prevalence do not yet exist, there is reason to believe that problematic trials are not rare. 
+
+For example, Carlisle analysed the 526 randomised controlled trials submitted to the journal *Anaesthesia* between February 2017 and March 2020 [@carlisle2021]. He judged that 73 (14%) contained false data, and that 43 (8%) were "zombie" trials, which he considered fatally flawed. These rates depended strongly on what he could see. Among the 153 trials whose authors supplied individual patient data, 44% had false data and 26% were zombie trials, compared with 2% and 1% of the 373 trials assessed from summary data alone. This suggests that most problematic trials go undetected when only the published report is available.
+
+Estimates from outside clinical trials point the same way. The most widely cited figure comes from surveys of researchers: about 2% admit to having fabricated or falsified data at least once [Fanelli, 2009, summarised in @heathers2024]. Heathers argues that this underestimates the problem. People are unlikely to admit to misconduct, even in anonymous surveys, and the share of researchers who have *ever* faked a result says little about how much of the published literature is fake. He instead collected 12 studies that estimated the proportion of *papers* with fabricated or falsified elements [@heathers2024], including:
+
+- A visual inspection of 20,621 papers in 40 biomedical journals, which found inappropriately duplicated images in 3.8% of them, and about 4% of those published from 2005 onwards.
+- An analysis of 588 preclinical studies of chronic stress models of depression, of which 13.9% contained image anomalies consistent with manipulation.
+- A GRIM analysis of 71 psychology articles, half of which reported at least one impossible mean [@brown2017]. GRIM is described in @sec-grim. After requesting the authors' data, Heathers puts the proportion with hallmarks of manipulation between 4.2% and 16.9%.
+- The editor-in-chief of *Molecular Brain*, who asked for the raw data behind 41 of the 180 manuscripts he handled between 2017 and 2019, because their results looked "too beautiful to be true" [@miyakawa2020]. Twenty-one were withdrawn without providing raw data, and 19 of the remaining 20 were rejected because the raw data were insufficient. In seven of these, the raw data did not match the reported results. Only one manuscript was sent for peer review. Miyakawa notes that he cannot know how many of these manuscripts contained fabricated data. Heathers' estimate of 14.4% of all submissions rests on a hypothetical figure in the editorial: if an informal poll of researchers were right, 26 of the 40 withdrawn or rejected manuscripts would contain fabricated data.
+- A COPE and STM report on paper mills, which found that, on average, 14% of the manuscripts submitted to the journals it examined between 2019 and 2021 were suspect, ranging from 2% to 46% by journal.
+
+Across the 16 estimates in these studies, the median was 14%, and 9 of the 16 fell between 13.4% and 16.9%. Heathers concludes that roughly 1 in 7 papers contain errors consistent with faking in at least one element. It's quite important to emphasise that many commentators have problems with this estimate, including myself. If I was to reframe Heathers' argument, I would do it as so: **Collectively, we are acting as if the prevalence of untrustworthy articles is so small that it can literally be ignored. There is sufficient reason to act as if the prevalence of untrustworthy research is much higher than this, and we should at least look for it.**
+
+More recent studies report similar or higher rates in specific fields. Aquarius and colleagues assessed every article that was eligible for a systematic review of preclinical studies of microvascular injury after myocardial infarction, using the image-analysis software Imagetwin together with visual checks [@aquarius2026]. They had decided in advance to exclude problematic articles from the review. Of 201 articles, 57 (28.4%) were deemed problematic: 46 because of duplicated or manipulated images, and 11 because of inappropriately duplicated values in tables. Only three of the 57 had previously been flagged on PubPeer for serious concerns. Similar assessments within other systematic reviews of animal studies found image-related problems in 19% of included articles on depression and 40% of included articles on early brain injury after subarachnoid haemorrhage [both summarised in @aquarius2026]. These studies are examples of trustworthiness assessment as part of a systematic review: every eligible study was checked, and problematic studies were excluded before synthesis.
+
+#### Problematic studies change the conclusions of reviews
+
+A review of 847 systematic reviews that included at least one retracted trial found that excluding the retracted trials changed the size of the pooled effect in 16% of meta-analyses, and its direction in just over 8% [summarised in @wilkinson2026]. Retraction can take years, if it happens at all, so retraction status alone cannot identify problematic trials. Risk of Bias tools are not designed to detect these problems, and do not appear to succeed in doing so [@wilkinson2026].
+
+#### Cochrane's policy on problematic studies
+
+Cochrane's policy for managing potentially problematic studies sets out what review authors and editors should do [@cochraneeditorial; @cochraneproblematic]:
+
+- **Retracted studies** must not be included in a Cochrane Review. They are listed as excluded, with a citation to the retraction notice.
+- **Studies with an Expression of Concern** should be treated "with a high degree of caution". Whether they are excluded depends on the reason for the concern, because some Expressions of Concern relate to matters that do not affect the validity of the data, such as authorship disputes.
+- **Studies with no post-publication notice, but where the review team has concerns,** should be checked against bibliographic databases, the Retraction Watch Database, PubPeer, and the publisher's website. The review team should contact the study authors for clarification, and if concerns remain, write to the journal editor in neutral language. Meanwhile, the study is classified as "Awaiting Classification" rather than included.
+
+The implementation guidance notes that "there is no standard definition of, nor validated method to identify, a problematic study", and that it will be updated as evidence and consensus emerge [@cochraneproblematic]. INSPECT-SR was developed to provide such a method. In October 2025, Cochrane endorsed it as an optional tool for review authors who wish to assess the trustworthiness of the randomised controlled trials in their reviews [@cochrane2025methods].
+
+### Trustworthiness Assessment vs. science sleuthing
+
+Trustworthiness Assessment and science sleuthing use many of the same methods, and the people who develop them often overlap. They differ in how studies are chosen, how the checks are carried out, and what the result is used for.
+
+| | Trustworthiness Assessment | Science sleuthing |
+|:--|:--|:--|
+| **Which studies** | Every trial that is eligible for a systematic review, whether or not anything seems wrong with it | Articles are selected via heterogeneous means |
+| **Process** | Structured: the same checks for every study, a recorded response to each check, judgments per domain and overall, and ideally two independent reviewers who then reach consensus  | Open-ended: follows whatever leads seem most promising for that study |
+| **Complexity** | Checks are often shallower to facilitate speed and lower training burden | Checks are often deeper as they are (currently) performed by more expert sleuths, with more attention paid to fewer articles. Exceptions to this exist, e.g., image forensics work conducted by Elisabeth Bik, Rene Aquarius, Matthew Shrank and others often involve thousands of articles |
+| **Purpose** | To decide whether a study's data can be used in a particular evidence synthesis | To correct the scientific record, for example by alerting journals and institutions or posting on PubPeer |
+| **Outcome** | Studies with serious concerns are excluded from the review, and studies with some concerns are examined in sensitivity analyses | Corrections, Expressions of Concern, retractions, and sometimes misconduct investigations |
+| **Stance on misconduct** | Explicitly not a test for fraud: concerns about trustworthiness "do not constitute an accusation of research misconduct" [@wilkinson2026] | May raise the question of misconduct, although findings are usually framed as concerns to be resolved by journals and institutions |
+
+How studies are selected also changes what a positive result means. A check that flags a trial chosen because it already looked suspicious is more likely to point to a problem than the same flag in a trial selected only because it met a review's eligibility criteria. Trustworthiness Assessment is applied to many trials that have no problems at all, so false positives matter more there, and judgments should rest on the guidance for each check rather than on a single flag.
+
+## INSPECT-SR domains and checks {#sec-inspect-sr}
+
+INSPECT-SR (Investigating Problematic Clinical Trials in Systematic Reviews) is a tool for assessing the trustworthiness of randomised controlled trials [@wilkinson2026]. It was developed in five stages:
+
+1. A list of 76 candidate checks was drawn from the existing literature and a survey of experts.
+2. The checks were applied to the trials in 50 Cochrane Reviews to assess how feasible they were and how much difference they made.
+3. A two-round Delphi survey (148 and 134 participants) found expert consensus for 29 checks.
+4. Eight online consensus meetings narrowed these to 21 checks and decided how each should be applied.
+5. User testing and a workshop refined the wording and the guidance. Testers took a median of 45 minutes to assess a trial.
+
+The final tool has 21 checks in four domains, shown in the table below. Each check is answered "yes", "no", "unclear", or "not applicable", where "yes" indicates a potential problem. After each domain, the reviewer judges whether there are no concerns, some concerns, or serious concerns about the trial in that domain. The overall judgment for the study should usually be at least as severe as the most severe domain judgment. There is no algorithm that converts answers into judgments: a single "yes" does not automatically mean serious concerns, although some, such as a retraction (check 1.1), usually will.
+
+The article recommends that INSPECT-SR is applied to every eligible trial in a systematic review, before Risk of Bias assessment and data extraction, by two reviewers working independently. Trials with serious concerns should be excluded, and trials with some concerns should be examined in sensitivity analyses. Checks 1.1 and 1.2 should be repeated shortly before the review is completed, because new notices may have been published in the meantime. INSPECT-SR can be used for trials in any area of healthcare and does not require individual participant data. It does not assess Risk of Bias, generalisability, or conflicts of interest. Extensions are in development or planned for individual participant data (INSPECT-IPD), non-randomised studies (INSPECT-NRS), and use by journal editors (INSPECT-JR).
+
+The wording of each check is short, and users should not try to infer how to apply a check from its wording alone [@wilkinson2026]. The [INSPECT-SR Guidance website](https://inspect-sr.com) explains each check with examples, provides an editable template for recording assessments, and is updated as the tool is used and evaluated.
+
+I am one of the co-authors of the INSPECT-SR article and contributed to its guidance document. With Jack Wilkinson, I maintain the INSPECT-SR Guidance website, whose source code is on [GitHub](https://github.com/ianhussey/inspect-sr-guidance). Lukas Jung and I also developed an [app for check 4.8](https://errors.shinyapps.io/inspect-sr-means-variances/), which the article recommends to users. This book is not part of the official INSPECT-SR guidance. It aims to explain the methods behind many of the checks in more depth, and the table below shows which chapters are relevant to each check.
+
+| Domains and checks  | Relevant chapters in this book |
+|:------------------------------------------------|----------------|
+| **Inspecting post-publication notices** |    |
+| 1.1. Does the study have an associated retraction? | @sec-post-publication-notices |
+| 1.2. Does the study have an associated expression of concern or other relevant post publication notice? | @sec-post-publication-notices |
+| 1.3. Do other studies by the research team highlight causes for concern (associated retractions, expressions of concern, relevant post-publication notices?) | @sec-post-publication-notices |
+| **Inspecting conduct, governance and transparency** |    |
+| 2.1. Are there concerns relating to ethical approval? |    |
+| 2.2. Are there concerns relating to the timing or absence of study registration? |    |
+| 2.3. Are there important inconsistencies between the publication and the registration documents? | @sec-repetition-consistency; [RegCheck](https://regcheck.app) |
+| 2.4. Is the recruitment of participants implausible? | @sec-design-methods |
+| 2.5. Are the reported methods implausible considering the reported resources? |    |
+| **Inspecting text and figures** |    |
+| 3.1. Are there concerns relating to duplicated content, such as text or tables, or text that is incompatible with the study? |    |
+| 3.2. Is there evidence of manipulation or duplication of figures? |    |
+| **Inspecting results in the study** |    |
+| 4.1. Are there any unexplained discrepancies between reported data and participant eligibility criteria? |    |
+| 4.2. Are numbers of participants allocated to each group implausible given the allocation method? | @sec-design-methods |
+| 4.3. Are any baseline data implausible? | @sec-design-methods |
+| 4.4. Are there any discrepancies between results reported in figures, tables, and text? | @sec-repetition-consistency |
+| 4.5. Are the numbers of participants lost to follow-up implausible? | @sec-design-methods |
+| 4.6. Are there any unexplained inconsistencies in the numbers of participants? | @sec-repetition-consistency |
+| 4.7. Are any outcome data, including estimated treatment effects, implausible? | @sec-effect-size-methods |
+| 4.8. Are the means and variances of integer data impossible? | @sec-granularity and @sec-bounds |
+| 4.9. Are there errors in statistical results? | @sec-recalculation |
+| 4.10. Are any other contradictions implied by the data? | @sec-recalculation |
+| 4.11. Are there inconsistencies in descriptions of methods and results across publications describing the study? |    |
+
+: {.inspect-sr-table}
+
+```{=html}
+<style>
+/* INSPECT-SR table: rows whose first cell is entirely bold are domain subheadings; checks are indented beneath them */
+.inspect-sr-table tbody tr:has(> td:first-child > strong:only-child) > td {
+  background-color: color-mix(in srgb, var(--bs-body-color) 7%, var(--bs-body-bg));
+  border-top: 2px solid color-mix(in srgb, var(--bs-body-color) 35%, var(--bs-body-bg));
+  padding-top: 0.6rem; padding-bottom: 0.6rem;
+}
+.inspect-sr-table tbody tr:not(:has(> td:first-child > strong:only-child)) > td:first-child { padding-left: 1.75rem; }
+</style>
+```

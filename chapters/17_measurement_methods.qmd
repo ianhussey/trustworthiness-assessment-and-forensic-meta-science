@@ -1,5 +1,6 @@
 ---
 aliases:
+  - 16_measurement_methods.html
   - 15_measurement_methods.html
 ---
 

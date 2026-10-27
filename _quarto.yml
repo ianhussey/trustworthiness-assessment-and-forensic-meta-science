@@ -42,24 +42,25 @@ book:
     - chapters/11_granularity_methods.qmd
     - chapters/12_bounds_methods.qmd
     - chapters/13_reconstruction_resampling_simulation_methods.qmd
-    - chapters/14_reference_and_citation_methods.qmd
-    - chapters/15_design_methods.qmd
-    - chapters/16_measurement_methods.qmd
-    - chapters/17_theory_specification_methods.qmd
-    - chapters/18_data_extraction_methods.qmd
+    - chapters/14_post_publication_notices.qmd
+    - chapters/15_reference_and_citation_methods.qmd
+    - chapters/16_design_methods.qmd
+    - chapters/17_measurement_methods.qmd
+    - chapters/18_theory_specification_methods.qmd
+    - chapters/19_data_extraction_methods.qmd
     
   - part: 'Part IV: Organising critique'
     chapters:
-    - chapters/19_critiquing_specific_types_of_articles.qmd
-    - chapters/20_organising_critique.qmd
-    - chapters/21_trustworthiness_assessment_and_inspect-sr.qmd
-    - chapters/22_reflexive_critique.qmd
+    - chapters/20_critiquing_specific_types_of_articles.qmd
+    - chapters/21_organising_critique.qmd
+    - chapters/22_trustworthiness_assessment_and_inspect-sr.qmd
+    - chapters/23_reflexive_critique.qmd
     
   - part: 'Part V: Developing and validating forensic methods'
     chapters:
-    - chapters/23_forensic_methods_require_validation.qmd
-    - chapters/24_method_implementation_and_tool.qmd
-    - chapters/25_validation_using_simulated_data.qmd
+    - chapters/24_forensic_methods_require_validation.qmd
+    - chapters/25_method_implementation_and_tool.qmd
+    - chapters/26_validation_using_simulated_data.qmd
     
   - references.qmd
     

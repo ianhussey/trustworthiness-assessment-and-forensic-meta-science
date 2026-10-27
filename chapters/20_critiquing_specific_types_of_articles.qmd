@@ -1,5 +1,6 @@
 ---
 aliases:
+  - 19_critiquing_specific_types_of_articles.html
   - 18_critiquing_specific_types_of_articles.html
 ---
 

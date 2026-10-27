@@ -1,3 +1,8 @@
+---
+aliases:
+  - 14_reference_and_citation_methods.html
+---
+
 # Reference and citation methods [✎ Draft]{.badge .badge-draft2} {#sec-reference-citation}
 
 ```{r}
@@ -155,7 +160,7 @@ Paper mills tend to cite their own earlier products, to pad out reference lists 
 
 Guillaume Cabanac's [Problematic Paper Screener](https://dbrech.irit.fr/pls/apex/f?p=9999:33::::::) [@cabanac2022] includes a "Feet of Clay" detector [@cabanacfeetofclay], named after the Biblical image of a statue on a fragile base. It flags published articles that cite retracted articles, or articles flagged on PubPeer. It uses the retraction notices registered with Crossref, which now include the Retraction Watch Database. Each flagged article gets a report listing its problematic references, and you can also look up which articles cite a given retracted article. It covers the literature indexed by Dimensions, and its lists are updated periodically rather than in real time.
 
-To check a single article's references yourself, you can also enter each cited DOI into the post-publication notice checker in @sec-post-publication-notices. Reference managers such as Zotero also flag retracted items in your library, which helps authors avoid the problem in the first place.
+To check a single article's references yourself, you can also enter each cited DOI into the post-publication notice checker in @sec-post-publication-notice-checker. Reference managers such as Zotero also flag retracted items in your library, which helps authors avoid the problem in the first place.
 
 ### Interpreting citations of retracted articles
 

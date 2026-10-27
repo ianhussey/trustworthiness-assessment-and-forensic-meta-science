@@ -1,0 +1,445 @@
+# Inspecting post-publication notices [✎ Draft]{.badge .badge-draft2} {#sec-post-publication-notices}
+
+```{r}
+#| include: false
+if(file.exists("../_setup.R")){source("../_setup.R")}
+```
+
+Publication is not the end of an article's history. After an article is published, its journal can correct it, warn readers about it, or retract it. These post-publication notices are the simplest thing to check in any trustworthiness assessment, and the first: they are checks 1.1 and 1.2 of INSPECT-SR (@sec-inspect-sr). A retracted article should usually not be relied on at all, whatever its methods and results look like.
+
+This chapter explains what each kind of notice means, who decides to issue one, what a notice can and cannot tell you, and how to find them. The last of these is harder than it should be.
+
+## Types of post-publication notice {#sec-notice-types}
+
+The Committee on Publication Ethics (COPE) is an organisation whose members include most major journals and publishers. Its guidelines are the closest thing to a standard for how journals handle problems with published articles, although they are advice rather than rules, and journals follow them unevenly. COPE describes three main kinds of notice, in increasing order of seriousness.
+
+### Corrections
+
+A correction (sometimes called an erratum when the error was the publisher's, or a corrigendum when it was the authors') fixes an error in an article that is otherwise reliable: a wrong number in a table, a mislabelled figure, a missing funding statement. The article stays in the literature, and the correction is published as a separate notice linked to it. Many articles have corrections, and most are minor. But read them: a correction that changes a main result, or a series of corrections to the same article, can be a concern in itself.
+
+### Expressions of concern
+
+An expression of concern warns readers that there are serious, credible doubts about an article's reliability, but that the journal cannot yet decide whether to correct or retract it [@cope2025eoc]. Typical reasons are that an investigation by the authors' institution is still ongoing, that the journal is waiting for the authors to provide information such as their data, or that the authors have refused to provide it. An expression of concern can be a temporary notice, later replaced by a correction or a retraction, or it can be the final outcome if the case is never resolved. For a trustworthiness assessment, it is a strong warning: the journal itself is saying that the results may not be reliable.
+
+In practice, journals rarely use them. @grey2026 extracted all the expressions of concern and retractions in the Retraction Watch Database up to the end of 2024.
+
+::: big-number
+[3.3%]{.number}
+
+[of retracted articles had been given an expression of concern before they were retracted [@grey2026].]{.description}
+:::
+
+Even among authors with more than five retractions, only 35% had any expression of concern on any of their articles. For most retracted articles, then, readers received no warning while the journal investigated, which can take years [@nature2014retraction]. Throughout that time the articles looked like any other published article and continued to be read, cited, and included in systematic reviews. The absence of an expression of concern therefore says very little about whether a journal has concerns about an article.
+
+### Retractions
+
+A retraction is the most serious notice. It tells readers that the article's findings and conclusions cannot be relied on [@cope2025retraction]. Retraction is often described as "unpublishing" an article, but the article does not usually disappear. It normally stays online, marked as retracted (often with a "RETRACTED" watermark on every page) and linked to a retraction notice that explains, in principle, why. This keeps the record intact, so that readers who come across the article, or across citations of it, can find out that it has been retracted. Only rarely is an article removed entirely, for example for legal reasons or because following it could put people's health at risk.
+
+A retraction does not necessarily mean misconduct. COPE's guidelines describe retraction as a way to correct the literature, not to punish the authors, and unreliable findings can come from honest error as well as from fabrication, falsification, plagiarism, or paper mills. Some retractions are requested by the authors themselves after they find a serious mistake. For a trustworthiness assessment this distinction matters less than it might seem: either way, the article's results should not be used.
+
+Retracted articles continue to be cited, often without any sign that the citing authors know about the retraction. This is easy to do. Most researchers have little reason to check whether an article they already know has been retracted, or to revisit its page on the publisher's website, which is usually the only place the retraction is shown. Once an article is in your reference manager, nothing in a typical workflow removes it from the articles you can cite, so it can be cited for years after its retraction. Zotero helps with this: since 2019, it flags retracted articles in your library, shows the details of the retraction, and warns you if you try to cite one, or if a document already cites one that is later retracted [@stillman2019]. It does this by checking the DOIs and PubMed IDs in your library against the Retraction Watch Database, the same database used by the checker in @sec-post-publication-notice-checker, without sending your library to Zotero's servers. For this reason, I recommend Zotero as a reference manager.
+
+@sec-retracted-citations covers how to check an article's references for retracted work.
+
+## Who decides? {#sec-who-decides}
+
+Under COPE's guidelines, the decision to correct, issue an expression of concern about, or retract an article belongs to the journal's editor, because the editor is responsible for the journal's content [@cope2025retraction]. The publisher can support the editor, advise on how to handle a case, and issue the notice jointly, but should not make the decision, so that commercial interests do not influence it. While many (but not all) journals are COPE signatories, there is still a great deal of heterogeneity in processes. This may be due in part to editors not being aware of their own power. For example, editors sometimes ask authors' institution to investigate, or defer to publisher's research integrity offices. Institutional investigations can take years, some never happen or are never reported, and many people feel that they suffer from an inherent conflict of interest (e.g., an institution has an incentive to minimise reputation damage due to its employees behavior). Different entities also make judgement about different things: COPE states that an editors role is to retract if they have lost confidence in the work, not to adjuicate whether research integrity violations took place. These are often conflated - for example, sufficient ambiguity can lead to an editor losing confidence in a specific article, even if there is not sufficient evidence for a university research integrity committee to assert that research misconduct occurred. The point of this section is not to overly editorialise about who *should* make a decision here, only to note that despite clarity about who can make a decision, about what, on what timeline, and in conjunction with what other entities.
+
+The result is that notices are slow, and their absence means little. Many articles with serious problems have no notice at all, and many that are eventually retracted were cited for years before the retraction.
+
+## What retraction notices do and do not tell you {#sec-reading-retraction-notices}
+
+A retraction notice is not a full account of what happened and should not be read as one. It is the most conservative statement the journal is confident it can defend - possibly in court.
+
+Notices are often (partially) negotiated with the authors, and checked by the publisher's lawyers before they are published. Because an author who is named in a notice as having committed misconduct may sue, this is rarely stated outright. In a 2014 editorial, *Nature* explained that "for legal reasons" it could not usually use retraction statements to highlight wrongdoing [@nature2014retraction]. The result is notices that say little: that "concerns were raised about the data", that the editor "no longer has confidence in the findings", or that the authors "could not provide the raw data". In an analysis of 7,318 retraction notices, 73.7% did not say whether any institutional investigation had led to the retraction [@xu2023]. 
+
+Notices can also show signs of negotiation directly. The retraction notice for the article described in @sec-hallucinated-references ends by stating that the author "agrees with this retraction but for different reasons than those stated here" [@baldeo2026retraction].
+
+So a notice that does not mention misconduct is not evidence that there was none, and a vague reason such as "error" may cover anything from a typo to fabrication. For more context, look for other sources: PubPeer comments, coverage by [Retraction Watch](https://retractionwatch.com), and published reports of institutional investigations. For a trustworthiness assessment, though, what matters most is usually the fact of the retraction rather than its stated reason. A retraction for any reason means the article's results should not be used, and a retraction for misconduct also raises questions about the authors' other work (INSPECT-SR check 1.3).
+
+Relatedly, whereas there is a normative requirement in science that authors of research be given fair credit by being named as authors of articles, there is no comparable norm in retraction notices to give fair credit to the people who detected the problems. Most notices mention that issues were raised by "a reader", for example, but not by name. While I understand there may be legal reasons for doing so, this contributes to the perverse incentive structures in science.
+
+## There is no single database of retractions {#sec-retraction-databases}
+
+It would be reasonable to expect a single, complete list of retracted articles. Surprisingly, there is none. Retractions are recorded in several places, and they often disagree.
+
+Publishers are supposed to register notices with Crossref, the organisation that registers the DOIs of most journal articles, but many do not, or do so incompletely. PubMed and commercial indexes such as Web of Science and Scopus each record retractions in their own way, for the journals they cover. The [Retraction Watch Database](https://retractiondatabase.org), compiled by hand by Retraction Watch from publishers' websites and other sources, is the most comprehensive, and Crossref acquired it in 2023 and now makes it openly available.
+
+@schneider2023 combined the retractions recorded by Crossref, the Retraction Watch Database, Scopus, and Web of Science, giving 49,924 publications that at least one source recorded as retracted.
+
+::: big-number
+[3%]{.number}
+
+[of publications recorded as retracted by at least one of four major sources were recorded as retracted by all four [@schneider2023].]{.description}
+:::
+
+For almost 30% of the publications, one source recorded a retraction that another, which indexed the same publication, did not. Of the retracted publications that Scopus indexed, it failed to mark 32% as retracted, compared with 7% for Crossref and 4% for Web of Science.
+
+The practical consequence is that checking one source is not enough. The checker below therefore combines four:
+
+1. notices that publishers have registered with Crossref;
+2. the Retraction Watch Database, which Crossref now includes alongside the publishers' own records;
+3. PubMed, which links articles to retraction notices and expressions of concern, and tags retracted articles;
+4. the article's title, because some publishers mark a retraction only by changing the title (e.g., "RETRACTED: ...").
+
+This approach follows, and was inspired by, the "Annulled" and "Concerning" detectors of the [Problematic Paper Screener](https://dbrech.irit.fr/pls/apex/f?p=9999:33::::::) [@cabanac2022], which combine the same sources. The difference is that this checker queries the sources live, whereas the Problematic Paper Screener's lists are updated periodically.
+
+## PubPeer and its browser extension {#sec-pubpeer}
+
+Formal notices are only part of an article's post-publication history. [PubPeer](https://pubpeer.com) is a website where anyone can comment on published articles, and it has become the main place where problems with articles are reported and discussed. Comments are moderated, may be posted anonymously, and are often detailed: they report duplicated or manipulated images, impossible statistics, inconsistencies with the trial registration, nonexistent references, and the other problems covered in this book. Authors can reply, and commenters often post updates when a correction, expression of concern, or retraction is published, as in the example in @sec-hallucinated-references. Because journals are slow to act, and because most retractions are not preceded by an expression of concern, a PubPeer thread is often the first, and sometimes the only, public sign that an article has problems.
+
+PubPeer comments are not verdicts. Read the thread, check the claims it makes, and treat it as information to assess and verify, not as a conclusion. When reading and writing PubPeer comments, remember that a good comment is one that provides verifiable information that might adjust our trust in the work.
+
+Many of the arguments made against PubPeer are straw men that neglect the principled reasons it works the way it does.
+
+Some argue that PubPeer comments are not legitimate because they have not been peer reviewed, although PubPeer has never claimed that they are. Its moderators check comments against its rules, not their scientific merit, and readers are expected to judge each comment on the evidence it presents ([PubPeer FAQ](https://pubpeer.com/static/faq)). There are also good reasons why science needs a way to verify published work other than critiques published by journals, because journals make such critiques difficult. Of 330 top-ranked journals across 22 disciplines, only 63% accepted post-publication critique at all, and those that did often limited it [@hardwicke2022].
+
+::: big-number
+[23%]{.number}
+
+[of a random sample of psychology journals offered an explicit way to submit a critique of a published article [@whamond2025].]{.description}
+:::
+
+::: big-number
+[1,000 words]{.number}
+
+[was the median length limit for critiques of published articles at top-ranked journals [@hardwicke2022].]{.description}
+:::
+
+::: big-number
+[12 weeks]{.number}
+
+[was the median time allowed after the original article's publication to submit a critique [@hardwicke2022].]{.description}
+:::
+
+Even among the most prominent psychology journals, only 38% did, and almost no articles in either sample had a published critique [@whamond2025]. Concerns about data integrity often take far longer than a few weeks to find, and need more than 400 words to document. Journal limits were found to be as strict as 175 words and two weeks [@hardwicke2022]. These represent severe misalignment between publishing processes and the putative goal of the scientific record, which is to pursue truth. PubPeer is, arguably, a symptom of the very flawed way that critiques of published work are treated by the publishing system. 
+
+Others argue that PubPeer comments are mostly about trivial points such as typos, or are unprofessional personal attacks. The large-scale evidence says otherwise. In a classification of 17,244 articles commented on PubPeer, the comments on 82.9% reported manipulation, potential publishing fraud, methodological flaws, or honest but serious errors. The largest single category was manipulation of data or images [@ortega2023; see also @ortega2022]. PubPeer's own rules require comments to be based on "publicly verifiable information" and polite, neutral, and factual. They forbid allegations of misconduct and personal comments about authors, and moderators do not publish comments that break them ([PubPeer FAQ](https://pubpeer.com/static/faq)). 
+
+Some authors object to anonymous PubPeer comments, without asking why anonymity is allowed. Researchers who report serious concerns about published work have repeatedly faced legal action. In 2014, the cancer researcher Fazlul Sarkar sued to make PubPeer reveal the identities of anonymous commenters who had pointed out problems with images in his papers. PubPeer, represented by the American Civil Liberties Union, won on appeal in 2016 ([The Scientist](https://www.the-scientist.com/pubpeer-wins-appeal-on-anonymous-comments-32392)), and Sarkar has since had dozens of papers retracted ([Retraction Watch](https://retractionwatch.com/category/by-author/fazlul-sarkar)). In 2023, Francesca Gino sued the three researchers behind the Data Colada blog, who had reported evidence of data fabrication in her work, for \$25 million for defamation. The claims against them were dismissed in 2024 ([Poets & Quants](https://poetsandquants.com/2024/09/12/judge-dismisses-francesca-ginos-defamation-claims-against-harvard-data-colada/)), and Harvard revoked her tenure in 2025. Even unsuccessful lawsuits cost the people who are sued time, money, and stress, and anonymity protects people, especially early-career researchers, who could not otherwise afford to report what they find. In the Gino/Data Colada case, the researchers' universities initially said they would not support their legal defense as critique of others' research was not part of their official duties. After public outcry and a GoFundMe campaign raised more than \$250k, the universities eventually agreed to cover some of the legal costs - but likely for PR reasons more than any commitment to the idea that the lawsuit was a threat to academic freedom.
+
+PubPeer's [browser extension](https://pubpeer.com/static/extensions), available for Chrome, Firefox, Edge, and Safari, checks every article you read for PubPeer comments and shows a banner at the top of the page if it finds any. This turns PubPeer from a site you have to remember to search into one that alerts you as you read. I highly recommend installing it.
+
+## Checking for notices {#sec-post-publication-notice-checker}
+
+Enter a DOI below to check for post-publication notices (retractions, expressions of concern, and corrections). The checker can be used for INSPECT-SR checks 1.1 and 1.2 for a single article, for check 1.3 by entering the DOIs of the research team's other articles, and for checking the references of an article (@sec-retracted-citations).
+
+Even four sources do not give complete coverage, so a clean result does not rule out notices that were never registered. Also check the publisher's page and PubPeer, using the links in the result.
+
+```{=html}
+<style>
+/* Colours are derived from the page's text and background colours, because the dark theme
+   (darkly) keeps Bootstrap's light-mode values for --bs-tertiary-bg and --bs-border-color */
+.doi-checker, .doi-result {
+  --dc-bg: color-mix(in srgb, var(--bs-body-color) 4%, var(--bs-body-bg));
+  --dc-border: color-mix(in srgb, var(--bs-body-color) 18%, var(--bs-body-bg));
+  --dc-muted: var(--bs-secondary-color);
+  --dc-accent: var(--bs-link-color);
+  border: 1px solid var(--dc-border);
+  border-radius: 0.5rem;
+  padding: 1rem 1.25rem;
+}
+.doi-checker { background: var(--dc-bg); margin-bottom: 1rem; }
+.doi-checker .input-group-text { background: var(--dc-border); color: var(--bs-body-color); border-color: var(--dc-border); }
+.doi-checker .form-control { border-color: var(--dc-border); }
+.doi-checker .examples { margin-top: 0.9rem; font-size: 0.875rem; }
+.doi-checker .examples-title { color: var(--dc-muted); margin-bottom: 0.35rem; }
+.doi-checker .example { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; padding: 0.15rem 0; }
+.doi-checker .example .example-label { min-width: 6.5rem; color: var(--dc-muted); }
+.doi-checker .example code {
+  background: var(--bs-body-bg); color: var(--bs-body-color);
+  border: 1px solid var(--dc-border); border-radius: 0.25rem; padding: 0.15rem 0.45rem;
+}
+.doi-checker .example .btn { padding: 0.1rem 0.5rem; font-size: 0.8rem; }
+/* Quarto adds .btn-quarto to buttons, which forces a solid fill; use outline buttons instead */
+.doi-checker .btn-outline-primary.btn-quarto, .doi-result .btn-outline-primary {
+  background-color: transparent; color: var(--dc-accent); border-color: var(--dc-accent);
+}
+.doi-checker .btn-outline-primary.btn-quarto:hover, .doi-result .btn-outline-primary:hover {
+  background-color: var(--dc-accent); color: var(--bs-body-bg); border-color: var(--dc-accent);
+}
+.doi-checker .btn-outline-secondary.btn-quarto { background-color: transparent; color: var(--dc-muted); border-color: var(--dc-border); }
+.doi-checker .btn-outline-secondary.btn-quarto:hover { background-color: var(--dc-border); color: var(--bs-body-color); }
+.doi-result { border-left-width: 6px; margin-bottom: 1rem; }
+.doi-result.retracted { border-left-color: var(--bs-danger); }
+.doi-result.concern { border-left-color: var(--bs-warning); }
+.doi-result.other { border-left-color: var(--bs-info); }
+.doi-result.clean { border-left-color: var(--bs-success); }
+.doi-result.error, .doi-result.loading { border-left-color: var(--bs-secondary); }
+.doi-result .status { font-size: 0.85rem; padding: 0.4em 0.7em; }
+.doi-result .citation { margin: 0.75rem 0 0.15rem; }
+.doi-result .citation .who { font-weight: 600; }
+.doi-result .doi-text { font-family: var(--bs-font-monospace); font-size: 0.85rem; color: var(--dc-muted); }
+.doi-result ul.notices { list-style: none; padding: 0; margin: 0.75rem 0 0; }
+.doi-result ul.notices li { padding: 0.4rem 0; border-top: 1px solid var(--dc-border); font-size: 0.9rem; }
+.doi-result ul.notices li .meta { color: var(--dc-muted); }
+.doi-result .actions { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem; }
+.doi-result .checked { display: flex; flex-wrap: wrap; gap: 0.25rem 0.9rem; margin-top: 0.75rem; font-size: 0.8rem; color: var(--dc-muted); }
+.doi-result .checked .unavailable { color: var(--bs-warning); }
+.doi-result .note { font-size: 0.85rem; color: var(--dc-muted); margin-top: 0.5rem; }
+.doi-result .coverage {
+  display: flex; gap: 0.5rem; align-items: flex-start; margin-top: 1rem; padding: 0.6rem 0.75rem;
+  font-size: 0.875rem; background: var(--dc-bg); border: 1px solid var(--dc-border); border-radius: 0.375rem;
+}
+</style>
+```
+
+```{ojs}
+//| echo: false
+viewof doi = {
+  const initial = "10.1177/0269215520923135";
+  const examples = [
+    {label: "Retracted", doi: "10.1177/0269215520923135"},
+    {label: "Not retracted", doi: "10.1177/25152459241287123"}
+  ];
+
+  const input = html`<input class="form-control font-monospace" type="text" spellcheck="false" autocomplete="off"
+    aria-label="DOI" placeholder="e.g., 10.1177/0269215520923135 or https://doi.org/...">`;
+  input.value = initial;
+  // Only update the result when the form is submitted, not on every keystroke
+  input.addEventListener("input", e => e.stopPropagation());
+
+  const form = html`<form class="input-group">
+    <span class="input-group-text">DOI</span>
+    ${input}
+    <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i> Check</button>
+  </form>`;
+
+  const exampleRow = ({label, doi}) => {
+    const useBtn = html`<button type="button" class="btn btn-outline-primary" title="Check this DOI">Try it</button>`;
+    const copyBtn = html`<button type="button" class="btn btn-outline-secondary" title="Copy DOI"><i class="bi bi-clipboard"></i></button>`;
+    useBtn.onclick = () => { input.value = doi; run(); };
+    copyBtn.onclick = async () => {
+      try {
+        await navigator.clipboard.writeText(doi);
+        copyBtn.innerHTML = `<i class="bi bi-check2"></i>`;
+      } catch (e) {
+        copyBtn.innerHTML = `<i class="bi bi-x"></i>`;
+      }
+      setTimeout(() => (copyBtn.innerHTML = `<i class="bi bi-clipboard"></i>`), 1500);
+    };
+    return html`<div class="example"><span class="example-label">${label}</span><code>${doi}</code>${useBtn}${copyBtn}</div>`;
+  };
+
+  const root = html`<div class="doi-checker">
+    ${form}
+    <div class="examples">
+      <div class="examples-title">Examples</div>
+      ${examples.map(exampleRow)}
+    </div>
+  </div>`;
+
+  root.value = initial;
+  function run() {
+    root.value = input.value;
+    root.dispatchEvent(new Event("input", {bubbles: true}));
+  }
+  form.onsubmit = e => { e.preventDefault(); run(); };
+  return root;
+}
+```
+
+```{ojs}
+//| echo: false
+// Look up a DOI in Crossref (which includes the Retraction Watch database) and PubMed,
+// and check the article title, then combine the post-publication notices from all three.
+// Together these cover the sources used by the Problematic Paper Screener's
+// "Annulled" and "Concerning" detectors, but are queried live.
+async function lookupDoi(d) {
+  const [cr, pm] = await Promise.all([lookupCrossref(d), lookupPubmed(d)]);
+  if (cr.status !== "ok" && pm.status !== "ok") {
+    return {status: "error", message: cr.message, pubmed: pm};
+  }
+  // Use Crossref for the reference where possible, otherwise PubMed
+  const ref = cr.status === "ok" ? cr : pm;
+  const notices = [
+    ...(cr.status === "ok" ? cr.notices : []),
+    ...(pm.status === "ok" ? pm.notices : []),
+    ...titleNotices(ref.title)
+  ];
+  const types = new Set(notices.map(n => n.type));
+  const kind = types.has("retraction") ? "retracted"
+    : types.has("concern") ? "concern"
+    : notices.length ? "other"
+    : "clean";
+  return {
+    status: "ok", authors: ref.authors, year: ref.year, title: ref.title, journal: ref.journal,
+    notices, kind, isNotice: cr.status === "ok" && cr.isNotice, crossref: cr, pubmed: pm
+  };
+}
+
+cleanText = x => (x ?? "").replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+
+function formatAuthors(names) {
+  return names.length === 0 ? "Unknown authors"
+    : names.length === 1 ? names[0]
+    : names.slice(0, -1).join(", ") + (names.length > 2 ? "," : "") + " & " + names.at(-1);
+}
+
+async function lookupCrossref(d) {
+  let r;
+  try {
+    r = await fetch(`https://api.crossref.org/works/${encodeURIComponent(d)}`);
+  } catch (e) {
+    return {status: "error", message: "Could not reach Crossref. Check your connection and try again."};
+  }
+  if (r.status === 404) return {status: "notfound", message: "This DOI was not found in Crossref or PubMed. It may be mistyped, or registered with another agency (e.g., DataCite)."};
+  if (!r.ok) return {status: "error", message: `Crossref returned an error (${r.status}). Try again later.`};
+  const m = (await r.json()).message;
+
+  const typeOf = t => ["retraction", "withdrawal", "removal"].includes(t) ? "retraction"
+    : t === "expression_of_concern" ? "concern"
+    : ["correction", "erratum", "corrigendum"].includes(t) ? "correction"
+    : "other";
+  // Deduplicate: Crossref can list the same notice more than once
+  const seen = new Set();
+  const notices = (m["updated-by"] ?? []).filter(u => {
+    const key = `${u.type}|${(u.DOI ?? "").toLowerCase()}|${u.source}`;
+    return seen.has(key) ? false : (seen.add(key), true);
+  }).map(u => ({
+    type: typeOf(u.type),
+    label: u.label ?? u.type,
+    date: u.updated?.["date-parts"]?.[0]?.map(x => String(x).padStart(2, "0")).join("-"),
+    source: u.source === "retraction-watch" ? "Crossref (Retraction Watch)" : "Crossref (publisher)",
+    url: u.DOI && u.DOI.toLowerCase() !== d.toLowerCase() ? `https://doi.org/${encodeURI(u.DOI)}` : null
+  }));
+
+  return {
+    status: "ok", notices,
+    authors: formatAuthors((m.author ?? []).map(a => a.family ?? a.name).filter(Boolean)),
+    year: (m.issued ?? m.published ?? m.created)?.["date-parts"]?.[0]?.[0] ?? "n.d.",
+    title: cleanText(m.title?.[0]) || "(untitled)",
+    journal: cleanText(m["container-title"]?.[0]),
+    isNotice: (m["update-to"] ?? []).some(u => (u.DOI ?? "").toLowerCase() !== d.toLowerCase())
+  };
+}
+
+async function lookupPubmed(d) {
+  const eutils = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils";
+  try {
+    const s = await fetch(`${eutils}/esearch.fcgi?db=pubmed&retmode=json&tool=trustworthyresearch&term=${encodeURIComponent(d + "[doi]")}`);
+    if (!s.ok) return {status: "error"};
+    const ids = (await s.json()).esearchresult?.idlist ?? [];
+    if (!ids.length) return {status: "notfound"};
+    const r = await fetch(`${eutils}/esummary.fcgi?db=pubmed&retmode=json&tool=trustworthyresearch&id=${ids.slice(0, 5).join(",")}`);
+    if (!r.ok) return {status: "error"};
+    const result = (await r.json()).result ?? {};
+    // PubMed's DOI search is fuzzy, so keep only a record whose DOI matches exactly
+    const rec = (result.uids ?? []).map(u => result[u]).find(x =>
+      (x.articleids ?? []).some(a => a.idtype === "doi" && a.value.toLowerCase() === d.toLowerCase()));
+    if (!rec) return {status: "notfound"};
+
+    const refTypes = {
+      "retraction in": ["retraction", "Retraction"],
+      "retracted and republished in": ["retraction", "Retracted and republished"],
+      "partial retraction in": ["other", "Partial retraction"],
+      "expression of concern in": ["concern", "Expression of concern"],
+      "erratum in": ["correction", "Erratum"]
+    };
+    const notices = (rec.references ?? [])
+      .filter(x => refTypes[(x.reftype ?? "").toLowerCase()])
+      .map(x => {
+        const [type, label] = refTypes[x.reftype.toLowerCase()];
+        return {
+          type, label, date: null, citation: (x.refsource ?? "").replace(/\s*doi:.*$/i, ""),
+          source: "PubMed",
+          url: x.pmid ? `https://pubmed.ncbi.nlm.nih.gov/${x.pmid}/` : null
+        };
+      });
+    // Retracted publications are also tagged with a publication type, even without a linked notice
+    if ((rec.pubtype ?? []).includes("Retracted Publication") && !notices.some(n => n.type === "retraction")) {
+      notices.push({type: "retraction", label: "Indexed as a retracted publication", date: null, source: "PubMed", url: null});
+    }
+
+    return {
+      status: "ok", pmid: rec.uid, notices,
+      authors: formatAuthors((rec.authors ?? []).filter(a => a.authtype === "Author").map(a => a.name.replace(/\s+\S+$/, ""))),
+      year: (rec.pubdate ?? "").slice(0, 4) || "n.d.",
+      title: cleanText(rec.title) || "(untitled)",
+      journal: cleanText(rec.fulljournalname)
+    };
+  } catch (e) {
+    return {status: "error"};
+  }
+}
+
+// Some publishers mark a retraction only by changing the article's title
+function titleNotices(title) {
+  const marked = /^\W*(retracted|withdrawn|removed)\b/i.test(title ?? "") || /\((retracted|withdrawn)( article| paper)?\)/i.test(title ?? "");
+  return marked ? [{type: "retraction", label: "Title marks the article as retracted or withdrawn", date: null, source: "Article title", url: null}] : [];
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  const d = doi.trim().replace(/^(https?:\/\/(dx\.)?doi\.org\/|doi:\s*)/i, "").trim();
+  if (!d) return html``;
+
+  const doiUrl = x => `https://doi.org/${encodeURI(x)}`;
+  const makeLinks = pmid => html`<div class="actions">
+    <a class="btn btn-outline-primary btn-sm" href="${doiUrl(d)}" target="_blank" rel="noopener">
+      <i class="bi bi-box-arrow-up-right"></i> Publisher's page</a>
+    <a class="btn btn-outline-primary btn-sm" href="https://pubpeer.com/search?q=${encodeURIComponent(d)}" target="_blank" rel="noopener">
+      <i class="bi bi-chat-square-text"></i> PubPeer comments</a>
+    ${pmid ? html`<a class="btn btn-outline-primary btn-sm" href="https://pubmed.ncbi.nlm.nih.gov/${pmid}/" target="_blank" rel="noopener">
+      <i class="bi bi-journal-medical"></i> PubMed record</a>` : ""}
+  </div>`;
+
+  yield html`<div class="doi-result loading">
+    <span class="spinner-border spinner-border-sm" role="status"></span> Checking Crossref and PubMed for <span class="doi-text">${d}</span>...
+  </div>`;
+
+  const res = await lookupDoi(d);
+
+  if (res.status === "error") {
+    yield html`<div class="doi-result error">
+      <span class="badge text-bg-secondary status"><i class="bi bi-exclamation-triangle-fill"></i> Could not check</span>
+      <div class="citation">${res.message}</div>
+      <div class="doi-text">${d}</div>
+      ${makeLinks(null)}
+    </div>`;
+    return;
+  }
+
+  const badges = {
+    retracted: html`<span class="badge text-bg-danger status"><i class="bi bi-x-octagon-fill"></i> Retracted</span>`,
+    concern: html`<span class="badge text-bg-warning status"><i class="bi bi-exclamation-triangle-fill"></i> Expression of concern</span>`,
+    other: html`<span class="badge text-bg-info status"><i class="bi bi-info-circle-fill"></i> Other notices (e.g., corrections)</span>`,
+    clean: html`<span class="badge text-bg-success status"><i class="bi bi-check-circle-fill"></i> No notices found</span>`
+  };
+  const icons = {retraction: "bi-x-octagon", concern: "bi-exclamation-triangle", correction: "bi-pencil-square", other: "bi-file-earmark-text"};
+  const noticeItem = n => html`<li>
+    <i class="bi ${icons[n.type]}"></i>
+    <strong>${n.label}</strong>
+    <span class="meta"> · ${n.date ?? n.citation ?? ""}${n.date || n.citation ? " · " : ""}source: ${n.source}</span>
+    ${n.url ? html` · <a href="${n.url}" target="_blank" rel="noopener">view notice</a>` : ""}
+  </li>`;
+
+  // Which sources could be checked
+  const status = (name, s, found) => s.status === "ok" ? html`<span><i class="bi bi-check2"></i> ${name}${found ?? ""}</span>`
+    : s.status === "notfound" ? html`<span><i class="bi bi-dash"></i> ${name}: not indexed</span>`
+    : html`<span class="unavailable"><i class="bi bi-exclamation-triangle"></i> ${name}: could not be checked</span>`;
+  const checked = html`<div class="checked">Checked:
+    ${status("Crossref and Retraction Watch", res.crossref)}
+    ${status("PubMed", res.pubmed, res.pubmed.pmid ? ` (PMID ${res.pubmed.pmid})` : "")}
+    <span><i class="bi bi-check2"></i> article title</span>
+  </div>`;
+
+  yield html`<div class="doi-result ${res.kind}">
+    ${badges[res.kind]}
+    <div class="citation">
+      <span class="who">${res.authors} (${res.year})</span>
+      ${/[.?!]$/.test(res.title) ? res.title : res.title + "."}
+      ${res.journal ? html`<em>${res.journal}</em>.` : ""}
+      <a href="${doiUrl(d)}" target="_blank" rel="noopener">https://doi.org/${d}</a>
+    </div>
+    ${res.notices.length ? html`<ul class="notices">${res.notices.map(noticeItem)}</ul>` : ""}
+    ${res.isNotice ? html`<div class="note">This DOI is itself a notice that updates another article.</div>` : ""}
+    ${checked}
+    ${res.kind === "retracted" ? "" : html`<div class="coverage"><i class="bi bi-info-circle"></i>
+      <span>Crossref, Retraction Watch, and PubMed do not have complete coverage. Even if no retraction or other notice is listed here, check the publisher's page for notices, and PubPeer for comments, using the links below.</span></div>`}
+    ${makeLinks(res.pubmed.pmid)}
+  </div>`;
+}
+```

@@ -713,3 +713,16 @@ function gammaP(a, x) {
 <!-- The bands are widest, and most lopsided, in small samples: with 5 participants, 95% of sample *SD*s fall between about a third and one and two-thirds of the population *SD*. They narrow quickly as the sample size increases. With a population *SD* of 10 and a sample of 30, 95% of samples have *SD*s between about 7.4 and 12.6, so a sample *SD* of 5 would be very surprising if the sample really came from that population. With 300 participants, a sample *SD* that differs from the population *SD* by more than about 14% falls outside even the 99.9% interval. -->
 
 <!-- This is useful in two ways. When the *SD* of a measure in comparable populations is known, for example from norms or from other studies, the plot shows how surprising a reported *SD* is for its sample size. An *SD* that is far too small is a common reason for an implausibly large Cohen's *d*, and one common cause is that a standard error has been reported in place of the *SD* (see @sec-range-restriction for another). The plot also shows why Cohen's *d* is so imprecise in small samples: the *SD* that the mean difference is divided by is itself uncertain. -->
+
+## Test yourself
+
+::: {.webex-check .webex-box}
+An article reports a two-group experiment with a total *N* of 400. The outcome was measured on a 1–7 scale. The article reports Cohen's *d* = 2.5. Mark each statement as true or false.
+
+1.  In a study with a total *N* of 20, an observed *d* twice the size of the true effect would not be surprising on its own. `r webexercises::torf(TRUE)`
+2.  If the true effect were a moderate *d* = 0.5, sampling error alone could easily produce an observed *d* of 2.5 in a study of this size. `r webexercises::torf(FALSE)`
+3.  Heterogeneity in true effects between studies widens the prediction intervals for an observed *d* only in small studies. `r webexercises::torf(FALSE)`
+4.  On a bounded scale, the larger the *SD* relative to the range of the scale, the smaller the largest possible *d*. `r webexercises::torf(TRUE)`
+5.  On a 1–7 scale, a group with a mean of 6 could have an *SD* of 2.5. `r webexercises::torf(FALSE)`
+6.  If the control condition's mean stays in the middle of the scale and only the intervention condition's mean moves, the largest possible *d* is larger than when both means move away from the middle. `r webexercises::torf(FALSE)`
+:::

@@ -2028,5 +2028,15 @@ These ranges are wide because the missing subgroup is small. Rounding the whole-
 <!-- - Running regressions from correlation tables -->
 <!-- - Structural Equation Models' consistency of degrees of freedom with parameters and indicators -->
 
+## Test yourself
 
+::: {.webex-check .webex-box}
+An article reports the result *t*(30) = 2.10, *p* = .02, and does not say whether the test was one-sided or two-sided. Elsewhere, it reports a total sample of *N* = 120, and a breakdown by gender of 70 women and 48 men. Mark each statement as true or false.
 
+1.  If the test was two-sided, the three numbers in the result cannot all be correct. `r webexercises::torf(TRUE)`
+2.  If the test was one-sided, the result is consistent. `r webexercises::torf(TRUE)`
+3.  As a two-sided test, the result is a decision error (a gross inconsistency), because the recalculated *p*-value changes the conclusion. `r webexercises::torf(FALSE)`
+4.  statcheck recalculates the *p*-value from exactly *t* = 2.10, without allowing for the rounding of the test statistic. `r webexercises::torf(FALSE)`
+5.  If statcheck had classified the result as consistent, that would show that the analysis was appropriate and the numbers correct. `r webexercises::torf(FALSE)`
+6.  Because sample sizes are counts and not rounded values, the difference of 2 between the total *N* and the sum of the subgroups' *n*s needs an explanation, such as participants who did not report their gender. `r webexercises::torf(TRUE)`
+:::

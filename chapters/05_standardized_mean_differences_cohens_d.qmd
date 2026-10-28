@@ -452,6 +452,19 @@ This has several implications for trustworthiness assessment:
 - Standardised effect sizes from studies with different inclusion criteria are not directly comparable, even when the studies used the same scale. When the studies did use the same scale, the mean difference in scale points is often the more informative comparison.
 - Range restriction is only one of the things that change the *SD*. Others include the reliability of the measure, floor and ceiling effects, and which *SD* was used as the standardiser (for example, the baseline *SD*, the pooled *SD* at post-treatment, or the *SD* of change scores).
 
+## Test yourself
+
+::: {.webex-check .webex-box}
+Two trials of the same intervention for depression both used the BDI-II (0–63), and both found that the intervention group scored 5 points lower than the control group. Study A recruited anyone with a diagnosis of depression, and its *SD* was 10 in both groups. Study B only accepted patients whose baseline scores fell within a narrow band, and its *SD* was 5 in both groups. Mark each statement as true or false.
+
+1.  In scale points, the two studies found the same effect. `r webexercises::torf(TRUE)`
+2.  Study B's Cohen's *d* is about twice the size of Study A's. `r webexercises::torf(TRUE)`
+3.  Because its Cohen's *d* is larger, Study B shows that the intervention worked better in its sample. `r webexercises::torf(FALSE)`
+4.  If a third trial used the PHQ-9 (0–27) and found a 2.5-point difference, comparing its 2.5 points with the BDI-II trials' 5 points would show that the intervention worked less well in the third trial. `r webexercises::torf(FALSE)`
+5.  At *d* = 0.8, which is conventionally called a large effect, almost no participants in the control condition score higher than the average participant in the intervention condition. `r webexercises::torf(FALSE)`
+6.  An unusually large Cohen's *d* is a reason to check whether the *SD*s are unusually small for that scale, compared with other studies of similar populations. `r webexercises::torf(TRUE)`
+:::
+
 
 <!-- TODO plausibility of other effect sizes -->
 <!-- - correlations -->

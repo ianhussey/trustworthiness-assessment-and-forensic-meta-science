@@ -785,3 +785,53 @@ The beta distribution is not the only way to model bounded data, and beta regres
 | Ordinal (cumulative) regression [@liddell2018; @burkner2019] | Ordered categories, such as a single Likert item | Yes, as ordinary categories | Yes: all responses can fall in one category | Does not assume that response options are equally spaced. Its parameters describe a latent variable rather than the response scale. |
 
 It is not necessary to understand the differences between these models in detail to follow the rest of this book. The point is that a whole universe of models exists for bounded data, and that the familiar combination of a mean and an *SD*, together with the normal distribution it implicitly invokes, is only an approximation to all of them. It is often a good enough approximation, but it is worst exactly where many forensic questions arise: when means sit close to the ends of a scale, when *SD*s are very large or very small, and when effects are large.
+
+## Test yourself
+
+Answer all the questions, then click the button below the quiz to see why each answer is right.
+
+::: {.webex-check .webex-box}
+**Means and *SD*s on bounded scales**
+
+1.  For normally distributed data, knowing the mean tells you nothing about what the *SD* can be. `r webexercises::torf(TRUE)`
+2.  On a 1–7 scale, a sample of 30 people with a mean of 6.80 could have an *SD* of 1.50. `r webexercises::torf(FALSE)`
+3.  On a bounded scale, where is the largest possible *SD* largest? `r webexercises::mcq(c(answer = "When the mean is in the middle of the scale", "When the mean is close to either end of the scale", "It is the same at every mean", "It depends only on the sample size"))`
+4.  What does the Bhatia–Davis bound describe? `r webexercises::mcq(c(answer = "The largest SD that any data with a given mean can have on a bounded scale", "The SD of scores spread evenly across the scale", "The SD that most real scales have", "The smallest SD that whole-number data can have"))`
+5.  An article reports *M* = 5.5 and *SD* = 1.0 on a 1–7 scale. These values suggest a roughly symmetric, bell-shaped distribution. `r webexercises::torf(FALSE)`
+6.  A mean and *SD* above the uniform-spread bound are impossible. `r webexercises::torf(FALSE)`
+7.  Data whose *SD* lies above the uniform-spread bound must have scores piled up against at least one end of the scale. `r webexercises::torf(TRUE)`
+
+**Bounds and effect sizes**
+
+8.  Two groups whose scores have the same precision, *φ*, but different means, will have the same *SD*. `r webexercises::torf(FALSE)`
+9.  An intervention that moves scores towards the top of a bounded scale can increase Cohen's *d* by shrinking the intervention group's *SD*, even if the data are no less spread out relative to what is possible. `r webexercises::torf(TRUE)`
+10. On a 1–7 scale with the same precision in both groups, a control mean of 4 and an intervention mean of 6 give a Cohen's *d* that is: `r webexercises::mcq(c(answer = "Larger than if both groups had the control group's SD", "Smaller than if both groups had the control group's SD", "The same as if both groups had the control group's SD", "Undefined, because the SDs differ"))`
+11. When two groups' means lie symmetrically either side of the middle of the scale, and they have the same precision, their *SD*s are equal. `r webexercises::torf(TRUE)`
+
+**Real data and models**
+
+12. Why are the means and *SD*s of multi-item scales usually less spread out than those of single items? `r webexercises::mcq(c(answer = "Summing items averages out what is specific to each item, pulling scores towards the middle", "Multi-item scales always have more response options", "Researchers remove extreme scores from multi-item scales", "Multi-item scales are always normally distributed"))`
+13. A mean and *SD* above the uniform-spread bound are as surprising for a single item about a polarising topic as for an established multi-item scale of a personality trait. `r webexercises::torf(FALSE)`
+14. For bounded data, the mean and *SD* are a complete description of the distribution, as they are for normal data. `r webexercises::torf(FALSE)`
+15. Ordinary beta regression can model scores that lie exactly at the minimum or maximum of a scale without any adjustment. `r webexercises::torf(FALSE)`
+:::
+
+`r webexercises::hide("Why is each answer right?")`
+
+1.  **True.** A normal distribution has no minimum or maximum, so any combination of mean and *SD* describes a valid normal distribution. The two parameters are not contingent on one another (@sec-mean-sd-unbounded).
+2.  **False.** With a mean of 6.80 on a 1–7 scale, the largest possible *SD* is about √((6.8 − 1)(7 − 6.8)) ≈ 1.08, or 1.10 with the small-sample correction for 30 people. A mean so close to the top of the scale means that nearly every score must be close to 7 (@sec-mean-sd-bounded).
+3.  **When the mean is in the middle of the scale.** The largest possible *SD* comes from putting scores at both ends of the scale. That is easiest when the mean is in the middle, and impossible when the mean is at either end, where every score must equal that end (@sec-mean-sd-bounded).
+4.  **The largest SD that any data with a given mean can have on a bounded scale.** It applies to data of any kind, not only beta-distributed data, and is only reached when every score is at one end of the scale or the other (@sec-mean-sd-bounded).
+5.  **False.** A mean of 5.5 is only 1.5 points from the top of the scale, so with an *SD* of 1.0 the data must be skewed, with a longer tail towards the bottom. The mean and *SD* say nothing about shape on their own; it is the bounds that imply the skew (@sec-mean-sd-bounded).
+6.  **False.** The uniform-spread bound is a bound on plausibility, not possibility. Points above it describe data that are more spread out than scores spread evenly across the scale, which is possible, but unusual for most measures (@sec-mean-sd-bounded).
+7.  **True.** Above the uniform-spread bound, the beta distribution's concentration, *α* + *β*, is below 2, which forces at least one of *α* and *β* below 1. That means scores pile up against at least one end of the scale (@sec-mean-sd-bounded).
+8.  **False.** With the same precision, the *SD* depends on the mean: the group whose mean is closer to an end of the scale has the smaller *SD*. It is the precision, not the *SD*, that is free to vary independently of the mean (@sec-mean-sd-bounded).
+9.  **True.** Moving the mean towards the end of the scale shrinks the *SD*, even when the precision is unchanged, and a smaller *SD* makes the same mean difference larger in *SD* units. This is one way that bounded scales inflate Cohen's *d* (@sec-smd-bounded-precision).
+10. **Larger than if both groups had the control group's SD.** With a precision of 5, the intervention group's *SD* is 0.91 rather than 1.22, so *d* is 1.85 rather than 1.63 (@sec-smd-bounded-precision).
+11. **True.** The *SD* depends on the mean through *μ*(1 − *μ*), which is the same for means equally far from the middle. With symmetric means, the two *SD*s are equal, and the bounds do not inflate *d* (@sec-smd-bounded-precision).
+12. **Summing items averages out what is specific to each item, pulling scores towards the middle.** Most individual differences also vary smoothly across people, whereas some attitude objects genuinely divide people into camps (@sec-empirical-mean-sd).
+13. **False.** What counts as a plausible mean and *SD* depends on what was measured. For a single item about a polarising topic, scores that pile up at both ends are unremarkable. For an established multi-item scale of a trait, they need an explanation (@sec-empirical-mean-sd).
+14. **False.** For bounded data, the mean and *SD* are descriptive statistics, not a complete description of the data. On their own they say nothing about skew or about the bounds (@sec-mean-sd-bounded).
+15. **False.** The beta distribution is undefined at exactly 0 and 1, so scores at the minimum or maximum have to be nudged inwards. Zero–one inflated and ordered beta regression were developed to handle them (@sec-bounded-models).
+
+`r webexercises::unhide()`

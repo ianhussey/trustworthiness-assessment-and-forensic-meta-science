@@ -1,3 +1,8 @@
+---
+aliases:
+  - 09_repetition_and_consistency_methods.html
+---
+
 # Repetition and consistency methods [✎ Outline]{.badge .badge-draft1} {#sec-repetition-consistency}
 
 ```{r}

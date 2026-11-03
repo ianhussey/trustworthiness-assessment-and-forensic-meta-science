@@ -46,7 +46,7 @@ Before class:
 
 In class:
 
-- [Chapter 7: Misinterpretation methods](chapters/07_misinterpretation_methods.qmd)
+- [Chapter 8: Misinterpretation methods](chapters/08_misinterpretation_methods.qmd)
 
 ### Week 4
 
@@ -59,7 +59,7 @@ Before class:
 
 In class:
 
-- [Chapter 8: Effect size methods](chapters/08_effect_size_methods.qmd)
+- [Chapter 9: Effect size methods](chapters/09_effect_size_methods.qmd)
 
 ### Week 5
 
@@ -69,7 +69,7 @@ Before class:
 
 In class:
 
-- [Chapter 10: Recalculation methods](chapters/10_recalculation_methods.qmd)
+- [Chapter 11: Recalculation methods](chapters/11_recalculation_methods.qmd)
 
 Repetition and recalculation methods
 
@@ -81,17 +81,19 @@ Before class:
 
 In class:
 
-- [Chapter 11: Granularity methods](chapters/11_granularity_methods.qmd)
+- [Chapter 12: Granularity methods](chapters/12_granularity_methods.qmd)
 
 ### Week 7
 
-<!-- Before class: -->
+Before class:
+
+- [Chapter 7: Understanding bounded data and Beta regression](chapters/07_understanding_bounded_data_and_beta_regression.qmd)
 
 <!-- - Brown & Heathers (2017) The GRIM Test: A Simple Technique Detects Numerous Anomalies in the Reporting of Results in Psychology. doi:[10.1177/1948550616673876](https://doi.org/10.1177/1948550616673876) -->
 
 In class:
 
-- [Chapter 12: Bounds methods](chapters/12_bounds_methods.qmd)
+- [Chapter 13: Bounds methods](chapters/13_bounds_methods.qmd)
 
 ### Week 8
 

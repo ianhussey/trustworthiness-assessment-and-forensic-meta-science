@@ -1,0 +1,832 @@
+---
+aliases:
+  - 12_bounds_methods.html
+---
+
+# Bounds methods [✎ Outline]{.badge .badge-draft1} {#sec-bounds}
+
+```{r}
+#| include: false
+if(file.exists("../_setup.R")){source("../_setup.R")}
+```
+
+The methods in this chapter rest on the properties of bounded data described in @sec-bounded-data: on a scale with a minimum and a maximum, the mean and the *SD* are not free to take any values independently of one another.
+
+## Mean inside range {#sec-mean-inside-range}
+
+The simplest bounds check is whether a mean lies within the range of values that its scores could take. The mean of a single item rated from 1 to 5 must lie between 1 and 5. The range of a sum score is the number of items multiplied by the lowest and highest response options, so six items rated from 1 to 5 give sum scores from 6 to 30, and their mean must lie between 6 and 30. A percentage must lie between 0 and 100. When an article reports the smallest and largest observed scores, the mean must also lie between those. And a mean exactly at the minimum or maximum is only possible if every participant had that score, in which case the *SD* must be zero (@sec-mean-sd-bounded).
+
+Working out the range requires knowing the number of items, the response options, how they were coded (for example, from 0 or from 1), and whether items were summed or averaged. Articles sometimes describe these inconsistently, so a mean outside the range shows that either the mean or the description of the measure is wrong, without saying which.
+
+The same reasoning applies to the means of subgroups. When the subgroups together make up the whole sample, without overlap, the mean of the whole sample is a weighted average of the subgroup means, so it must lie between the smallest and the largest of them. The same is true of percentages.
+
+@haller2022 reported the characteristics of 9,496 participants in their Table 1, both for the whole sample and for eight regions, whose sample sizes add up to 9,496. In the whole sample, 5.1% of participants were divorced, but the table reports 0.0% divorced in every one of the eight regions. Likewise, 5.5% of the whole sample lived with friends or roommates, but 0.0% in every region. A percentage for the whole sample cannot be larger than the percentages in all of the groups that make it up, so these rows of the table cannot be correct. The regression in the same article's Table 5 includes being divorced and living with friends or roommates as predictors, with estimated coefficients, which suggests that participants in these groups did exist and that the regional zeros are the error.
+
+The same article also describes the ranges of two of its measures inconsistently. The sum score of six prosocial behaviour items, each rated from 1 to 5, is described as ranging from 6 to 36 in the Method section, but from 6 to 30 in Table 4, which is correct. The fourteen well-being items are described as rated on a "6-point" scale from 0 to 6, which has seven points, while the range of the sum score is given as 0 to 70, which is only possible if each item was scored from 0 to 5. None of these means falls outside its range, but the inconsistencies show why the range of a measure should be worked out from its items, not taken from the article.
+
+## SD bounds {#sec-sd-bounds}
+
+On a bounded scale, the mean and the *SD* are not free to vary independently of one another (@sec-mean-sd-bounded). The scale's minimum and maximum, the sample size, and the mean together set an upper bound on the *SD*, and once the data are known to be whole numbers, or to include a particular minimum and maximum, they set a lower bound too. A reported *SD* outside these bounds cannot be correct. @hussey2026brimmer call this check BRIMMER, for Bounds-Related Inconsistency of Means and Errors Reported, by analogy with GRIMMER (@sec-grimmer). Its counterpart for the mean alone, BRIM, asks whether the reported mean can be reached at all, as in @sec-mean-inside-range.
+
+The bounds come from a series of nested constraints, each of which can only tighten them [@hussey2026brimmer]:
+
+- **The scale limits.** The most spread out any set of scores can be is half at the minimum and half at the maximum. On a scale with range *R*, the sample *SD* can never exceed *R* / √2, which is reached by a sample of two people, one at each end.
+- **The sample size.** With more people, the largest possible *SD* falls towards *R* / 2. For an even sample size it is (*R* / 2) × √(*n* / (*n* − 1)), and for an odd one slightly less, because the people cannot be split evenly between the two ends [@popoviciu1935]. On a 1–7 scale with 30 people, no *SD* can exceed 3.05, whatever the mean.
+- **The mean.** The further the mean is from the middle of the scale, the smaller the largest possible *SD*, which is √(*n* / (*n* − 1) × (*max* − *M*)(*M* − *min*)). This is the Bhatia–Davis bound of @sec-mean-sd-bounded, which @muilwijk1966 had already derived [@bhatia2000]. It can be sharpened slightly, because the number of people at each end of the scale must be a whole number. On a 1–7 scale with 30 people and a mean of 2.97, the *SD* can be at most 2.84.
+- **Integer data.** Up to this point, the smallest possible *SD* is zero: everyone could have the same score. But when every response is a whole number, a mean with a fractional part, such as 2.97, cannot be produced by identical scores, so the *SD* must be above zero. This floor is usually small: 0.14 in the example.
+- **Internal consistency.** For a score made up of several items, a reported Cronbach's α limits how much the items can disagree with one another, which lowers the ceiling and, for whole-number items, raises the floor [@hussey2026brimmer].
+
+The scale limits are not the only minimum and maximum that constrain the *SD*. Many articles report the smallest and largest scores actually observed, in a table of descriptive statistics or in the text, and these say more than the scale limits do. The scale limits only say that no score lies outside them, whereas an observed minimum and maximum say that at least one person had each of those scores. A sample that includes both a low and a high score cannot have a very small *SD*, so the observed minimum and maximum raise the floor substantially, especially together with the mean and integer data. They also narrow the range of means that are possible at all, and they lower the ceiling, because the observed range is usually narrower than the scale's. In the example above, if the article also reported that scores ranged from 1 to 6, the *SD* could be no smaller than 0.71 and no larger than 2.46.
+
+When checking reported values, the bounds have to take rounding into account: a mean reported as 2.97 could have been anything from 2.965 to 2.975, and the bounds are calculated over that whole interval. Like GRIM and GRIMMER, BRIMMER is a necessary condition rather than a sufficient one. A reported *SD* outside the bounds is impossible, but one inside them may still not correspond to any real set of whole-number scores. How the bounds combine with the granularity checks, and a further, exact test, BRIMMEST, which settles whether any such set of scores exists, are the subject of @sec-combined [@hussey2026brimmer].
+
+The plot below shows these bounds for any scale, sample size, and mean. The shaded band shows the combinations of mean and *SD* that are possible. Move the sliders, or click or drag anywhere in the plot, to choose a mean and an *SD*, and the point shows whether that combination is possible. Choose whether responses are continuous or whole numbers, and whether the score is a single item, or the sum or mean of several items, each rated on the scale. For a score made up of several items, tick **Cronbach's α** to add a reported α. Tick **Observed minimum and maximum** to see how much a reported minimum and maximum sharpen the bounds; these are in the units of the score. The dashed grey curve is the Bhatia–Davis bound, which ignores that people come in whole numbers, and the dotted horizontal line is the largest *SD* that any sample of this size can have, whatever its mean. The dotted curve is the uniform-spread bound from @sec-mean-sd-bounded. It is not a bound on what is possible, but on what is plausible: above it, the scores are more spread out than if they were spread evenly across the whole scale, which requires them to pile up at its ends. This plot shows the bounds only. It treats the mean and *SD* as exact, does not allow for rounding, and does not check granularity, so it does not ask whether a mean or *SD* could have come from whole-number data at all, as GRIM and GRIMMER do (@sec-granularity). It is for building intuition about the bounds. To check values reported in an article, use the app in @sec-combined-app, which combines the bounds with the granularity checks.
+
+```{ojs}
+//| echo: false
+viewof sxMin = Inputs.number({value: 1, step: 1, label: "Scale minimum"})
+viewof sxMax = Inputs.number({value: 7, step: 1, label: "Scale maximum"})
+viewof sxN = Inputs.range([2, 100], {value: 30, step: 1, label: "Sample size (n)"})
+viewof sxZ = Inputs.radio(new Map([["Continuous", "continuous"], ["Whole numbers", "quasiinteger"]]), {value: "quasiinteger", label: "Responses"})
+viewof sxScoring = Inputs.radio(new Map([["A single item", "single"], ["A sum of items", "sum"], ["A mean of items", "mean"]]), {value: "single", label: "Score"})
+```
+
+```{ojs}
+//| echo: false
+viewof sxK = Inputs.range([2, 20], {value: 3, step: 1, label: "Number of items", disabled: sxScoring === "single"})
+viewof sxUseAlpha = Inputs.toggle({label: "Cronbach's α", value: false, disabled: sxScoring === "single"})
+viewof sxAlpha = Inputs.range([0, 0.99], {value: 0.8, step: 0.01, label: "α", disabled: sxScoring === "single" || !sxUseAlpha})
+viewof sxUseAB = Inputs.toggle({label: "Observed minimum and maximum", value: false})
+```
+
+```{ojs}
+//| echo: false
+// the score's units: a sum of k items runs from k times the scale minimum to k times its maximum
+sxItems = sxScoring === "single" ? 1 : sxK
+sxBounds = Number.isFinite(sxMin) && Number.isFinite(sxMax) && sxMax > sxMin
+  ? (sxScoring === "sum" ? [sxMin * sxItems, sxMax * sxItems] : [sxMin, sxMax]) : null
+// the observed extremes start just inside the scale, and can only be changed while they are in use
+viewof sxA = Inputs.number({value: (sxBounds ?? [1, 7])[0], step: 1, label: "Observed minimum", disabled: !sxUseAB})
+viewof sxB = Inputs.number({value: (sxBounds ?? [1, 7])[1] - 1, step: 1, label: "Observed maximum", disabled: !sxUseAB})
+// the slider steps follow the scale: 0.01 on a 1 to 7 scale, 1 on a 0 to 1000 scale
+viewof sxMean = {
+  const [lo, hi] = sxBounds ?? [1, 7], range = hi - lo, step = 10 ** (Math.floor(Math.log10(range)) - 2)
+  return Inputs.range([lo, hi], {value: lo + Math.round(0.33 * range / step) * step, step, label: "Mean"})
+}
+viewof sxSd = {
+  const [lo, hi] = sxBounds ?? [1, 7], range = hi - lo, step = 10 ** (Math.floor(Math.log10(range)) - 2)
+  return Inputs.range([0, Math.floor(range / Math.SQRT2 / step) * step], {value: Math.round(range / 4 / step) * step, step, label: "SD"})
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  if (!sxBounds) return html`<div class="sc-status">Set the minimum and maximum to numbers, with the minimum below the maximum.</div>`
+  const [l, u] = sxBounds, n = sxN
+  const design = {n, k: sxItems, quasi: sxZ === "quasiinteger", toSum: sxScoring === "mean" ? sxItems : 1, itemLimits: [sxMin, sxMax],
+    alpha: sxScoring !== "single" && sxUseAlpha ? sxAlpha : null}
+  const abValid = sxUseAB && Number.isFinite(sxA) && Number.isFinite(sxB) && sxA >= l && sxB <= u && sxB > sxA
+  const abProblem = sxUseAB && !abValid ? "The observed minimum and maximum must be numbers within the range of the score, with the minimum below the maximum." : null
+  design.ab = abValid ? [sxA, sxB] : null
+  const at = m => sxBoundsAt(m, design)
+  const here = at(sxMean)
+
+  // a grid fine enough to show the steps of the whole-number floor
+  const range = u - l
+  const step = Math.max(range / 4000, Math.min(range / 800, 1 / (4 * n * design.toSum)))
+  const bd = m => Math.sqrt(n / (n - 1) * Math.max(0, (u - m) * (m - l)))
+  const curve = d3.range(l, u + step / 2, step).map(m => ({m, ...at(m), bd: bd(m), uniform: bd(m) / Math.sqrt(3)}))
+  // with alpha or observed extremes, the bounds from the scale limits alone are drawn for comparison
+  const sharpened = design.alpha !== null || design.ab !== null
+  const reference = sharpened ? curve.map(d => ({m: d.m, ...sxBoundsAt(d.m, {...design, alpha: null, ab: null})})) : null
+  const anyMax = sxParityMax(l, u, n)
+  const yMax = 1.1 * Math.max(anyMax, sxSd)
+  const verdict = sxVerdict(sxMean, sxSd, here, design, bd(sxMean) / Math.sqrt(3))
+  const colour = {ok: "#3b9c6e", warn: "#d9a02b", bad: "#c0392b"}[verdict.kind]
+  const fmt = (x, d = 2) => Number.isFinite(x) ? x.toFixed(d) : "—"
+
+  const marginLeft = 50, marginRight = 20, marginTop = 15, marginBottom = 45, height = 380
+  const plot = Plot.plot({
+    width, height, marginLeft, marginRight, marginTop, marginBottom,
+    x: {label: sxScoring === "sum" ? "Mean (sum score)" : sxScoring === "mean" ? "Mean (mean of items)" : "Mean", labelAnchor: "center", labelOffset: 36, domain: [l, u]},
+    y: {label: "SD", labelAnchor: "center", labelOffset: 40, domain: [0, yMax], grid: true},
+    style: {fontSize: "13px"},
+    marks: [
+      Plot.areaY(curve, {x: "m", y1: "floor", y2: "ceiling", fill: "#2780e3", fillOpacity: 0.18}),
+      reference ? Plot.line(reference, {x: "m", y: "ceiling", stroke: "currentColor", strokeOpacity: 0.35, strokeDasharray: "4,3"}) : null,
+      reference ? Plot.line(reference, {x: "m", y: "floor", stroke: "currentColor", strokeOpacity: 0.35, strokeDasharray: "4,3"}) : null,
+      reference ? null : Plot.line(curve, {x: "m", y: "bd", stroke: "currentColor", strokeOpacity: 0.45, strokeDasharray: "6,4"}),
+      Plot.line(curve, {x: "m", y: "uniform", stroke: "currentColor", strokeOpacity: 0.6, strokeDasharray: "1,3", strokeWidth: 1.5}),
+      Plot.line(curve, {x: "m", y: "ceiling", stroke: "#2780e3", strokeWidth: 1.5}),
+      Plot.line(curve, {x: "m", y: "floor", stroke: "#2780e3", strokeWidth: 1.5}),
+      Plot.ruleY([anyMax], {stroke: "currentColor", strokeOpacity: 0.5, strokeDasharray: "2,3"}),
+      Plot.text([`Largest SD at any mean: ${fmt(anyMax)}`], {x: (l + u) / 2, y: anyMax, dy: -8, fontSize: 11, fillOpacity: 0.7}),
+      design.ab ? Plot.ruleX(sxMeanBand(n, ...design.ab), {stroke: "currentColor", strokeOpacity: 0.5, strokeDasharray: "2,3"}) : null,
+      Plot.ruleY([0]),
+      Plot.ruleX([sxMean], {y1: 0, y2: sxSd, stroke: colour, strokeDasharray: "4,3"}),
+      Plot.dot([{}], {x: sxMean, y: sxSd, r: 7, fill: colour, stroke: "white", strokeWidth: 1.5})
+    ]
+  })
+  // clicking anywhere in the plot moves the sliders to that mean and SD, and dragging moves them continuously. the plot
+  // is redrawn at every change, so the drag is followed on the window, with the latest plot's scales
+  sxDrag.x = plot.scale("x"); sxDrag.y = plot.scale("y")
+  plot.style.cursor = "crosshair"
+  plot.style.touchAction = "none"
+  plot.addEventListener("pointerdown", down => {
+    const box = plot.getBoundingClientRect()
+    const pick = event => {
+      const px = (event.clientX - box.left) * width / box.width, py = (event.clientY - box.top) * height / box.height
+      sxSet(viewof sxMean, sxDrag.x.invert(px))
+      sxSet(viewof sxSd, sxDrag.y.invert(py))
+    }
+    down.preventDefault()
+    pick(down)
+    let pending = null
+    const move = event => {
+      if (pending === null) requestAnimationFrame(() => { pick(pending); pending = null })
+      pending = event
+    }
+    const up = () => {
+      window.removeEventListener("pointermove", move)
+      window.removeEventListener("pointerup", up)
+      window.removeEventListener("pointercancel", up)
+    }
+    window.addEventListener("pointermove", move)
+    window.addEventListener("pointerup", up)
+    window.addEventListener("pointercancel", up)
+  })
+
+  const floorNote = !here.feasible ? "no sample has this mean" : design.ab ? "with both observed extremes in the sample" : design.alpha !== null && design.quasi ? "raised by the reported α" : design.quasi ? "zero only at whole-number means" : "always zero for continuous data"
+  const ceilingNote = design.alpha !== null ? "lowered by the reported α" : design.ab ? "within the observed range" : `at this mean, compared with ${fmt(bd(sxMean))} by the Bhatia–Davis bound`
+  const tiles = html`<div class="sb-tiles">
+    <div><div class="sb-tile-value" style="color: ${colour};">${fmt(sxSd)}</div><div class="sb-tile-label">Chosen <i>SD</i></div><div class="sb-tile-note">at a mean of ${fmt(sxMean)}</div></div>
+    <div><div class="sb-tile-value" style="color: inherit;">${here.feasible ? fmt(here.floor) : "—"}</div><div class="sb-tile-label">Smallest possible <i>SD</i></div><div class="sb-tile-note">${floorNote}</div></div>
+    <div><div class="sb-tile-value" style="color: inherit;">${here.feasible ? fmt(here.ceiling) : "—"}</div><div class="sb-tile-label">Largest possible <i>SD</i></div><div class="sb-tile-note">${ceilingNote}</div></div>
+    <div><div class="sb-tile-value" style="color: inherit;">${fmt(bd(sxMean) / Math.sqrt(3))}</div><div class="sb-tile-label">Uniform-spread bound</div><div class="sb-tile-note">larger <i>SD</i>s are possible, but need scores piled up at the ends</div></div>
+  </div>`
+  const legend = html`<div class="bd-legend">
+    <span><svg width="28" height="12"><rect width="28" height="12" fill="#2780e3" fill-opacity="0.18"/><line x1="0" x2="28" y1="1" y2="1" stroke="#2780e3" stroke-width="1.5"/></svg> Possible combinations</span>
+    ${reference ? html`<span><svg width="28" height="10"><line x1="0" x2="28" y1="5" y2="5" stroke="currentColor" stroke-opacity="0.35" stroke-dasharray="4,3"/></svg> Bounds from the scale limits alone</span>` : html`<span><svg width="28" height="10"><line x1="0" x2="28" y1="5" y2="5" stroke="currentColor" stroke-opacity="0.45" stroke-dasharray="6,4"/></svg> Bhatia–Davis bound</span>`}
+    <span><svg width="28" height="10"><line x1="0" x2="28" y1="5" y2="5" stroke="currentColor" stroke-opacity="0.6" stroke-dasharray="1,3" stroke-width="1.5"/></svg> Uniform-spread bound</span>
+    ${design.ab ? html`<span><svg width="10" height="12"><line x1="5" x2="5" y1="0" y2="12" stroke="currentColor" stroke-opacity="0.5" stroke-dasharray="2,3"/></svg> Range of possible means</span>` : ""}
+  </div>`
+  const feedback = html`<div class="sb-feedback sb-feedback-${verdict.kind}">`
+  feedback.innerHTML = verdict.text
+  const combined = design.ab && design.alpha !== null ? html`<div class="sc-status">With both a reported α and observed extremes, the bounds are the higher of the two floors and the lower of the two ceilings. These are valid, but may not be as sharp as possible.</div>` : ""
+  return html`${abProblem ? html`<div class="sb-feedback sb-feedback-warn">${abProblem}</div>` : ""}${tiles}${plot}${legend}${feedback}${combined}`
+}
+```
+
+```{ojs}
+//| echo: false
+// functions used by the SD bounds explorer. they are the closed-form bounds of the BRIMMER article and the {strait}
+// package, for a mean and SD treated as exact. all bounds are calculated on the scale of the sum score, on which
+// whole-number items give whole-number scores, and a mean of items is converted to and from it
+
+// the scales of the latest plot, so that a drag that began on an earlier version of it is converted with the current one
+sxDrag = ({x: null, y: null})
+
+function sxSet(view, x) {
+  // move a range slider to the nearest value it can take, and tell everything that depends on it
+  const input = view.querySelector("input[type=range]")
+  const min = +input.min, max = +input.max, step = +input.step
+  view.value = +Math.min(max, Math.max(min, min + Math.round((x - min) / step) * step)).toFixed(10)
+  view.dispatchEvent(new Event("input", {bubbles: true}))
+}
+
+function sxFrac(x) {
+  // the fractional part, treating values within rounding error of a whole number as whole
+  const f = x - Math.floor(x + 1e-9)
+  return f < 1e-9 ? 0 : f
+}
+
+function sxCeiling(m, n, l, u) {
+  // the largest sample SD with this mean, for n values between l and u: as many values as possible at the two ends,
+  // and at most one in between (structure S). this sharpens the Bhatia-Davis bound, which assumes the counts at the
+  // ends need not be whole numbers
+  const R = u - l, S = n * (m - l)
+  const nu = Math.min(Math.floor(S / R + 1e-9), n - 1)
+  const xr = l + (S - nu * R), nl = n - nu - 1
+  return Math.sqrt(Math.max(0, (nl * (l - m) ** 2 + (xr - m) ** 2 + nu * (u - m) ** 2) / (n - 1)))
+}
+
+function sxQuasiFloor(m, n) {
+  // the smallest sample SD of n values with this mean when all but one are whole numbers (quasi-integer), which gives
+  // a floor at every mean that never rules out anything whole-number data could produce
+  const d = sxFrac(m), g = sxFrac(n * m)
+  return Math.sqrt(Math.max(0, (n * d * (1 - d) - g * (1 - g)) / (n - 1)))
+}
+
+function sxVmaxAlpha(m, k, n, itemL, itemU) {
+  // the largest possible sum of the item variances of k whole-number items at sum-score mean m (strait's v_max_alpha)
+  const h = (itemU - itemL) / n, T = (m - k * itemL) / h, x = T / k
+  const j = Math.min(Math.floor(x + 1e-12), n - 1), th = x - j
+  let phi = T - Math.floor(T + 1e-12)
+  if (phi > 1 - 1e-9) phi = 0
+  const A = jj => h * h * jj * (n - jj)
+  return Math.max(0, k * ((1 - th) * A(j) + th * A(j + 1)) - h * h * (n - 1) * phi * (1 - phi))
+}
+
+function sxMeanBand(n, a, b) {
+  // with one value at the observed minimum and one at the observed maximum, the mean cannot be closer to either end
+  // than this
+  return [a + (b - a) / n, b - (b - a) / n]
+}
+
+function sxBoundsAt(mean, design) {
+  // the smallest and largest possible sample SD at this mean, in the units of the score
+  const {n, k, quasi, toSum, itemLimits, alpha, ab} = design
+  const m = mean * toSum, L = itemLimits[0] * k, U = itemLimits[1] * k
+  let floor, ceiling, feasible = true
+  if (alpha === null) {
+    floor = quasi ? sxQuasiFloor(m, n) : 0
+    ceiling = sxCeiling(m, n, L, U)
+  } else {
+    // a reported alpha caps how much the items can disagree: it lowers the ceiling and amplifies the whole-number
+    // floor (strait's sd_bounds_alpha, without its enumeration for strictly integer data)
+    const D = 1 - (k - 1) / k * alpha
+    ceiling = Math.min(sxCeiling(m, n, L, U), Math.sqrt(n / (n - 1) * Math.max(0, (U - m) * (m - L)) / (k * D)))
+    floor = 0
+    if (quasi) {
+      ceiling = Math.min(ceiling, Math.sqrt(n / (n - 1) * sxVmaxAlpha(m, k, n, itemLimits[0], itemLimits[1]) / D))
+      floor = sxQuasiFloor(m, n) / Math.sqrt(D)
+    }
+  }
+  if (ab) {
+    // one value at each observed extreme, and the other n - 2 as close together as their mean allows
+    const [a, b] = ab.map(x => x * toSum), [lo, hi] = sxMeanBand(n, a, b)
+    if (m < lo - 1e-9 || m > hi + 1e-9) return {floor: NaN, ceiling: NaN, feasible: false}
+    let abFloor
+    if (n === 2) abFloor = (b - a) / Math.SQRT2
+    else {
+      const p = m - a, q = b - m, kk = n - 2
+      let ss = p * p + q * q + (p - q) ** 2 / kk
+      if (quasi) {
+        const inner = (n * m - a - b) / kk, d = sxFrac(inner), g = sxFrac(n * m)
+        ss += Math.max(0, kk * d * (1 - d) - g * (1 - g))
+      }
+      abFloor = Math.sqrt(ss / (n - 1))
+    }
+    // with alpha as well, the higher floor and the lower ceiling
+    floor = Math.max(alpha === null ? 0 : floor, abFloor)
+    ceiling = Math.min(alpha === null ? Infinity : ceiling, sxCeiling(m, n, a, b))
+  }
+  if (floor > ceiling + 1e-9) feasible = false
+  return {floor: floor / toSum, ceiling: ceiling / toSum, feasible}
+}
+
+function sxParityMax(l, u, n) {
+  // the largest SD any sample of this size can have on this scale, whatever its mean (Popoviciu, with the odd-n case)
+  return (u - l) / 2 * Math.sqrt(n / (n - 1) * (2 * n * n - 1 + (-1) ** n) / (2 * n * n))
+}
+
+function sxVerdict(m, s, here, design, uniform) {
+  const f = x => x.toFixed(2), {n, ab, alpha, quasi} = design
+  const given = [ab ? "the observed minimum and maximum" : null, alpha !== null ? `an α of ${f(alpha)}` : null].filter(Boolean).join(" and ")
+  if (!here.feasible) {
+    if (ab && Number.isNaN(here.floor)) {
+      const [lo, hi] = sxMeanBand(n, ...ab)
+      return {kind: "bad", text: `<strong>Not possible.</strong> With one value at the observed minimum of ${ab[0]} and one at the observed maximum of ${ab[1]}, the mean of ${n} values must lie between ${f(lo)} and ${f(hi)}, whatever the <em>SD</em>.`}
+    }
+    return {kind: "bad", text: `<strong>Not possible.</strong> No sample of ${n} values with a mean of ${f(m)} satisfies all of the constraints at once: the smallest <em>SD</em> they allow is larger than the largest.`}
+  }
+  if (s > here.ceiling + 1e-9) return {kind: "bad", text: `<strong>Not possible.</strong> With a mean of ${f(m)}${given ? ` and ${given}` : ""}, the <em>SD</em> of ${n} values can be at most ${f(here.ceiling)}.`}
+  if (s < here.floor - 1e-9) return {kind: "bad", text: `<strong>Not possible.</strong> With a mean of ${f(m)}${given ? ` and ${given}` : ""}, the <em>SD</em> of ${n} ${quasi ? "whole-number " : ""}values must be at least ${f(here.floor)}.`}
+  if (s > uniform) return {kind: "warn", text: `<strong>Possible, but unusual.</strong> With a mean of ${f(m)}, the <em>SD</em> of ${n} values can be anywhere from ${f(here.floor)} to ${f(here.ceiling)}, but an <em>SD</em> above ${f(uniform)} is more spread out than scores spread evenly across the whole scale. It requires the scores to pile up at the ends of the scale, which is plausible for some measures but not most.`}
+  return {kind: "ok", text: `<strong>Possible.</strong> With a mean of ${f(m)}${given ? ` and ${given}` : ""}, the <em>SD</em> of ${n} ${quasi ? "whole-number " : ""}values can be anywhere from ${f(here.floor)} to ${f(here.ceiling)}.`}
+}
+```
+
+Start with the mean at 3 on the 1–7 scale and raise the *SD* until the point turns red: the largest possible *SD* is close to the Bhatia–Davis bound, but slightly below it, because the number of people at each end of the scale has to be a whole number. On the way, the point turns amber as it crosses the uniform-spread bound, where the scores would have to pile up at the ends of the scale. Move the mean towards either end and the largest possible *SD* falls. With whole-number responses, the smallest possible *SD* is zero only when the mean is a whole number, and rises to a small peak between whole numbers. Now choose a mean of three items and tick **Cronbach's α**: the higher the α, the lower the ceiling, because items that agree with one another cannot produce scores as spread out as items that disagree. Finally, tick **Observed minimum and maximum**: with scores known to include both the minimum and the maximum given, the band lifts well off the floor, the ceiling falls, and means near the ends of the scale become impossible.
+
+To check values reported in an article, use the app in @sec-combined-app, which combines these bounds with the granularity checks of @sec-granularity and allows for rounding.
+
+<!-- TODO: TIDES + power + false positives; plausibility as well as possibility -->
+
+## Estimates inside confidence intervals {#sec-estimates-in-cis}
+
+Most estimates in quantitative research are reported with a confidence interval: a mean difference, a regression coefficient, an odds ratio, or a correlation, followed by its lower and upper bounds. The estimate and its interval are calculated from the same data by the same analysis, so they are not free to take any values relative to one another. This gives two checks that need nothing but the three reported numbers. The first is a possibility check: is the estimate inside its interval? The second is a plausibility check: is the estimate in the middle of its interval, as it should be for many common methods, once rounding is taken into account?
+
+### Possibility: is the estimate inside its interval? {#sec-estimate-inside-ci}
+
+For almost every method used in practice, a confidence interval contains its own point estimate. An estimate outside its interval is therefore close to proof that at least one of the three numbers is wrong. The exceptions are rare and exotic, such as percentile bootstrap intervals for heavily biased statistics, and an article that used such a method would be expected to say so. More common explanations are a typo, digits transposed while copying, values copied from the wrong row or the wrong model, or bounds and estimates entered in the wrong order. An estimate that equals one of its bounds is technically inside the interval, but for most methods it is no more plausible than one outside it.
+
+@georgescu2018 automatically extracted 244,750 ratios (odds ratios, risk ratios, and hazard ratios) and their 95% confidence intervals from the abstracts of articles indexed in MEDLINE. Between 0.4% and 0.6% of the ratios, depending on the type, were outside their own intervals. A reanalysis of their data for this book, using the 151,461 ratios whose values could be checked with the rounding of each value taken into account, found that 0.43% were outside their intervals, and that 0.8% of the abstracts contained at least one such ratio. These are small percentages, but they come from abstracts, which usually contain an article's main results, and almost every one of them points to an error, in the article or, occasionally, in the automated extraction.
+
+### Plausibility: is the estimate in the middle of its interval? {#sec-estimate-centred-ci}
+
+Many confidence intervals are symmetric around their estimate. The usual interval for a mean, a mean difference, or a coefficient in a linear regression is the estimate plus or minus a multiple of its standard error, so the estimate lies exactly halfway between the bounds. Intervals for ratios such as odds ratios, risk ratios, and hazard ratios are usually calculated in the same way on the log scale and then exponentiated, so the estimate lies halfway between the bounds on the log scale: it is the geometric mean of the two bounds, √(*lower* × *upper*), rather than their arithmetic mean. This was the basis of the recalculations by @georgescu2018.
+
+Rounding means that the reported estimate need not be exactly in the middle of the reported bounds. Each of the three numbers was rounded separately, so the check asks whether any combination of unrounded values that would round to the three reported numbers places the estimate exactly in the middle. For example, an odds ratio reported as 8.4 [3.7, 19.2] passes: the geometric mean of the bounds is 8.43, which rounds to 8.4. An odds ratio of 1.52 [1.18, 1.93] does not: whatever the unrounded bounds were, their geometric mean lies between 1.504 and 1.514, and no unrounded estimate between 1.515 and 1.525 can equal it. The difference is small, but it is larger than rounding can produce.
+
+Unlike an estimate outside its interval, an estimate that is off-centre is not proof of an error, because many legitimate methods produce intervals that are not symmetric around their estimate on any simple scale. Examples include profile likelihood intervals, which R uses by default for the coefficients of logistic and other generalised linear models; exact intervals, such as Clopper–Pearson intervals for proportions and conditional intervals for odds ratios from small samples; Wilson intervals for proportions; intervals for correlations calculated through Fisher's *z* transformation, which are symmetric on the *z* scale but not on the scale of the correlation; intervals for Standardized Mean Differences based on the noncentral *t* distribution; bootstrap intervals, which can be asymmetric even when the model itself assumes normally distributed errors, because they follow the shape of the bootstrap distribution rather than a formula; and Bayesian credible intervals from skewed posterior distributions. Whether an off-centre estimate is a concern therefore depends on the metric and on the method used to calculate its interval. An off-centre coefficient from an ordinary least squares regression with standard intervals is a strong sign of an error. An off-centre odds ratio from a profile likelihood interval is expected.
+
+In the reanalysis of the data of @georgescu2018, 92.7% of the ratios were centred on the log scale given rounding, 6.8% were inside their intervals but off-centre, and 0.43% were outside their intervals. The histograms below show where each estimate fell, as a proportion of the width of its interval on the log scale: 0% is the lower bound, 50% the middle, and 100% the upper bound. Most off-centre estimates are only slightly off-centre, and many of them are probably the result of legitimate asymmetric methods, which these abstracts rarely describe. About 2.1% of all ratios were both off-centre given rounding and outside the middle fifth of their interval (40% to 60% of its width), which is much harder to explain by method alone.
+
+```{ojs}
+//| echo: false
+ciGeorgescu = FileAttachment("../data/data_estimates_in_ci_georgescu_wren_relative_location.csv").csv({typed: true})
+```
+
+```{ojs}
+//| echo: false
+{
+  // one small histogram per result, each with its own vertical axis, because the centred estimates outnumber the others
+  // by more than ten to one
+  const results = [
+    // the totals are for all 151,461 ratios analysed. the histograms only show locations between -50% and 150%
+    {key: "centred", title: "In the middle of the interval, given rounding", colour: ciColours.centred, n: 140457},
+    {key: "off-centre", title: "Inside the interval, but not in the middle, given rounding", colour: ciColours.offcentre, n: 10349},
+    {key: "outside", title: "Outside the interval", colour: ciColours.outside, n: 655}
+  ]
+  const total = 151461
+  return html`<div class="ci-hists">${results.map(r => {
+    const rows = ciGeorgescu.filter(d => d.result === r.key)
+    const shown = d3.sum(rows, d => d.n)
+    const plot = Plot.plot({
+      width, height: 150, marginLeft: 60, marginRight: 20, marginTop: 10, marginBottom: 36,
+      x: {label: "Location of the estimate within its interval", labelAnchor: "center", labelOffset: 30, domain: [-0.5, 1.5], tickFormat: d3.format(".0%")},
+      y: {label: "Ratios", grid: true, ticks: 3},
+      style: {fontSize: "12px"},
+      marks: [
+        Plot.rect([{x1: -0.5, x2: 0}, {x1: 1, x2: 1.5}], {x1: "x1", x2: "x2", y1: 0, y2: d3.max(rows, d => d.n) ?? 1, fill: "currentColor", fillOpacity: 0.06}),
+        Plot.rectY(rows, {x1: "bin", x2: d => d.bin + 0.02, y: "n", fill: r.colour}),
+        Plot.ruleX([0, 1], {stroke: "currentColor", strokeOpacity: 0.6}),
+        Plot.ruleX([0.5], {stroke: "currentColor", strokeOpacity: 0.4, strokeDasharray: "4,3"}),
+        Plot.ruleY([0])
+      ]
+    })
+    return html`<div class="ci-hist-title" style="border-color: ${r.colour};">${r.title}: ${r.n.toLocaleString("en")} ratios (${(100 * r.n / total).toFixed(r.n / total < 0.01 ? 2 : 1)}%)${shown < r.n ? `, of which ${shown.toLocaleString("en")} are within the range shown` : ""}</div>${plot}`
+  })}</div>`
+}
+```
+
+### Seeing the problem
+
+Problems of this kind are much easier to see in a plot than in a table. Reading down a column of numbers such as −0.05 [−0.50, −0.11], it is easy to miss that the estimate is not between its bounds, and almost impossible to judge by eye whether an estimate is in the middle of its interval. Plotted, an estimate outside its interval, or one that sits far from the middle of it, stands out immediately.
+
+@haller2022 reported a multiple regression predicting prosocial behaviour from demographic and psychological variables, with standardised coefficients and 95% confidence intervals in their Table 5. As a comment on [PubPeer](https://pubpeer.com/publications/480E5B0C4CA6A1B2C3EE84841140BB) pointed out, the coefficient for being divorced, *β* = −0.05, is outside its interval of [−0.50, −0.11], which is not possible. The article describes an ordinary multiple regression, for which symmetric intervals are expected, but the coefficient for being widowed, *β* = −0.29 [−0.34, −0.01], is far from the middle of its interval, and the coefficient for high perceived stress, *β* = 0.29 [0.29, 0.04], equals one of its bounds, which are also in the wrong order. A coefficient reported in the text, *β* = 0.15 [0.12, 0.22] for Western Europe, which the same comment quoted for a different reason, is also off-centre. Each of these is easy to miss in the table. Load the table into the app below with the **Haller et al. (2022), Table 5** button to see how they look in a plot. The **Odds ratios from MEDLINE abstracts** button loads seven odds ratios from the abstracts analysed by @georgescu2018, as extracted, to be checked on the log scale.
+
+The app below plots any number of estimates and their intervals. Enter a label, the estimate, and the lower and upper bounds in each row, or paste a block of cells from a spreadsheet into the cell where the block should start. **Enter the values exactly as reported, including trailing zeros.** The number of decimal places in each value determines how much rounding is allowed for, and so how wide the region that counts as the middle of the interval is: a bound reported as 0.30 could have been anything from 0.295 to 0.305, but one entered as 0.3 could have been anything from 0.25 to 0.35. Spreadsheets often drop trailing zeros, so if you paste values from one, check that they still have the decimal places they were reported with. Choose whether the intervals should be symmetric on the original scale, as for means, mean differences, and regression coefficients, or on the log scale, as for odds ratios, risk ratios, and hazard ratios. Each estimate is coloured green if it is in the middle of its interval given rounding, orange if it is inside its interval but not in the middle, and red if it is outside its interval. The grey band on each interval shows the range of values that would be in the middle of the interval, given rounding. The **Standardise interval widths** button rescales every interval to run from 0% (the lower bound) to 100% (the upper bound), on the scale on which it should be symmetric, and marks the middle at 50%. Each estimate is then shown at its position within its own interval, and the grey band shows the region around 50% that counts as the middle, given rounding. The short coloured bar around each estimate shows the values it could have had before it was rounded, and an estimate counts as in the middle if this bar touches the grey band. This makes intervals of very different widths easy to compare, and shows how much the rounding of the reported values matters: values reported with fewer decimal places, relative to the width of their interval, have a wider band. Clicking the button again shows the reported values.
+
+Some statistical software prints the lower bound before the estimate, as in "lower, estimate, upper", and a value copied from such output into the wrong column can produce an estimate outside its interval. The **Swap estimates and lower bounds** button swaps the two columns in every row, so that you can see whether the values make sense when read in the other order. Clicking it again swaps them back.
+
+```{ojs}
+//| echo: false
+viewof ciInput = {
+  const fields = [["label", "Label"], ["estimate", "Estimate"], ["lower", "Lower bound"], ["upper", "Upper bound"]]
+  // the regression coefficients from table 5 of haller et al. (2022), and ratios from the abstracts analysed by
+  // georgescu and wren (2018), identified by their pubmed ids
+  const examples = {
+    "Haller et al. (2022), Table 5": {scale: "linear", rows: [
+      ["Age", "0.00", "-0.00", "-0.00"], ["Female", "0.25", "0.21", "0.31"],
+      ["Working part time", "0.01", "-0.04", "0.06"], ["Unemployed", "0.09", "0.04", "0.14"], ["On parental leave", "-0.10", "-0.23", "0.02"], ["Retired", "0.12", "0.01", "0.23"],
+      ["Living with parents", "0.10", "0.03", "0.17"], ["Living with one parent", "0.02", "-0.08", "0.12"], ["Living with own family", "-0.12", "-0.19", "-0.05"], ["Living with friends", "0.11", "0.02", "0.21"],
+      ["In a relationship", "-0.07", "-0.13", "-0.01"], ["Single", "0.00", "-0.07", "0.07"], ["Divorced", "-0.05", "-0.50", "-0.11"], ["Widowed", "-0.29", "-0.34", "-0.01"],
+      ["Finances the same", "-0.03", "-0.10", "0.03"], ["Finances worse", "0.06", "-0.01", "0.13"],
+      ["Moderate social support", "0.34", "0.30", "0.40"], ["High social support", "0.65", "0.59", "0.70"],
+      ["Moderate stress", "0.07", "0.02", "0.11"], ["High stress", "0.29", "0.29", "0.04"],
+      ["Psychological flexibility", "0.10", "0.07", "0.12"], ["Positive affect", "0.25", "0.23", "0.27"]
+    ]},
+    "Odds ratios from MEDLINE abstracts": {scale: "log", rows: [
+      ["PMID 23118894", "8.4", "3.7", "19.2"], ["PMID 11876688", "5.8", "3.4", "9.7"], ["PMID 17987372", "1.52", "1.18", "1.93"],
+      ["PMID 20445803", "2.83", "2.34", "2.91"], ["PMID 26813550", "1.7", "1.6", "2.64"], ["PMID 23870294", "1.12", "1.02", "1.11"], ["PMID 21930284", "1.28", "1.48", "2.99"]
+    ]}
+  }
+  const body = html`<tbody></tbody>`
+  const changed = () => view.dispatchEvent(new Event("input", {bubbles: true}))
+  const addRow = (values = []) => {
+    const tr = html`<tr></tr>`
+    tr.inputs = fields.map(([key, label], j) => {
+      const input = html`<input type="text" class="form-control form-control-sm" inputmode="${j === 0 ? "text" : "decimal"}" aria-label="${label}">`
+      input.value = values[j] ?? ""
+      input.onpaste = e => paste(e, tr, j)
+      return input
+    })
+    const remove = html`<button class="btn btn-sm ci-remove" title="Remove this row" aria-label="Remove this row">×</button>`
+    remove.onclick = () => { tr.remove(); if (body.children.length === 0) addRow(); changed() }
+    tr.append(...tr.inputs.map(input => html`<td>${input}</td>`), html`<td>${remove}</td>`)
+    body.append(tr)
+    return tr
+  }
+  // a block of cells copied from a spreadsheet (tab-separated) or typed as comma-separated values fills the grid
+  // from the cell it was pasted into, adding rows as needed. a single value is pasted as normal
+  const paste = (e, tr, j) => {
+    const text = e.clipboardData.getData("text").replace(/\r/g, "").replace(/\n+$/, "")
+    if (!/[\t\n,]/.test(text)) return
+    e.preventDefault()
+    let row = tr
+    for (const line of text.split("\n")) {
+      const cells = line.split(line.includes("\t") ? "\t" : ",")
+      cells.forEach((cell, k) => { if (j + k < fields.length) row.inputs[j + k].value = cell.trim() })
+      row = row.nextElementSibling ?? addRow()
+    }
+    if (row !== tr && row.inputs.every(input => input.value === "") && row.previousElementSibling) row.remove()
+    changed()
+  }
+  const scale = html`<select class="form-select form-select-sm" aria-label="Scale on which the intervals are symmetric">
+    <option value="linear">Symmetric on the original scale (e.g., means, mean differences, regression coefficients)</option>
+    <option value="log">Symmetric on the log scale (e.g., odds ratios, risk ratios, hazard ratios)</option>
+  </select>`
+  // the plot shows either the reported values or every interval rescaled to run from 0% to 100%
+  let display = "absolute"
+  const standardise = html`<button class="btn btn-quarto">Standardise interval widths (0–100%)</button>`
+  standardise.onclick = () => {
+    display = display === "absolute" ? "relative" : "absolute"
+    standardise.textContent = display === "absolute" ? "Standardise interval widths (0–100%)" : "Show the reported values"
+    changed()
+  }
+  const load = ({scale: s, rows}) => { body.replaceChildren(); rows.forEach(values => addRow(values)); scale.value = s; changed() }
+  const exampleButtons = Object.entries(examples).map(([name, example]) => {
+    const button = html`<button class="btn btn-quarto">${name}</button>`
+    button.onclick = () => load(example)
+    return button
+  })
+  const add = html`<button class="btn btn-quarto">Add row</button>`
+  const clear = html`<button class="btn btn-quarto">Clear all</button>`
+  const swap = html`<button class="btn btn-quarto">Swap estimates and lower bounds</button>`
+  add.onclick = () => addRow().inputs[0].focus()
+  clear.onclick = () => { body.replaceChildren(); addRow().inputs[0].focus(); changed() }
+  swap.onclick = () => {
+    for (const tr of body.children) [tr.inputs[1].value, tr.inputs[2].value] = [tr.inputs[2].value, tr.inputs[1].value]
+    changed()
+  }
+  const view = html`<div>
+    <div class="sb-buttons ci-examples"><span>Examples:</span>${exampleButtons}</div>
+    <div class="table-responsive"><table class="table table-sm ci-grid">
+      <thead><tr><th>Label</th><th>Estimate</th><th>Lower bound</th><th>Upper bound</th><th></th></tr></thead>
+      ${body}
+    </table></div>
+    <div class="sb-buttons">${add}${clear}${swap}</div>
+    <div class="ci-controls"><label class="ci-label">Intervals are expected to be</label>${scale}</div>
+    <div class="sb-buttons">${standardise}</div>
+  </div>`
+  // the value is read from the grid whenever anything in it changes, so that the plot follows the typing
+  const read = () => ({
+    rows: [...body.children].map(tr => Object.fromEntries(fields.map(([key], j) => [key, tr.inputs[j].value.trim()]))),
+    scale: scale.value, display
+  })
+  view.addEventListener("input", () => { view.value = read() }, {capture: true})
+  scale.addEventListener("change", changed)
+  load(examples["Haller et al. (2022), Table 5"])
+  view.value = read()
+  return view
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  const log = ciInput.scale === "log", relative = ciInput.display === "relative"
+  const rows = ciChecked(ciInput.rows, log)
+  const valid = rows.filter(r => r.valid)
+  const problems = rows.filter(r => !r.valid)
+  const problemNote = problems.length ? html`<div class="sc-status">Not plotted: ${problems.map(r => `${r.label} (${r.problem.toLowerCase()})`).join("; ")}.</div>` : ""
+  if (valid.length === 0) return html`<div class="sc-status">Enter an estimate and both bounds in at least one row.</div>${problemNote}`
+
+  // in the relative view, every interval runs from 0 to 1 on the scale on which it should be symmetric. positions far
+  // outside the interval are drawn at the edge of the plot, so that no estimate disappears
+  const clamp = x => Math.max(-0.5, Math.min(1.5, x))
+  const pos = relative
+    ? valid.map(r => ({...r, xEst: clamp(r.rel), xLow: 0, xUp: 1, xMin: clamp(r.relMin), xMax: clamp(r.relMax), xEstLow: clamp(r.relEstLow), xEstHigh: clamp(r.relEstHigh)}))
+    : valid.map(r => ({...r, xEst: r.est, xLow: r.lo, xUp: r.hi, xMin: r.impliedMin, xMax: r.impliedMax, xEstLow: r.estLow, xEstHigh: r.estHigh}))
+  const texts = pos.map(r => `${r.label}   ${r.estimateText} [${r.lowerText}, ${r.upperText}]`)
+  const marginLeft = Math.min(Math.round(width * 0.5), 16 + 6.6 * d3.max(texts, t => t.length))
+  const extent = d3.extent(pos.flatMap(r => [r.xEst, r.xLow, r.xUp, r.xMin, r.xMax]))
+  const reference = relative ? 0.5 : log ? 1 : 0
+  // the standardised view always shows -10% to 110%, and stretches to show estimates further outside their intervals
+  const xDomain = relative ? [Math.min(-0.1, extent[0] - 0.05), Math.max(1.1, extent[1] + 0.05)] : extent
+  const plot = Plot.plot({
+    width, height: 60 + 26 * pos.length, marginLeft, marginRight: 24, marginTop: 10, marginBottom: 45,
+    x: relative
+      ? {label: `Position within the interval${log ? " on the log scale" : ""} (0% = lower bound, 100% = upper bound)`, labelAnchor: "center", labelOffset: 36, domain: xDomain, ticks: d3.range(-0.5, 1.51, 0.25).filter(t => t >= xDomain[0] && t <= xDomain[1]), tickFormat: d3.format(".0%")}
+      : {label: log ? "Estimate (log scale)" : "Estimate", labelAnchor: "center", labelOffset: 36, type: log ? "log" : "linear", domain: xDomain, nice: true},
+    y: {domain: d3.range(pos.length), tickFormat: i => texts[i], label: null, padding: 0.55, tickSize: 0},
+    style: {fontSize: "12px"},
+    marks: [
+      relative ? Plot.rect([{x1: xDomain[0], x2: 0}, {x1: 1, x2: xDomain[1]}], {x1: "x1", x2: "x2", fill: "currentColor", fillOpacity: 0.06}) : null,
+      (relative || (reference >= extent[0] && reference <= extent[1])) ? Plot.ruleX([reference], {stroke: "currentColor", strokeOpacity: 0.35, strokeDasharray: "4,3"}) : null,
+      // the range of values that would be in the middle of the interval, given rounding
+      Plot.ruleY(pos.map((r, i) => ({...r, i})), {y: "i", x1: "xMin", x2: "xMax", stroke: "currentColor", strokeOpacity: 0.2, strokeWidth: 10}),
+      // the interval, with a tick at each end
+      Plot.ruleY(pos.map((r, i) => ({...r, i})), {y: "i", x1: "xLow", x2: "xUp", stroke: "currentColor", strokeWidth: 1.5}),
+      Plot.tickX(pos.map((r, i) => ({...r, i})), {y: "i", x: "xLow", stroke: "currentColor", strokeWidth: 1.5}),
+      Plot.tickX(pos.map((r, i) => ({...r, i})), {y: "i", x: "xUp", stroke: "currentColor", strokeWidth: 1.5}),
+      // in the standardised view, the middle of each interval is marked
+      relative ? Plot.tickX(pos.map((r, i) => ({...r, i})), {y: "i", x: 0.5, stroke: "currentColor", strokeWidth: 2.5}) : null,
+      // the values the estimate could have had before rounding. an estimate counts as in the middle if this bar touches
+      // the grey band
+      Plot.ruleY(pos.map((r, i) => ({...r, i})), {y: "i", x1: "xEstLow", x2: "xEstHigh", stroke: r => ciColours[r.status], strokeWidth: 4, strokeOpacity: 0.7}),
+      Plot.dot(pos.map((r, i) => ({...r, i})), {y: "i", x: "xEst", r: 5.5, fill: r => ciColours[r.status], stroke: "white", strokeWidth: 1, title: r => `${r.label}: ${ciStatusText[r.status]}`})
+    ]
+  })
+  const legend = html`<div class="bd-legend ci-legend">
+    ${["centred", "offcentre", "outside"].map(s => html`<span><svg width="12" height="12"><circle cx="6" cy="6" r="5" fill="${ciColours[s]}"/></svg> ${ciStatusText[s]}</span>`)}
+    ${relative ? html`<span><svg width="6" height="12"><line x1="3" x2="3" y1="0" y2="12" stroke="currentColor" stroke-width="2.5"/></svg> Middle of the interval (50%)</span>` : ""}
+    <span><svg width="28" height="10"><line x1="0" x2="28" y1="5" y2="5" stroke="currentColor" stroke-width="10" stroke-opacity="0.2"/></svg> ${relative ? "Region that counts as the middle, given rounding" : "Values in the middle of the interval, given rounding"}</span>
+    <span><svg width="28" height="10"><line x1="0" x2="28" y1="5" y2="5" stroke="currentColor" stroke-width="4" stroke-opacity="0.7"/></svg> Values the estimate could have had before rounding</span>
+  </div>`
+
+  const named = list => list.map(r => r.label).join(", ")
+  const outside = valid.filter(r => r.status === "outside"), off = valid.filter(r => r.status === "offcentre"), reversed = valid.filter(r => r.reversed)
+  const parts = []
+  if (outside.length) parts.push(`<strong>${outside.length} of ${valid.length} estimates ${outside.length === 1 ? "is" : "are"} outside ${outside.length === 1 ? "its interval" : "their intervals"}</strong>, which is not possible for almost any method: ${named(outside)}.`)
+  if (off.length) parts.push(`<strong>${off.length} ${off.length === 1 ? "estimate is" : "estimates are"} inside ${off.length === 1 ? "its interval" : "their intervals"} but not in the middle</strong>, given rounding: ${named(off)}. This is unexpected if the intervals were calculated as the estimate plus or minus a multiple of its standard error${log ? " on the log scale" : ""}, but expected for some other methods.`)
+  if (reversed.length) parts.push(`The lower bound is above the upper bound in ${named(reversed)}. These intervals were checked with their bounds in the correct order.`)
+  if (!outside.length && !off.length) parts.push(`<strong>All ${valid.length} ${valid.length === 1 ? "estimate is" : "estimates are"} in the middle of ${valid.length === 1 ? "its interval" : "their intervals"}</strong>, given rounding${log ? " on the log scale" : ""}.`)
+  const feedback = html`<div class="sb-feedback sb-feedback-${outside.length ? "bad" : off.length || reversed.length ? "warn" : "ok"}">`
+  feedback.innerHTML = parts.join(" ")
+  return html`${plot}${legend}${feedback}${problemNote}`
+}
+```
+
+```{ojs}
+//| echo: false
+// functions and styles used by the estimates in confidence intervals plots
+
+ciColours = ({centred: "#3b9c6e", offcentre: "#e08a1e", outside: "#c0392b"})
+ciStatusText = ({centred: "In the middle of the interval, given rounding", offcentre: "Inside the interval, but not in the middle", outside: "Outside the interval"})
+
+function ciChecked(rows, log) {
+  // checks each row of the grid. rows that are entirely empty are left out. the number of decimal places of each value
+  // is read from the text as entered, so trailing zeros count. each value could have been anything that rounds to it,
+  // so the estimate is in the middle of its interval if any combination of unrounded values puts it exactly in the
+  // middle: the range of possible estimates must overlap the range of possible midpoints of the bounds. on the log
+  // scale, the midpoint is the geometric mean of the bounds
+  const number = s => s === "" ? NaN : Number(s.replace(/[−–]/g, "-"))
+  const decimals = s => (s.match(/\.(\d+)/)?.[1].length) ?? 0
+  return rows.map((r, i) => ({...r, label: r.label || `Row ${i + 1}`}))
+    .filter(r => r.estimate !== "" || r.lower !== "" || r.upper !== "")
+    .map(r => {
+      const est = number(r.estimate), lower = number(r.lower), upper = number(r.upper)
+      const base = {label: r.label, estimateText: r.estimate, lowerText: r.lower, upperText: r.upper}
+      if (![est, lower, upper].every(Number.isFinite)) return {...base, valid: false, problem: "Missing or non-numeric values"}
+      if (log && [est, lower, upper].some(x => x <= 0)) return {...base, valid: false, problem: "Values must be above zero on the log scale"}
+      const reversed = lower > upper
+      const [lo, hi] = reversed ? [upper, lower] : [lower, upper]
+      const [loText, hiText] = reversed ? [r.upper, r.lower] : [r.lower, r.upper]
+      const half = s => 0.5 * 10 ** -decimals(s)
+      // values on the scale on which the interval should be symmetric. a rounded bound of zero is kept just above zero
+      const f = log ? x => Math.log(Math.max(x, 1e-12)) : x => x
+      const inv = log ? Math.exp : x => x
+      const midMin = (f(lo - half(loText)) + f(hi - half(hiText))) / 2, midMax = (f(lo + half(loText)) + f(hi + half(hiText))) / 2
+      const estMin = f(est - half(r.estimate)), estMax = f(est + half(r.estimate))
+      const centred = Math.max(midMin, estMin) <= Math.min(midMax, estMax) + 1e-12
+      const inside = lo <= est && est <= hi
+      const span = f(hi) - f(lo)
+      // an interval of zero width has no position within it; its estimate is drawn in the middle
+      const rel = span > 0 ? (f(est) - f(lo)) / span : 0.5
+      return {...base, valid: true, est, lo, hi, reversed,
+        status: !inside ? "outside" : !centred ? "offcentre" : "centred",
+        impliedMin: inv(midMin), impliedMax: inv(midMax), rel,
+        relMin: span > 0 ? (midMin - f(lo)) / span : 0.5, relMax: span > 0 ? (midMax - f(lo)) / span : 0.5,
+        // the values the estimate could have had before it was rounded
+        estLow: inv(estMin), estHigh: inv(estMax),
+        relEstLow: span > 0 ? (estMin - f(lo)) / span : 0.5, relEstHigh: span > 0 ? (estMax - f(lo)) / span : 0.5}
+    })
+}
+
+ciStyle = html`<style>
+  .sb-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+  .sc-status { margin: 0.5rem 0 1.5rem; color: var(--bs-secondary-color); font-size: 0.9rem; }
+  .ci-examples { margin: 0.5rem 0 0.75rem; font-size: 0.9rem; }
+  .ci-grid { font-size: 0.9rem; margin-bottom: 0.5rem; }
+  .ci-grid th { text-align: center; font-weight: 600; border-bottom-width: 1px; }
+  .ci-grid td { padding: 0.15rem; }
+  .ci-grid input { min-width: 4rem; text-align: right; background: transparent; color: inherit; }
+  .ci-grid td:first-child input { min-width: 10rem; text-align: left; }
+  .ci-remove { line-height: 1; padding: 0.2rem 0.5rem; color: var(--bs-secondary-color); }
+  .ci-controls { margin: 0.75rem 0; max-width: 34rem; }
+  .ci-label { font-weight: 600; display: block; margin: 0.5rem 0 0.25rem; }
+  .bd-legend { display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; justify-content: center; font-size: 0.8rem; margin-bottom: 0.5rem; }
+  .bd-legend svg { vertical-align: middle; }
+  .ci-hist-title { font-size: 0.9rem; font-weight: 600; border-left: 4px solid; padding-left: 0.5rem; margin-top: 0.75rem; }
+  .ci-hists { margin-bottom: 1.5rem; }
+</style>`
+```
+
+Swapping the columns does not let the authors off the hook, even when it makes every estimate sit neatly in the middle of its interval. Readers, reviewers, and meta-analysts usually take reported numbers at face value. A meta-analyst who extracts the estimate and calculates its standard error from the width of the interval, as is common, will use the wrong estimate, the wrong standard error, or both, and nothing in the meta-analysis will reveal the error. An error that would be obvious in a plot of one study can therefore distort the pooled results of many.
+
+## Coefficient bounds {#sec-coefficient-bounds}
+
+Many coefficients have bounds that follow from how they are defined, whatever was measured. A correlation must lie between −1 and 1, and a proportion or an *R*^2^ between 0 and 1. Reliability, defined as the proportion of the variance in scores that is true-score variance, also lies between 0 and 1, but the coefficients used to estimate it are bounded less tightly. Cronbach's α cannot exceed 1, but it has no lower bound: it is negative whenever the items are, on average, negatively correlated with one another, as happens when reverse-keyed items have not been reverse-scored, and two items that correlate −.90 give an α of −18. A negative α is therefore possible, but it shows that the items do not measure one thing in the way they were scored, and so it is a reason to look closely. A reported value outside a coefficient's bounds cannot be correct. @tbl-coefficient-bounds lists the bounds of some statistics that are common in psychology and medicine.
+
+| Statistic | Bounds | Notes |
+|:---|:---|:---|
+| Pearson's *r*, Spearman's *ρ*, Kendall's *τ*, point-biserial and phi correlations | −1 to 1 | For phi and point-biserial correlations, the attainable maximum is often smaller, depending on the proportions in each category. |
+| Proportions, probabilities, and *p*-values | 0 to 1 (0% to 100%) | Includes prevalence, response rates, and proportions of variance. |
+| Sensitivity, specificity, positive and negative predictive values, accuracy, precision, recall, and F1 score | 0 to 1 | All are proportions, and the F1 score is the harmonic mean of precision and recall, so it lies between them. |
+| Area under the ROC curve (AUC, *c*-statistic) | 0 to 1 | 0.5 is chance. Values below 0.5 mean that the predictor works in the opposite direction to the one assumed. |
+| *R*^2^, *η*^2^, partial *η*^2^, Cramér's *V* | 0 to 1 | |
+| Adjusted *R*^2^ | −*p* / (*n* − *p* − 1) to 1, with *p* predictors | Can be slightly negative when *R*^2^ is close to zero: at least −0.03 with 3 predictors and 100 people. It is only substantially negative when there are many predictors for the sample size. |
+| *ω*^2^ (one-way ANOVA) | −*df*~effect~ / (*N* − *df*~effect~) to 1 | Can be slightly negative when the effect is close to zero: at least −0.01 for two groups and 100 people. Often reported as 0 when negative. |
+| *ε*^2^ (one-way ANOVA) | −*df*~effect~ / *df*~error~ to 1 | As for *ω*^2^: at least −0.01 for two groups of 50. |
+| Standardised regression coefficients (*β*) | −1 to 1 with one predictor | With several correlated predictors, values beyond ±1 are possible, but rare, and worth a closer look. |
+| Standardised factor loadings | −1 to 1 | A value beyond ±1, known as a Heywood case, indicates an improper solution. |
+| Cronbach's *α* | Up to 1, with no lower bound | Negative when the items are on average negatively correlated, usually because reverse-keyed items were not reverse-scored. A slightly negative *α* is possible but a sign of a problem with the scale or its scoring. A value far below 0, such as −5, needs items that are strongly negatively correlated, which is implausible for a published scale unless the article explains it. |
+| McDonald's *ω* | 0 to 1 | |
+| Single-measure intraclass correlation (one-way, or two-way consistency) | −1 / (*k* − 1) to 1, with *k* raters or measurements per subject | −1 to 1 with two raters, and closer to 0 with more. Estimates are negative when the variance between subjects is close to zero, and are then usually only slightly negative. The two-way agreement form can fall slightly further below in very small samples. |
+| Average-measure intraclass correlation | Up to 1, with no lower bound | The consistency form is identical to Cronbach's *α*, and is negative under the same circumstances. |
+| Cohen's *κ* | −1 to 1 | The attainable maximum is often below 1, depending on the marginal proportions. |
+| Odds ratio, risk ratio, hazard ratio | Above 0 | 1 means no difference. Ratios cannot be zero or negative, so neither can the bounds of their intervals, although a small lower bound can be rounded to 0.00. |
+| Risk difference | −1 to 1 | |
+| Number needed to treat (NNT) | 1 or more in size | An NNT between −1 and 1 would imply a risk difference greater than 1 in size. |
+| Variances, *SD*s, and standard errors | 0 or more | For a single mean, the standard error, *SD* / √*N*, cannot be larger than the *SD*. |
+| *I*^2^ | 0% to 100% | |
+| *τ*^2^, *χ*^2^, *F*, RMSEA, SRMR | 0 or more | |
+| CFI | 0 to 1 | The TLI is not bounded in the same way, and can fall below 0 or rise above 1. |
+| Cohen's *d* and other Standardized Mean Differences | No bounds by definition | On a bounded scale, the bounds of the scale limit how large a Standardized Mean Difference can be (@sec-bounded-data). |
+
+: Bounds of some common statistics. {#tbl-coefficient-bounds}
+
+Some of the statistics in @tbl-coefficient-bounds are bias-corrected or variance-based estimates that can legitimately fall slightly below zero when the quantity they estimate is close to zero, such as adjusted *R*^2^, *ω*^2^, and the intraclass correlation. Being able to fall slightly below zero does not mean that they have no bounds. Most of them have a lower bound that follows from the sample size or design, and it is usually close to zero. An *R*^2^ of −4.1 is impossible, because *R*^2^ cannot be negative at all, and an adjusted *R*^2^ that negative would need an *R*^2^ of zero and almost as many predictors as people. A single-measure intraclass correlation of −9.1 is also impossible in practice: the one-way and consistency forms cannot fall below −1 with any number of raters, and the agreement form can only do so in samples of a few subjects. Only a few statistics, such as Cronbach's *α* and the average-measure intraclass correlation, have no lower bound at all, and even for these, a value far below zero is implausible without a specific explanation.
+
+Values this obviously wrong still reach print. @hussein2022 compared machine learning models for classifying lung diseases from chest X-rays, and reported each model's accuracy, precision, recall, and F1 score. The F1 score is the harmonic mean of precision and recall, 2 × precision × recall / (precision + recall), so it must lie between them, and like them between 0 and 1. As a comment on [PubPeer](https://pubpeer.com/publications/7B4601B575EDFC92F0864708986D78) pointed out, every F1 score in the article's Tables 2 to 4 is above 1, ranging from 1.40 to 3.64. They are not percentages, because the precision and recall in the same rows are reported as proportions. Almost all of them are four times the recall in the same row: one model was reported with a precision of .6900, a recall of .6891, and an F1 score of 2.7563, whereas the F1 score implied by its precision and recall is .6895. Whatever the cause, none of the F1 scores can be correct. Later comments on the same article raise further questions about the other metrics in these tables.
+
+Values that only break a bound once they are combined with other reported numbers are probably more common, because no one checks the combination. The next section describes one such check.
+
+### Disattenuated correlations {#sec-disattenuation}
+
+Measurement error weakens correlations. If two measures are not perfectly reliable, the correlation between them is smaller in size than the correlation between the constructs they measure, a bias known as attenuation. @spearman1904 showed how to correct for it: divide the observed correlation by the square root of the product of the two measures' reliabilities,
+
+$$
+r_{xy}^{\text{true}} = \frac{r_{xy}}{\sqrt{r_{xx} \, r_{yy}}},
+$$
+
+where *r*~*xy*~ is the observed correlation and *r*~*xx*~ and *r*~*yy*~ are the reliabilities of the two measures, such as Cronbach's α or a test–retest correlation. The disattenuated correlation is an estimate of the correlation between the constructs, and like any correlation it must lie between −1 and 1.
+
+This gives a check that uses three numbers which articles often report together. Rearranging the formula, a correlation can only be as large as the square root of the product of the reliabilities: two measures with reliabilities of .70 can correlate at most .70, however closely related the constructs are. A reported correlation of .80 between them implies a disattenuated correlation of 1.14, which is impossible. Either the correlation, at least one of the reliabilities, or both are wrong, or the reliabilities were estimated in a different sample from the correlation.
+
+Whether a disattenuated correlation outside −1 to 1 shows that the reported numbers are impossible, or only that they are implausible, depends on where the reliabilities come from. When the correlation and both reliabilities were estimated in the same sample, as when an article reports all three, they describe the same data, and the check is a possibility check: the numbers cannot all be correct, subject to the caveats about sampling error and the type of reliability below. When the reliabilities come from other samples, such as a test manual, earlier studies, or a meta-analysis, the check is a plausibility check. The reliabilities then describe what is typical for the measures, and the measures may have been more or less reliable in the sample at hand, so a disattenuated correlation outside −1 to 1 shows that the reported correlation is implausible given what is known about the measures, not that it is impossible. For the same reason, √(*r*~*xx*~ *r*~*yy*~) is a ceiling on the correlation to be expected between two measures, not on the correlation that can be observed in any one sample, which varies around its expected value.
+
+The plausibility check can be applied to meta-analyses as well as to single studies. @vahey2015 reported a meta-analytic correlation of *r* = .45 between the Implicit Relational Assessment Procedure (IRAP), a reaction-time-based measure, and clinical criterion measures. A later meta-analysis estimated the IRAP's internal consistency at α = .27 and its test–retest reliability at .18 [@husseydrake2020]. As @hussey2025irap pointed out, these estimates are incompatible with one another. Even if the criterion measures were assumed to be highly reliable (*r*~*yy*~ = .90), the disattenuated correlation would be .91 using the IRAP's internal consistency and 1.12 using its test–retest reliability. With a lower and arguably more plausible criterion reliability of .70, it would be 1.04 or 1.27. Either the meta-analytic correlation was too large, or the meta-analytic reliabilities were too small. A reanalysis of the original meta-analysis found serious errors that generally inflated the effect size, and a new meta-analysis calculated to show their combined impact produced an estimate half the size, *r* = .22 [@hussey2025irap].
+
+Enter a reported correlation and the reliabilities of the two measures below, and choose whether the reliabilities come from the same sample as the correlation, which makes the check a possibility check, or from other samples, which makes it a plausibility check. The plot shows the reported correlation and the disattenuated correlation, joined by an arrow; the grey areas outside −1 and 1 are impossible for any correlation. You can also click or drag anywhere on the plot to set the reported correlation. The app uses the values exactly as entered and does not allow for their rounding, so it is better treated as an intuition pump than as a formal test.
+
+```{ojs}
+//| echo: false
+viewof dcR = Inputs.number([-1, 1], {value: 0.20, step: 0.01, label: "Correlation (r_xy)"})
+// reliability estimates such as alpha can be negative, so the reliability boxes accept any value up to 1
+viewof dcRxx = Inputs.number([-Infinity, 1], {value: 0.70, step: 0.01, label: "Reliability of measure 1 (r_xx)"})
+viewof dcRyy = Inputs.number([-Infinity, 1], {value: 0.70, step: 0.01, label: "Reliability of measure 2 (r_yy)"})
+// reliabilities from the same sample as the correlation make the check a possibility check; reliabilities from other
+// samples make it a plausibility check
+viewof dcSameSample = Inputs.radio(new Map([["The same sample as the correlation (possibility check)", true], ["Other samples, such as a test manual or meta-analysis (plausibility check)", false]]), {value: true, label: "Reliabilities from"})
+```
+
+```{ojs}
+//| echo: false
+dcState = {
+  // the inputs, checked: the correlation must be a number in [-1, 1], and the reliabilities numbers no greater than 1.
+  // a reliability estimate of zero or below is possible for a coefficient such as alpha, but the correction cannot
+  // be applied to it, because it takes the square root of the product of the reliabilities
+  const r = dcR, rxx = dcRxx, ryy = dcRyy
+  const finite = [r, rxx, ryy].every(Number.isFinite)
+  if (!finite) return {error: "Enter the correlation and both reliabilities as numbers."}
+  if (r < -1 || r > 1) return {error: "<strong>Not possible.</strong> The reported correlation is itself outside −1 to 1, so it cannot be correct whatever the reliabilities."}
+  if (rxx > 1 || ryy > 1) return {error: "<strong>Not possible.</strong> No reliability coefficient can be greater than 1."}
+  if (rxx <= 0 || ryy <= 0) return {error: `<strong>Cannot be corrected.</strong> A reliability of ${Math.min(rxx, ryy).toFixed(2).replace("-", "−")} is possible for an estimate such as Cronbach's α, but the correction for attenuation is only defined for reliabilities above 0. A reliability estimate at or below 0 means that the items do not hang together as scored, for example because reverse-keyed items were not reverse-scored, and is itself worth questioning.`, kind: "warn"}
+  const ceiling = Math.sqrt(rxx * ryy)
+  const dis = r / ceiling
+  return {r, rxx, ryy, ceiling, dis, possible: Math.abs(dis) <= 1}
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  if (dcState.error) {
+    const box = html`<div class="sb-feedback sb-feedback-${dcState.kind ?? "bad"}">`
+    box.innerHTML = dcState.error
+    return box
+  }
+  const {r, rxx, ryy, ceiling, dis, possible} = dcState
+  const same = dcSameSample
+  const blue = "#2780e3", green = "#3b9c6e", red = "#c0392b", amber = "#d9a02b"
+  // outside -1 to 1 is impossible when the reliabilities come from the same sample, and implausible when they do not
+  const disColour = possible ? green : same ? red : amber
+  const fmt = x => x.toFixed(2).replace("-", "−")
+
+  const tiles = html`<div class="sb-tiles">
+    <div><div class="sb-tile-value" style="color: ${blue};">${fmt(r)}</div><div class="sb-tile-label">Reported <i>r</i></div><div class="sb-tile-note">the observed correlation</div></div>
+    <div><div class="sb-tile-value" style="color: ${disColour};">${fmt(dis)}</div><div class="sb-tile-label">Disattenuated <i>r</i></div><div class="sb-tile-note">must lie between −1 and 1</div></div>
+    <div><div class="sb-tile-value" style="color: inherit;">±${ceiling.toFixed(2)}</div><div class="sb-tile-label">Reliability ceiling on <i>r</i></div><div class="sb-tile-note">√(<i>r<sub>xx</sub></i> × <i>r<sub>yy</sub></i>): the largest correlation to expect with these reliabilities, not a limit on what any one sample can show</div></div>
+  </div>`
+
+  // the axis always shows -1 to 1, and stretches to show a disattenuated correlation beyond them
+  const span = Math.max(1.25, Math.abs(dis) * 1.12)
+  const points = [
+    {x: r, label: "reported", colour: blue},
+    {x: dis, label: "disattenuated", colour: disColour}
+  ]
+  const plot = Plot.plot({
+    width, height: 190, marginLeft: 20, marginRight: 20, marginTop: 10, marginBottom: 40,
+    x: {label: "Correlation", labelAnchor: "center", labelOffset: 34, domain: [-span, span], ticks: d3.ticks(-span, span, 10)},
+    y: {axis: null, domain: [0, 1]},
+    style: {fontSize: "13px"},
+    marks: [
+      // outside -1 to 1: impossible for any correlation
+      Plot.rect([{x1: -span, x2: -1}, {x1: 1, x2: span}], {x1: "x1", x2: "x2", y1: 0, y2: 1, fill: "currentColor", fillOpacity: 0.08}),
+      Plot.ruleX([-1, 1], {stroke: "currentColor", strokeDasharray: "4,3", strokeOpacity: 0.7}),
+      Plot.ruleX([0], {stroke: "currentColor", strokeOpacity: 0.3}),
+      // the labels of the grey areas sit at the bottom, below the disattenuated correlation's labels, which can be
+      // inside them
+      Plot.text(["Impossible"], {x: 1 + (span - 1) / 2, y: 0.03, fontWeight: 600, fillOpacity: 0.6, lineAnchor: "bottom"}),
+      Plot.text(["Impossible"], {x: -1 - (span - 1) / 2, y: 0.03, fontWeight: 600, fillOpacity: 0.6, lineAnchor: "bottom"}),
+      Math.abs(dis - r) > 1e-9 ? Plot.arrow([{}], {x1: r, x2: dis, y1: 0.5, y2: 0.5, stroke: "currentColor", strokeOpacity: 0.6, strokeWidth: 1.5, insetEnd: 8, headLength: 10}) : null,
+      Plot.dot(points, {x: "x", y: 0.5, r: 7, fill: "colour", stroke: "white", strokeWidth: 1.5}),
+      // the reported correlation is labelled below its point and the disattenuated correlation above, so that the
+      // labels do not overlap when the two are close together
+      Plot.text([points[0]], {x: "x", y: 0.5, text: d => fmt(d.x), dy: 17, fill: "colour", fontWeight: 700}),
+      Plot.text([points[0]], {x: "x", y: 0.5, text: "label", dy: 32, fill: "colour"}),
+      Plot.text([points[1]], {x: "x", y: 0.5, text: d => fmt(d.x), dy: -16, fill: "colour", fontWeight: 700}),
+      Plot.text([points[1]], {x: "x", y: 0.5, text: "label", dy: -31, fill: "colour"})
+    ]
+  })
+  // clicking the plot sets the reported correlation to the clicked value, and dragging moves it continuously. the
+  // plot is redrawn at every change, and its axis can stretch as the disattenuated correlation grows, so the drag is
+  // followed on the window and positions are converted with the latest plot's scale
+  dcDrag.scale = plot.scale("x")
+  plot.style.cursor = "crosshair"
+  plot.style.touchAction = "none"
+  plot.addEventListener("pointerdown", down => {
+    const box = plot.getBoundingClientRect()
+    const setR = event => {
+      const value = dcDrag.scale.invert((event.clientX - box.left) * width / box.width)
+      viewof dcR.value = Math.max(-1, Math.min(1, Math.round(value * 100) / 100))
+      viewof dcR.dispatchEvent(new Event("input", {bubbles: true}))
+    }
+    down.preventDefault()
+    setR(down)
+    let pending = null
+    const move = event => {
+      if (pending === null) requestAnimationFrame(() => { setR(pending); pending = null })
+      pending = event
+    }
+    const up = () => {
+      window.removeEventListener("pointermove", move)
+      window.removeEventListener("pointerup", up)
+      window.removeEventListener("pointercancel", up)
+    }
+    window.addEventListener("pointermove", move)
+    window.addEventListener("pointerup", up)
+    window.addEventListener("pointercancel", up)
+  })
+
+  // the smallest reliability each measure could have, given the other one, for the disattenuated correlation to be
+  // within -1 to 1
+  const minRxx = r * r / ryy, minRyy = r * r / rxx
+  const needed = (min, name, other) => min > 1 ? `with measure ${other}'s reliability as ${same ? "reported" : "given"}, no reliability of measure ${name} could bring it within −1 to 1` : `with measure ${other}'s reliability as ${same ? "reported" : "given"}, measure ${name} would need a reliability of at least ${min.toFixed(2)}`
+  const [kind, message] = possible
+    ? ["ok", same
+      ? `<strong>Possible.</strong> Correcting for unreliability changes the correlation from ${fmt(r)} to ${fmt(dis)}, which is within −1 to 1.`
+      : `<strong>Plausible.</strong> Correcting for unreliability changes the correlation from ${fmt(r)} to ${fmt(dis)}, which is within −1 to 1. With these typical reliabilities, correlations up to about ${ceiling.toFixed(2)} in size are to be expected.`]
+    : same
+      ? ["bad", `<strong>Not possible.</strong> The disattenuated correlation is ${fmt(dis)}, outside −1 to 1, so the reported correlation and reliabilities cannot all be correct for the same sample. For a correlation of ${fmt(r)}, the product of the reliabilities must be at least ${(r * r).toFixed(2)}: ${needed(minRxx, 1, 2)}; ${needed(minRyy, 2, 1)}.`]
+      : ["warn", `<strong>Implausible.</strong> The disattenuated correlation is ${fmt(dis)}, outside −1 to 1. Because the reliabilities come from other samples, this does not show that the reported correlation is impossible: it would require the measures to have been more reliable in this sample than is typical for them. For a correlation of ${fmt(r)}, the product of the reliabilities in this sample must be at least ${(r * r).toFixed(2)}: ${needed(minRxx, 1, 2)}; ${needed(minRyy, 2, 1)}.`]
+  const feedback = html`<div class="sb-feedback sb-feedback-${kind}">`
+  feedback.innerHTML = message
+  const note = html`<div class="dc-note">The values are used exactly as entered, without allowing for rounding, so treat the result as an intuition pump rather than a formal test.</div>`
+  return html`${tiles}${plot}${feedback}${note}`
+}
+```
+
+```{ojs}
+//| echo: false
+// the x scale of the latest disattenuation plot, kept here so that a drag that began on an earlier version of the
+// plot is converted with the current one
+dcDrag = ({scale: null})
+
+metricBoundsStyle = html`<style>
+  .sb-tiles { display: flex; gap: 1.25rem; flex-wrap: wrap; margin: 0.5rem 0 1rem; }
+  .sb-tiles > div { flex: 1 1 8.5rem; }
+  .sb-tile-value { font-size: 2rem; font-weight: 700; line-height: 1.1; color: #2780e3; }
+  .sb-tile-label { font-weight: 600; }
+  .sb-tile-note { font-size: 0.9rem; color: var(--bs-secondary-color); }
+  .sb-feedback { margin: 0.5rem 0 1.5rem; padding: 0.6rem 0.9rem; border-left: 4px solid #8a8a8a; background: rgba(128, 128, 128, 0.08); }
+  .sb-feedback-ok { border-color: #3b9c6e; }
+  .sb-feedback-warn { border-color: #d9a02b; }
+  .sb-feedback-bad { border-color: #c0392b; }
+  .sb-feedback + .dc-note { margin-top: -1rem; }
+  .dc-note { margin-bottom: 1.5rem; font-size: 0.85rem; color: var(--bs-secondary-color); }
+</style>`
+```
+
+Try a correlation of .80 with both reliabilities at .70: the disattenuated correlation is 1.14. Then raise either reliability until the correlation becomes possible. Negative correlations work the same way, against the lower bound of −1.
+
+Some points to keep in mind when using this check:
+
+- **Reliabilities from other samples are still informative.** When an article does not report reliabilities, estimates from a test manual, earlier studies, or a reliability generalization meta-analysis can stand in for them, and the check becomes a plausibility check. It is often said that reliability is a property of scores in a particular sample rather than of a measure, but this is too strong. Reliability generalization meta-analyses, which pool the reliabilities reported for a measure across many samples, find that reliability varies between samples but that the measure itself also contributes to it [@vachahaase1998]: some measures are reliable in most of the samples in which they are used, and others rarely are. A correlation that would be impossible given a measure's typical reliability is not proof of an error, but it is a useful intuition pump and a fair reason to ask questions.
+- **Small excesses can arise from sampling error.** The correlation and the reliabilities are all estimates, and in small samples a disattenuated correlation slightly above 1 can occur by chance even when every reported number is correct. A disattenuated correlation of 1.02 in a sample of 50 is weak evidence of a problem. One of 1.30 in a sample of 500 is strong evidence.
+- **Rounding is not taken into account.** The app uses the values exactly as entered. A disattenuated correlation just above 1, calculated from values rounded to two decimal places, may be within rounding of a possible one, so the app is better treated as an intuition pump than as a formal test.
+- **The type of reliability matters.** Internal consistency coefficients such as Cronbach's α can underestimate or overestimate reliability, depending on whether their assumptions hold, which changes the disattenuated correlation in turn. When an article reports more than one kind of reliability, check the result with each.
+- **A disattenuated correlation close to 1 is itself informative.** Even when it is possible, a disattenuated correlation near 1 suggests that the two measures assess the same construct, which may sit uneasily with an article's claim that they measure distinct things.
+
+<!-- TODO: Correlation matrix positive definiteness
+
+## Correlation matrix positive definiteness
+
+- Checking whether reported correlation tables are positive definite
+
+-->

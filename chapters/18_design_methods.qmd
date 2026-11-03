@@ -1,5 +1,7 @@
 ---
 aliases:
+  - 17_design_methods.html
+  - 16_design_methods.html
   - 15_design_methods.html
   - 14_design_methods.html
 ---
@@ -30,3 +32,12 @@ if(file.exists("../_setup.R")){source("../_setup.R")}
 
 - E.g., claimed to randomise students to groups for an intervention, but it would have to be at the level of classrooms or schools
 - Binomial/multinomial distribution checks: only useful for testing weirdly unbalanced assignment, not too-perfectly balanced, as it's technically the most probable outcome
+
+
+## Design irrelevance
+
+https://pubpeer.com/publications/4BDB385898FB4AD7649DECE694B6A5#1
+
+maybe more suitable to measurement chapter?
+
+

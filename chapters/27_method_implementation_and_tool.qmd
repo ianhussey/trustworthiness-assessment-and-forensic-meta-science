@@ -1,5 +1,7 @@
 ---
 aliases:
+  - 26_method_implementation_and_tool.html
+  - 25_method_implementation_and_tool.html
   - 24_method_implementation_and_tool.html
   - 23_method_implementation_and_tool.html
 ---

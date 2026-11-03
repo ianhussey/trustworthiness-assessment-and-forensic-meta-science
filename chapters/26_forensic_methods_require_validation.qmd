@@ -1,5 +1,7 @@
 ---
 aliases:
+  - 25_forensic_methods_require_validation.html
+  - 24_forensic_methods_require_validation.html
   - 23_forensic_methods_require_validation.html
   - 22_forensic_methods_require_validation.html
 ---

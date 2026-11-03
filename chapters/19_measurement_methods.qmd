@@ -1,5 +1,7 @@
 ---
 aliases:
+  - 18_measurement_methods.html
+  - 17_measurement_methods.html
   - 16_measurement_methods.html
   - 15_measurement_methods.html
 ---

@@ -32,35 +32,37 @@ book:
     - chapters/04_understanding_p_values.qmd
     - chapters/05_standardized_mean_differences_cohens_d.qmd
     - chapters/06_standardized_deviations_vs_standards_errors.qmd
+    - chapters/07_understanding_bounded_data_and_beta_regression.qmd
     
   - part: 'Part III: Forensic meta-science methods'
     chapters:
-    - chapters/07_misinterpretation_methods.qmd
-    - chapters/08_effect_size_methods.qmd
-    - chapters/09_repetition_and_consistency_methods.qmd
-    - chapters/10_recalculation_methods.qmd
-    - chapters/11_granularity_methods.qmd
-    - chapters/12_bounds_methods.qmd
-    - chapters/13_reconstruction_resampling_simulation_methods.qmd
-    - chapters/14_post_publication_notices.qmd
-    - chapters/15_reference_and_citation_methods.qmd
-    - chapters/16_design_methods.qmd
-    - chapters/17_measurement_methods.qmd
-    - chapters/18_theory_specification_methods.qmd
-    - chapters/19_data_extraction_methods.qmd
+    - chapters/08_misinterpretation_methods.qmd
+    - chapters/09_effect_size_methods.qmd
+    - chapters/10_repetition_and_consistency_methods.qmd
+    - chapters/11_recalculation_methods.qmd
+    - chapters/12_granularity_methods.qmd
+    - chapters/13_bounds_methods.qmd
+    - chapters/14_combined_granularity_and_bounds_methods.qmd
+    - chapters/15_reconstruction_resampling_simulation_methods.qmd
+    - chapters/16_post_publication_notices.qmd
+    - chapters/17_reference_and_citation_methods.qmd
+    - chapters/18_design_methods.qmd
+    - chapters/19_measurement_methods.qmd
+    - chapters/20_theory_specification_methods.qmd
+    - chapters/21_data_extraction_methods.qmd
     
   - part: 'Part IV: Organising critique'
     chapters:
-    - chapters/20_critiquing_specific_types_of_articles.qmd
-    - chapters/21_organising_critique.qmd
-    - chapters/22_trustworthiness_assessment_and_inspect-sr.qmd
-    - chapters/23_reflexive_critique.qmd
+    - chapters/22_critiquing_specific_types_of_articles.qmd
+    - chapters/23_organising_critique.qmd
+    - chapters/24_trustworthiness_assessment_and_inspect-sr.qmd
+    - chapters/25_reflexive_critique.qmd
     
   - part: 'Part V: Developing and validating forensic methods'
     chapters:
-    - chapters/24_forensic_methods_require_validation.qmd
-    - chapters/25_method_implementation_and_tool.qmd
-    - chapters/26_validation_using_simulated_data.qmd
+    - chapters/26_forensic_methods_require_validation.qmd
+    - chapters/27_method_implementation_and_tool.qmd
+    - chapters/28_validation_using_simulated_data.qmd
     
   - references.qmd
     

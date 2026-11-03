@@ -1,5 +1,7 @@
 ---
 aliases:
+  - 16_reference_and_citation_methods.html
+  - 15_reference_and_citation_methods.html
   - 14_reference_and_citation_methods.html
 ---
 

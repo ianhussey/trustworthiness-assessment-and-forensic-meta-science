@@ -1,0 +1,719 @@
+# Combined granularity and bounds methods [✎ Draft]{.badge .badge-draft2} {#sec-combined}
+
+```{r}
+#| include: false
+if(file.exists("../_setup.R")){source("../_setup.R")}
+```
+
+@sec-granularity and @sec-bounds describe two families of checks on reported means and *SD*s. Granularity checks ask whether a reported value can be produced by whole-number data at all: GRIM for the mean and GRIMMER for the *SD*. Bounds checks ask whether a reported value lies within the range that the scale and the other reported values allow: BRIM for the mean and BRIMMER for the *SD* [@hussey2026brimmer]. The two families divide along two axes, the statistic being checked and the kind of constraint used, which gives four tests.
+
+|  | Mean | *SD* |
+|:---|:---|:---|
+| **Granularity** (can whole-number data produce this value?) | GRIM | GRIMMER |
+| **Bounds** (is the value within the range the other values allow?) | BRIM | BRIMMER |
+
+: The four granularity and bounds tests. {#tbl-four-tests}
+
+This chapter is about using the two families together. They answer different questions, so a reported mean and *SD* can pass one family and fail the other, and checking both rules out many more impossible values than checking either one alone. Even together they are necessary rather than sufficient conditions, and a fifth test, BRIMMEST, settles exactly whether any set of whole-number scores has the reported mean and *SD*.
+
+## Granularity and bounds are different questions {#sec-combined-orthogonal}
+
+Granularity and bounds are not nested, with one a stricter version of the other. They are orthogonal: each can pass or fail independently of the other [@hussey2026brimmer]. GRIMMER asks whether the reported *SD* lies on the lattice of values that whole-number data can produce: the sum of the squared scores must be a whole number, with the same parity, odd or even, as the sum of the scores. It does not ask how large or small that *SD* is relative to the scale. BRIMMER asks only about magnitude: whether the *SD* lies between the smallest and largest values that the scale, the sample size, and the mean allow. It does not ask whether the *SD* lies on the lattice.
+
+Three examples, all for five people answering a single item on a 1–5 scale, with means and *SD*s reported to two decimal places, show the possibilities:
+
+- **A mean of 3.00 and an *SD* of 2.12 passes GRIM and GRIMMER, but fails BRIMMER.** Five whole numbers with a mean of 3 can have a sum of squares that gives an *SD* of 2.12, so GRIMMER is satisfied. But no five scores between 1 and 5 with a mean of 3 can have an *SD* above 2.00, which is reached by two scores of 1, one of 3, and two of 5. GRIMMER does not know the scale's limits, so it cannot see this.
+- **A mean of 3.00 and an *SD* of 1.50 passes BRIMMER, but fails GRIMMER.** An *SD* of 1.50 is comfortably within the bounds of 0 to 2.00, but the sum of squares it implies is even, whereas the sum of five scores with a mean of 3 is odd, so no whole-number data can produce it.
+- **A mean of 3.00 and an *SD* of 1.73 passes GRIM, GRIMMER, and BRIMMER, but is still impossible.** The squared deviations from the mean would have to add up to 12, and no five whole numbers between 1 and 5 with a mean of 3 have deviations whose squares add up to 12. All of the tests are necessary conditions, and none of them is sufficient.
+
+The last example is why @hussey2026brimmer add an exact test, BRIMMEST. For whole-number data, it works out every combination of mean and *SD*, after rounding, that some sample of whole-number scores on the scale can produce, and checks whether the reported pair is one of them. Unlike the other tests, passing BRIMMEST proves that a report is possible, rather than only failing to rule it out. It gives the same answer as the CLOSURE algorithm, which reconstructs every possible data set, but without reconstructing them.
+
+## How much each check rules out {#sec-combined-counting}
+
+With values reported to two decimal places, the possible reports of a mean and *SD* form a finite grid, so it is possible to count how many of them each check rules out [@hussey2026brimmer]. The plot below shows this for a small design, with a narrow scale and a small sample, so that the reports that survive are few enough to see individually. Each point is a pair of a reported mean and a reported *SD* that passes GRIM and GRIMMER. Pairs that fail either of these are not drawn, because there are far more of them. The orange points pass GRIM and GRIMMER, but fail BRIM or BRIMMER: they are the impossible values that granularity checks alone would let through. The plot extends half a scale point beyond each end of the scale and above the largest *SD* that any sample can have, to show that GRIM and GRIMMER, which know nothing about the scale, accept many reports there too. The table only counts reports with means within the scale and *SD*s up to that largest value. The purple crosses pass GRIM, GRIMMER, and BRIMMER, but no sample of whole-number scores can produce them. The blue points pass BRIMMEST: some sample of whole-number scores has exactly these values after rounding. Hover anywhere in the plot to see which checks the reported pair under the pointer passes, including pairs whose mean fails GRIM, which are not drawn. For the blue points, the description includes an example set of scores that produces them. The lines are the bounds for whole-number data: the largest and smallest possible *SD* at each mean. The table under the plot counts the reports that each combination of checks leaves standing. Change the scale and the sample size to see how the counts change.
+
+```{ojs}
+//| echo: false
+viewof cgMin = Inputs.range([0, 5], {value: 1, step: 1, label: "Scale minimum"})
+viewof cgMax = Inputs.range([2, 10], {value: 5, step: 1, label: "Scale maximum"})
+viewof cgN = Inputs.range([2, 10], {value: 5, step: 1, label: "Sample size (n)"})
+```
+
+```{ojs}
+//| echo: false
+cgResult = cgMax - cgMin < 1 || cgMax - cgMin > 6 ? null : cgAnalyse(cgMin, cgMax, cgN)
+```
+
+```{ojs}
+//| echo: false
+{
+  if (!cgResult) return html`<div class="sc-status">Choose a scale maximum between 1 and 6 points above the minimum.</div>`
+  const {l, u, n, points, counts} = cgResult
+  // pairs that fail GRIMMER are not drawn, because they are so dense that they form vertical lines, but hovering over
+  // the plot still describes them
+  const shown = points.filter(d => d.category !== "grimmer")
+  const colours = {grimmer: "#a3a3a3", bounds: "#e08a1e", unattainable: "#8e44ad", attainable: "#2780e3"}
+  // the bounds for whole-number data: the ceiling at every mean, and the floor at the means whole-number data can produce
+  const ceilingLine = d3.range(0, 401).map(i => { const m = l + (u - l) * i / 400; return {m, sd: cgCeiling(m, n, l, u)} })
+  const floorLine = d3.range(0, 401).map(i => { const m = l + (u - l) * i / 400; return {m, sd: cgQuasiFloor(m, n)} })
+  // the plot shows 10% more than the largest SD any sample can have, and half a scale point beyond each end of the scale
+  const yMax = 1.1 * cgParityMax(l, u, n)
+  const plot = Plot.plot({
+    width, height: 420, marginLeft: 50, marginRight: 20, marginTop: 15, marginBottom: 45,
+    x: {label: "Reported mean", labelAnchor: "center", labelOffset: 36, domain: [l - 0.5, u + 0.5]},
+    y: {label: "Reported SD", labelAnchor: "center", labelOffset: 40, domain: [0, yMax], grid: true},
+    style: {fontSize: "13px"},
+    marks: [
+      Plot.line(ceilingLine, {x: "m", y: "sd", stroke: "currentColor", strokeOpacity: 0.6}),
+      Plot.line(floorLine, {x: "m", y: "sd", stroke: "currentColor", strokeOpacity: 0.6}),
+      // the points that pass every necessary check but fail BRIMMEST are crosses, so that they stand out from the attainable
+      // points by shape as well as colour
+      Plot.dot(shown.filter(d => d.category !== "unattainable"), {x: "mean", y: "sd", r: 3, fill: d => colours[d.category]}),
+      Plot.dot(shown.filter(d => d.category === "unattainable"), {x: "mean", y: "sd", r: 4.5, symbol: "times", stroke: colours.unattainable, strokeWidth: 2.2}),
+    ]
+  })
+  // hovering anywhere in the plot describes the reported pair under the pointer, including means that fail GRIM, which
+  // are not drawn. the pointer snaps to a coloured point when one is close, because those are the most informative
+  const wrap = html`<div class="cg-plot">${plot}<div class="cg-tip"></div></div>`
+  const tip = wrap.querySelector(".cg-tip")
+  const xs = plot.scale("x"), ys = plot.scale("y")
+  const marker = d3.select(plot).append("circle").attr("r", 6).attr("fill", "none").attr("stroke", "currentColor").attr("stroke-width", 1.5).style("display", "none")
+  const coloured = points.filter(d => d.category !== "grimmer")
+  plot.addEventListener("pointermove", event => {
+    const box = plot.getBoundingClientRect(), scale = width / box.width
+    const px = (event.clientX - box.left) * scale, py = (event.clientY - box.top) * scale
+    let d = null, best = 8
+    for (const c of coloured) {
+      const dist = Math.hypot(xs.apply(c.mean) - px, ys.apply(c.sd) - py)
+      if (dist < best) { best = dist; d = c }
+    }
+    if (!d) {
+      const mi = Math.round(xs.invert(px) * 100), si = Math.round(ys.invert(py) * 100)
+      if (!cgResult.perMean.has(mi) || si < 0 || si > cgResult.sdTopPlot) { tip.style.display = "none"; marker.style("display", "none"); return }
+      d = cgLookup(cgResult, mi, si)
+    }
+    marker.attr("cx", xs.apply(d.mean)).attr("cy", ys.apply(d.sd)).style("display", null)
+    tip.textContent = cgDescribe(d)
+    tip.style.display = "block"
+    // the tooltip sits beside the pointer, on whichever side has room
+    const left = (event.clientX - box.left) + 14, top = (event.clientY - box.top) + 14
+    tip.style.left = `${left + tip.offsetWidth > box.width ? left - tip.offsetWidth - 28 : left}px`
+    tip.style.top = `${top + tip.offsetHeight > box.height ? top - tip.offsetHeight - 28 : top}px`
+  })
+  plot.addEventListener("pointerleave", () => { tip.style.display = "none"; marker.style("display", "none") })
+  const legend = html`<div class="bd-legend">
+    ${[["bounds", "Passes GRIM and GRIMMER, fails BRIM or BRIMMER"], ["unattainable", "Passes GRIM, GRIMMER, and BRIMMER, fails BRIMMEST"], ["attainable", "Passes BRIMMEST: attainable"]].map(([k, t]) => html`<span><svg width="12" height="12">${k === "unattainable" ? svg`<path d="M2,2L10,10M10,2L2,10" stroke="${colours[k]}" stroke-width="2.2"/>` : svg`<circle cx="6" cy="6" r="4.5" fill="${colours[k]}"/>`}</svg> ${t}</span>`)}
+  </div>`
+  const pct = x => `${(100 * x / counts.all).toFixed(x / counts.all < 0.01 ? 2 : 1)}%`
+  const fmt = x => x.toLocaleString("en")
+  const rows = [
+    ["All reportable pairs (means within the scale, SDs up to the largest any sample can have)", counts.all],
+    ["Pass BRIM and BRIMMER, the bounds alone (continuous data)", counts.boundsOnly],
+    ["Pass GRIM", counts.grim],
+    ["Pass GRIM and GRIMMER", counts.grimmer],
+    ["Pass GRIM, GRIMMER, BRIM, and BRIMMER (whole-number data)", counts.all3],
+    ["Pass BRIMMEST: attainable by some sample of whole-number scores", counts.attainable]
+  ]
+  const table = html`<table class="table table-sm cg-table">
+    <thead><tr><th>Checks passed</th><th>Pairs</th><th>% of all</th></tr></thead>
+    <tbody>${rows.map(([t, c]) => html`<tr><td>${t}</td><td>${fmt(c)}</td><td>${pct(c)}</td></tr>`)}</tbody>
+  </table>`
+  const failShare = counts.grimmer ? counts.grimmerFailBounds / counts.grimmer : 0
+  const summary = html`<div class="sb-feedback">On a ${l}–${u} scale with ${n} people, ${fmt(counts.grimmer)} reported pairs pass GRIM and GRIMMER. Of these, ${fmt(counts.grimmerFailBounds)} (${(100 * failShare).toFixed(0)}%) fail BRIMMER, and only ${fmt(counts.attainable)} can actually be produced by whole-number data.</div>`
+  return html`${wrap}${legend}${summary}${table}`
+}
+```
+
+```{ojs}
+//| echo: false
+// functions used by the plot of reported pairs. a reported mean and SD, to two decimal places, could have been any
+// value within half a reporting step of them (halves rounded up or down). the tests follow scrutiny's GRIM and GRIMMER
+// and strait's bounds for whole-number data, and BRIMMEST is found by working out every sample of whole-number scores
+
+function cgFrac(x) {
+  const f = x - Math.floor(x + 1e-9)
+  return f < 1e-9 ? 0 : f
+}
+
+function cgCeiling(m, n, l, u) {
+  // the largest sample SD with this mean: as many scores as possible at the two ends, and at most one in between
+  const R = u - l, S = n * (m - l)
+  const nu = Math.min(Math.floor(S / R + 1e-9), n - 1)
+  const xr = l + (S - nu * R), nl = n - nu - 1
+  return Math.sqrt(Math.max(0, (nl * (l - m) ** 2 + (xr - m) ** 2 + nu * (u - m) ** 2) / (n - 1)))
+}
+
+function cgIntegerFloor(m, n) {
+  // the smallest sample SD of whole-number scores with this mean, which must be a multiple of 1 / n
+  const d = cgFrac(m)
+  return Math.sqrt(Math.max(0, n * d * (1 - d) / (n - 1)))
+}
+
+function cgQuasiFloor(m, n) {
+  // the floor at every mean, drawn as a line: it equals the whole-number floor at the means whole-number data can produce
+  const d = cgFrac(m), g = cgFrac(n * m)
+  return Math.sqrt(Math.max(0, (n * d * (1 - d) - g * (1 - g)) / (n - 1)))
+}
+
+function cgParityMax(l, u, n) {
+  return (u - l) / 2 * Math.sqrt(n / (n - 1) * (2 * n * n - 1 + (-1) ** n) / (2 * n * n))
+}
+
+function cgAnalyse(l, u, n) {
+  const round12 = x => Math.round(x * 1e12) / 1e12
+  // every sample of n whole-number scores, as its mean and SD rounded to two decimals, with one example sample for each
+  const attainable = new Map()
+  const keyHalves = v => [...new Set([Math.floor(v * 100 + 0.5 + 1e-9), Math.ceil(v * 100 - 0.5 - 1e-9)])]
+  const scores = []
+  const walk = (from, left, sum, sq) => {
+    if (left === 0) {
+      const mean = sum / n, sd = Math.sqrt(Math.max(0, (sq - sum * sum / n) / (n - 1)))
+      for (const mi of keyHalves(mean)) for (const si of keyHalves(sd)) {
+        const key = `${mi}|${si}`
+        if (!attainable.has(key)) attainable.set(key, scores.slice())
+      }
+      return
+    }
+    for (let v = from; v <= u; v++) { scores.push(v); walk(v, left - 1, sum + v, sq + v * v); scores.pop() }
+  }
+  walk(l, n, 0, 0)
+
+  // the counts are for the reportable pairs: means within the scale and SDs up to the largest any sample can have. the
+  // plot also shows the pairs beyond these, out to half a scale point past each end and 10% above that largest SD, where
+  // GRIM and GRIMMER, which know nothing of the scale, still accept many reports
+  const sdTop = Math.ceil(cgParityMax(l, u, n) * 100 - 1e-9)
+  const sdTopPlot = Math.floor(1.1 * cgParityMax(l, u, n) * 100 + 1e-9)
+  const miLo = Math.round(l * 100), miHi = Math.round(u * 100)
+  const counts = {all: 0, boundsOnly: 0, grim: 0, grimmer: 0, all3: 0, attainable: 0, grimmerFailBounds: 0}
+  const points = []
+  const R = u - l
+  const perMean = new Map()
+  for (let mi = Math.round((l - 0.5) * 100); mi <= Math.round((u + 0.5) * 100); mi++) {
+    const inScale = mi >= miLo && mi <= miHi
+    const lo = Math.ceil((mi - 0.5) * n / 100 - 1e-9), hi = Math.floor((mi + 0.5) * n / 100 + 1e-9)
+    const sums = d3.range(lo, hi + 1)
+    // the bounds for continuous data: the largest ceiling over the mean's rounding interval, which is reached at an end
+    // of the interval or at a mean where the number of scores at the top of the scale changes
+    const mLo = Math.max(l, (mi - 0.5) / 100), mHi = Math.min(u, (mi + 0.5) / 100)
+    const kinks = d3.range(Math.ceil((mLo - l) * n / R - 1e-9), Math.floor((mHi - l) * n / R + 1e-9) + 1).map(j => l + j * R / n)
+    // a mean outside the scale fails BRIM, so no SD is within the bounds there
+    const cmax = inScale ? d3.max([mLo, mHi, ...kinks], m => cgCeiling(m, n, l, u)) : -Infinity
+    perMean.set(mi, {sums, cmax, inScale})
+    for (let si = 0; si <= sdTopPlot; si++) {
+      const counted = inScale && si <= sdTop
+      if (counted) counts.all++
+      const sl = Math.max(0, (si - 0.5) / 100), su = (si + 0.5) / 100
+      if (counted && sl <= cmax + 1e-9) counts.boundsOnly++
+      if (sums.length === 0) continue
+      if (counted) counts.grim++
+      // GRIMMER, as in scrutiny: some whole-number sum of squares, with the same parity as the sum, gives an SD that
+      // rounds to the reported one
+      const grimmer = sums.some(s => {
+        const x = s / n
+        const ql = round12((n - 1) * sl * sl + n * x * x), qu = round12((n - 1) * su * su + n * x * x)
+        for (let q = Math.ceil(ql); q <= Math.floor(qu); q++) if (((q % 2) + 2) % 2 === ((s % 2) + 2) % 2) return true
+        return false
+      })
+      // BRIM and BRIMMER for whole-number data: the reported SD's rounding interval meets the bounds at some mean that
+      // whole-number data can produce
+      const inBounds = sums.filter(s => s >= n * l && s <= n * u).some(s => {
+        const x = s / n
+        return su >= cgIntegerFloor(x, n) - 1e-9 && sl <= cgCeiling(x, n, l, u) + 1e-9
+      })
+      const example = attainable.get(`${mi}|${si}`)
+      let category
+      if (!grimmer) category = "grimmer"
+      else {
+        if (counted) counts.grimmer++
+        if (!inBounds) { category = "bounds"; if (counted) counts.grimmerFailBounds++ }
+        else { if (counted) counts.all3++; category = example ? "attainable" : "unattainable" }
+      }
+      if (example && counted) counts.attainable++
+      points.push({mean: mi / 100, sd: si / 100, grim: true, inScale, category, grimmer, inBounds, example})
+    }
+  }
+  const byKey = new Map(points.map(d => [`${Math.round(d.mean * 100)}|${Math.round(d.sd * 100)}`, d]))
+  return {l, u, n, points, counts, perMean, byKey, sdTop, sdTopPlot}
+}
+
+function cgLookup(result, mi, si) {
+  // the checks for any reported pair on the grid. pairs whose mean passes GRIM were worked out above. for the others,
+  // GRIMMER and BRIMMEST fail too, and the bounds are those for continuous data, since no whole-number data have
+  // that mean
+  const hit = result.byKey.get(`${mi}|${si}`)
+  if (hit) return hit
+  const {cmax, inScale} = result.perMean.get(mi)
+  const sl = Math.max(0, (si - 0.5) / 100)
+  return {mean: mi / 100, sd: si / 100, grim: false, inScale, grimmer: false, inBounds: sl <= cmax + 1e-9, example: undefined}
+}
+
+function cgDescribe(d) {
+  const tick = ok => ok ? "passes" : "fails"
+  const lines = [`Mean ${d.mean.toFixed(2)}, SD ${d.sd.toFixed(2)}`, `GRIM: ${tick(d.grim)}`]
+  if (!d.inScale) {
+    lines.push(`GRIMMER: ${d.grim ? tick(d.grimmer) : "fails, because the mean fails GRIM"}`)
+    lines.push("BRIM: fails, because the mean is outside the scale")
+    lines.push("BRIMMER: fails")
+    lines.push("BRIMMEST: fails")
+    if (d.grim && d.grimmer) lines.push("Possible granularity, impossible magnitude")
+    return lines.join("\n")
+  }
+  if (!d.grim) {
+    lines.push("GRIMMER: fails, because the mean fails GRIM")
+    lines.push(`BRIMMER: ${d.inBounds ? "within" : "outside"} the bounds for continuous data`)
+    lines.push("BRIMMEST: fails")
+    lines.push("No whole-number data have a mean that rounds to this value")
+    return lines.join("\n")
+  }
+  lines.push(`GRIMMER: ${tick(d.grimmer)}`, `BRIMMER: ${tick(d.inBounds)}`, `BRIMMEST: ${tick(!!d.example)}`)
+  if (d.example) lines.push(`For example: ${d.example.join(", ")}`)
+  else if (d.grimmer && !d.inBounds) lines.push("Possible granularity, impossible magnitude")
+  else if (!d.grimmer && d.inBounds) lines.push("Possible magnitude, impossible granularity")
+  else if (d.grimmer && d.inBounds) lines.push("Passes every necessary check, but no sample produces it")
+  return lines.join("\n")
+}
+
+cgStyle = html`<style>
+  .cg-plot { position: relative; }
+  .cg-plot svg { cursor: crosshair; }
+  .cg-tip { display: none; position: absolute; pointer-events: none; white-space: pre-line; font-size: 0.8rem; line-height: 1.35;
+            padding: 0.4rem 0.6rem; border-radius: 4px; background: var(--bs-body-bg, #fff); color: var(--bs-body-color, #222);
+            border: 1px solid rgba(128, 128, 128, 0.5); box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); z-index: 10; max-width: 20rem; }
+  .cg-table { font-size: 0.9rem; max-width: 46rem; margin: 0.5rem 0 1.5rem; }
+  .cg-table td:nth-child(2), .cg-table td:nth-child(3), .cg-table th:nth-child(2), .cg-table th:nth-child(3) { text-align: right; white-space: nowrap; }
+  .bd-legend { display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; justify-content: center; font-size: 0.8rem; margin-bottom: 0.5rem; }
+  .bd-legend svg { vertical-align: middle; }
+  .sb-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+  .sc-status { margin: 0.5rem 0 1.5rem; color: var(--bs-secondary-color); font-size: 0.9rem; }
+  .sb-feedback { margin: 0.5rem 0 1.5rem; padding: 0.6rem 0.9rem; border-left: 4px solid #8a8a8a; background: rgba(128, 128, 128, 0.08); }
+  .sb-feedback-ok { border-color: #3b9c6e; }
+  .sb-feedback-warn { border-color: #d9a02b; }
+  .sb-feedback-bad { border-color: #c0392b; }
+</style>`
+```
+
+With the default design, five people on a 1–5 scale, there are 88,621 reportable pairs of a mean and an *SD*. GRIM alone rules out all but 5% of them, because five people can only produce means that are multiples of 0.2. GRIMMER rules out most of the rest, leaving 210. But 89 of those 210, 42%, are still impossible, because their *SD*s lie outside the bounds. These are the orange points, and all of them lie above the ceiling: GRIMMER, which knows nothing about the limits of the scale, admits *SD*s that are larger than any five scores between 1 and 5 can produce. The bounds alone, without granularity, rule out only about a third of the grid. Combining the two families leaves 121 pairs, of which 102 are attainable.
+
+With five people, there are no orange points below the floor. This is not because GRIMMER checks the floor, but because with so few people its lattice is sparse at small *SD*s: the sum of squares must be a whole number of the right parity, and the smallest such sum of squares above zero happens to give exactly the floor. With five people and a mean of 2.20, for example, the smallest *SD* that GRIMMER accepts is 0.45, which is the floor. With larger samples the lattice is denser, and GRIMMER accepts *SD*s below the floor. Set the sample size to 8: a mean of 1.50 with an *SD* of 0.00 now passes GRIMMER, because the sum of squares it implies, 18, is a whole number with the same parity as the sum of the scores, 12. But it is impossible, because an *SD* of zero means that everyone had the same score, and eight people with the same whole-number score cannot have a mean of 1.50. Only the floor rules it out.
+
+These percentages are illustrative, not general. They depend on the scale, the sample size, and the reporting precision, and they shift as any of these change. With larger samples, more means pass GRIM, and once the number of people times the number of items reaches 100, every two-decimal mean does, so the bounds carry more of the burden [@hussey2026brimmer]. What generalises is the pattern: each check rules out reports that the others let through, so they are most informative together.
+
+## Checking reported values {#sec-combined-app}
+
+The app below runs all of these checks on reported values, using the {strait} R package [@hussey2026strait], inside your browser, using webR, as in the other apps in this book. It combines the bounds with granularity, and allows for the rounding of the reported values. With integer responses, it runs GRIM, which checks whether the mean could have come from whole-number data (@sec-grim), and GRIMMER, which does the same for the *SD* (@sec-grimmer), alongside BRIMMER, which checks the *SD* against the bounds, and BRIM, which checks that the mean lies within the scale. A report is consistent only if it passes every check. The **Certify (BRIMMEST)** button goes one step further, and settles exactly whether any set of whole-number scores has the reported mean and *SD*. Enter the scale's minimum and maximum, the sample size, and the reported mean and *SD*. **Enter the mean and *SD* exactly as reported, including trailing zeros,** because the number of decimal places sets how much rounding is allowed for. Choose whether the responses are whole numbers: *integer* means that every response is a whole number, and *quasi-integer*, the default, relaxes this by one response, which gives a floor that is defined at every mean and never rules out anything integer data could produce. For a score made up of several items, choose whether it is a sum or a mean of the items. For a sum score, the scale limits are those of the sum; for a mean score, they are those of a single item. Optionally, add a reported Cronbach's α, or the observed minimum and maximum. strait has no joint bounds for α and observed extremes, so when both are given the app combines the two sets of bounds, taking the higher floor and the lower ceiling. This is valid, but may not be as sharp as possible. The plot shows the possible combinations of mean and *SD* as a shaded band, with the reported values as a point. The first check takes several seconds, because R and strait have to be downloaded.
+
+```{ojs}
+//| echo: false
+viewof brInput = {
+  // the reported values are typed as text, so that their decimal places, including trailing zeros, can be read off
+  const field = (label, value, attrs = "") => {
+    const input = html`<input type="text" class="form-control form-control-sm" ${attrs}>`
+    input.value = value
+    return {input, el: html`<label class="br-field"><span>${label}</span>${input}</label>`}
+  }
+  const select = (label, options, value) => {
+    const input = html`<select class="form-select form-select-sm">${options.map(([v, t]) => html`<option value="${v}">${t}</option>`)}</select>`
+    input.value = value
+    return {input, el: html`<label class="br-field"><span>${label}</span>${input}</label>`}
+  }
+  const check = (label, value) => {
+    const input = html`<input type="checkbox" class="form-check-input">`
+    input.checked = value
+    return {input, el: html`<label class="br-check">${input} ${label}</label>`}
+  }
+  const f = {
+    l: field("Scale minimum", "1", `inputmode="decimal"`), u: field("Scale maximum", "7", `inputmode="decimal"`),
+    n: field("Sample size (n)", "30", `inputmode="numeric"`),
+    Z: select("Responses", [["quasiinteger", "Quasi-integer"], ["integer", "Integer"], ["continuous", "Continuous"]], "quasiinteger"),
+    scoring: select("Score", [["singleitem", "A single item"], ["sumscored", "A sum of items"], ["meanscored", "A mean of items"]], "singleitem"),
+    k: field("Number of items", "3", `inputmode="numeric"`),
+    useAlpha: check("Condition on a reported Cronbach's α", false), alpha: field("Cronbach's α", "0.80", `inputmode="decimal"`),
+    mean: field("Reported mean", "2.97", `inputmode="decimal"`), sd: field("Reported SD", "2.83", `inputmode="decimal"`),
+    rounding: select("Rounding", [["up_or_down", "Up or down"], ["up", "Half up"], ["down", "Half down"], ["even", "Half to even"], ["trunc", "Truncation"], ["anti_trunc", "Anti-truncation"], ["ceiling", "Ceiling"], ["floor", "Floor"]], "up_or_down"),
+    useAB: check("Condition on the observed minimum and maximum", false),
+    a: field("Observed minimum", "1", `inputmode="decimal"`), b: field("Observed maximum", "6", `inputmode="decimal"`)
+  }
+  const itemsBox = html`<div class="br-sub">${f.k.el}${f.useAlpha.el}<div class="br-sub2">${f.alpha.el}</div></div>`
+  const abBox = html`<div class="br-sub"><div class="br-sub2">${f.a.el}${f.b.el}</div></div>`
+  // the item and extreme inputs are only shown when they are in use
+  const toggle = () => {
+    itemsBox.style.display = f.scoring.input.value === "singleitem" ? "none" : ""
+    itemsBox.querySelector(".br-sub2").style.display = f.useAlpha.input.checked ? "" : "none"
+    abBox.querySelector(".br-sub2").style.display = f.useAB.input.checked ? "" : "none"
+  }
+  f.scoring.input.onchange = toggle; f.useAlpha.input.onchange = toggle; f.useAB.input.onchange = toggle
+  const examples = {
+    "A possible report": {l: "1", u: "7", n: "30", Z: "quasiinteger", scoring: "singleitem", useAlpha: false, mean: "2.97", sd: "2.83", useAB: false},
+    "SD too small": {l: "1", u: "7", n: "30", Z: "quasiinteger", scoring: "singleitem", useAlpha: false, mean: "2.97", sd: "0.10", useAB: false},
+    "Observed minimum and maximum": {l: "1", u: "7", n: "30", Z: "quasiinteger", scoring: "singleitem", useAlpha: false, mean: "2.97", sd: "0.50", useAB: true, a: "1", b: "6"},
+    "Composite with α": {l: "1", u: "7", n: "30", Z: "quasiinteger", scoring: "meanscored", k: "3", useAlpha: true, alpha: "0.80", mean: "3.97", sd: "2.60", useAB: false}
+  }
+  const set = values => {
+    for (const [key, v] of Object.entries(values)) {
+      if (typeof v === "boolean") f[key].input.checked = v
+      else f[key].input.value = v
+    }
+    toggle()
+  }
+  const read = () => Object.fromEntries(Object.entries(f).map(([key, {input}]) => [key, input.type === "checkbox" ? input.checked : input.value.trim()]))
+  const run = html`<button class="btn btn-quarto">Check with BRIMMER</button>`
+  const certify = html`<button class="btn btn-quarto">Certify (BRIMMEST)</button>`
+  const scaleFree = html`<button class="btn btn-quarto">Show in scale-free units</button>`
+  const view = html`<div class="br-app">
+    <div class="sb-buttons br-examples"><span>Examples:</span>${Object.keys(examples).map(name => {
+      const button = html`<button class="btn btn-quarto">${name}</button>`
+      button.onclick = () => { set(examples[name]); submit("check") }
+      return button
+    })}</div>
+    <div class="br-grid">
+      <div><div class="br-head">The design</div>${f.l.el}${f.u.el}${f.n.el}${f.Z.el}${f.scoring.el}${itemsBox}</div>
+      <div><div class="br-head">The reported values</div>${f.mean.el}${f.sd.el}${f.rounding.el}<div class="br-head">Observed extremes</div>${f.useAB.el}${abBox}</div>
+    </div>
+    <div class="sb-buttons">${run}${certify}${scaleFree}</div>
+  </div>`
+  // the value only changes when a button is clicked: checking runs R, which can take a few seconds
+  let units = "native"
+  const submit = action => {
+    view.value = {runs: view.value.runs + 1, action, units, values: read()}
+    view.dispatchEvent(new Event("input", {bubbles: true}))
+  }
+  run.onclick = () => submit("check")
+  certify.onclick = () => submit("certify")
+  scaleFree.onclick = () => {
+    units = units === "native" ? "scalefree" : "native"
+    scaleFree.textContent = units === "native" ? "Show in scale-free units" : "Show in the measure's own units"
+    if (view.value.runs > 0) submit(view.value.action === "certify" ? "check" : view.value.action)
+  }
+  toggle()
+  view.value = {runs: 0}
+  return view
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  if (brInput.runs === 0) {
+    yield html`<div class="sc-status">Click <strong>Check with BRIMMER</strong>, or one of the examples, to check the reported values.</div>`
+    return
+  }
+  const p = brChecked(brInput.values)
+  if (p.problems.length) {
+    yield html`<div class="sb-feedback sb-feedback-bad">${p.problems.map(t => html`<div>${t}</div>`)}</div>`
+    return
+  }
+  yield html`<div class="sc-status"><span class="spinner-border spinner-border-sm" role="status"></span> ${brR.started() ? "Calculating…" : "Starting R in your browser and loading strait. This takes several seconds the first time…"}</div>`
+  if (brInput.action === "certify") {
+    yield brCertify(p).then(brCertificateView, e => html`<div class="sb-feedback sb-feedback-bad"><strong>Something went wrong.</strong> ${e.message}</div>`)
+  } else {
+    yield brRun(p).then(res => brResults(res, p, brInput.units), e => html`<div class="sb-feedback sb-feedback-bad"><strong>Something went wrong.</strong> ${e.message}</div>`)
+  }
+}
+```
+
+```{ojs}
+//| echo: false
+// functions and styles used by the BRIMMER app
+
+// webR is downloaded and started the first time the app is used. the webR version is pinned, so that the versions of R
+// and of the packages do not change unnoticed. {strait} is not on CRAN, so its R code is downloaded from GitHub at a
+// fixed commit and evaluated into an environment of its own; its dependencies are installed from the webR repository
+brWebrVersion = "0.6.0"
+straitCommit = "3f8c0452b94bf9f6b20eef554e28709518363512"
+straitSource = `https://raw.githubusercontent.com/ianhussey/strait/${straitCommit}`
+straitFiles = ["attainable-target.R", "band-polygon.R", "bounds-primitives.R", "brimmer.R", "brimmest.R", "certify-analytic.R", "certify-sandwich.R", "grim-aggregate.R", "plot_sd_region.R", "scrutiny-compat.R", "sd_bounds.R", "sd_bounds_sample.R"]
+
+brR = {
+  let ready = null
+  const download = async file => {
+    const response = await fetch(`${straitSource}/${file}`)
+    if (!response.ok) throw new Error(`Could not download ${file} of strait from GitHub (${response.status}).`)
+    return response.text()
+  }
+  const start = async () => {
+    const {WebR} = await import(`https://webr.r-wasm.org/v${brWebrVersion}/webr.mjs`)
+    const webR = new WebR()
+    await webR.init()
+    const [description, ...sources] = await Promise.all([download("DESCRIPTION"), ...straitFiles.map(f => download(`R/${f}`))])
+    await webR.installPackages(["scrutiny", "tibble"], {quiet: true})
+    await webR.evalRVoid(`
+      suppressPackageStartupMessages({library(scrutiny); library(tibble)})
+      strait_env <- new.env(parent = globalenv())
+      for (src in sources) eval(parse(text = src), envir = strait_env)
+      eval(parse(text = helpers), envir = strait_env)
+      assign("strait_env", strait_env, envir = globalenv())
+    `, {env: {sources, helpers: brHelpersR}})
+    return {
+      webR,
+      rVersion: await webR.evalRString("R.version.string"),
+      straitVersion: description.match(/^Version:\s*(\S+)/m)?.[1] ?? "unknown"
+    }
+  }
+  return {
+    started: () => ready !== null,
+    // if starting R or downloading strait fails, the next click tries again
+    get: () => ready ??= start().catch(e => { ready = null; throw e })
+  }
+}
+
+// R helpers, evaluated alongside strait. they follow the strait web app: the band is drawn with sd_bounds_curve() where
+// it can be, and otherwise on a grid of sd_bounds() calls. with both a reported alpha and observed extremes, for which
+// strait has no joint form, the two sets of bounds are combined: the higher floor and the lower ceiling
+brHelpersR = `
+br_args <- function(p) list(l = p$l, u = p$u, n = p$n, Z = p$Z, scoring = p$scoring, n_items = p$k)
+br_grid <- function(p, a, b, alpha, means) {
+  do.call(rbind, lapply(means, function(mu) {
+    d <- tryCatch(do.call(sd_bounds, c(br_args(p), list(a = a, b = b, alpha = alpha, mean = mu))), error = function(e) NULL)
+    if (is.null(d)) return(data.frame(mean = mu, min_sd = NA_real_, max_sd = NA_real_, feasible = FALSE))
+    data.frame(mean = mu, min_sd = d$min_sd, max_sd = d$max_sd, feasible = isTRUE(d$feasible))
+  }))
+}
+br_curve <- function(p, a, b, alpha) {
+  m <- if (p$scoring == "meanscored") p$k else 1
+  thinned <- (floor(p$u * p$n * m) - ceiling(p$l * p$n * m) + 1) > 600
+  if (is.null(a) && !thinned) {
+    out <- do.call(sd_bounds_curve, c(br_args(p), list(alpha = alpha)))[, c("mean", "min_sd", "max_sd", "feasible")]
+  } else {
+    means <- seq(p$l, p$u, length.out = 700)
+    out <- br_grid(p, a, b, if (is.null(a)) alpha else NULL, means)
+    if (!is.null(a) && !is.null(alpha)) {
+      al <- br_grid(p, NULL, NULL, alpha, means)
+      out$min_sd <- pmax(out$min_sd, al$min_sd)
+      out$max_sd <- pmin(out$max_sd, al$max_sd)
+      out$feasible <- out$feasible & al$feasible & out$min_sd <= out$max_sd + 1e-9
+    }
+  }
+  out$feasible <- out$feasible & is.finite(out$min_sd) & is.finite(out$max_sd)
+  out$min_sd[!out$feasible] <- NA
+  out$max_sd[!out$feasible] <- NA
+  attr(out, "thinned") <- thinned
+  out
+}
+br_check <- function(p, a, b, alpha) {
+  args <- c(br_args(p), list(mean = p$mean, mean_digits = p$md, sd = p$sd, sd_digits = p$sdd, rounding = p$rounding))
+  one <- function(a, b, alpha) {
+    r <- do.call(brimmer, c(args, list(a = a, b = b, alpha = alpha)))
+    s <- do.call(sd_bounds, c(args, list(a = a, b = b, alpha = alpha)))
+    r$min_rule <- s$min_rule
+    r$max_rule <- s$max_rule
+    r
+  }
+  if (is.null(a) || is.null(alpha)) return(one(a, b, alpha))
+  r1 <- one(NULL, NULL, alpha)
+  r2 <- one(a, b, NULL)
+  iv <- unround_interval(p$sd, p$sdd, p$rounding)
+  min_sd <- max(r1$min_sd, r2$min_sd)
+  max_sd <- min(r1$max_sd, r2$max_sd)
+  inb <- isTRUE(iv$hi >= min_sd - 1e-9 && iv$lo <= max_sd + 1e-9)
+  failed <- setdiff(unique(c(strsplit(r1$failed_tests, ",")[[1]], strsplit(r2$failed_tests, ",")[[1]])), c("", "bounds"))
+  if (!inb) failed <- c(failed, "bounds")
+  out <- r2
+  out$min_sd <- min_sd
+  out$max_sd <- max_sd
+  out$sd_in_bounds <- inb
+  out$failed_tests <- paste(failed, collapse = ",")
+  out$consistent <- length(failed) == 0
+  out$min_rule <- if (r1$min_sd >= r2$min_sd) paste(r1$min_rule, "(alpha)") else paste(r2$min_rule, "(observed extremes)")
+  out$max_rule <- if (r1$max_sd <= r2$max_sd) paste(r1$max_rule, "(alpha)") else paste(r2$max_rule, "(observed extremes)")
+  out
+}
+br_run <- function(p, a, b, alpha) {
+  report <- br_check(p, a, b, alpha)
+  curve <- br_curve(p, a, b, alpha)
+  # with observed extremes, the bounds from the scale limits alone are drawn for comparison
+  reference <- if (is.null(a)) NULL else br_curve(p, NULL, NULL, alpha)
+  band <- if (is.null(a)) c(NA, NA) else c(a + (b - a) / p$n, b - (b - a) / p$n)
+  # plain data frames, without extra attributes, which webR cannot convert
+  plain <- function(df) if (is.null(df)) NULL else data.frame(lapply(as.list(df), as.vector), stringsAsFactors = FALSE)
+  list(report = plain(report), curve = plain(curve), reference = plain(reference), thinned = isTRUE(attr(curve, "thinned")), band = band)
+}
+`
+
+async function brRun(p) {
+  const {webR, rVersion, straitVersion} = await brR.get()
+  const shelter = await new webR.Shelter()
+  try {
+    // the values are passed to R as named values, never pasted into the code
+    const env = {l: p.l, u: p.u, n: p.n, Z: p.Z, scoring: p.scoring, k: p.k, mean: p.mean, md: p.md, sd: p.sd, sdd: p.sdd, rounding: p.rounding,
+      useAB: p.useAB, a: p.useAB ? p.a : 0, b: p.useAB ? p.b : 0, useAlpha: p.useAlpha, alpha: p.useAlpha ? p.alpha : 0}
+    const res = await (await shelter.evalR(`
+      p <- list(l = l, u = u, n = n, Z = Z, scoring = scoring, k = k, mean = mean, md = md, sd = sd, sdd = sdd, rounding = rounding)
+      strait_env$br_run(p, if (useAB) a else NULL, if (useAB) b else NULL, if (useAlpha) alpha else NULL)
+    `, {env})).toJs()
+    // the result is a list of data frames, each a list of columns, which are turned into arrays of rows here
+    const part = name => res.values[res.names.indexOf(name)]
+    const frame = df => df?.names ? d3.range(df.values[0]?.values.length ?? 0).map(i => Object.fromEntries(df.names.map((c, j) => [c, df.values[j].values[i]]))) : null
+    return {report: frame(part("report"))[0], curve: frame(part("curve")), reference: p.useAB ? frame(part("reference")) : null,
+      thinned: part("thinned").values[0], band: part("band").values, rVersion, straitVersion}
+  } finally {
+    shelter.purge()
+  }
+}
+
+async function brCertify(p) {
+  if (p.useAB) throw new Error("The exact certificate does not take observed extremes. Untick that option to use it.")
+  if (![p.l, p.u].every(Number.isInteger)) throw new Error("The exact certificate needs whole-number scale limits, because it enumerates whole-number data.")
+  const {webR, rVersion, straitVersion} = await brR.get()
+  const shelter = await new webR.Shelter()
+  try {
+    // brimmest() takes the forward rounding rules; halves either way admits both half rules
+    const rules = {up_or_down: ["half_up", "half_down"], up: ["half_up"], down: ["half_down"], even: ["native"]}[p.rounding] ?? [p.rounding]
+    const res = await shelter.evalR(`
+      r <- strait_env$brimmest(l = l, u = u, n = n, mean = mean, sd = sd, mean_digits = md, sd_digits = sdd,
+                               rounding = rules, scoring = scoring, n_items = k)
+      data.frame(possible = isTRUE(r$possible[1]), rules = as.character(r$rules[1]))
+    `, {env: {l: p.l, u: p.u, n: p.n, mean: p.mean, sd: p.sd, md: p.md, sdd: p.sdd, rules, scoring: p.scoring, k: p.k}})
+    const js = await res.toJs()
+    const out = Object.fromEntries(js.names.map((c, j) => [c, js.values[j].values[0]]))
+    return {...out, p, rVersion, straitVersion}
+  } finally {
+    shelter.purge()
+  }
+}
+
+function brChecked(v) {
+  // reads and checks the inputs. the decimal places of the reported mean and SD are read from the values as typed
+  const number = s => /^[-+]?(\d+\.?\d*|\.\d+)$/.test(s.replace(/[−–]/g, "-")) ? Number(s.replace(/[−–]/g, "-")) : NaN
+  const decimals = s => s.match(/\.(\d*)$/)?.[1].length ?? 0
+  const p = {Z: v.Z, scoring: v.scoring, rounding: v.rounding, useAlpha: v.useAlpha && v.scoring !== "singleitem", useAB: v.useAB, problems: []}
+  for (const key of ["l", "u", "n", "mean", "sd"]) p[key] = number(v[key])
+  p.k = v.scoring === "singleitem" ? 1 : number(v.k)
+  p.md = decimals(v.mean); p.sdd = decimals(v.sd)
+  p.meanText = v.mean; p.sdText = v.sd
+  if (![p.l, p.u, p.n, p.mean, p.sd].every(Number.isFinite)) p.problems.push("Enter the scale minimum and maximum, the sample size, and the reported mean and SD as numbers.")
+  else {
+    if (!(p.u > p.l)) p.problems.push("The scale maximum must be greater than the scale minimum.")
+    if (!Number.isInteger(p.n) || p.n < 2) p.problems.push("The sample size must be a whole number of at least 2.")
+    if (p.sd < 0) p.problems.push("An SD cannot be negative.")
+  }
+  if (v.scoring !== "singleitem" && (!Number.isInteger(p.k) || p.k < 2)) p.problems.push("A sum or mean of items needs at least two items.")
+  if (p.useAlpha) {
+    p.alpha = number(v.alpha)
+    if (!(p.alpha > -1 && p.alpha < 1)) p.problems.push("Cronbach's α must be a number between −1 and 1.")
+  }
+  if (p.useAB) {
+    p.a = number(v.a); p.b = number(v.b)
+    if (![p.a, p.b].every(Number.isFinite)) p.problems.push("Enter the observed minimum and maximum as numbers.")
+    else if (!(p.b > p.a)) p.problems.push("The observed maximum must be greater than the observed minimum.")
+    else if (p.a < p.l || p.b > p.u) p.problems.push("The observed minimum and maximum must lie within the scale limits.")
+  }
+  if (p.Z !== "continuous" && [p.l, p.u, ...(p.useAB ? [p.a, p.b] : [])].some(x => Number.isFinite(x) && !Number.isInteger(x))) {
+    p.problems.push("Integer and quasi-integer responses need whole-number limits. For a mean of items, these are the limits of a single item.")
+  }
+  return p
+}
+
+function brVerdict(r, p) {
+  // the verdict, headline and explanation, following the strait web app. a failure proves that the reported values
+  // are impossible; a pass only means that the checks could not rule them out
+  const failed = r.failed_tests ? r.failed_tests.split(",").filter(Boolean) : []
+  const gloss = {
+    in_scale_range: "the reported mean cannot be reached on this scale at this sample size, at any SD",
+    bounds: `the reported SD lies outside the bounds that the reported mean${p.useAlpha ? ", the reported α" : ""}${p.useAB ? ", the observed minimum and maximum" : ""} and the sample size imply, so no data on this scale have all of them`,
+    grim: "GRIM: no sample of whole-number scores of this size has a mean that rounds to the reported value",
+    grimmer: "GRIMMER: the reported SD cannot be produced by whole-number data at this mean",
+    feasibility: "the constraints admit no sample at all, for a reason none of the other checks accounts for"
+  }
+  if (failed.length === 0) return ["ok", "Consistent", "The reported values pass every check that was applied. These checks are necessary but not sufficient: consistent means that the report could not be ruled out, not that data producing it are known to exist. For whole-number data, the exact certificate settles that."]
+  const onlyGrimmer = failed.length === 1 && failed[0] === "grimmer"
+  const text = failed.map(t => gloss[t] ?? t).join("; ")
+  return [onlyGrimmer ? "warn" : "bad", onlyGrimmer ? "Flagged by GRIMMER only" : "Inconsistent",
+    text.charAt(0).toUpperCase() + text.slice(1) + ". " + (onlyGrimmer ? "The bounds pass, and scrutiny's GRIMMER has documented false flags, so check this before acting on it." : "The reported values cannot all be correct as printed.")]
+}
+
+// the rounding rules, described as in the GRIM and GRIMMER apps of the granularity chapter
+brRoundingPhrases = ({up_or_down: "halves rounded up or down", up: "halves rounded up", down: "halves rounded down", even: "halves rounded to even", trunc: "values truncated", anti_trunc: "values rounded away from zero", ceiling: "values rounded up", floor: "values rounded down"})
+
+function brParityMax(l, u, n) {
+  // the largest SD any sample of this size can have on this scale, whatever its mean (Popoviciu, with the odd-n case)
+  return (u - l) / 2 * Math.sqrt(n / (n - 1) * (2 * n * n - 1 + (-1) ** n) / (2 * n * n))
+}
+
+function brResults(res, p, units) {
+  const {report: r, curve, reference, thinned, band} = res
+  const [kind, headline, gloss] = brVerdict(r, p)
+  const fmt = (x, d = 3) => Number.isFinite(x) ? x.toFixed(d) : "—"
+  const scaleFree = units === "scalefree"
+  // in scale-free units, the mean is the percent of the way along the scale, and the SD is a percent of the largest SD
+  // any sample of this size on this scale can have
+  const pm = brParityMax(p.l, p.u, p.n)
+  const tx = m => scaleFree ? 100 * (m - p.l) / (p.u - p.l) : m
+  const ty = s => s == null ? NaN : scaleFree ? 100 * s / pm : s
+  const pass = x => x === true ? "pass" : x === false ? "fail" : null
+  const cells = [
+    ["Reported mean", p.meanText], ["Reported SD", p.sdText],
+    ["Smallest possible SD", fmt(r.min_sd)], ["Largest possible SD", fmt(r.max_sd)],
+    ["Binding floor", (r.min_rule ?? "—").replace(/ \(envelope over rounding interval\)/, "")],
+    ["Binding ceiling", (r.max_rule ?? "—").replace(/ \(envelope over rounding interval\)/, "")],
+    ...(p.useAB ? [["Possible means", `${fmt(band[0], 2)} to ${fmt(band[1], 2)}`]] : []),
+    ...(pass(r.grim) ? [["GRIM", pass(r.grim)]] : []),
+    ...(pass(r.grimmer) ? [["GRIMMER", pass(r.grimmer)]] : [])
+  ]
+  const feasible = curve.filter(d => d.feasible)
+  const line = rows => rows.map(d => ({x: tx(d.mean), lo: ty(d.min_sd), hi: ty(d.max_sd)}))
+  const data = line(curve), ref = reference ? line(reference) : null
+  const yMax = 1.08 * d3.max([...data, ...(ref ?? [])].map(d => d.hi).filter(Number.isFinite).concat([ty(p.sd)]))
+  const colour = kind === "ok" ? "#3b9c6e" : kind === "warn" ? "#d9a02b" : "#c0392b"
+  const plot = Plot.plot({
+    width, height: 380, marginLeft: 55, marginRight: 20, marginTop: 15, marginBottom: 45,
+    x: {label: scaleFree ? "Mean (percent of the scale)" : "Mean", labelAnchor: "center", labelOffset: 36, domain: [tx(p.l), tx(p.u)]},
+    y: {label: scaleFree ? "SD (percent of the largest possible)" : "SD", labelAnchor: "center", labelOffset: 45, domain: [0, yMax], grid: true},
+    style: {fontSize: "13px"},
+    marks: [
+      // the possible combinations of mean and SD
+      Plot.areaY(data, {x: "x", y1: "lo", y2: "hi", fill: "#2780e3", fillOpacity: 0.18}),
+      ref ? Plot.line(ref, {x: "x", y: "hi", stroke: "currentColor", strokeOpacity: 0.35, strokeDasharray: "4,3"}) : null,
+      ref ? Plot.line(ref, {x: "x", y: "lo", stroke: "currentColor", strokeOpacity: 0.35, strokeDasharray: "4,3"}) : null,
+      Plot.line(data, {x: "x", y: "hi", stroke: "#2780e3", strokeWidth: 1.5}),
+      Plot.line(data, {x: "x", y: "lo", stroke: "#2780e3", strokeWidth: 1.5}),
+      p.useAB ? Plot.ruleX(band.map(tx), {stroke: "currentColor", strokeOpacity: 0.5, strokeDasharray: "2,3"}) : null,
+      Plot.ruleY([0]),
+      Plot.dot([{}], {x: tx(p.mean), y: ty(p.sd), r: 6, fill: colour, stroke: "white", strokeWidth: 1.5})
+    ]
+  })
+  const notes = [
+    `The shaded band shows the combinations of mean and SD that the constraints allow, and the point shows the reported mean and SD, in green if they are consistent and in red if not.${scaleFree ? " In scale-free units, the mean is the percent of the way from the scale minimum to the maximum, and the SD is a percent of the largest SD that any sample of this size on this scale can have, whatever its mean." : ""}`,
+    ref ? "The dashed lines show the bounds from the scale limits alone, and the dotted vertical lines the range of means that are possible when the observed minimum and maximum are both attained." : null,
+    p.useAB && p.useAlpha ? "With both a reported α and observed extremes, the bounds are the higher of the two floors and the lower of the two ceilings. These are valid, but may not be as sharp as possible." : null,
+    p.Z === "integer" ? "With strictly integer responses, the band only exists at the means that a whole-number sum can produce, so it is drawn with gaps. Quasi-integer responses relax this by one response." : null,
+    thinned ? "This design has more possible means than the plot can show, so the band is drawn on a grid of means. Only the drawing is approximate: the verdict comes from the reported values themselves." : null
+  ].filter(Boolean)
+  const verdict = html`<div class="sb-feedback sb-feedback-${kind}"><strong>${headline}.</strong> ${gloss}</div>`
+  return html`<div>
+    ${verdict}
+    <div class="br-stats">${cells.map(([k, v]) => html`<div class="br-stat"><div class="k">${k}</div><div class="v">${v}</div></div>`)}</div>
+    ${plot}
+    ${notes.map(t => html`<div class="sc-status br-note">${t}</div>`)}
+    <div class="sc-status">Checked by <code>brimmer()</code> and <code>sd_bounds()</code> from strait ${res.straitVersion} (commit <a href="https://github.com/ianhussey/strait/tree/${straitCommit}">${straitCommit.slice(0, 7)}</a>), ${res.rVersion}, running in webR ${brWebrVersion}. The mean was taken as rounded to ${p.md} decimal place${p.md === 1 ? "" : "s"} and the SD to ${p.sdd}, with ${brRoundingPhrases[p.rounding]}.</div>
+  </div>`
+}
+
+function brCertificateView(c) {
+  const possible = c.possible === true
+  return html`<div>
+    <div class="sb-feedback sb-feedback-${possible ? "ok" : "bad"}"><strong>${possible ? "Possible" : "Impossible"}.</strong> ${possible
+      ? `Some sample of ${c.p.n} whole-number scores on this scale has a mean and SD that round to exactly the reported values, with ${brRoundingPhrases[c.p.rounding]}. This proves that the report is possible, rather than only failing to rule it out.`
+      : `No sample of whole-number scores on this scale produces the reported mean and SD, with ${brRoundingPhrases[c.p.rounding]}. This is a proof, not a flag, but only relative to that rounding rule: if the authors may have rounded differently, choose a more lenient rule and certify again.`}</div>
+    ${c.p.useAlpha ? html`<div class="sc-status">BRIMMEST certifies against whole-number data alone and does not use the reported α. A possible result means possible for some sample of whole-number scores, which may not have the reported internal consistency.</div>` : ""}
+    <div class="sc-status">Certified by <code>brimmest()</code> from strait ${c.straitVersion} (commit <a href="https://github.com/ianhussey/strait/tree/${straitCommit}">${straitCommit.slice(0, 7)}</a>), ${c.rVersion}, running in webR ${brWebrVersion}.</div>
+  </div>`
+}
+
+brStyle = html`<style>
+  .br-app { margin: 0.5rem 0 1rem; }
+  .br-examples { margin: 0.5rem 0 0.75rem; font-size: 0.9rem; }
+  .br-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 0 2rem; margin-bottom: 0.75rem; }
+  .br-head { font-weight: 600; margin: 0.5rem 0 0.25rem; }
+  .br-field { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); gap: 0.5rem; align-items: center; margin: 0.2rem 0; font-size: 0.9rem; }
+  .br-field input, .br-field select { background: transparent; color: inherit; }
+  .br-check { display: flex; gap: 0.4rem; align-items: center; margin: 0.35rem 0; font-size: 0.9rem; }
+  .br-sub { margin-left: 0.75rem; }
+  .br-stats { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1rem; }
+  .br-stat { border: 1px solid rgba(128, 128, 128, 0.3); border-radius: 6px; padding: 0.35rem 0.7rem; min-width: 8rem; max-width: 22rem; }
+  .br-stat .k { font-size: 0.75rem; color: var(--bs-secondary-color); text-transform: uppercase; letter-spacing: 0.04em; }
+  .br-stat .v { font-weight: 600; }
+  .br-note { margin: 0.25rem 0; }
+</style>`
+```
+
+Try the examples. With the default report, a mean of 2.97 and an *SD* of 2.83 from 30 people on a 1–7 scale, the *SD* is close to its ceiling but possible: twenty people answering 1, nine answering 7, and one answering 6 give exactly these values. An *SD* of 0.10 is too small for whole-number data with this mean. With an observed minimum of 1 and maximum of 6, an *SD* of 0.50 is impossible, although it would be possible if only the scale limits were known. And for a mean of three items with a reported α of .80, an *SD* of 2.60 is impossible given that α, although it would be possible for items that disagreed more.

@@ -498,7 +498,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/13_bounds_methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Bounds methods <span class="badge badge-draft1">✎ Outline</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Bounds methods <span class="badge badge-draft2">✎ Draft</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -634,6 +634,7 @@ div.csl-indent {
   <li><a href="#sec-combined-orthogonal" id="toc-sec-combined-orthogonal" class="nav-link active" data-scroll-target="#sec-combined-orthogonal"><span class="header-section-number">14.1</span> Granularity and bounds are different questions</a></li>
   <li><a href="#sec-combined-counting" id="toc-sec-combined-counting" class="nav-link" data-scroll-target="#sec-combined-counting"><span class="header-section-number">14.2</span> How much each check rules out</a></li>
   <li><a href="#sec-combined-app" id="toc-sec-combined-app" class="nav-link" data-scroll-target="#sec-combined-app"><span class="header-section-number">14.3</span> Checking reported values</a></li>
+  <li><a href="#test-yourself" id="toc-test-yourself" class="nav-link" data-scroll-target="#test-yourself"><span class="header-section-number">14.4</span> Test yourself</a></li>
   </ul>
 </nav>
     </div>
@@ -1579,6 +1580,53 @@ Table&nbsp;14.1: The four granularity and bounds tests.
 </div>
 </div>
 <p>Try the examples. With the default report, a mean of 2.97 and an <em>SD</em> of 2.83 from 30 people on a 1–7 scale, the <em>SD</em> is close to its ceiling but possible: twenty people answering 1, nine answering 7, and one answering 6 give exactly these values. An <em>SD</em> of 0.10 is too small for whole-number data with this mean. With an observed minimum of 1 and maximum of 6, an <em>SD</em> of 0.50 is impossible, although it would be possible if only the scale limits were known. And for a mean of three items with a reported α of .80, an <em>SD</em> of 2.60 is impossible given that α, although it would be possible for items that disagreed more.</p>
+</section>
+<section id="test-yourself" class="level2" data-number="14.4">
+<h2 data-number="14.4" class="anchored" data-anchor-id="test-yourself"><span class="header-section-number">14.4</span> Test yourself</h2>
+<p>Answer all the questions, then click the button below the quiz to see why each answer is right.</p>
+<div class="webex-check webex-box">
+<p><strong>Granularity and bounds</strong></p>
+<ol type="1">
+<li>GRIM and BRIM both check the reported mean, but GRIM asks whether whole-number data can produce it, and BRIM asks whether it lies within the range that is possible. <select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="NA">FALSE</option></select></li>
+<li>A reported mean and <em>SD</em> that pass GRIMMER must also pass BRIMMER. <select class="webex-select"><option value="blank"></option><option value="NA">TRUE</option><option value="answer">FALSE</option></select></li>
+<li>A reported mean and <em>SD</em> that pass BRIMMER must also pass GRIMMER. <select class="webex-select"><option value="blank"></option><option value="NA">TRUE</option><option value="answer">FALSE</option></select></li>
+<li>Five people answer a single item on a 1–5 scale, and the article reports a mean of 3.00 and an <em>SD</em> of 2.12. Which check rules this out? <select class="webex-select"><option value="blank"></option><option value="answer">BRIMMER</option><option value="">GRIM</option><option value="">GRIMMER</option><option value="">None of them</option></select></li>
+<li>For the same design, a mean of 3.00 and an <em>SD</em> of 1.50. Which check rules this out? <select class="webex-select"><option value="blank"></option><option value="answer">GRIMMER</option><option value="">GRIM</option><option value="">BRIMMER</option><option value="">None of them</option></select></li>
+<li>For the same design, a mean of 3.00 and an <em>SD</em> of 1.73 passes GRIM, GRIMMER, and BRIMMER, so it is possible. <select class="webex-select"><option value="blank"></option><option value="NA">TRUE</option><option value="answer">FALSE</option></select></li>
+<li>GRIMMER can accept <em>SD</em>s that are larger than any data on the scale can produce, because it does not use the scale’s limits. <select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="NA">FALSE</option></select></li>
+<li>Eight people report a mean of 1.50 and an <em>SD</em> of 0.00. This passes GRIMMER, but is impossible. <select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="NA">FALSE</option></select></li>
+</ol>
+<p><strong>Using the checks together</strong></p>
+<ol start="9" type="1">
+<li>Passing BRIMMEST shows that some sample of whole-number scores on the scale has the reported mean and <em>SD</em>, after rounding. <select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="NA">FALSE</option></select></li>
+<li>A report that passes GRIM, GRIMMER, BRIM, and BRIMMER has been shown to be possible. <select class="webex-select"><option value="blank"></option><option value="NA">TRUE</option><option value="answer">FALSE</option></select></li>
+<li>For five people on a 1–5 scale, roughly what share of the reported pairs that pass GRIM and GRIMMER fail BRIMMER? <select class="webex-select"><option value="blank"></option><option value="answer">About 40%</option><option value="">Almost none</option><option value="">About 5%</option><option value="">All of them</option></select></li>
+<li>The share of reports ruled out by each check is roughly the same for any scale and sample size. <select class="webex-select"><option value="blank"></option><option value="NA">TRUE</option><option value="answer">FALSE</option></select></li>
+<li>With 100 or more people answering a single item, every mean reported to two decimal places passes GRIM. <select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="NA">FALSE</option></select></li>
+<li>When GRIM can no longer rule anything out, the bounds checks become: <select class="webex-select"><option value="blank"></option><option value="answer">Relatively more important</option><option value="">Unnecessary</option><option value="">Impossible to apply</option><option value="">Identical to GRIMMER</option></select></li>
+</ol>
+</div>
+<div class="webex-solution">
+<button>
+Why is each answer right?
+</button>
+<ol type="1">
+<li><strong>True.</strong> The two families divide along two axes: the statistic being checked, and the kind of constraint. GRIM checks the mean’s granularity, and BRIM checks its range (<a href="#sec-combined" class="quarto-xref"><span>Chapter 14</span></a>).</li>
+<li><strong>False.</strong> GRIMMER only asks whether the <em>SD</em> lies on the lattice of values that whole-number data can produce. It does not ask how large or small the <em>SD</em> is relative to the scale, so it accepts many <em>SD</em>s that the bounds rule out (<a href="#sec-combined-orthogonal" class="quarto-xref"><span>Section 14.1</span></a>).</li>
+<li><strong>False.</strong> BRIMMER only asks about magnitude. An <em>SD</em> comfortably within the bounds can still be one that no whole-number data can produce (<a href="#sec-combined-orthogonal" class="quarto-xref"><span>Section 14.1</span></a>).</li>
+<li><strong>BRIMMER.</strong> Five whole numbers with a mean of 3 can have a sum of squares that gives an <em>SD</em> of 2.12, so GRIM and GRIMMER pass. But no five scores between 1 and 5 with a mean of 3 can have an <em>SD</em> above 2.00 (<a href="#sec-combined-orthogonal" class="quarto-xref"><span>Section 14.1</span></a>).</li>
+<li><strong>GRIMMER.</strong> An <em>SD</em> of 1.50 is within the bounds of 0 to 2.00, but the sum of squares it implies is even, whereas the sum of five scores with a mean of 3 is odd, so no whole-number data can produce it (<a href="#sec-combined-orthogonal" class="quarto-xref"><span>Section 14.1</span></a>).</li>
+<li><strong>False.</strong> The squared deviations from the mean would have to add up to 12, and no five whole numbers between 1 and 5 with a mean of 3 have deviations whose squares add up to 12. All of these tests are necessary conditions, and none is sufficient (<a href="#sec-combined-orthogonal" class="quarto-xref"><span>Section 14.1</span></a>).</li>
+<li><strong>True.</strong> In the plot of reported pairs, most of the reports that pass GRIM and GRIMMER but fail BRIMMER lie above the ceiling, and many lie beyond the ends of the scale (<a href="#sec-combined-counting" class="quarto-xref"><span>Section 14.2</span></a>).</li>
+<li><strong>True.</strong> The sum of squares it implies, 18, is a whole number with the same parity as the sum of the scores, 12, so GRIMMER passes. But an <em>SD</em> of zero means that everyone had the same score, and eight identical whole numbers cannot have a mean of 1.50 (<a href="#sec-combined-counting" class="quarto-xref"><span>Section 14.2</span></a>).</li>
+<li><strong>True.</strong> Unlike the other checks, passing BRIMMEST proves that a report is possible, rather than only failing to rule it out, although only relative to the rounding rule that was assumed (<a href="#sec-combined-orthogonal" class="quarto-xref"><span>Section 14.1</span></a>).</li>
+<li><strong>False.</strong> All four are necessary conditions. Some reports pass every one of them and still correspond to no real set of whole-number scores; only BRIMMEST settles that (<a href="#sec-combined-orthogonal" class="quarto-xref"><span>Section 14.1</span></a>).</li>
+<li><strong>About 40%.</strong> Of the 210 reported pairs that pass GRIM and GRIMMER, 89, or 42%, fail BRIMMER (<a href="#sec-combined-counting" class="quarto-xref"><span>Section 14.2</span></a>).</li>
+<li><strong>False.</strong> The counts depend on the scale, the sample size, and the reporting precision. What generalises is the pattern: each check rules out reports that the others let through (<a href="#sec-combined-counting" class="quarto-xref"><span>Section 14.2</span></a>).</li>
+<li><strong>True.</strong> Once the number of people times the number of items reaches 100, the possible means are no further apart than the 0.01 reporting step, so every two-decimal mean can be produced (<a href="#sec-combined-counting" class="quarto-xref"><span>Section 14.2</span></a>).</li>
+<li><strong>Relatively more important.</strong> When granularity can no longer rule out any mean, the bounds carry more of the burden of detecting impossible values (<a href="#sec-combined-counting" class="quarto-xref"><span>Section 14.2</span></a>).</li>
+</ol>
+</div>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
@@ -2224,8 +2272,8 @@ window._ojs.runtime.interpretFromScriptTags();
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/13_bounds_methods.html" class="pagination-link" aria-label="Bounds methods [✎ Outline]{.badge .badge-draft1}">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Bounds methods <span class="badge badge-draft1">✎ Outline</span></span></span>
+      <a href="../chapters/13_bounds_methods.html" class="pagination-link" aria-label="Bounds methods [✎ Draft]{.badge .badge-draft2}">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Bounds methods <span class="badge badge-draft2">✎ Draft</span></span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

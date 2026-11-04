@@ -30,7 +30,7 @@ The last example is why @hussey2026brimmer add an exact test, BRIMMEST. For whol
 
 ## How much each check rules out {#sec-combined-counting}
 
-With values reported to two decimal places, the possible reports of a mean and *SD* form a finite grid, so it is possible to count how many of them each check rules out [@hussey2026brimmer]. The plot below shows this for a small design, with a narrow scale and a small sample, so that the reports that survive are few enough to see individually. Each point is a pair of a reported mean and a reported *SD* that passes GRIM and GRIMMER. Pairs that fail either of these are not drawn, because there are far more of them. The orange points pass GRIM and GRIMMER, but fail BRIM or BRIMMER: they are the impossible values that granularity checks alone would let through. The plot extends half a scale point beyond each end of the scale and above the largest *SD* that any sample can have, to show that GRIM and GRIMMER, which know nothing about the scale, accept many reports there too. The table only counts reports with means within the scale and *SD*s up to that largest value. The purple crosses pass GRIM, GRIMMER, and BRIMMER, but no sample of whole-number scores can produce them. The blue points pass BRIMMEST: some sample of whole-number scores has exactly these values after rounding. Hover anywhere in the plot to see which checks the reported pair under the pointer passes, including pairs whose mean fails GRIM, which are not drawn. For the blue points, the description includes an example set of scores that produces them. The lines are the bounds for whole-number data: the largest and smallest possible *SD* at each mean. The table under the plot counts the reports that each combination of checks leaves standing. Change the scale and the sample size to see how the counts change.
+With values reported to two decimal places, the possible reports of a mean and *SD* form a finite grid, so it is possible to count how many of them each check rules out [@hussey2026brimmer]. The plot below shows this for a small design, with a narrow scale and a small sample, so that the reports that survive are few enough to see individually. Each point is a pair of a reported mean and a reported *SD* that passes GRIM and GRIMMER. Pairs that fail either of these are not drawn, because there are far more of them. The orange points pass GRIM and GRIMMER, but fail BRIM or BRIMMER: they are the impossible values that granularity checks alone would let through. The plot extends half a scale point beyond each end of the scale and above the largest *SD* that any sample can have, to show that GRIM and GRIMMER, which know nothing about the scale, accept many reports there too. The table only counts reports with means within the scale and *SD*s up to that largest value. The purple crosses pass GRIM, GRIMMER, and BRIMMER, but no sample of whole-number scores can produce them. The blue points pass BRIMMEST: some sample of whole-number scores has exactly these values after rounding. Hover anywhere in the plot to see which checks the reported pair under the pointer passes, including pairs whose mean fails GRIM, which are not drawn. For the blue points, the description includes an example set of scores that produces them. The solid lines are the bounds for whole-number data: the largest and smallest possible *SD* at each mean. The dotted curve is the uniform-spread bound (@sec-sd-bounds): reports above it are possible, but need the scores to pile up at the ends of the scale, so they are less plausible for most measures. The table under the plot counts the reports that each combination of checks leaves standing. Change the scale and the sample size to see how the counts change.
 
 ```{ojs}
 //| echo: false
@@ -56,6 +56,8 @@ cgResult = cgMax - cgMin < 1 || cgMax - cgMin > 6 ? null : cgAnalyse(cgMin, cgMa
   // the bounds for whole-number data: the ceiling at every mean, and the floor at the means whole-number data can produce
   const ceilingLine = d3.range(0, 401).map(i => { const m = l + (u - l) * i / 400; return {m, sd: cgCeiling(m, n, l, u)} })
   const floorLine = d3.range(0, 401).map(i => { const m = l + (u - l) * i / 400; return {m, sd: cgQuasiFloor(m, n)} })
+  // the uniform-spread bound: above it, the scores are more spread out than if they were spread evenly across the scale
+  const uniformLine = d3.range(0, 401).map(i => { const m = l + (u - l) * i / 400; return {m, sd: cgUniform(m, n, l, u)} })
   // the plot shows 10% more than the largest SD any sample can have, and half a scale point beyond each end of the scale
   const yMax = 1.1 * cgParityMax(l, u, n)
   const plot = Plot.plot({
@@ -66,6 +68,7 @@ cgResult = cgMax - cgMin < 1 || cgMax - cgMin > 6 ? null : cgAnalyse(cgMin, cgMa
     marks: [
       Plot.line(ceilingLine, {x: "m", y: "sd", stroke: "currentColor", strokeOpacity: 0.6}),
       Plot.line(floorLine, {x: "m", y: "sd", stroke: "currentColor", strokeOpacity: 0.6}),
+      Plot.line(uniformLine, {x: "m", y: "sd", stroke: "currentColor", strokeOpacity: 0.6, strokeDasharray: "1,3", strokeWidth: 1.5}),
       // the points that pass every necessary check but fail BRIMMEST are crosses, so that they stand out from the attainable
       // points by shape as well as colour
       Plot.dot(shown.filter(d => d.category !== "unattainable"), {x: "mean", y: "sd", r: 3, fill: d => colours[d.category]}),
@@ -103,6 +106,8 @@ cgResult = cgMax - cgMin < 1 || cgMax - cgMin > 6 ? null : cgAnalyse(cgMin, cgMa
   plot.addEventListener("pointerleave", () => { tip.style.display = "none"; marker.style("display", "none") })
   const legend = html`<div class="bd-legend">
     ${[["bounds", "Passes GRIM and GRIMMER, fails BRIM or BRIMMER"], ["unattainable", "Passes GRIM, GRIMMER, and BRIMMER, fails BRIMMEST"], ["attainable", "Passes BRIMMEST: attainable"]].map(([k, t]) => html`<span><svg width="12" height="12">${k === "unattainable" ? svg`<path d="M2,2L10,10M10,2L2,10" stroke="${colours[k]}" stroke-width="2.2"/>` : svg`<circle cx="6" cy="6" r="4.5" fill="${colours[k]}"/>`}</svg> ${t}</span>`)}
+    <span><svg width="28" height="10"><line x1="0" x2="28" y1="5" y2="5" stroke="currentColor" stroke-opacity="0.6"/></svg> Bounds for whole-number data</span>
+    <span><svg width="28" height="10"><line x1="0" x2="28" y1="5" y2="5" stroke="currentColor" stroke-opacity="0.6" stroke-dasharray="1,3" stroke-width="1.5"/></svg> Uniform-spread bound</span>
   </div>`
   const pct = x => `${(100 * x / counts.all).toFixed(x / counts.all < 0.01 ? 2 : 1)}%`
   const fmt = x => x.toLocaleString("en")
@@ -112,7 +117,8 @@ cgResult = cgMax - cgMin < 1 || cgMax - cgMin > 6 ? null : cgAnalyse(cgMin, cgMa
     ["Pass GRIM", counts.grim],
     ["Pass GRIM and GRIMMER", counts.grimmer],
     ["Pass GRIM, GRIMMER, BRIM, and BRIMMER (whole-number data)", counts.all3],
-    ["Pass BRIMMEST: attainable by some sample of whole-number scores", counts.attainable]
+    ["Pass BRIMMEST: attainable by some sample of whole-number scores", counts.attainable],
+    ["Pass BRIMMEST, with an SD no larger than the uniform-spread bound", counts.attainableUniform]
   ]
   const table = html`<table class="table table-sm cg-table">
     <thead><tr><th>Checks passed</th><th>Pairs</th><th>% of all</th></tr></thead>
@@ -155,6 +161,11 @@ function cgQuasiFloor(m, n) {
   return Math.sqrt(Math.max(0, (n * d * (1 - d) - g * (1 - g)) / (n - 1)))
 }
 
+function cgUniform(m, n, l, u) {
+  // the uniform-spread bound: the Bhatia-Davis bound divided by the square root of 3
+  return Math.sqrt(n / (n - 1) * Math.max(0, (u - m) * (m - l)) / 3)
+}
+
 function cgParityMax(l, u, n) {
   return (u - l) / 2 * Math.sqrt(n / (n - 1) * (2 * n * n - 1 + (-1) ** n) / (2 * n * n))
 }
@@ -184,7 +195,7 @@ function cgAnalyse(l, u, n) {
   const sdTop = Math.ceil(cgParityMax(l, u, n) * 100 - 1e-9)
   const sdTopPlot = Math.floor(1.1 * cgParityMax(l, u, n) * 100 + 1e-9)
   const miLo = Math.round(l * 100), miHi = Math.round(u * 100)
-  const counts = {all: 0, boundsOnly: 0, grim: 0, grimmer: 0, all3: 0, attainable: 0, grimmerFailBounds: 0}
+  const counts = {all: 0, boundsOnly: 0, grim: 0, grimmer: 0, all3: 0, attainable: 0, attainableUniform: 0, grimmerFailBounds: 0}
   const points = []
   const R = u - l
   const perMean = new Map()
@@ -198,6 +209,9 @@ function cgAnalyse(l, u, n) {
     const kinks = d3.range(Math.ceil((mLo - l) * n / R - 1e-9), Math.floor((mHi - l) * n / R + 1e-9) + 1).map(j => l + j * R / n)
     // a mean outside the scale fails BRIM, so no SD is within the bounds there
     const cmax = inScale ? d3.max([mLo, mHi, ...kinks], m => cgCeiling(m, n, l, u)) : -Infinity
+    // the largest uniform-spread bound over the mean's rounding interval. the bound peaks in the middle of the scale, so
+    // it is reached at the point of the interval closest to the middle
+    const umax = inScale ? cgUniform(Math.min(mHi, Math.max(mLo, (l + u) / 2)), n, l, u) : -Infinity
     perMean.set(mi, {sums, cmax, inScale})
     for (let si = 0; si <= sdTopPlot; si++) {
       const counted = inScale && si <= sdTop
@@ -229,6 +243,8 @@ function cgAnalyse(l, u, n) {
         else { if (counted) counts.all3++; category = example ? "attainable" : "unattainable" }
       }
       if (example && counted) counts.attainable++
+      // allowing for rounding, the reported SD could be at or below the uniform-spread bound
+      if (example && counted && sl <= umax + 1e-9) counts.attainableUniform++
       points.push({mean: mi / 100, sd: si / 100, grim: true, inScale, category, grimmer, inBounds, example})
     }
   }
@@ -292,7 +308,7 @@ cgStyle = html`<style>
 </style>`
 ```
 
-With the default design, five people on a 1–5 scale, there are 88,621 reportable pairs of a mean and an *SD*. GRIM alone rules out all but 5% of them, because five people can only produce means that are multiples of 0.2. GRIMMER rules out most of the rest, leaving 210. But 89 of those 210, 42%, are still impossible, because their *SD*s lie outside the bounds. These are the orange points, and all of them lie above the ceiling: GRIMMER, which knows nothing about the limits of the scale, admits *SD*s that are larger than any five scores between 1 and 5 can produce. The bounds alone, without granularity, rule out only about a third of the grid. Combining the two families leaves 121 pairs, of which 102 are attainable.
+With the default design, five people on a 1–5 scale, there are 88,621 reportable pairs of a mean and an *SD*. GRIM alone rules out all but 5% of them, because five people can only produce means that are multiples of 0.2. GRIMMER rules out most of the rest, leaving 210. But 89 of those 210, 42%, are still impossible, because their *SD*s lie outside the bounds. These are the orange points, and all of them lie above the ceiling: GRIMMER, which knows nothing about the limits of the scale, admits *SD*s that are larger than any five scores between 1 and 5 can produce. The bounds alone, without granularity, rule out only about a third of the grid. Combining the two families leaves 121 pairs, of which 102 are attainable. Of those 102, only 48 have an *SD* at or below the uniform-spread bound, allowing for rounding. The other 54 are possible, but only if the scores pile up at the ends of the scale.
 
 With five people, there are no orange points below the floor. This is not because GRIMMER checks the floor, but because with so few people its lattice is sparse at small *SD*s: the sum of squares must be a whole number of the right parity, and the smallest such sum of squares above zero happens to give exactly the floor. With five people and a mean of 2.20, for example, the smallest *SD* that GRIMMER accepts is 0.45, which is the floor. With larger samples the lattice is denser, and GRIMMER accepts *SD*s below the floor. Set the sample size to 8: a mean of 1.50 with an *SD* of 0.00 now passes GRIMMER, because the sum of squares it implies, 18, is a whole number with the same parity as the sum of the scores, 12. But it is impossible, because an *SD* of zero means that everyone had the same score, and eight people with the same whole-number score cannot have a mean of 1.50. Only the floor rules it out.
 
@@ -733,15 +749,23 @@ Answer all the questions, then click the button below the quiz to see why each a
 6.  For the same design, a mean of 3.00 and an *SD* of 1.73 passes GRIM, GRIMMER, and BRIMMER, so it is possible. `r webexercises::torf(FALSE)`
 7.  GRIMMER can accept *SD*s that are larger than any data on the scale can produce, because it does not use the scale's limits. `r webexercises::torf(TRUE)`
 8.  Eight people report a mean of 1.50 and an *SD* of 0.00. This passes GRIMMER, but is impossible. `r webexercises::torf(TRUE)`
+9.  With five people, GRIMMER happens to reject every *SD* below the floor, but with larger samples it accepts some *SD*s below the floor. `r webexercises::torf(TRUE)`
 
 **Using the checks together**
 
-9.  Passing BRIMMEST shows that some sample of whole-number scores on the scale has the reported mean and *SD*, after rounding. `r webexercises::torf(TRUE)`
-10. A report that passes GRIM, GRIMMER, BRIM, and BRIMMER has been shown to be possible. `r webexercises::torf(FALSE)`
-11. For five people on a 1–5 scale, roughly what share of the reported pairs that pass GRIM and GRIMMER fail BRIMMER? `r webexercises::mcq(c(answer = "About 40%", "Almost none", "About 5%", "All of them"))`
-12. The share of reports ruled out by each check is roughly the same for any scale and sample size. `r webexercises::torf(FALSE)`
-13. With 100 or more people answering a single item, every mean reported to two decimal places passes GRIM. `r webexercises::torf(TRUE)`
-14. When GRIM can no longer rule anything out, the bounds checks become: `r webexercises::mcq(c(answer = "Relatively more important", "Unnecessary", "Impossible to apply", "Identical to GRIMMER"))`
+10. Passing BRIMMEST shows that some sample of whole-number scores on the scale has the reported mean and *SD*, after rounding. `r webexercises::torf(TRUE)`
+11. A report that passes GRIM, GRIMMER, BRIM, and BRIMMER has been shown to be possible. `r webexercises::torf(FALSE)`
+12. BRIMMEST works by reconstructing every possible data set, as CLOSURE does. `r webexercises::torf(FALSE)`
+13. For five people on a 1–5 scale, roughly what share of the reported pairs that pass GRIM and GRIMMER fail BRIMMER? `r webexercises::mcq(c(answer = "About 40%", "Almost none", "About 5%", "All of them"))`
+14. The share of reports ruled out by each check is roughly the same for any scale and sample size. `r webexercises::torf(FALSE)`
+15. With 100 or more people answering a single item, every mean reported to two decimal places passes GRIM. `r webexercises::torf(TRUE)`
+16. When GRIM can no longer rule anything out, the bounds checks become: `r webexercises::mcq(c(answer = "Relatively more important", "Unnecessary", "Impossible to apply", "Identical to GRIMMER"))`
+
+**Using the app**
+
+17. Why does the app default to *quasi-integer* rather than *integer* responses? `r webexercises::mcq(c(answer = "It never rules out what integer data could produce", "It allows responses such as 2.5", "It ignores the scale limits", "It makes BRIMMEST unnecessary"))`
+18. When both a Cronbach's *α* and an observed minimum and maximum are entered, the app takes the higher of the two floors and the lower of the two ceilings. These bounds are valid, but may not be as sharp as possible. `r webexercises::torf(TRUE)`
+19. Thirty people on a 1–7 scale report a mean of 2.97 and an *SD* of 2.83, which is close to the ceiling. This report is possible. `r webexercises::torf(TRUE)`
 :::
 
 `r webexercises::hide("Why is each answer right?")`
@@ -752,13 +776,18 @@ Answer all the questions, then click the button below the quiz to see why each a
 4.  **BRIMMER.** Five whole numbers with a mean of 3 can have a sum of squares that gives an *SD* of 2.12, so GRIM and GRIMMER pass. But no five scores between 1 and 5 with a mean of 3 can have an *SD* above 2.00 (@sec-combined-orthogonal).
 5.  **GRIMMER.** An *SD* of 1.50 is within the bounds of 0 to 2.00, but the sum of squares it implies is even, whereas the sum of five scores with a mean of 3 is odd, so no whole-number data can produce it (@sec-combined-orthogonal).
 6.  **False.** The squared deviations from the mean would have to add up to 12, and no five whole numbers between 1 and 5 with a mean of 3 have deviations whose squares add up to 12. All of these tests are necessary conditions, and none is sufficient (@sec-combined-orthogonal).
-7.  **True.** In the plot of reported pairs, most of the reports that pass GRIM and GRIMMER but fail BRIMMER lie above the ceiling, and many lie beyond the ends of the scale (@sec-combined-counting).
-8.  **True.** The sum of squares it implies, 18, is a whole number with the same parity as the sum of the scores, 12, so GRIMMER passes. But an *SD* of zero means that everyone had the same score, and eight identical whole numbers cannot have a mean of 1.50 (@sec-combined-counting).
-9.  **True.** Unlike the other checks, passing BRIMMEST proves that a report is possible, rather than only failing to rule it out, although only relative to the rounding rule that was assumed (@sec-combined-orthogonal).
-10. **False.** All four are necessary conditions. Some reports pass every one of them and still correspond to no real set of whole-number scores; only BRIMMEST settles that (@sec-combined-orthogonal).
-11. **About 40%.** Of the 210 reported pairs that pass GRIM and GRIMMER, 89, or 42%, fail BRIMMER (@sec-combined-counting).
-12. **False.** The counts depend on the scale, the sample size, and the reporting precision. What generalises is the pattern: each check rules out reports that the others let through (@sec-combined-counting).
-13. **True.** Once the number of people times the number of items reaches 100, the possible means are no further apart than the 0.01 reporting step, so every two-decimal mean can be produced (@sec-combined-counting).
-14. **Relatively more important.** When granularity can no longer rule out any mean, the bounds carry more of the burden of detecting impossible values (@sec-combined-counting).
+7.  **True.** With five people on a 1–5 scale, all of the reports that pass GRIM and GRIMMER but fail BRIMMER lie above the ceiling, and GRIM and GRIMMER also accept many reports beyond the ends of the scale (@sec-combined-counting).
+8.  **True.** The sum of squares it implies, 18, is a whole number with the same parity as the sum of the scores, 12, so GRIMMER passes. But an *SD* of zero means that everyone had the same score, and eight identical whole numbers cannot have a mean of 1.50. Only the floor rules it out (@sec-combined-counting).
+9.  **True.** GRIMMER does not check the floor. With five people its lattice is sparse at small *SD*s, so the smallest *SD* it accepts happens to equal the floor. With larger samples the lattice is denser, and it accepts *SD*s below the floor (@sec-combined-counting).
+10. **True.** Unlike the other checks, passing BRIMMEST proves that a report is possible, rather than only failing to rule it out (@sec-combined-orthogonal).
+11. **False.** All four are necessary conditions. Some reports pass every one of them and still correspond to no real set of whole-number scores; only BRIMMEST settles that (@sec-combined-orthogonal).
+12. **False.** BRIMMEST gives the same answer as CLOSURE, but without reconstructing the data sets: it works out which combinations of mean and *SD*, after rounding, whole-number samples on the scale can produce (@sec-combined-orthogonal).
+13. **About 40%.** Of the 210 reported pairs that pass GRIM and GRIMMER, 89, or 42%, fail BRIMMER (@sec-combined-counting).
+14. **False.** The counts depend on the scale, the sample size, and the reporting precision. What generalises is the pattern: each check rules out reports that the others let through (@sec-combined-counting).
+15. **True.** Once the number of people times the number of items reaches 100, the possible means are no further apart than the 0.01 reporting step, so every two-decimal mean can be produced (@sec-combined-counting).
+16. **Relatively more important.** When granularity can no longer rule out any mean, the bounds carry more of the burden of detecting impossible values (@sec-combined-counting).
+17. **It never rules out what integer data could produce.** Quasi-integer gives a floor that is defined at every mean. It relaxes the whole-number requirement by one response, which makes the floor slightly more lenient, so it errs on the side of not flagging a possible report (@sec-combined-app).
+18. **True.** {strait} has no joint bounds for *α* and observed extremes, so the app combines the two sets of bounds. Every report they rule out is impossible, but some impossible reports may slip through (@sec-combined-app).
+19. **True.** Twenty people answering 1, nine answering 7, and one answering 6 give exactly these values (@sec-combined-app).
 
 `r webexercises::unhide()`

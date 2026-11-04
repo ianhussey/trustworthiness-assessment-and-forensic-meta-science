@@ -990,28 +990,35 @@ Answer all the questions, then click the button below the quiz to see why each a
 1.  A sum score of six items, each rated from 1 to 5, can range from 6 to 30. `r webexercises::torf(TRUE)`
 2.  When subgroups together make up a whole sample, the mean of the whole sample must lie between the smallest and largest subgroup means. `r webexercises::torf(TRUE)`
 3.  A table reports that 5.1% of a sample were divorced, and 0.0% in every one of the regions that make up the sample. This is possible if some of the regions are small. `r webexercises::torf(FALSE)`
-4.  On a 1–7 scale with 30 people, an *SD* of 3.20 is: `r webexercises::mcq(c(answer = "Impossible, whatever the mean", "Possible only if the mean is 4", "Possible at any mean", "Possible only for whole-number data"))`
-5.  With whole-number responses, a mean of 2.97 can have an *SD* of 0. `r webexercises::torf(FALSE)`
-6.  A reported minimum and maximum can make a small *SD* impossible, even though the same *SD* would be possible if only the scale limits were known. `r webexercises::torf(TRUE)`
-7.  A reported Cronbach's *α* can make a large *SD* impossible, even though the same *SD* would be possible without it. `r webexercises::torf(TRUE)`
-8.  A reported *SD* that lies within the BRIMMER bounds has been shown to be possible. `r webexercises::torf(FALSE)`
+4.  If the mean of a single item rated from 1 to 5 is exactly 5, the *SD* must be 0. `r webexercises::torf(TRUE)`
+5.  On a 1–7 scale with 30 people, an *SD* of 3.20 is: `r webexercises::mcq(c(answer = "Impossible, whatever the mean", "Possible only if the mean is 4", "Possible at any mean", "Possible only for whole-number data"))`
+6.  At a given mean on a bounded scale, the largest possible *SD* is reached when: `r webexercises::mcq(c(answer = "As many scores as possible are at the two ends of the scale", "The scores are spread evenly across the scale", "The scores are bunched around the mean", "Half the scores are equal to the mean"))`
+7.  With whole-number responses, a mean of 2.97 can have an *SD* of 0. `r webexercises::torf(FALSE)`
+8.  A reported minimum and maximum can make a small *SD* impossible, even though the same *SD* would be possible if only the scale limits were known. `r webexercises::torf(TRUE)`
+9.  A reported Cronbach's *α* can make a large *SD* impossible, even though the same *SD* would be possible without it. `r webexercises::torf(TRUE)`
+10. A reported *SD* that lies within the BRIMMER bounds has been shown to be possible. `r webexercises::torf(FALSE)`
+11. An *SD* above the uniform-spread bound is impossible. `r webexercises::torf(FALSE)`
+12. With a small sample on a short scale, a reported mean and *SD* can be enough to recover every individual score. `r webexercises::torf(TRUE)`
 
 **Estimates inside confidence intervals**
 
-9.  An estimate that lies outside its own 95% confidence interval is: `r webexercises::mcq(c(answer = "Almost always an error", "Common when intervals are bootstrapped", "Expected for odds ratios", "A sign of p-hacking"))`
-10. An odds ratio should lie halfway between the lower and upper bounds of its confidence interval. `r webexercises::torf(FALSE)`
-11. An estimate that is inside its interval but not in the middle of it, after allowing for rounding, is proof of an error. `r webexercises::torf(FALSE)`
-12. Why should values be entered into the confidence interval app with their trailing zeros? `r webexercises::mcq(c(answer = "The number of decimal places sets how much rounding is allowed for", "The app cannot read numbers without them", "Trailing zeros show that the values are exact", "Values without them are treated as percentages"))`
-13. If swapping each estimate with its lower bound puts every estimate in the middle of its interval, the article's values can be used as reported. `r webexercises::torf(FALSE)`
+13. An estimate that lies outside its own 95% confidence interval is: `r webexercises::mcq(c(answer = "Almost always an error", "Common when intervals are bootstrapped", "Expected for odds ratios", "A sign of p-hacking"))`
+14. Among ratios reported with confidence intervals in MEDLINE abstracts, roughly what share were outside their own intervals? `r webexercises::mcq(c(answer = "Less than 1%", "About 5%", "About 15%", "None"))`
+15. An odds ratio should lie halfway between the lower and upper bounds of its confidence interval. `r webexercises::torf(FALSE)`
+16. An estimate that is inside its interval but not in the middle of it, after allowing for rounding, is proof of an error. `r webexercises::torf(FALSE)`
+17. Why should values be entered into the confidence interval app with their trailing zeros? `r webexercises::mcq(c(answer = "The number of decimal places sets how much rounding is allowed for", "The app cannot read numbers without them", "Trailing zeros show that the values are exact", "Values without them are treated as percentages"))`
+18. If swapping each estimate with its lower bound puts every estimate in the middle of its interval, the article's values can be used as reported. `r webexercises::torf(FALSE)`
 
 **Coefficients**
 
-14. An article reports an F1 score of 2.76, alongside a precision of .69 and a recall of .69. The F1 score could be correct. `r webexercises::torf(FALSE)`
-15. An adjusted *R*^2^ slightly below zero can be correct. `r webexercises::torf(TRUE)`
-16. An ordinary *R*^2^ can be negative when a model fits very badly. `r webexercises::torf(FALSE)`
-17. Cronbach's *α* can be negative. `r webexercises::torf(TRUE)`
-18. Two measures each have a reliability of .70. What is the largest correlation to expect between them? `r webexercises::mcq(c(answer = ".70", ".49", ".84", "1.00"))`
-19. A correlation of .80 is reported between two measures whose reliabilities, taken from their test manuals, are both .70. This shows that the correlation is impossible. `r webexercises::torf(FALSE)`
+19. An article reports an F1 score of 2.76, alongside a precision of .69 and a recall of .69. The F1 score could be correct. `r webexercises::torf(FALSE)`
+20. An adjusted *R*^2^ slightly below zero can be correct. `r webexercises::torf(TRUE)`
+21. An ordinary *R*^2^ can be negative when a model fits very badly. `r webexercises::torf(FALSE)`
+22. Cronbach's *α* can be negative. `r webexercises::torf(TRUE)`
+23. The standard error of a single mean can be larger than the *SD*. `r webexercises::torf(FALSE)`
+24. Two measures each have a reliability of .70. What is the largest correlation to expect between them? `r webexercises::mcq(c(answer = ".70", ".49", ".84", "1.00"))`
+25. An article reports a correlation and the reliabilities of both measures, all estimated in its own sample, which give a disattenuated correlation of 1.14. This is a possibility check rather than a plausibility check. `r webexercises::torf(TRUE)`
+26. A correlation of .80 is reported between two measures whose reliabilities, taken from their test manuals, are both .70. This shows that the correlation is impossible. `r webexercises::torf(FALSE)`
 :::
 
 `r webexercises::hide("Why is each answer right?")`
@@ -1019,21 +1026,28 @@ Answer all the questions, then click the button below the quiz to see why each a
 1.  **True.** The range of a sum score is the number of items times the lowest and highest response options: 6 × 1 = 6 and 6 × 5 = 30. Work the range out from the items rather than taking it from the article, which may describe it inconsistently (@sec-mean-inside-range).
 2.  **True.** The mean of the whole sample is a weighted average of the subgroup means, so it cannot be smaller than all of them or larger than all of them. The same is true of percentages (@sec-mean-inside-range).
 3.  **False.** However small or large the regions are, a percentage for the whole sample cannot be larger than the percentages in every one of the groups that make it up. If every region has 0.0%, so must the whole sample (@sec-mean-inside-range).
-4.  **Impossible, whatever the mean.** With 30 people on a 1–7 scale, no *SD* can exceed 3.05, which is reached with half the people at each end of the scale (@sec-sd-bounds).
-5.  **False.** An *SD* of 0 means that everyone had the same score, and identical whole numbers cannot have a mean with a fractional part, such as 2.97. Whole-number data raise the floor above zero at every mean that is not a whole number (@sec-sd-bounds).
-6.  **True.** A sample that includes both the observed minimum and the observed maximum cannot have a very small *SD*. On a 1–7 scale with 30 people and a mean of 2.97, reporting a minimum of 1 and a maximum of 6 raises the floor from 0.14 to 0.71 (@sec-sd-bounds).
-7.  **True.** A reported *α* limits how much the items can disagree with one another, which lowers the ceiling on the *SD* of the total or mean score (@sec-sd-bounds).
-8.  **False.** BRIMMER is a necessary condition, not a sufficient one. A reported *SD* inside the bounds may still not correspond to any real set of whole-number scores; only BRIMMEST settles that (@sec-sd-bounds, @sec-combined).
-9.  **Almost always an error.** For almost every method used in practice, a confidence interval contains its own estimate. The exceptions are rare, and an article that used one would be expected to say so (@sec-estimate-inside-ci).
-10. **False.** Intervals for ratios are usually calculated on the log scale, so the estimate lies halfway between the bounds on that scale: it is the geometric mean of the bounds, not their arithmetic mean (@sec-estimate-centred-ci).
-11. **False.** Many legitimate methods produce asymmetric intervals, such as profile likelihood, exact, Wilson, and bootstrap intervals. Whether an off-centre estimate is a concern depends on the metric and on the method the article used (@sec-estimate-centred-ci).
-12. **The number of decimal places sets how much rounding is allowed for.** A bound reported as 0.30 could have been anything from 0.295 to 0.305, but one entered as 0.3 could have been anything from 0.25 to 0.35 (@sec-estimates-in-cis).
-13. **False.** Even if the columns were simply swapped, readers and meta-analysts usually take reported values at face value, and a meta-analyst who uses the wrong estimate or calculates the wrong standard error will distort the pooled results (@sec-estimates-in-cis).
-14. **False.** The F1 score is the harmonic mean of precision and recall, so it must lie between them, and like them between 0 and 1. With a precision and recall of .69, the F1 score is .69 (@sec-coefficient-bounds).
-15. **True.** Adjusted *R*^2^ is bias-corrected, and can fall slightly below zero when *R*^2^ is close to zero. Its lower bound depends on the number of predictors and the sample size, and is usually close to zero (@sec-coefficient-bounds).
-16. **False.** *R*^2^ is a proportion of variance, so it lies between 0 and 1. A reported *R*^2^ below zero cannot be correct (@sec-coefficient-bounds).
-17. **True.** Cronbach's *α* has no lower bound, and is negative when the items are on average negatively correlated, usually because reverse-keyed items were not reverse-scored. A negative *α* is possible, but a sign of a problem with the scale or its scoring (@sec-coefficient-bounds).
-18. **.70.** The largest correlation to expect is the square root of the product of the reliabilities: √(.70 × .70) = .70, however closely related the constructs are (@sec-disattenuation).
-19. **False.** The disattenuated correlation would be 1.14, but because the reliabilities come from other samples, this is a plausibility check, not a possibility check: the measures may have been more reliable in this sample. It is a good reason to ask questions, but not proof of an error (@sec-disattenuation).
+4.  **True.** A mean exactly at the maximum is only possible if every participant had the maximum score, and then there is no spread at all (@sec-mean-inside-range).
+5.  **Impossible, whatever the mean.** With 30 people on a 1–7 scale, no *SD* can exceed 3.05, which is reached with half the people at each end of the scale (@sec-sd-bounds).
+6.  **As many scores as possible are at the two ends of the scale.** The most spread out samples have their scores at the two ends, with at most one person in between. Moving the mean away from the middle of the scale lowers this ceiling (@sec-sd-bounds).
+7.  **False.** An *SD* of 0 means that everyone had the same score, and identical whole numbers cannot have a mean with a fractional part, such as 2.97. Whole-number data raise the floor above zero at every mean that is not a whole number (@sec-sd-bounds).
+8.  **True.** A sample that includes both the observed minimum and the observed maximum cannot have a very small *SD*. On a 1–7 scale with 30 people and a mean of 2.97, reporting a minimum of 1 and a maximum of 6 raises the floor from 0.14 to 0.71 (@sec-sd-bounds).
+9.  **True.** A reported *α* limits how much the items can disagree with one another, which lowers the ceiling on the *SD* of the total or mean score (@sec-sd-bounds).
+10. **False.** BRIMMER is a necessary condition, not a sufficient one. A reported *SD* inside the bounds may still not correspond to any real set of whole-number scores; only BRIMMEST settles that (@sec-sd-bounds, @sec-combined).
+11. **False.** The uniform-spread bound is a bound on what is plausible, not on what is possible. Above it, the scores are more spread out than if they were spread evenly across the whole scale, which requires them to pile up at its ends. That is plausible for some measures, but not most (@sec-sd-bounds).
+12. **True.** In a small sample on a short scale, many combinations of mean and *SD* are produced by only one set of whole-number scores, so the mean and *SD* alone reveal every score (@sec-sd-bounds).
+13. **Almost always an error.** For almost every method used in practice, a confidence interval contains its own estimate. The exceptions are rare, and an article that used one would be expected to say so (@sec-estimate-inside-ci).
+14. **Less than 1%.** Between 0.4% and 0.6% of ratios, depending on the type, were outside their intervals, and 0.43% once rounding was taken into account. The share is small, but almost every one points to an error (@sec-estimate-inside-ci).
+15. **False.** Intervals for ratios are usually calculated on the log scale, so the estimate lies halfway between the bounds on that scale: it is the geometric mean of the bounds, not their arithmetic mean (@sec-estimate-centred-ci).
+16. **False.** Many legitimate methods produce asymmetric intervals, such as profile likelihood, exact, Wilson, and bootstrap intervals. Whether an off-centre estimate is a concern depends on the metric and on the method the article used (@sec-estimate-centred-ci).
+17. **The number of decimal places sets how much rounding is allowed for.** A bound reported as 0.30 could have been anything from 0.295 to 0.305, but one entered as 0.3 could have been anything from 0.25 to 0.35 (@sec-estimates-in-cis).
+18. **False.** Even if the columns were simply swapped, readers and meta-analysts usually take reported values at face value, and a meta-analyst who uses the wrong estimate or calculates the wrong standard error will distort the pooled results (@sec-estimates-in-cis).
+19. **False.** The F1 score is the harmonic mean of precision and recall, so it must lie between them, and like them between 0 and 1. With a precision and recall of .69, the F1 score is .69 (@sec-coefficient-bounds).
+20. **True.** Adjusted *R*^2^ is bias-corrected, and can fall slightly below zero when *R*^2^ is close to zero. Its lower bound depends on the number of predictors and the sample size, and is usually close to zero (@sec-coefficient-bounds).
+21. **False.** *R*^2^ is a proportion of variance, so it lies between 0 and 1. A reported *R*^2^ below zero cannot be correct (@sec-coefficient-bounds).
+22. **True.** Cronbach's *α* has no lower bound, and is negative when the items are on average negatively correlated, usually because reverse-keyed items were not reverse-scored. A negative *α* is possible, but a sign of a problem with the scale or its scoring (@sec-coefficient-bounds).
+23. **False.** The standard error of a single mean is *SD* / √*N*, so it cannot be larger than the *SD* (@sec-coefficient-bounds).
+24. **.70.** The largest correlation to expect is the square root of the product of the reliabilities: √(.70 × .70) = .70, however closely related the constructs are (@sec-disattenuation).
+25. **True.** When the correlation and both reliabilities describe the same data, they cannot all be correct if the disattenuated correlation is outside −1 to 1, subject to sampling error, rounding, and the type of reliability used (@sec-disattenuation).
+26. **False.** The disattenuated correlation would be 1.14, but because the reliabilities come from other samples, this is a plausibility check, not a possibility check: the measures may have been more reliable in this sample. It is a good reason to ask questions, but not proof of an error (@sec-disattenuation).
 
 `r webexercises::unhide()`

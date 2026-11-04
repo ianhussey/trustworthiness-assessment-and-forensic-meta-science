@@ -94,6 +94,7 @@ Before class:
 In class:
 
 - [Chapter 13: Bounds methods](chapters/13_bounds_methods.qmd)
+- [Chapter 14: Combined granularity and bounds methods](chapters/14_combined_granularity_and_bounds_methods.qmd)
 
 ### Week 8
 

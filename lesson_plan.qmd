@@ -98,11 +98,14 @@ In class:
 
 ### Week 8
 
-<!-- Before class: -->
+Before class:
 
-<!-- XXX -->
+- [Chapter 24: Trustworthiness assessment and INSPECT-SR](chapters/24_trustworthiness_assessment_and_inspect-sr.qmd)
 
-<!-- In class: -->
+In class:
+
+- [Chapter 16: Inspecting post-publication notices](chapters/16_post_publication_notices.qmd)
+- [Chapter 17: Reference and citation methods](chapters/17_reference_and_citation_methods.qmd)
 
 <!-- Organizing and communicating critique -->
 

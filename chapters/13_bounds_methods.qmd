@@ -40,7 +40,154 @@ The scale limits are not the only minimum and maximum that constrain the *SD*. M
 
 When checking reported values, the bounds have to take rounding into account: a mean reported as 2.97 could have been anything from 2.965 to 2.975, and the bounds are calculated over that whole interval. Like GRIM and GRIMMER, BRIMMER is a necessary condition rather than a sufficient one. A reported *SD* outside the bounds is impossible, but one inside them may still not correspond to any real set of whole-number scores. How the bounds combine with the granularity checks, and a further, exact test, BRIMMEST, which settles whether any such set of scores exists, are the subject of @sec-combined [@hussey2026brimmer].
 
-The plot below shows these bounds for any scale, sample size, and mean. The shaded band shows the combinations of mean and *SD* that are possible. Move the sliders, or click or drag anywhere in the plot, to choose a mean and an *SD*, and the point shows whether that combination is possible. Choose whether responses are continuous or whole numbers, and whether the score is a single item, or the sum or mean of several items, each rated on the scale. For a score made up of several items, tick **Cronbach's α** to add a reported α. Tick **Observed minimum and maximum** to see how much a reported minimum and maximum sharpen the bounds; these are in the units of the score. The dashed grey curve is the Bhatia–Davis bound, which ignores that people come in whole numbers, and the dotted horizontal line is the largest *SD* that any sample of this size can have, whatever its mean. The dotted curve is the uniform-spread bound from @sec-mean-sd-bounded. It is not a bound on what is possible, but on what is plausible: above it, the scores are more spread out than if they were spread evenly across the whole scale, which requires them to pile up at its ends. This plot shows the bounds only. It treats the mean and *SD* as exact, does not allow for rounding, and does not check granularity, so it does not ask whether a mean or *SD* could have come from whole-number data at all, as GRIM and GRIMMER do (@sec-granularity). It is for building intuition about the bounds. To check values reported in an article, use the app in @sec-combined-app, which combines the bounds with the granularity checks.
+Put the two constraints together, and the mean and the *SD* carry information about one another. When the scores are whole numbers and the scale has a minimum and a maximum, knowing the mean limits what the *SD* can be, and knowing the *SD* limits what the mean can be. Together, they also limit the distributions of scores that could have produced them: a large *SD* means that the scores must be piled up near the ends of the scale, and a small one means that they must be bunched together, and in a small sample a mean and *SD* can leave only one or a few sets of scores that produce them. Neither constraint is enough on its own. Continuous data on a bounded scale can take any *SD* between zero and the ceiling, and whole-number data without a minimum or maximum are subject only to the granularity constraints of @sec-granularity, which say nothing about how large the *SD* can be.
+
+The plot below shows this in the simplest case: a single item answered in whole numbers, with a small sample on a short scale, so that every set of scores that could have been observed can be listed. Each dot on the left is a combination of mean and *SD* that at least one set of scores produces, and the shaded band runs from the smallest to the largest possible *SD* at each mean, from the bounds above. The dotted curve is the uniform-spread bound from @sec-mean-sd-bounded: above it, the scores are more spread out than if they were spread evenly across the whole scale. Click or drag in the plot to choose a combination: the choice snaps to the nearest dot, and the plot on the right shows the frequencies of a set of scores that produces it. When more than one set does, **Show another** steps through them.
+
+```{ojs}
+//| echo: false
+viewof ssMin = Inputs.number({value: 1, step: 1, label: "Scale minimum"})
+viewof ssMax = Inputs.number({value: 5, step: 1, label: "Scale maximum"})
+viewof ssN = Inputs.range([2, 12], {value: 8, step: 1, label: "Sample size (n)"})
+```
+
+```{ojs}
+//| echo: false
+// every set of n whole-number scores on the scale, grouped by the mean and SD it gives. with at most 7 response
+// options and 12 people there are at most 18,564 sets, so they can all be listed
+ssSets = {
+  if (!(Number.isInteger(ssMin) && Number.isInteger(ssMax) && ssMax > ssMin && ssMax - ssMin <= 6)) return null
+  const k = ssMax - ssMin + 1, n = ssN, groups = new Map(), counts = new Array(k).fill(0)
+  const add = () => {
+    // the sum and sum of squares, counted from the scale minimum, identify the mean and SD exactly
+    let S = 0, Q = 0
+    for (let i = 0; i < k; i++) { S += i * counts[i]; Q += i * i * counts[i] }
+    const key = S * 1000 + Q
+    if (!groups.has(key)) groups.set(key, {key, mean: ssMin + S / n, sd: Math.sqrt(Math.max(0, (Q - S * S / n) / (n - 1))), sets: []})
+    groups.get(key).sets.push(counts.slice())
+  }
+  const fill = (i, left) => {
+    if (i === k - 1) { counts[i] = left; add(); return }
+    for (let c = left; c >= 0; c--) { counts[i] = c; fill(i + 1, left - c) }
+  }
+  fill(0, n)
+  return {k, n, l: ssMin, u: ssMax, points: [...groups.values()]}
+}
+
+// the chosen mean and SD. it is kept when the scale or sample size changes, and snapped to the nearest possible dot
+mutable ssPick = null
+
+// the latest plot's scales and dots, so that a drag that began on an earlier version of it is converted with the current one
+ssDrag = ({x: null, y: null, points: null, key: null})
+```
+
+```{ojs}
+//| echo: false
+{
+  if (!ssSets) return html`<div class="sc-status">Set the minimum and maximum to whole numbers, with the maximum between 1 and 6 above the minimum.</div>`
+  const {n, l, u, points} = ssSets, R = u - l
+  const target = ssPick ?? {mean: l + 0.4 * R, sd: R / 4}
+  const chosen = d3.least(points, p => (p.mean - target.mean) ** 2 + (p.sd - target.sd) ** 2)
+  const colour = "#e8710a", fmt = x => x.toFixed(2)
+
+  const twoCol = width >= 640, gap = 32
+  const w = twoCol ? Math.floor((width - gap) / 2) : width, height = 340
+  const step = R / 600
+  // the uniform-spread bound is the Bhatia-Davis bound scaled down by 1 / sqrt(3), as in the explorer below
+  const curve = d3.range(l, u + step / 2, step).map(m => ({m, floor: sxQuasiFloor(m, n), ceiling: sxCeiling(m, n, l, u),
+    uniform: Math.sqrt(n / (n - 1) * Math.max(0, (u - m) * (m - l)) / 3)}))
+  const r = points.length > 1000 ? 1.5 : points.length > 300 ? 2 : 2.8
+
+  const plot = Plot.plot({
+    width: w, height, marginLeft: 50, marginRight: 15, marginTop: 15, marginBottom: 45,
+    x: {label: "Mean", labelAnchor: "center", labelOffset: 36, domain: [l, u]},
+    y: {label: "SD", labelAnchor: "center", labelOffset: 40, domain: [0, 1.05 * sxParityMax(l, u, n)], grid: true},
+    style: {fontSize: "13px"},
+    marks: [
+      Plot.areaY(curve, {x: "m", y1: "floor", y2: "ceiling", fill: "#2780e3", fillOpacity: 0.12}),
+      Plot.line(curve, {x: "m", y: "ceiling", stroke: "#2780e3", strokeWidth: 1.2}),
+      Plot.line(curve, {x: "m", y: "floor", stroke: "#2780e3", strokeWidth: 1.2}),
+      Plot.line(curve, {x: "m", y: "uniform", stroke: "currentColor", strokeOpacity: 0.6, strokeDasharray: "1,3", strokeWidth: 1.5}),
+      Plot.ruleY([0]),
+      Plot.dot(points, {x: "mean", y: "sd", r, fill: "currentColor", fillOpacity: 0.6}),
+      Plot.ruleX([chosen.mean], {y1: 0, y2: chosen.sd, stroke: colour, strokeDasharray: "4,3"}),
+      Plot.dot([chosen], {x: "mean", y: "sd", r: 7, fill: colour, stroke: "white", strokeWidth: 1.5})
+    ]
+  })
+
+  // clicking or dragging in the plot chooses the nearest possible combination, measured on the screen
+  Object.assign(ssDrag, {x: plot.scale("x"), y: plot.scale("y"), points, key: chosen.key})
+  plot.style.cursor = "crosshair"
+  plot.style.touchAction = "none"
+  plot.addEventListener("pointerdown", down => {
+    const box = plot.getBoundingClientRect()
+    const pick = event => {
+      const px = (event.clientX - box.left) * w / box.width, py = (event.clientY - box.top) * height / box.height
+      const p = d3.least(ssDrag.points, d => (ssDrag.x.apply(d.mean) - px) ** 2 + (ssDrag.y.apply(d.sd) - py) ** 2)
+      if (p.key !== ssDrag.key) { ssDrag.key = p.key; mutable ssPick = {mean: p.mean, sd: p.sd} }
+    }
+    down.preventDefault()
+    pick(down)
+    let pending = null
+    const move = event => {
+      if (pending === null) requestAnimationFrame(() => { pick(pending); pending = null })
+      pending = event
+    }
+    const up = () => {
+      window.removeEventListener("pointermove", move)
+      window.removeEventListener("pointerup", up)
+      window.removeEventListener("pointercancel", up)
+    }
+    window.addEventListener("pointermove", move)
+    window.addEventListener("pointerup", up)
+    window.addEventListener("pointercancel", up)
+  })
+
+  // the frequencies of one set of scores with the chosen mean and SD, with a button to step through the others
+  const sets = chosen.sets, values = d3.range(l, u + 1)
+  let index = 0
+  const right = html`<div style="width: ${w}px; max-width: 100%;"></div>`
+  const draw = () => {
+    const data = values.map((value, i) => ({value, count: sets[index][i]}))
+    const bars = Plot.plot({
+      width: w, height, marginLeft: 50, marginRight: 15, marginTop: 15, marginBottom: 45,
+      x: {label: "Response", labelAnchor: "center", labelOffset: 36, domain: [l - 0.5, u + 0.5], ticks: values, tickFormat: "d"},
+      y: {label: "Frequency", labelAnchor: "center", labelOffset: 40, domain: [0, n], grid: true, ticks: Math.min(n, 6), tickFormat: "d"},
+      style: {fontSize: "13px"},
+      marks: [
+        Plot.rectY(data, {x1: d => d.value - 0.42, x2: d => d.value + 0.42, y: "count", fill: colour, fillOpacity: 0.55}),
+        Plot.text(data, {x: "value", y: "count", text: d => d.count, dy: -8, fontSize: 12}),
+        Plot.ruleY([0]),
+        // the mean, in the same colour as the chosen point on the left
+        Plot.ruleX([chosen.mean], {stroke: colour, strokeWidth: 2.5, strokeDasharray: "4,3"}),
+        Plot.text([chosen.mean], {x: d => d, frameAnchor: "top", dy: -2, text: d => `Mean ${fmt(d)}`, fill: colour, fontWeight: 600, fontSize: 12, textAnchor: "start", dx: 5})
+      ]
+    })
+    const button = html`<button class="btn btn-quarto btn-sm" style="margin: 0; white-space: nowrap;">Show another</button>`
+    button.onclick = () => { index = (index + 1) % sets.length; draw() }
+    right.replaceChildren(
+      html`<div style="display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 2.4rem; font-weight: 600;">
+        <span>${sets.length === 1 ? "The only set of scores with this mean and " : `Set ${index + 1} of ${sets.length} with this mean and `}<i>SD</i></span>${sets.length > 1 ? button : ""}</div>`,
+      bars)
+  }
+  draw()
+
+  const left = html`<div style="width: ${w}px; max-width: 100%;"><div style="display: flex; align-items: center; min-height: 2.4rem; font-weight: 600;"><span>Possible means and <i>SD</i>s</span></div>${plot}</div>`
+  const feedback = html`<div class="sb-feedback sb-feedback-ok">`
+  feedback.innerHTML = `<strong>Mean ${fmt(chosen.mean)}, <em>SD</em> ${fmt(chosen.sd)}.</strong> ${sets.length === 1 ? "Exactly one set" : `${sets.length} different sets`} of ${n} whole-number scores from ${l} to ${u} ${sets.length === 1 ? "gives" : "give"} this mean and <em>SD</em>. Altogether, samples of ${n} on this scale can produce ${points.length} different combinations of mean and <em>SD</em>.`
+  const legend = html`<div class="bd-legend">
+    <span><svg width="28" height="12"><rect width="28" height="12" fill="#2780e3" fill-opacity="0.12"/><line x1="0" x2="28" y1="1" y2="1" stroke="#2780e3" stroke-width="1.2"/></svg> Bounds</span>
+    <span><svg width="12" height="12"><circle cx="6" cy="6" r="2.8" fill="currentColor" fill-opacity="0.6"/></svg> Possible with whole numbers</span>
+    <span><svg width="28" height="10"><line x1="0" x2="28" y1="5" y2="5" stroke="currentColor" stroke-opacity="0.6" stroke-dasharray="1,3" stroke-width="1.5"/></svg> Uniform-spread bound</span>
+  </div>`
+  left.append(legend)
+  return html`<div style="display: flex; flex-wrap: wrap; gap: 0.5rem ${gap}px; align-items: flex-start;">${left}${right}</div>${feedback}`
+}
+```
+
+Three things stand out. First, the dots fill the band only patchily. A mean and an *SD* inside the bounds need not be produced by any set of whole-number scores, which is why the bounds are a necessary condition rather than a sufficient one, and why the granularity checks of @sec-granularity add to them. Second, the dots along the top edge of the band are the most spread out samples possible at each mean: choose one, and the scores on the right sit at the two ends of the scale, with at most one person in between. The dots along the bottom edge are the least spread out, with everyone on one response or two neighbouring ones. Increase the sample size, or widen the scale, and the dots crowd together, until they are too many to tell apart. This is why, in practice, the bounds are calculated rather than every possible sample being listed. Third, the mean and *SD* say a good deal about the shape of the data. Choose a dot above the uniform-spread bound, and the scores that produce it are piled up towards the ends of the scale. Choose one near the floor, and the scores are bunched on neighbouring responses. With a small sample, many dots are produced by only one set of scores, so the mean and *SD* alone are enough to recover every score.
+
+The next plot drops these restrictions and shows the bounds for any scale, sample size, and mean. The shaded band shows the combinations of mean and *SD* that are possible. Move the sliders, or click or drag anywhere in the plot, to choose a mean and an *SD*, and the point shows whether that combination is possible. Choose whether responses are continuous or whole numbers, and whether the score is a single item, or the sum or mean of several items, each rated on the scale. For a score made up of several items, tick **Cronbach's α** to add a reported α. Tick **Observed minimum and maximum** to see how much a reported minimum and maximum sharpen the bounds; these are in the units of the score. The dashed grey curve is the Bhatia–Davis bound, which ignores that people come in whole numbers, and the dotted horizontal line is the largest *SD* that any sample of this size can have, whatever its mean. The dotted curve is the uniform-spread bound from @sec-mean-sd-bounded. It is not a bound on what is possible, but on what is plausible: above it, the scores are more spread out than if they were spread evenly across the whole scale, which requires them to pile up at its ends. This plot shows the bounds only. It treats the mean and *SD* as exact, does not allow for rounding, and does not check granularity, so it does not ask whether a mean or *SD* could have come from whole-number data at all, as GRIM and GRIMMER do (@sec-granularity). It is for building intuition about the bounds. To check values reported in an article, use the app in @sec-combined-app, which combines the bounds with the granularity checks.
 
 ```{ojs}
 //| echo: false

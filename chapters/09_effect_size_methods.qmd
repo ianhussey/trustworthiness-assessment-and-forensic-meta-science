@@ -10,6 +10,8 @@ aliases:
 if(file.exists("../_setup.R")){source("../_setup.R")}
 ```
 
+Effect sizes can be checked in two ways. *Possibility* checks ask whether a reported effect size could be correct at all. Most are a form of bounds test (@sec-bounds): a correlation must lie between −1 and 1, an *R*^2^ or an *η*^2^ between 0 and 1, and an odds ratio must be above 0, so a value outside these bounds cannot be correct, whatever the study. @sec-coefficient-bounds lists the bounds of many common effect sizes and other statistics. *Plausibility* checks ask whether an effect size that is possible is believable, given what is known about the measures, the design, and the size of effects in the literature. A Cohen's *d* of 5 is not impossible, but it is very unusual for most psychological interventions, and it is worth asking how it arose. Plausibility checks are the topic of this chapter, with a focus on Standardized Mean Differences (SMDs) such as Cohen's *d*.
+
 ## Influence of scale bounds on SMDs {#sec-cohens-d-bounded}
 
 The plot above assumes normal distributions, which have no minimum or maximum. Real scales do, and this limits which effect sizes are possible. On a bounded scale, the closer a mean is to the end of the scale, the smaller its *SD* has to be. A large Cohen's *d* requires two means that are many *SD*s apart, but on a bounded scale the means can only move so far apart before one of them is too close to the end of the scale to have the *SD* that was reported.

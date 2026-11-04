@@ -791,6 +791,8 @@ Some of the statistics in @tbl-coefficient-bounds are bias-corrected or variance
 
 Values this obviously wrong still reach print. @hussein2022 compared machine learning models for classifying lung diseases from chest X-rays, and reported each model's accuracy, precision, recall, and F1 score. The F1 score is the harmonic mean of precision and recall, 2 × precision × recall / (precision + recall), so it must lie between them, and like them between 0 and 1. As a comment on [PubPeer](https://pubpeer.com/publications/7B4601B575EDFC92F0864708986D78) pointed out, every F1 score in the article's Tables 2 to 4 is above 1, ranging from 1.40 to 3.64. They are not percentages, because the precision and recall in the same rows are reported as proportions. Almost all of them are four times the recall in the same row: one model was reported with a precision of .6900, a recall of .6891, and an F1 score of 2.7563, whereas the F1 score implied by its precision and recall is .6895. Whatever the cause, none of the F1 scores can be correct. Later comments on the same article raise further questions about the other metrics in these tables.
 
+Errors like these are not rare. @bogdan2025 extracted the statistics reported in thousands of published psychology articles. The resulting dataset contains 110,016 reported correlations, and 0.8% of them lie outside −1 to 1, so they cannot be correct.
+
 Values that only break a bound once they are combined with other reported numbers are probably more common, because no one checks the combination. The next section describes one such check.
 
 ### Disattenuated correlations {#sec-disattenuation}

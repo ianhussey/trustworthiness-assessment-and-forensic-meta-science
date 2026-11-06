@@ -1,5 +1,6 @@
 ---
 aliases:
+  - 11_recalculation_methods.html
   - 10_recalculation_methods.html
 ---
 

@@ -25,4 +25,4 @@ quarto preview
 
 ## The webR calculators
 
-The calculators in chapter 11 run R in the reader's browser. Most install their packages from the webR repository, but {recalc} is not available there, so they download its R code from GitHub at a fixed commit, set by `recalcCommit` in `chapters/11_recalculation_methods.qmd`. After changing {recalc}, push it, then update `recalcCommit` to the new commit and republish. The calculators do not pick up changes to {recalc} until then.
+The calculators in chapter 11 run R in the reader's browser. Most install their packages from the webR repository, but {recalc} is not available there, so they download its R code from GitHub at a fixed commit, set by `recalcCommit` in `chapters/recalculation_methods.qmd`. After changing {recalc}, push it, then update `recalcCommit` to the new commit and republish. The calculators do not pick up changes to {recalc} until then.

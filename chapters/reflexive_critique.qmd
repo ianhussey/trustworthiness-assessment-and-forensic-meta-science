@@ -1,5 +1,6 @@
 ---
 aliases:
+  - 25_reflexive_critique.html
   - 24_reflexive_critique.html
   - 23_reflexive_critique.html
   - 22_reflexive_critique.html

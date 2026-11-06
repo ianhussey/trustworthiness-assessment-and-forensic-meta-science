@@ -23,46 +23,46 @@ book:
   
   - part: 'Part I: Conceptual foundations'
     chapters:
-    - chapters/01_scope_and_need.qmd
-    - chapters/02_psychological_preparation.qmd
-    - chapters/03_organising_principles.qmd
+    - chapters/scope_and_need.qmd
+    - chapters/psychological_preparation.qmd
+    - chapters/organising_principles.qmd
     
   - part: 'Part II: Understanding statistics'
     chapters:
-    - chapters/04_understanding_p_values.qmd
-    - chapters/05_standardized_mean_differences_cohens_d.qmd
-    - chapters/06_standardized_deviations_vs_standards_errors.qmd
-    - chapters/07_understanding_bounded_data_and_beta_regression.qmd
+    - chapters/understanding_p_values.qmd
+    - chapters/standardized_mean_differences_cohens_d.qmd
+    - chapters/standardized_deviations_vs_standards_errors.qmd
+    - chapters/understanding_bounded_data_and_beta_regression.qmd
     
   - part: 'Part III: Forensic meta-science methods'
     chapters:
-    - chapters/08_misinterpretation_methods.qmd
-    - chapters/09_effect_size_methods.qmd
-    - chapters/10_repetition_and_consistency_methods.qmd
-    - chapters/11_recalculation_methods.qmd
-    - chapters/12_granularity_methods.qmd
-    - chapters/13_bounds_methods.qmd
-    - chapters/14_combined_granularity_and_bounds_methods.qmd
-    - chapters/15_reconstruction_resampling_simulation_methods.qmd
-    - chapters/16_post_publication_notices.qmd
-    - chapters/17_reference_and_citation_methods.qmd
-    - chapters/18_design_methods.qmd
-    - chapters/19_measurement_methods.qmd
-    - chapters/20_theory_specification_methods.qmd
-    - chapters/21_data_extraction_methods.qmd
+    - chapters/misinterpretation_methods.qmd
+    - chapters/effect_size_methods.qmd
+    - chapters/repetition_and_consistency_methods.qmd
+    - chapters/recalculation_methods.qmd
+    - chapters/granularity_methods.qmd
+    - chapters/bounds_methods.qmd
+    - chapters/combined_granularity_and_bounds_methods.qmd
+    - chapters/reconstruction_resampling_simulation_methods.qmd
+    - chapters/post_publication_notices.qmd
+    - chapters/reference_and_citation_methods.qmd
+    - chapters/design_methods.qmd
+    - chapters/measurement_methods.qmd
+    - chapters/theory_specification_methods.qmd
+    - chapters/data_extraction_methods.qmd
     
   - part: 'Part IV: Organising critique'
     chapters:
-    - chapters/22_critiquing_specific_types_of_articles.qmd
-    - chapters/23_organising_critique.qmd
-    - chapters/24_trustworthiness_assessment_and_inspect-sr.qmd
-    - chapters/25_reflexive_critique.qmd
+    - chapters/critiquing_specific_types_of_articles.qmd
+    - chapters/organising_critique.qmd
+    - chapters/trustworthiness_assessment_and_inspect-sr.qmd
+    - chapters/reflexive_critique.qmd
     
   - part: 'Part V: Developing and validating forensic methods'
     chapters:
-    - chapters/26_forensic_methods_require_validation.qmd
-    - chapters/27_method_implementation_and_tool.qmd
-    - chapters/28_validation_using_simulated_data.qmd
+    - chapters/forensic_methods_require_validation.qmd
+    - chapters/method_implementation_and_tool.qmd
+    - chapters/validation_using_simulated_data.qmd
     
   - references.qmd
     

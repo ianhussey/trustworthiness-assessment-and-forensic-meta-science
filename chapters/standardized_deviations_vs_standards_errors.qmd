@@ -1,3 +1,8 @@
+---
+aliases:
+  - 06_standardized_deviations_vs_standards_errors.html
+---
+
 # Standard Deviations vs. Standards Errors [✎ Draft]{.badge .badge-draft2} {#sec-sd-vs-se}
 
 ```{r}

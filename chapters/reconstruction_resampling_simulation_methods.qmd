@@ -1,5 +1,6 @@
 ---
 aliases:
+  - 15_reconstruction_resampling_simulation_methods.html
   - 14_reconstruction_resampling_simulation_methods.html
   - 13_reconstruction_resampling_simulation_methods.html
 ---

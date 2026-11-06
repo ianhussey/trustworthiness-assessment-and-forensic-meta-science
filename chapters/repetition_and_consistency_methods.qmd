@@ -1,5 +1,6 @@
 ---
 aliases:
+  - 10_repetition_and_consistency_methods.html
   - 09_repetition_and_consistency_methods.html
 ---
 

@@ -1,3 +1,8 @@
+---
+aliases:
+  - 14_combined_granularity_and_bounds_methods.html
+---
+
 # Combined granularity and bounds methods [✎ Draft]{.badge .badge-draft2} {#sec-combined}
 
 ```{r}

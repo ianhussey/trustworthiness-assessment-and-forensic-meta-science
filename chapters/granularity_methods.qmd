@@ -1,5 +1,6 @@
 ---
 aliases:
+  - 12_granularity_methods.html
   - 11_granularity_methods.html
 ---
 
@@ -9,6 +10,8 @@ aliases:
 #| include: false
 if(file.exists("../_setup.R")){source("../_setup.R")}
 ```
+
+<!-- TODO: discuss nesting of the tests more -->
 
 <!--
 DRAFT STATUS

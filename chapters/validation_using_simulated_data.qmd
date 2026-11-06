@@ -1,5 +1,6 @@
 ---
 aliases:
+  - 28_validation_using_simulated_data.html
   - 27_validation_using_simulated_data.html
   - 26_validation_using_simulated_data.html
   - 25_validation_using_simulated_data.html

@@ -1,5 +1,6 @@
 ---
 aliases:
+  - 13_bounds_methods.html
   - 12_bounds_methods.html
 ---
 

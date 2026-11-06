@@ -1,3 +1,8 @@
+---
+aliases:
+  - 01_scope_and_need.html
+---
+
 # Scope and need [✎ Outline]{.badge .badge-draft1}
 
 ```{r}

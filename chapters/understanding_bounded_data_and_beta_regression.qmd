@@ -1,5 +1,6 @@
 ---
 aliases:
+  - 07_understanding_bounded_data_and_beta_regression.html
   - 12_bounds_methods.html#sec-beta-distribution
   - 12_bounds_methods.html#sec-mean-sd-unbounded
   - 12_bounds_methods.html#sec-mean-sd-bounded

@@ -1,5 +1,6 @@
 ---
 aliases:
+  - 09_effect_size_methods.html
   - 08_effect_size_methods.html
 ---
 

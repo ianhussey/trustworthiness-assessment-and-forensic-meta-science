@@ -1,5 +1,6 @@
 ---
 aliases:
+  - 20_theory_specification_methods.html
   - 19_theory_specification_methods.html
   - 18_theory_specification_methods.html
   - 17_theory_specification_methods.html

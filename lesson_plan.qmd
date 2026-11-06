@@ -35,7 +35,7 @@ If delivered as a semester-long course, we suggest the following lesson plan.
 
 In class:
 
-- [Chapter 4: Understanding *p* values](chapters/04_understanding_p_values.qmd)
+- [Chapter 4: Understanding *p* values](chapters/understanding_p_values.qmd)
 
 ### Week 3
 
@@ -46,7 +46,7 @@ Before class:
 
 In class:
 
-- [Chapter 8: Misinterpretation methods](chapters/08_misinterpretation_methods.qmd)
+- [Chapter 8: Misinterpretation methods](chapters/misinterpretation_methods.qmd)
 
 ### Week 4
 
@@ -54,12 +54,12 @@ Before class:
 
 - Hussey (2025) If researchers find Cohen's d = 8, no they didn't [mmmdata.io/posts/2025/07/if-researchers-find-cohens-d-8-no-they-didnt](https://mmmdata.io/posts/2025/07/if-researchers-find-cohens-d-8-no-they-didnt/)
 - Hilgard (2021) Maximal positive controls: A method for estimating the largest plausible effect size. doi:[10.1016/j.jesp.2020.104082](https://doi.org/10.1016/j.jesp.2020.104082)
-- [Chapter 5: Standardized Mean Differences (Cohen's *d*)](chapters/05_standardized_mean_differences_cohens_d.qmd)
-- [Chapter 6: Standardized Deviations vs. Standard Errors](chapters/06_standardized_deviations_vs_standards_errors.qmd)
+- [Chapter 5: Standardized Mean Differences (Cohen's *d*)](chapters/standardized_mean_differences_cohens_d.qmd)
+- [Chapter 6: Standardized Deviations vs. Standard Errors](chapters/standardized_deviations_vs_standards_errors.qmd)
 
 In class:
 
-- [Chapter 9: Effect size methods](chapters/09_effect_size_methods.qmd)
+- [Chapter 9: Effect size methods](chapters/effect_size_methods.qmd)
 
 ### Week 5
 
@@ -69,7 +69,7 @@ Before class:
 
 In class:
 
-- [Chapter 11: Recalculation methods](chapters/11_recalculation_methods.qmd)
+- [Chapter 11: Recalculation methods](chapters/recalculation_methods.qmd)
 
 Repetition and recalculation methods
 
@@ -81,31 +81,31 @@ Before class:
 
 In class:
 
-- [Chapter 12: Granularity methods](chapters/12_granularity_methods.qmd)
+- [Chapter 12: Granularity methods](chapters/granularity_methods.qmd)
 
 ### Week 7
 
 Before class:
 
-- [Chapter 7: Understanding bounded data and Beta regression](chapters/07_understanding_bounded_data_and_beta_regression.qmd)
+- [Chapter 7: Understanding bounded data and Beta regression](chapters/understanding_bounded_data_and_beta_regression.qmd)
 
 <!-- - Brown & Heathers (2017) The GRIM Test: A Simple Technique Detects Numerous Anomalies in the Reporting of Results in Psychology. doi:[10.1177/1948550616673876](https://doi.org/10.1177/1948550616673876) -->
 
 In class:
 
-- [Chapter 13: Bounds methods](chapters/13_bounds_methods.qmd)
-- [Chapter 14: Combined granularity and bounds methods](chapters/14_combined_granularity_and_bounds_methods.qmd)
+- [Chapter 13: Bounds methods](chapters/bounds_methods.qmd)
+- [Chapter 14: Combined granularity and bounds methods](chapters/combined_granularity_and_bounds_methods.qmd)
 
 ### Week 8
 
 Before class:
 
-- [Chapter 24: Trustworthiness assessment and INSPECT-SR](chapters/24_trustworthiness_assessment_and_inspect-sr.qmd)
+- [Chapter 24: Trustworthiness assessment and INSPECT-SR](chapters/trustworthiness_assessment_and_inspect-sr.qmd)
 
 In class:
 
-- [Chapter 16: Inspecting post-publication notices](chapters/16_post_publication_notices.qmd)
-- [Chapter 17: Reference and citation methods](chapters/17_reference_and_citation_methods.qmd)
+- [Chapter 16: Inspecting post-publication notices](chapters/post_publication_notices.qmd)
+- [Chapter 17: Reference and citation methods](chapters/reference_and_citation_methods.qmd)
 
 <!-- Organizing and communicating critique -->
 

@@ -1,3 +1,8 @@
+---
+aliases:
+  - 03_organising_principles.html
+---
+
 # Organising principles [✎ Outline]{.badge .badge-draft1}
 
 ```{r}

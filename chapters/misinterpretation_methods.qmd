@@ -1,5 +1,6 @@
 ---
 aliases:
+  - 08_misinterpretation_methods.html
   - 07_misinterpretation_methods.html
 ---
 

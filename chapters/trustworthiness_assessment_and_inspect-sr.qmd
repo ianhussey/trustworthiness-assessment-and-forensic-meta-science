@@ -1,5 +1,6 @@
 ---
 aliases:
+  - 24_trustworthiness_assessment_and_inspect-sr.html
   - 23_trustworthiness_assessment_and_inspect-sr.html
   - 22_trustworthiness_assessment_and_inspect-sr.html
   - 21_trustworthiness_assessment_and_inspect-sr.html

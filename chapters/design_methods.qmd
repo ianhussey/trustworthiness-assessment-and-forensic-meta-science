@@ -1,5 +1,6 @@
 ---
 aliases:
+  - 18_design_methods.html
   - 17_design_methods.html
   - 16_design_methods.html
   - 15_design_methods.html

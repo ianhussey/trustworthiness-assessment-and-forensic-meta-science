@@ -1,3 +1,8 @@
+---
+aliases:
+  - 04_understanding_p_values.html
+---
+
 # Understanding *p*-values [✎ Draft]{.badge .badge-draft2}
 
 ```{r}

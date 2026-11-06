@@ -26,7 +26,7 @@ The first two errors treat the significance threshold as a verdict about the wor
 ::: big-quote
 [Absence of evidence is not evidence of absence.]{.quote}
 
-[@altman1995]{.citation}
+[@altman1995]{.source}
 :::
 
 ### The error
@@ -257,7 +257,7 @@ A randomised trial with 20 patients per group compared a new analgesic with plac
 ::: big-quote
 [The difference between "significant" and "not significant" is not itself statistically significant.]{.quote}
 
-[@gelman2006]{.citation}
+[@gelman2006]{.source}
 :::
 
 ### The error

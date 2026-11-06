@@ -28,7 +28,7 @@ But the *t* and the degrees of freedom are not decoration. Together, they determ
 ::: big-quote
 [Most forensic meta-science checks rely on information that is repeated or overlooked.]{.quote}
 
-[Brown's Law [-@brown2026]]{.citation}
+[Brown's Law [-@brown2026]]{.source}
 :::
 
 Recalculating the *p*-value from the test statistic and degrees of freedom gives:

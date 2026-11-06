@@ -72,7 +72,7 @@ For now, I recommend [CheckIfExist](https://zabbonat.github.io/References-Valida
 ::: big-quote
 [[CheckIfExist](https://zabbonat.github.io/References-Validation/)]{.quote}
 
-[Free web app, no login required: zabbonat.github.io/References-Validation]{.citation}
+[Free web app, no login required: zabbonat.github.io/References-Validation]{.source}
 :::
 
 ![The CheckIfExist web app. Paste one or more references, or upload a PDF, Word, or BibTeX file, then run a Quick Check (one reference) or Batch Check (several).](../images/CheckIfExist.png){#fig-checkifexist fig-alt="Screenshot of the CheckIfExist web app, showing a text box for pasting references in BibTeX or APA format, buttons to upload references or auto-extract them from a PDF or Word file, and Quick Check and Batch Check buttons."}

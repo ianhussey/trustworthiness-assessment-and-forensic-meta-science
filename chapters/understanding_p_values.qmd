@@ -116,7 +116,7 @@ The American Statistical Association's statement on *p*-values [@wasserstein2016
 ::: big-quote
 ["the [long-run] probability under a specified statistical model that a statistical summary of the data ... would be equal to or more extreme than its observed value."]{.quote}
 
-[American Statistical Association's statement on *p*-values [@wasserstein2016].]{.citation}
+[American Statistical Association's statement on *p*-values [@wasserstein2016].]{.source}
 :::
 
 Many readers initially struggle with what "a specified statistical model" refers to. It is not the researcher's hypothesis, the alternative hypothesis, but rather the **null model**: the null hypothesis *together with* every other assumption needed to derive the reference distribution. The statement's first principle makes this explicit, describing the most common context as "a model, constructed under a set of assumptions, together with a so-called 'null hypothesis'". For the independent-samples *t*-test in the quiz, the null model includes:
@@ -131,7 +131,7 @@ Many readers initially struggle with what "a specified statistical model" refers
 ::: big-quote
 [The *p*-value is "the [long-run] probability that the chosen test statistic would have been at least as large as its observed value if every model assumption were correct, including the test hypothesis."]{.quote}
 
-[@greenland2016]{.citation}
+[@greenland2016]{.source}
 :::
 
 In their terms, $H_0$ is just the one assumption that has been *targeted* for testing (the "test hypothesis"); the *p*-value itself tests all of them at once.
@@ -691,7 +691,7 @@ The underlying message was put memorably by Rosnow and Rosenthal [-@rosnow1989, 
 ::: big-quote
 ["Surely, God loves the .06 nearly as much as the .05."]{.quote}
 
-[Rosnow and Rosenthal [-@rosnow1989]]{.citation}
+[Rosnow and Rosenthal [-@rosnow1989]]{.source}
 :::
 
 They meant that .05 is an arbitrary line and that *p* = .06 should not be dismissed where *p* < .05 is accepted as meaningful evidence. However, the distribution of *p*-values suggests a less comforting corollary: in a well-powered study of a true effect, neither .05 nor .06 is a very likely outcome. Perhaps God loves neither very much.

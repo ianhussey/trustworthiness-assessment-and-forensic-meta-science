@@ -146,12 +146,12 @@ div.csl-indent {
   /* quarto adds a copy button to every code cell, which still appears at the top right of Observable JS cells whose code is hidden (echo: false). hide it for those cells only */
   .code-copy-outer-scaffold > .cell-code.hidden:has(> pre.js) ~ .code-copy-button { display: none; }
   /* .big-number: [89%]{.number} then [explanatory text]{.description}
-     .big-quote:  [quote text]{.quote} then [source]{.citation}
+     .big-quote:  [quote text]{.quote} then [source]{.source}
      each works as a span (use a trailing \ for line breaks) or a div (for multiple paragraphs) */
   .big-number, .big-quote { text-align: center; margin: 2.5rem auto; }
   .big-number { max-width: 32rem; }
   .big-quote  { max-width: 36rem; }
-  .big-number .number, .big-quote .quote, .big-number .description, .big-quote .citation { display: block; }
+  .big-number .number, .big-quote .quote, .big-number .description, .big-quote .source { display: block; }
   .big-number .number {
     font-size: 5rem; font-weight: 700; line-height: 1;
     color: var(--bs-primary); margin-bottom: 0.75rem;
@@ -161,7 +161,7 @@ div.csl-indent {
     color: var(--bs-primary); margin-bottom: 0.75rem;
   }
   .big-number .description { font-size: 1.05rem; color: var(--bs-secondary-color); }
-  .big-quote .citation { font-size: 1rem; color: var(--bs-secondary-color); }
+  .big-quote .source { font-size: 1rem; color: var(--bs-secondary-color); }
   .badge {
     display: inline-flex; align-items: center; gap: 0.3em;
     padding: 0.2em 0.65em; border-radius: 20px;
@@ -713,7 +713,7 @@ window.Quarto = {
 <p>But the <em>t</em> and the degrees of freedom are not decoration. Together, they determine the <em>p</em>-value: given <em>t</em> = 1.46 and <em>df</em> = 58, there is only one two-sided <em>p</em>-value that can follow. The <em>p</em>-value is therefore <strong>repeated</strong> information, because it can be recalculated from other numbers in the same sentence. And because few readers ever do this, the test statistic and degrees of freedom are <strong>overlooked</strong> information. These are the two ingredients of Brown’s Law:</p>
 <div class="big-quote">
 <p><span class="quote">Most forensic meta-science checks rely on information that is repeated or overlooked.</span></p>
-<p><span class="citation">Brown’s Law <span class="citation" data-cites="brown2026">(<a href="../references.html../references.html#ref-brown2026" role="doc-biblioref">2026</a>)</span></span></p>
+<p><span class="source">Brown’s Law <span class="citation" data-cites="brown2026">(<a href="../references.html#ref-brown2026" role="doc-biblioref">2026</a>)</span></span></p>
 </div>
 <p>Recalculating the <em>p</em>-value from the test statistic and degrees of freedom gives:</p>
 <div style="font-size: 1.6em; text-align: center; margin: 1.5rem 0;">

@@ -109,12 +109,12 @@ div.csl-indent {
   /* quarto adds a copy button to every code cell, which still appears at the top right of Observable JS cells whose code is hidden (echo: false). hide it for those cells only */
   .code-copy-outer-scaffold > .cell-code.hidden:has(> pre.js) ~ .code-copy-button { display: none; }
   /* .big-number: [89%]{.number} then [explanatory text]{.description}
-     .big-quote:  [quote text]{.quote} then [source]{.citation}
+     .big-quote:  [quote text]{.quote} then [source]{.source}
      each works as a span (use a trailing \ for line breaks) or a div (for multiple paragraphs) */
   .big-number, .big-quote { text-align: center; margin: 2.5rem auto; }
   .big-number { max-width: 32rem; }
   .big-quote  { max-width: 36rem; }
-  .big-number .number, .big-quote .quote, .big-number .description, .big-quote .citation { display: block; }
+  .big-number .number, .big-quote .quote, .big-number .description, .big-quote .source { display: block; }
   .big-number .number {
     font-size: 5rem; font-weight: 700; line-height: 1;
     color: var(--bs-primary); margin-bottom: 0.75rem;
@@ -124,7 +124,7 @@ div.csl-indent {
     color: var(--bs-primary); margin-bottom: 0.75rem;
   }
   .big-number .description { font-size: 1.05rem; color: var(--bs-secondary-color); }
-  .big-quote .citation { font-size: 1rem; color: var(--bs-secondary-color); }
+  .big-quote .source { font-size: 1rem; color: var(--bs-secondary-color); }
   .badge {
     display: inline-flex; align-items: center; gap: 0.3em;
     padding: 0.2em 0.65em; border-radius: 20px;
@@ -745,7 +745,7 @@ Table&nbsp;17.1: Performance of five tools for detecting nonexistent and problem
 <p>For now, I recommend <a href="https://zabbonat.github.io/References-Validation/">CheckIfExist</a> <span class="citation" data-cites="abbonato2026">(<a href="../references.html#ref-abbonato2026" role="doc-biblioref">Abbonato, 2026</a>)</span>. It caught 31 of the 33 problematic references in <span class="citation" data-cites="badalova2026">Badalova &amp; Mayr (<a href="../references.html#ref-badalova2026" role="doc-biblioref">2026</a>)</span>’s comparison, it is free, and it runs as a web app with no login. It accepts a full PDF or Word document, a BibTeX file, or pasted references, and checks them against Crossref, Semantic Scholar, and OpenAlex. These are general-purpose databases, so it is a reasonable fit for psychology and medicine.</p>
 <div class="big-quote">
 <p><span class="quote"><a href="https://zabbonat.github.io/References-Validation/">CheckIfExist</a></span></p>
-<p><span class="citation">Free web app, no login required: zabbonat.github.io/References-Validation</span></p>
+<p><span class="source">Free web app, no login required: zabbonat.github.io/References-Validation</span></p>
 </div>
 <div id="fig-checkifexist" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Screenshot of the CheckIfExist web app, showing a text box for pasting references in BibTeX or APA format, buttons to upload references or auto-extract them from a PDF or Word file, and Quick Check and Batch Check buttons.">
 <figure class="quarto-float quarto-float-fig figure">

@@ -146,12 +146,12 @@ div.csl-indent {
   /* quarto adds a copy button to every code cell, which still appears at the top right of Observable JS cells whose code is hidden (echo: false). hide it for those cells only */
   .code-copy-outer-scaffold > .cell-code.hidden:has(> pre.js) ~ .code-copy-button { display: none; }
   /* .big-number: [89%]{.number} then [explanatory text]{.description}
-     .big-quote:  [quote text]{.quote} then [source]{.citation}
+     .big-quote:  [quote text]{.quote} then [source]{.source}
      each works as a span (use a trailing \ for line breaks) or a div (for multiple paragraphs) */
   .big-number, .big-quote { text-align: center; margin: 2.5rem auto; }
   .big-number { max-width: 32rem; }
   .big-quote  { max-width: 36rem; }
-  .big-number .number, .big-quote .quote, .big-number .description, .big-quote .citation { display: block; }
+  .big-number .number, .big-quote .quote, .big-number .description, .big-quote .source { display: block; }
   .big-number .number {
     font-size: 5rem; font-weight: 700; line-height: 1;
     color: var(--bs-primary); margin-bottom: 0.75rem;
@@ -161,7 +161,7 @@ div.csl-indent {
     color: var(--bs-primary); margin-bottom: 0.75rem;
   }
   .big-number .description { font-size: 1.05rem; color: var(--bs-secondary-color); }
-  .big-quote .citation { font-size: 1rem; color: var(--bs-secondary-color); }
+  .big-quote .source { font-size: 1rem; color: var(--bs-secondary-color); }
   .badge {
     display: inline-flex; align-items: center; gap: 0.3em;
     padding: 0.2em 0.65em; border-radius: 20px;
@@ -861,7 +861,7 @@ p = P(T \geq t_{\text{obs}};\ H_0)
 <p>The American Statistical Association’s statement on <em>p</em>-values <span class="citation" data-cites="wasserstein2016">(<a href="../references.html#ref-wasserstein2016" role="doc-biblioref">Wasserstein &amp; Lazar, 2016</a>)</span> gives an informal definition that is often quoted:</p>
 <div class="big-quote">
 <p><span class="quote">“the [long-run] probability under a specified statistical model that a statistical summary of the data … would be equal to or more extreme than its observed value.”</span></p>
-<p><span class="citation">American Statistical Association’s statement on <em>p</em>-values <span class="citation" data-cites="wasserstein2016">(<a href="../references.html../references.html#ref-wasserstein2016" role="doc-biblioref">Wasserstein &amp; Lazar, 2016</a>)</span>.</span></p>
+<p><span class="source">American Statistical Association’s statement on <em>p</em>-values <span class="citation" data-cites="wasserstein2016">(<a href="../references.html#ref-wasserstein2016" role="doc-biblioref">Wasserstein &amp; Lazar, 2016</a>)</span>.</span></p>
 </div>
 <p>Many readers initially struggle with what “a specified statistical model” refers to. It is not the researcher’s hypothesis, the alternative hypothesis, but rather the <strong>null model</strong>: the null hypothesis <em>together with</em> every other assumption needed to derive the reference distribution. The statement’s first principle makes this explicit, describing the most common context as “a model, constructed under a set of assumptions, together with a so-called ‘null hypothesis’”. For the independent-samples <em>t</em>-test in the quiz, the null model includes:</p>
 <ul>
@@ -873,7 +873,7 @@ p = P(T \geq t_{\text{obs}};\ H_0)
 <p><span class="citation" data-cites="greenland2016">Greenland et al. (<a href="../references.html#ref-greenland2016" role="doc-biblioref">2016</a>)</span> build this into their definition.</p>
 <div class="big-quote">
 <p><span class="quote">The <em>p</em>-value is “the [long-run] probability that the chosen test statistic would have been at least as large as its observed value if every model assumption were correct, including the test hypothesis.”</span></p>
-<p><span class="citation"><span class="citation" data-cites="greenland2016">Greenland et al. (<a href="../references.html../references.html#ref-greenland2016" role="doc-biblioref">2016</a>)</span></span></p>
+<p><span class="source"><span class="citation" data-cites="greenland2016">Greenland et al. (<a href="../references.html#ref-greenland2016" role="doc-biblioref">2016</a>)</span></span></p>
 </div>
 <p>In their terms, <span class="math inline">\(H_0\)</span> is just the one assumption that has been <em>targeted</em> for testing (the “test hypothesis”); the <em>p</em>-value itself tests all of them at once.</p>
 </section>
@@ -1763,7 +1763,7 @@ Table&nbsp;4.2: Expected share of significant <em>p</em>-values (two-sided) that
 <p>The underlying message was put memorably by Rosnow and Rosenthal <span class="citation" data-cites="rosnow1989">(<a href="../references.html#ref-rosnow1989" role="doc-biblioref">1989, p. 1277</a>)</span>:</p>
 <div class="big-quote">
 <p><span class="quote">“Surely, God loves the .06 nearly as much as the .05.”</span></p>
-<p><span class="citation">Rosnow and Rosenthal <span class="citation" data-cites="rosnow1989">(<a href="../references.html../references.html#ref-rosnow1989" role="doc-biblioref">1989</a>)</span></span></p>
+<p><span class="source">Rosnow and Rosenthal <span class="citation" data-cites="rosnow1989">(<a href="../references.html#ref-rosnow1989" role="doc-biblioref">1989</a>)</span></span></p>
 </div>
 <p>They meant that .05 is an arbitrary line and that <em>p</em> = .06 should not be dismissed where <em>p</em> &lt; .05 is accepted as meaningful evidence. However, the distribution of <em>p</em>-values suggests a less comforting corollary: in a well-powered study of a true effect, neither .05 nor .06 is a very likely outcome. Perhaps God loves neither very much.</p>
 </section>

@@ -107,12 +107,12 @@ div.csl-indent {
   /* quarto adds a copy button to every code cell, which still appears at the top right of Observable JS cells whose code is hidden (echo: false). hide it for those cells only */
   .code-copy-outer-scaffold > .cell-code.hidden:has(> pre.js) ~ .code-copy-button { display: none; }
   /* .big-number: [89%]{.number} then [explanatory text]{.description}
-     .big-quote:  [quote text]{.quote} then [source]{.citation}
+     .big-quote:  [quote text]{.quote} then [source]{.source}
      each works as a span (use a trailing \ for line breaks) or a div (for multiple paragraphs) */
   .big-number, .big-quote { text-align: center; margin: 2.5rem auto; }
   .big-number { max-width: 32rem; }
   .big-quote  { max-width: 36rem; }
-  .big-number .number, .big-quote .quote, .big-number .description, .big-quote .citation { display: block; }
+  .big-number .number, .big-quote .quote, .big-number .description, .big-quote .source { display: block; }
   .big-number .number {
     font-size: 5rem; font-weight: 700; line-height: 1;
     color: var(--bs-primary); margin-bottom: 0.75rem;
@@ -122,7 +122,7 @@ div.csl-indent {
     color: var(--bs-primary); margin-bottom: 0.75rem;
   }
   .big-number .description { font-size: 1.05rem; color: var(--bs-secondary-color); }
-  .big-quote .citation { font-size: 1rem; color: var(--bs-secondary-color); }
+  .big-quote .source { font-size: 1rem; color: var(--bs-secondary-color); }
   .badge {
     display: inline-flex; align-items: center; gap: 0.3em;
     padding: 0.2em 0.65em; border-radius: 20px;
